@@ -1,20 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My Homepage</title>
+	<title>PCG Evaluation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			background-color: #000;
+			color: #fff;
+			font-family: 'Press Start 2P', cursive;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		
+		h1 {
+			font-size: 5rem;
+			margin-bottom: 2rem;
+			color: #f00;
+			text-align: center;
+			text-shadow: 2px 2px #000;
+		}
+		
+		button {
+			background-color: #f00;
+			color: #fff;
+			border: none;
+			border-radius: 50px;
+			padding: 1rem 2rem;
+			font-size: 2rem;
+			margin: 1rem;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			box-shadow: 2px 2px #000;
+		}
+		
+		button:hover {
+			background-color: #fff;
+			color: #f00;
+			box-shadow: none;
+		}
+	</style>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
 <body>
-	<h1>Welcome to My Homepage</h1>
-	
-	<!-- Login Button -->
-	<form action="/login">
-		<input type="submit" value="Login">
-	</form>
-	
-	<!-- Signup Button -->
-	<form action="/signup">
-		<input type="submit" value="Signup">
-	</form>
-	
+	<div class="container">
+		<h1>PCG Evaluation</h1>
+		<button>Log In</button>
+		<button>Sign Up</button>
+	</div>
 </body>
 </html>
