@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		body {
-			background-color: #000;
+			background-color: #ffffff;
 			color: #fff;
 			font-family: 'Press Start 2P', cursive;
 			margin: 0;
@@ -23,15 +23,20 @@
 		h1 {
 			font-size: 5rem;
 			margin-bottom: 2rem;
-			color: #f00;
+			color: #FE4CF4;
 			text-align: center;
-			text-shadow: 2px 2px #000;
+			text-shadow: 3px 3px #000;
+			border: 3px solid #ffffff;
+			padding: 10px;
+			background-color: #200C5E;
+			display: inline-block;
+			box-shadow: 5px 5px #000000;
 		}
 		
 		button {
-			background-color: #f00;
-			color: #fff;
-			border: none;
+			background-color: #FE4CF4;
+			color: #000000;
+			border: 2px solid #000;
 			border-radius: 50px;
 			padding: 1rem 2rem;
 			font-size: 2rem;
@@ -40,22 +45,44 @@
 			transition: background-color 0.3s ease;
 			text-transform: uppercase;
 			letter-spacing: 2px;
-			box-shadow: 2px 2px #000;
+			box-shadow: 3px 3px #000;
 		}
 		
 		button:hover {
-			background-color: #fff;
-			color: #f00;
+			background-color: #200C5E;
+			color: rgb(255, 255, 255);
 			box-shadow: none;
+		}
+
+		/* Background GIF */
+		.blocky-background {
+			background: url('Resources/BountifulAlienatedFugu.gif') center center no-repeat;
+			background-size: cover;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
 		}
 	</style>
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
 <body>
+	<div class="blocky-background"></div>
 	<div class="container">
 		<h1>PCG Evaluation</h1>
-		<button>Log In</button>
-		<button>Sign Up</button>
+		<button onclick="redirectToLogin()">Login</button>
+		<button onclick="redirectToSignup()">Sign Up</button>
 	</div>
+
+	<script>
+		function redirectToLogin() {
+			window.location.href = "login.html";
+		}
+		function redirectToSignup() {
+			window.location.href = "signup.html";
+		}
+	</script>
 </body>
 </html>

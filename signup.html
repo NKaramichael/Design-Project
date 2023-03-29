@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PCG Signup</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			background-color: #fff;
+			color: #FE4CF4;
+			font-family: 'Press Start 2P', cursive;
+			margin: 0;
+			padding: 0;
+			-webkit-text-stroke: 1px rgb(0, 0, 0);
+		}
+		
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		
+		h1 {
+			font-size: 5rem;
+			margin-bottom: 2rem;
+			color: #FE4CF4;
+			text-align: center;
+			text-shadow: 3px 3px #000;
+			border: 3px solid #ffffff;
+			padding: 10px;
+			background-color: #200C5E;
+			display: inline-block;
+			box-shadow: 5px 5px #000000;
+		}
+		
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			margin-top: 2rem;
+		}
+		
+		label {
+			font-size: 2rem;
+			margin-top: 2rem;
+			text-align: center;
+			text-shadow: 2px 2px #000;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			display: block;
+		}
+		
+		input {
+			padding: 0.5rem;
+			font-size: 2rem;
+			margin: 1rem;
+			border: 2px solid #000;
+			border-radius: 50px;
+			text-align: center;
+			background-color: #fff;
+			box-shadow: 2px 2px #000;
+			display: block;
+			width: 80%;
+			max-width: 400px;
+		}
+		
+		button {
+			background-color: #FE4CF4;
+			color: #000000;
+			border: 2px solid #000;
+			border-radius: 50px;
+			padding: 1rem 2rem;
+			font-size: 2rem;
+			margin: 1rem;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			box-shadow: 3px 3px #000;
+		}
+		
+		button:hover {
+			background-color: #200C5E;
+			color: rgb(255, 255, 255);
+			box-shadow: none;
+		}
+
+		.back-button {
+			position:absolute;
+			top: 0;
+  			left: 0;
+			background-color: #FE4CF4;
+			color: #ffffff;
+			border: 2px solid #000;
+			border-radius: 50px;
+			padding: 1rem 2rem;
+			font-size: 2rem;
+			margin: 1rem;
+			cursor: pointer;
+			width: 120px;
+			transition: background-color 0.3s ease;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			box-shadow: 2px 2px #000;
+		}
+		
+		.back-button:hover {
+			background: none;
+			color: #fff;
+			border: 2px solid #ffffff;
+			box-shadow: none;
+		}
+
+		/* Custom checkbox */
+		.checkbox {
+			display: inline-block;
+			position: relative;
+			padding-left: 35px;
+			margin-bottom: 12px;
+			cursor: pointer;
+			font-size: 22px;
+			user-select: none;
+		}
+
+		/* Hide the browser's default checkbox */
+		.checkbox input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			height: 0;
+			width: 0;
+		}
+
+		/* Custom checkbox design */
+		.checkmark {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 25px;
+			width: 25px;
+			background-color: #fff;
+			border: 2px solid #000;
+			border-radius: 50%;
+			box-shadow: 1px 1px #000;
+		}
+
+		/* When checkbox is checked, change color */
+		.checkbox input:checked + .checkmark {
+			background-color: #FE4CF4;
+		}
+
+		/* Background GIF */
+		.blocky-background {
+			background: url('Resources/BountifulAlienatedFugu.gif') center center no-repeat;
+			background-size: cover;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		</style>
+		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+	  </head>
+	  
+	  <body>
+		<div class="blocky-background"></div>
+		<div class="container">
+		  <h1>Signup</h1>
+		  <form action="" id="contactForm">
+
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="email" required>
+	  
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+	  
+			<label class="checkbox">
+			  <input type="checkbox" id="role" name="role">
+			  <span class="checkmark"></span>
+			  Researcher
+			</label>
+	  
+			<div class="inputBox">
+				<button type="submit">signup</button>
+			</div>
+	  
+			<input type="button" value="⬅" onclick="history.back()" class="back-button">
+		  </form>
+		</div>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+		<script src="./firebase-init.js"></script>
+	</body>
+	  
+	  </html>
