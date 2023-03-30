@@ -23,6 +23,7 @@ const firebaseConfig = {
     var password = getElementVal('password');
     var role = '';
     var checkbox = document.getElementById('role');
+    
   
 
     //sets role based on the state of the checkbox
