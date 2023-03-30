@@ -34,11 +34,43 @@ const firebaseConfig = {
     }
 
     //verify that email and password are in correct format
-    if(validate_email(email)==false || validate_password(password)==false){
-      alert('Please make sure your email is the in correct format and your password is longer than 6 characters')
-      return
+    let outputPass = "Invalid password. Address the following:"
+    let passError = false
+    let outputEmail = ""
+    let emailError = false
+    let passwordValidationArr = validate_password(password);
+    if(!validate_email(email)){
+      emailError = true
+      outputEmail += "Invalid email. Ensure your email is of a valid domain"
+    }
+    if (!passwordValidationArr[0]){
+      passError = true
+      outputPass += "\n- Password is not 8 characters long"
+    }
+    if (!passwordValidationArr[1]){
+      passError = true
+      outputPass += "\n- Password does not contain a lower case letter"
+    }
+    if (!passwordValidationArr[2]){
+      passError = true
+      outputPass += "\n- Password does not contain a capital letter"
+    }
+    if (!passwordValidationArr[3]){
+      passError = true
+      outputPass += "\n- Password does not contain a number"
     }
 
+    if (emailError && passError){
+      alert(outputEmail + ".\n\n" + outputPass)
+      return
+    } else if (emailError && !passError){
+      alert(outputEmail)
+      return
+    } else if (!emailError && passError){
+      alert(outputPass)
+      return
+    }
+    
     //Request that the data is saved in the Database using the saveMessage function.
     saveMessages(email,password,role);
   }
@@ -68,21 +100,26 @@ const firebaseConfig = {
 
   //checks if email is a valid format
   function validate_email(email){
-    expression = /^[^@]+@\w+(\.\w+)+\w$/
-    if (expression.test(email) == true){
-      return true;
-    }
-    else{
-      return false;
-    }
+    let expression = /^[^@]+@\w+(\.\w+)+\w$/;
+    return expression.test(email) == true;
   }
 
-    //checks if password is longer than 6 characters
+    //checks if password is longer than 7 characters, and has at least one capital letter and number
     function validate_password(password){
-        if (password.length < 6){
-          return false;
-        }
-        else{
-          return true;
-        }
+      let lengthValid = false;
+
+      if (password.length >= 8){
+        lengthValid = true;
+      }
+
+      // check if the password contains at least one lowercase letter
+      const hasLowerCaseLetter = /[a-z]/.test(password);
+
+      // check if the password contains at least one capital letter
+      const hasCapitalLetter = /[A-Z]/.test(password);
+
+      // check if the password contains at least one number
+      const hasNumber = /\d/.test(password);
+
+      return [lengthValid, hasLowerCaseLetter, hasCapitalLetter, hasNumber];
     }
