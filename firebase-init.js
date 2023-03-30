@@ -24,25 +24,6 @@ const firebaseConfig = {
 
     //get the values put into the form using getElementval and store in var's.
     var email = getElementVal('email');
-    let inDB = false
-    
-    const ref = firebase.database().ref('contactForm').on('value',   function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        const emailToTestAgainst = childSnapshot.val().email;
-
-        if (String(emailToTestAgainst) == String(email)){
-          inDB = true;
-        }
-      });
-    });
-
-    
-
-    if (inDB){
-      alert("Account already exists using this email");
-      return;
-    }
-    
     var password = getElementVal('password');
     var role = '';
     var checkbox = document.getElementById('role');
@@ -63,7 +44,7 @@ const firebaseConfig = {
     let passwordValidationArr = validate_password(password);
     if(!validate_email(email)){
       emailError = true
-      outputEmail += "Invalid email. Ensure your email is of a valid domain"
+      outputEmail += "Invalid email. Ensure your email is of a valid domain and that it has not been used to create an account before"
     }
     if (!passwordValidationArr[0]){
       passError = true
@@ -81,20 +62,23 @@ const firebaseConfig = {
       passError = true
       outputPass += "\n- Password does not contain a number"
     }
-
-    if (emailError && passError){
-      alert(outputEmail + ".\n\n" + outputPass)
-      return
-    } else if (emailError && !passError){
-      alert(outputEmail)
-      return
-    } else if (!emailError && passError){
-      alert(outputPass)
-      return
-    }
     
-    //Request that the data is saved in the Database using the saveMessage function.
-    saveMessages(email,password,role);
+    // Query the database to see if the email is already in use
+    contactFormDB.orderByChild("email").equalTo(email).once("value", (snapshot) => {
+      if (snapshot.exists()) {
+        // The email is already in use
+        alert("Email is already in use!");
+      } else if (emailError && passError){
+        alert(outputEmail + ".\n\n" + outputPass)
+      } else if (emailError && !passError){
+        alert(outputEmail)
+      } else if (!emailError && passError){
+        alert(outputPass)
+      } else {
+        //Request that the data is saved in the Database using the saveMessage function.
+        saveMessages(email,password,role);
+      }
+    });
   }
 
   const saveMessages = (email,password,role) => {
