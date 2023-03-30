@@ -138,9 +138,11 @@
 	<div class="blocky-background"></div>
 	<div class="container">
 		<h1>Login</h1>
+
+		<!-- Creating the form with fields -->
 		<form>
-			<label for="username">Email:</label>
-			<input type="text" id="username" name="username" required>
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="email" required>
 
 			<label for="password">Password:</label>
 			<input type="password" id="password" name="password" required>
@@ -150,5 +152,9 @@
 			<input type="button" value="⬅" onclick="history.back()" class="back-button">
 		</form>
 	</div>
+
+	<!-- import firebase into login.html and call on firebase-login.js to handle requests -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+	<script src="./firebase-init.js"></script>
 </body>
 </html>

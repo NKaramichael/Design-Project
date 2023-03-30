@@ -18,11 +18,14 @@ const firebaseConfig = {
   function submitForm(e){
     e.preventDefault();
 
+    //get the values put into the form using getElementval and store in var's.
     var email = getElementVal('email');
     var password = getElementVal('password');
     var role = '';
     var checkbox = document.getElementById('role');
   
+
+    //sets role based on the state of the checkbox
     if(checkbox.checked){
       role = "Researcher";
     }
@@ -30,10 +33,14 @@ const firebaseConfig = {
       role = "User";
     }
 
+    //verify that email and password are in correct format
+    if(validate_email(email)==false || validate_password(password)==false){
+      alert('Please make sure your email is the in correct format and your password is longer than 6 characters')
+      return
+    }
 
+    //Request that the data is saved in the Database using the saveMessage function.
     saveMessages(email,password,role);
-
-    
   }
 
   const saveMessages = (email,password,role) => {
@@ -44,9 +51,38 @@ const firebaseConfig = {
       password : password,
       role : role,
     });
-
+    
+    //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
+    if(role == "Researcher"){
+      window.location.replace("./researcherDashboard.html");
+    }
+    else{
+      window.location.replace("./userDashboard.html");
+    }
+    
   };
 
   const getElementVal = (id) => {
     return document.getElementById(id).value;
   };
+
+  //checks if email is a valid format
+  function validate_email(email){
+    expression = /^[^@]+@\w+(\.\w+)+\w$/
+    if (expression.test(email) == true){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+    //checks if password is longer than 6 characters
+    function validate_password(password){
+        if (password.length < 6){
+          return false;
+        }
+        else{
+          return true;
+        }
+    }
