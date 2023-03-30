@@ -12,19 +12,40 @@ const firebaseConfig = {
 
   //create reference for DB
   var contactFormDB = firebase.database().ref('contactForm');
+  //const admin = require('firebase-admin');
+  //const db = admin.database();
 
-  document.getElementById('contactForm').addEventListener('submit', submitForm);
+  function signUp(){
+    document.getElementById('contactForm').addEventListener('submit', submitSignUp);
+  }
 
-  function submitForm(e){
+  function submitSignUp(e){
     e.preventDefault();
 
     //get the values put into the form using getElementval and store in var's.
     var email = getElementVal('email');
+    let inDB = false
+    
+    const ref = firebase.database().ref('contactForm').on('value',   function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        const emailToTestAgainst = childSnapshot.val().email;
+
+        if (String(emailToTestAgainst) == String(email)){
+          inDB = true;
+        }
+      });
+    });
+
+    
+
+    if (inDB){
+      alert("Account already exists using this email");
+      return;
+    }
+    
     var password = getElementVal('password');
     var role = '';
     var checkbox = document.getElementById('role');
-    
-  
 
     //sets role based on the state of the checkbox
     if(checkbox.checked){
