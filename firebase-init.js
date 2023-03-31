@@ -33,10 +33,20 @@ const firebaseConfig = {
     // Query the database to see if the email is already in use
     contactFormDB.orderByChild("email").equalTo(email).once("value", (snapshot) => {
       if (snapshot.exists()) {
-        // The email is already in use
-        alert("Email is already in use!");
+        // The email exists in the database, check if the password matches
+        snapshot.forEach((user) => {
+          const userData = user.val();
+          if (userData.password === password) {
+            // The password matches, log the user in
+            sendToDash(userData.email,userData.role);
+          } else {
+            // The password doesn't match, show an error message
+            alert("Incorrect password!");
+          }
+        });
       } else {
-        alert("Email is valid")
+        // The email is not in use
+        alert("Email is not registered!");
       }
     });
   }
@@ -103,6 +113,17 @@ const firebaseConfig = {
       }
     });
   }
+
+  const sendToDash = (email,role) => {
+    //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
+    if(role == "Researcher"){
+      window.location.replace("./researcherDashboard.html");
+    }
+    else{
+      window.location.replace("./userDashboard.html");
+    }
+    
+  };
 
   const saveMessages = (email,password,role) => {
     var newContactForm = contactFormDB.push();
