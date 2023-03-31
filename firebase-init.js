@@ -11,12 +11,34 @@ const firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 
   //create reference for DB
-  var contactFormDB = firebase.database().ref('contactForm');
-  //const admin = require('firebase-admin');
-  //const db = admin.database();
+  var contactFormDB = firebase.database().ref('contactForm')
 
   function signUp(){
-    document.getElementById('contactForm').addEventListener('submit', submitSignUp);
+    document.getElementById('signupForm').addEventListener('submit', submitSignUp);
+  }
+
+  function login(){
+    document.getElementById('loginForm').addEventListener('submit', submitLogin);
+  }
+
+  function submitLogin(e){
+    e.preventDefault();
+
+    //get the values put into the form using getElementval and store in var's.
+    var email = getElementVal('email');
+    var password = getElementVal('password');
+    
+    alert("Loggin in with these details: " + "\n" + email + "\n" + password)
+
+    // Query the database to see if the email is already in use
+    contactFormDB.orderByChild("email").equalTo(email).once("value", (snapshot) => {
+      if (snapshot.exists()) {
+        // The email is already in use
+        alert("Email is already in use!");
+      } else {
+        alert("Email is valid")
+      }
+    });
   }
 
   function submitSignUp(e){
@@ -63,6 +85,7 @@ const firebaseConfig = {
       outputPass += "\n- Password does not contain a number"
     }
     
+    alert("signing up with these details: " + "\n" + email + "\n" + password + "\n" + role)
     // Query the database to see if the email is already in use
     contactFormDB.orderByChild("email").equalTo(email).once("value", (snapshot) => {
       if (snapshot.exists()) {
@@ -83,7 +106,7 @@ const firebaseConfig = {
 
   const saveMessages = (email,password,role) => {
     var newContactForm = contactFormDB.push();
-
+    
     newContactForm.set({
       email : email,
       password : password,
@@ -110,22 +133,22 @@ const firebaseConfig = {
     return expression.test(email) == true;
   }
 
-    //checks if password is longer than 7 characters, and has at least one capital letter and number
-    function validate_password(password){
-      let lengthValid = false;
+  //checks if password is longer than 7 characters, and has at least one capital letter and number
+  function validate_password(password){
+    let lengthValid = false;
 
-      if (password.length >= 8){
-        lengthValid = true;
-      }
-
-      // check if the password contains at least one lowercase letter
-      const hasLowerCaseLetter = /[a-z]/.test(password);
-
-      // check if the password contains at least one capital letter
-      const hasCapitalLetter = /[A-Z]/.test(password);
-
-      // check if the password contains at least one number
-      const hasNumber = /\d/.test(password);
-
-      return [lengthValid, hasLowerCaseLetter, hasCapitalLetter, hasNumber];
+    if (password.length >= 8){
+      lengthValid = true;
     }
+
+    // check if the password contains at least one lowercase letter
+    const hasLowerCaseLetter = /[a-z]/.test(password);
+
+    // check if the password contains at least one capital letter
+    const hasCapitalLetter = /[A-Z]/.test(password);
+
+    // check if the password contains at least one number
+    const hasNumber = /\d/.test(password);
+
+    return [lengthValid, hasLowerCaseLetter, hasCapitalLetter, hasNumber];
+  }

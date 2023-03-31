@@ -11,6 +11,9 @@ const firebaseConfig = {
   //initialise firebase
   firebase.initializeApp(firebaseConfig);
 
-  //initalise variables
-  const auth = firebase.auth();
-  const database = firebase.database();
+  //create reference for DB
+  var contactFormDB = firebase.database().ref('contactForm')
+
+  const getElementVal = (id) => {
+    return document.getElementById(id).value;
+  };
