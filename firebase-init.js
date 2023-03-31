@@ -28,7 +28,7 @@ const firebaseConfig = {
     var email = getElementVal('email');
     var password = getElementVal('password');
     
-    alert("Loggin in with these details: " + "\n" + email + "\n" + password)
+    //alert("Loggin in with these details: " + "\n" + email + "\n" + password)
 
     // Query the database to see if the email is already in use
     contactFormDB.orderByChild("email").equalTo(email).once("value", (snapshot) => {
@@ -85,7 +85,7 @@ const firebaseConfig = {
       outputPass += "\n- Password does not contain a number"
     }
     
-    alert("signing up with these details: " + "\n" + email + "\n" + password + "\n" + role)
+    //alert("signing up with these details: " + "\n" + email + "\n" + password + "\n" + role)
     // Query the database to see if the email is already in use
     contactFormDB.orderByChild("email").equalTo(email).once("value", (snapshot) => {
       if (snapshot.exists()) {
