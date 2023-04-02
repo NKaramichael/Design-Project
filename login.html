@@ -4,7 +4,7 @@
 	<title>PCG Evaluation - Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
 	<style>
-		
+		/* CSS to make the page look nicer */
 
 		body {
 			background-color: #fff;
@@ -167,6 +167,7 @@
 
 
 	</style>
+	<!-- Define the animated background and fonts -->
 	<a href="Homepage.html">
 		<img src="Resources/home-icon-black-small.inverted.png" />
 	</a>
@@ -178,7 +179,7 @@
 	<div class="container">
 		<h1>Login</h1>
 
-		<!-- Creating the form with fields -->
+		<!-- Creating the form with fields - Email, Password, Role -->
 		<form action="" id="loginForm">
 			<label for="email">Email:</label>
 			<input type="text" id="email" name="email" required>
@@ -192,9 +193,8 @@
 		</form>
 	</div>
 
-	<!-- import firebase into login.html and call on firebase-login.js to handle requests -->
+	<!-- import firebase into login.html and call on firebase-init.js to handle requests -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 	<script type="text/javascript" src="./firebase-init.js"></script>
-	<script type="text/javascript" src="./firebase-login.js"></script>
 </body>
 </html>

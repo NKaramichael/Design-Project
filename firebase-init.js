@@ -1,3 +1,4 @@
+//configuration for connecting to firebase database
 const firebaseConfig = {
     apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
     authDomain: "pcgevaluation-49d75.firebaseapp.com",
@@ -13,6 +14,7 @@ const firebaseConfig = {
   //create reference for DB
   var contactFormDB = firebase.database().ref('contactForm')
 
+  //listen to if the signup button is pressed or login button, redirect to respective methods
   function signUp(){
     document.getElementById('signupForm').addEventListener('submit', submitSignUp);
   }
@@ -51,6 +53,7 @@ const firebaseConfig = {
     });
   }
 
+  //The main signup method
   function submitSignUp(e){
     e.preventDefault();
 
@@ -125,6 +128,7 @@ const firebaseConfig = {
     
   };
 
+  //add user credentials to firebase database
   const saveMessages = (email,password,role) => {
     var newContactForm = contactFormDB.push();
     
