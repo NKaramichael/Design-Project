@@ -29,8 +29,6 @@ const firebaseConfig = {
     //get the values put into the form using getElementval and store in var's.
     var email = getElementVal('email');
     var password = getElementVal('password');
-    
-    //alert("Loggin in with these details: " + "\n" + email + "\n" + password)
 
     // Query the database to see if the email is already in use
     contactFormDB.orderByChild("email").equalTo(email).once("value", (snapshot) => {
