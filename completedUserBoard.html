@@ -12,6 +12,7 @@
 			font-family: Arial, sans-serif;
 			margin: 0;
 			padding: 0;
+		
 		}
 
 		/*This class is used to style the header section of the page*/
@@ -36,7 +37,7 @@
 
 		/* This class is used to style the scrollable section that contains multiple text boxes */
 		#scrollable-box {
-			height: 600px;
+			height: 800px;
 			overflow-y: scroll;
 			padding: 10px;
 		}
@@ -90,7 +91,7 @@
 		}
 		/* This class is used to style the buttons on the page */
 		.button {
-			width: 300px;
+            width: 300px;
 			font-family: 'Press Start 2P', cursive;
 			padding: 10px 20px;
 			background-color: #FE4CF4;
@@ -100,8 +101,9 @@
 			font-size: 18px;
 			cursor: pointer;
 		}
+		/* Change the colour of the button for the current page we're on */
 		.buttonCurrentPage {
-			width: 300px;
+            width: 300px;
 			font-family: 'Press Start 2P', cursive;
 			padding: 10px 20px;
 			background-color: #ffffff;
@@ -148,16 +150,15 @@
 		}
 	</style>
 	<script>
-		function currentFunction() {
-			alert("You are viewing your current PCG surveys")
+        function completedFunction() {
+			alert("You are viewing your completed PCG surveys")
 		}
-
-		function completedFunction(){
-			window.location.href = "completedUserBoard.html"
+		function currentFunction() {
+			window.location.href="currentUserBoard.html"
 		}
 
 		function newFunction() {
-			window.location.href = "newUserBoard.html";
+			window.location.href="newUserBoard.html"
 		}
 		function logout() {
 			window.location.href = "login.html"
@@ -183,19 +184,13 @@
 		</div>
 	</header>
 	<div class="BtnContainer">
-		<button class="button" onclick="completedFunction()">Completed</button>
-		<button class="buttonCurrentPage" onclick="currentFunction()">Current</button>
+		<button class="buttonCurrentPage" onclick="completedFunction()">Completed</button>
+		<button class="button" onclick="currentFunction()">Current</button>
 		<button class="button" onclick="newFunction()">New</button>
 	</div>
 	<div class="blocky-background"></div>
 	<div id="scrollable-box">
 		<div class="text-boxes">
-			<div class="text-box">
-				<img src="https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmV0cm8lMjBnYW1pbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60"
-					alt="Image 1">
-				<h2>Heading 1</h2>
-				<p>Description 1</p>
-			</div>
 			<div class="text-box">
 				<img src="https://images.unsplash.com/photo-1585881728919-5c0ce925ad10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
 					alt="Image 2">
