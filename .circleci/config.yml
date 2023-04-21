@@ -6,10 +6,10 @@ jobs:
       - image: node:lts
     steps:
       - checkout
-      - run: npm install # or yarn install if you're using yarn
+      - run: yarn install # or yarn install if you're using yarn
       - run:
           name: Run tests with coverage
-          command: npm test -- --coverage
+          command: yarn test -- --coverage
       - run:
           name: Upload coverage report to Codecov
           command: |
