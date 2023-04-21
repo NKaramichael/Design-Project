@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <title>PCG Evaluation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /*This class is used to style the header section of the page*/
+        header {
+            background-color: #FE4CF4;
+            font-family: 'Press Start 2P', cursive;
+            color: #ffffff;
+            text-align: center;
+            height: 30px;
+            padding: 1em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* This class is used to style the title of the page  */
+        h1 {
+            font-size: 2em;
+            font-family: 'Press Start 2P', cursive;
+            margin: 0;
+            line-height: 0em;
+            letter-spacing: 0.1em;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 800px;
+            height: 600px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+        }
+
+        .box-img {
+            width: 100%;
+            height: 66%;
+        }
+
+        .box-img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box-desc {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 33%;
+        }
+
+        .box-column {
+            background-color: #FE4CF4;
+            font-family: 'Press Start 2P', cursive;
+            width: 25%;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            margin-top: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        /* This class is used to style the container that holds the buttons */
+        .BtnContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        /* This class is used to style the buttons on the page */
+        .button {
+            font-family: 'Press Start 2P', cursive;
+            padding: 10px 20px;
+            background-color: #FE4CF4;
+            border: 2px solid black;
+            border-radius: 5px;
+            margin: 0 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* This class is used to style the cog icon in the header */
+        .settings-button {
+            color: #FE4CF4;
+            height: 20px;
+            position: relative;
+            float: right;
+        }
+
+        /* This class is used to style the dropdown menu that appears when the cog icon is clicked */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            color: #fff;
+            top: 50%;
+            right: 0;
+            z-index: 1;
+        }
+
+        .settings-button:hover .dropdown-menu {
+            color: #fff;
+            display: inline-block;
+            background: url('Resources/BountifulAlienatedFugu.gif') center center no-repeat;
+            background-size: cover;
+            padding: 10px;
+        }
+
+        /* This class is used to style the background of the page */
+        .blocky-background {
+            background: url('Resources/BountifulAlienatedFugu.gif') center center no-repeat;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+    <script>
+        function createdFunction() {
+
+        }
+        function currentFunction() {
+
+        }
+        function newFunction() {
+
+        }
+        function logout() {
+            window.location.href = "login.html"
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>PCG Evaluation</Em></h1>
+
+        <ul>
+            <li class="settings-button">
+                <a href="#"><i class="fa fa-cog"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick=logout()>Log Out</a></li>
+                    <li><a href="#" onclick=Settings()>Settings</a></li>
+                    <li><a href="#" onclick=Profile()>Profile</a></li>
+                </ul>
+            </li>
+        </ul>
+        </div>
+    </header>
+    <div class="BtnContainer">
+        <button class="button" onclick="createdFunction()">Created</button>
+        <button class="button" onclick="currentFunction()">Current</button>
+        <button class="button" onclick="newFunction()">New</button>
+        <button class="button" onclick="statFunction()"></button>
+    </div>
+    <div class="blocky-background"></div>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <title>Scrollable Boxes</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+
+    <body>
+        <div class="box-container">
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://images.unsplash.com/photo-1599409333465-8b0b9e905f37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHJldHJvJTIwZ2FtaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                        alt="Image 1">
+                </div>
+                <div class="box-desc">
+                    <div class="box-column">
+                        <p>Users</p>
+                    </div>
+                    <div class="box-column">
+                        <p>Likes</p>
+                    </div>
+                    <div class="box-column">
+                        <p>Mentions</p>
+                    </div>
+                    <div class="box-column">
+                        <p>Rating</p>
+                    </div>
+                </div>
+
+                <div class="box-img">
+                    <img src="https://images.unsplash.com/photo-1555864326-5cf22ef123cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHJldHJvJTIwZ2FtaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                        alt="Image 2">
+                </div>
+                <div class="box-desc">
+                    <div class="box-column">
+                        <p>1. Description of item 1</p>
+                    </div>
+                    <div class="box-column">
+                        <p>2. Description of item 2</p>
+                    </div>
+                    <div class="box-column">
+                        <p>3. Description of item 3</p>
+                    </div>
+                    <div class="box-column">
+                        <p>4. Description of item 4</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    </html>
+
+
+</body>
+
+</html>
