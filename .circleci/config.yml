@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@latest
-
 jobs:
   build:
     executor:
@@ -10,19 +7,10 @@ jobs:
       tag: 'lts'
     steps:
       - checkout
-      - node/install-packages:
-          packages: # Jest and Istanbul packages
-            - jest
-            - jest-junit
-            - istanbul-lib-coverage
-            - istanbul-lib-report
-            - istanbul-reports
-            - istanbul-api
-            - istanbul-instrumenter-loader
-      - run: yarn install # or npm install if you're using npm
+      - run: npm install # or yarn install if you're using yarn
       - run:
           name: Run tests with coverage
-          command: yarn test --coverage
+          command: npm test -- --coverage
       - store_artifacts:
           path: coverage/lcov-report
           destination: coverage
