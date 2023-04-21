@@ -9,7 +9,7 @@ jobs:
       - run: yarn install # or yarn install if you're using yarn
       - run:
           name: Run tests with coverage
-          command: yarn test -- --coverage
+          command: yarn test -- coverage
       - run:
           name: Upload coverage report to Codecov
           command: |
