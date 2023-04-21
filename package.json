@@ -1,0 +1,14 @@
+{
+    "name": "my-project",
+    "version": "1.0.0",
+    "description": "My awesome project",
+    "dependencies": {
+      "express": "^4.17.1",
+      "lodash": "^4.17.21"
+    },
+    "scripts": {
+      "start": "node app.js",
+      "test": "mocha"
+    }
+  }
+  
