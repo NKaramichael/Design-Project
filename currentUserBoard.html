@@ -159,8 +159,12 @@
 		function newFunction() {
 			window.location.href = "newUserBoard.html";
 		}
+		
 		function logout() {
 			window.location.href = "login.html"
+		}
+		function settings() {
+			window.location.href = "settings.html";
 		}
 	</script>
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
@@ -174,9 +178,9 @@
 			<li class="settings-button">
 				<a href="#"><i class="fa fa-cog"></i></a>
 				<ul class="dropdown-menu">
-					<li><a href="#" onclick=logout()>Log Out</a></li>
-					<li><a href="#" onclick=Settings()>Settings</a></li>
-					<li><a href="#" onclick=Profile()>Profile</a></li>
+					<li><a href="#" onclick=settings()>Settings</a></li>
+					<li><a href="#" onclick=logout()>Log Out</a></li>				
+					<li><a href="#" onclick=profile()>Profile</a></li>
 				</ul>
 			</li>
 		</ul>
