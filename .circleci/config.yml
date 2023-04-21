@@ -2,18 +2,17 @@ version: 2.1
 
 jobs:
   build:
-    executor:
-      name: node/default
-      tag: 'lts'
+    docker:
+      - image: node:lts
     steps:
       - checkout
       - run: npm install # or yarn install if you're using yarn
       - run:
           name: Run tests with coverage
           command: npm test -- --coverage
-      - store_artifacts:
-          path: coverage/lcov-report
-          destination: coverage
+      - run:
+          name: Upload coverage report to Codecov
+          command: bash <(curl -s https://codecov.io/bash)
 
 workflows:
   build_and_test:
