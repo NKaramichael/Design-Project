@@ -1,6 +1,3 @@
-import { validate_email } from "./validation.js";
-import { validate_password } from "./validation.js";
-
 // This document handles account queries such as signup/login/change username/change password
 //configuration for connecting to firebase database
 const firebaseConfig = {
@@ -12,6 +9,7 @@ const firebaseConfig = {
     messagingSenderId: "369543877095",
     appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
   };
+
   //initialise firebase
   firebase.initializeApp(firebaseConfig);
 
@@ -123,18 +121,22 @@ const firebaseConfig = {
     //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
     if(role == "Researcher"){
       sessionStorage.removeItem('email');
+      sessionStorage.removeItem('password');
       const email = document.getElementById('email').value;
-      console.log(email);
+      const password = document.getElementById('password').value
 
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem('password', password);
       window.location.replace("./researcherBoard.html");
     }
     else{
       sessionStorage.removeItem('email');
+      sessionStorage.removeItem('password');
       const email = document.getElementById('email').value;
-      console.log(email);
+      const password = document.getElementById('password').value
 
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem('password', password);
       window.location.replace("./newUserBoard.html");
     }
     
@@ -153,18 +155,22 @@ const firebaseConfig = {
     //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
     if(role == "Researcher"){
       sessionStorage.removeItem('email');
+      sessionStorage.removeItem('password');
       const email = document.getElementById('email').value;
-      console.log(email);
+      const password = document.getElementById('password').value
 
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem('password', password);
       window.location.replace("./researcherBoard.html");
     }
     else{
       sessionStorage.removeItem('email');
+      sessionStorage.removeItem('password');
       const email = document.getElementById('email').value;
-      console.log(email);
+      const password = document.getElementById('password').value
 
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem('password', password);
       window.location.replace("./newUserBoard.html");
     }
     
