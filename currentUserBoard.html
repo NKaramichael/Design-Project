@@ -16,27 +16,34 @@
 
 		/*This class is used to style the header section of the page*/
 		header {
-			background-color: #FE4CF4;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
 			font-family: 'Press Start 2P', cursive;
 			color: #ffffff;
 			text-align: center;
 			height: 30px;
 			padding: 1em;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 		}
 
 		/* This class is used to style the title of the page  */
 		h1 {
 			font-size: 2em;
 			font-family: 'Press Start 2P', cursive;
-			margin: 0;
+			margin: 0.6;
+			padding-left: 37.5%;
 			line-height: 0em;
 			letter-spacing: 0.1em;
+			font-size: 2rem;
+			color: #ffffff;
+			text-align: center;
+			text-shadow: 3px 3px #000;
+			-webkit-text-stroke: 0;
 		}
 
 		/* This class is used to style the scrollable section that contains multiple text boxes */
 		#scrollable-box {
-			height: 600px;
+			height: 800px;
 			overflow-y: scroll;
 			padding: 10px;
 		}
@@ -71,7 +78,7 @@
 		/* This class is used to style the heading of the text box */
 		.text-box h2 {
 			font-size: 24px;
-			color: #FE4CF4;
+			color: #ffffff;
 			margin-bottom: 10px;
 		}
 
@@ -113,26 +120,28 @@
 		}
 		/* This class is used to style the cog icon in the header */
 		.settings-button {
-			color: #FE4CF4;
-			height: 20px;
-			position: relative;
-			float: right;
+			color: #ffffff;
+			list-style-type: none;
+			position: absolute;
+			padding-right: 2%;
+			font-size: 30px;
+			right: 0;
 		}
 		/* This class is used to style the dropdown menu that appears when the cog icon is clicked */
 		.dropdown-menu {
 			display: none;
 			position: absolute;
 			color: #fff;
-			top: 50%;
-			right: 0;
+			top: 10%;
+			right: 10%;
 			z-index: 1;
 		}
 
 		.settings-button:hover .dropdown-menu {
 			color: #fff;
 			display: inline-block;
-			background: url('Resources/BountifulAlienatedFugu.gif') center center no-repeat;
 			background-size: cover;
+			font-size: 30px;
 			padding: 10px;
 		}
 		/* This class is used to style the background of the page */
@@ -145,6 +154,26 @@
 			top: 0;
 			left: 0;
 			z-index: -1;
+		}
+
+		a{
+			color:#ffffff;
+			height: 20px;
+			width: 20px;
+			font-size: 40px;
+		}
+
+		.aList{
+			color:#ffffff;
+			height: 20px;
+			width: 20px;
+			font-size: 30px;
+		}
+
+		ul{
+			list-style-type: none;
+			line-height: 1.5;
+			font-size: 20px;
 		}
 	</style>
 	<script>
@@ -172,19 +201,16 @@
 
 <body>
 	<header>
-		<h1>PCG Evaluation</Em></h1>
+		<h1>PCG Evaluation</h1>
 
-		<ul>
-			<li class="settings-button">
-				<a href="#"><i class="fa fa-cog"></i></a>
-				<ul class="dropdown-menu">
-					<li><a href="#" onclick=settings()>Settings</a></li>
-					<li><a href="#" onclick=logout()>Log Out</a></li>				
-					<li><a href="#" onclick=profile()>Profile</a></li>
-				</ul>
-			</li>
-		</ul>
-		</div>
+		<li class="settings-button">
+			<a href="#"><i class="fa fa-cog"></i></a>
+			<ul class="dropdown-menu">
+				<li><a class="aList" href="#" onclick=settings()>Settings</a></li>
+				<li><a class="aList" href="#" onclick=logout()>Log Out</a></li>				
+				<!-- <li><a href="#" onclick=profile()>Profile</a></li> -->
+			</ul>
+		</li>
 	</header>
 	<div class="BtnContainer">
 		<button class="button" onclick="completedFunction()">Completed</button>

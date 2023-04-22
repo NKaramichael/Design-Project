@@ -134,8 +134,8 @@
 			position: absolute;
 			color: #ffffff;
 			font-size: 30px;
-			top: 50%;
-			right: 0;
+			top: 10%;
+			right: 10%;
 			z-index: 1;
 		}
 
@@ -165,8 +165,17 @@
 			font-size: 40px;
 		}
 
+		.aList{
+			color:#ffffff;
+			height: 20px;
+			width: 20px;
+			font-size: 30px;
+		}
+
 		ul{
 			list-style-type: none;
+			line-height: 1.5;
+			font-size: 20px;
 		}
 	</style>
 	<script>
@@ -197,9 +206,9 @@
 		<li class="settings-button">
 			<a href="#"><i class="fa fa-cog"></i></a>
 			<ul class="dropdown-menu">
-				<li><a href="#" onclick=settings()>Settings</a></li>
-				<li><a href="#" onclick=logout()>Log Out</a></li>
-				<li><a href="#" onclick=profile()>Profile</a></li>
+				<li><a class="aList" href="#" onclick=settings()>Settings</a></li>
+				<li><a class="aList" href="#" onclick=logout()>Log Out</a></li>
+				<!-- <li><a href="#" onclick=profile()>Profile</a></li> -->
 			</ul>
 		</li>
 	</header>
