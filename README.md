@@ -1,1 +1,1 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/nick-karamichael/Software-Design-Project/tree/DB-Setup.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/nick-karamichael/Software-Design-Project/tree/DB-Setup)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/NKaramichael/Design-Project/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/NKaramichael/Design-Project/tree/circleCI)
