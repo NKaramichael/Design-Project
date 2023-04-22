@@ -1,6 +1,3 @@
-import { validate_email } from "./validation";
-import { validate_password } from "./validation";
-
 // This document handles account queries such as signup/login/change username/change password
 //configuration for connecting to firebase database
 const firebaseConfig = {
