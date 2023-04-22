@@ -1,0 +1,11 @@
+{
+  "name": "@codecov/design-project",
+  "version": "0.0.1",
+  "description": "Codecov Javascript",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
