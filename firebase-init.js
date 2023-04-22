@@ -1,3 +1,4 @@
+// This document handles account queries such as signup/login/change username/change password
 //configuration for connecting to firebase database
 const firebaseConfig = {
     apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
