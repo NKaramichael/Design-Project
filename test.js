@@ -24,79 +24,79 @@ const {
   test('validate_password_length', () => {
     const password = 'pass';
     const result = validate_password(password);
-    expect(result[0]).toBe(False);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(False);
-    expect(result[3]).toBe(False);
+    expect(result[0]).toBe(false);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(false);
+    expect(result[3]).toBe(false);
 
     password = 'password';
     result = validate_password(password)
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(False);
-    expect(result[3]).toBe(False);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(false);
+    expect(result[3]).toBe(false);
   });
 
   test('validate_password_capitalLetter', () => {
     const password = 'password';
     const result = validate_password(password);
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(False);
-    expect(result[3]).toBe(False);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(false);
+    expect(result[3]).toBe(false);
 
     password = 'Password';
     result = validate_password(password)
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(True);
-    expect(result[3]).toBe(False);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(true);
+    expect(result[3]).toBe(false);
   });
 
   test('validate_password_capitalLetter', () => {
     const password = 'password';
     const result = validate_password(password);
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(False);
-    expect(result[3]).toBe(False);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(false);
+    expect(result[3]).toBe(false);
 
     password = 'Password';
     result = validate_password(password)
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(True);
-    expect(result[3]).toBe(False);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(true);
+    expect(result[3]).toBe(false);
   });
 
   test('validate_password_number', () => {
     const password = 'password';
     const result = validate_password(password);
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(False);
-    expect(result[3]).toBe(False);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(false);
+    expect(result[3]).toBe(false);
 
     password = 'password1';
     result = validate_password(password)
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(False);
-    expect(result[3]).toBe(True);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(false);
+    expect(result[3]).toBe(true);
   });
 
   test('validate_password_number_capitalLetter', () => {
     const password = 'Password';
     const result = validate_password(password);
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(True);
-    expect(result[3]).toBe(False);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(true);
+    expect(result[3]).toBe(false);
 
     password = 'Password1';
     result = validate_password(password)
-    expect(result[0]).toBe(True);
-    expect(result[1]).toBe(True);
-    expect(result[2]).toBe(True);
-    expect(result[3]).toBe(True);
+    expect(result[0]).toBe(true);
+    expect(result[1]).toBe(true);
+    expect(result[2]).toBe(true);
+    expect(result[3]).toBe(true);
   });
