@@ -47,9 +47,9 @@ const firebaseConfig = {
 
         firebase.database().ref("contactForm/" + childKey).update(updates);
         alert("Password Successfully Changed!");
-        if(sessionStorage.getItem('role') == "Reasearcher"){
+        if(sessionStorage.getItem('role') == "Researcher"){
           sessionStorage.setItem('password', newPassword);
-          window.location.replace("./researcherBoard.html");
+          window.location.replace("./currentResearcherBoard.html");
         }
         else{
           sessionStorage.setItem('password', newPassword);
@@ -163,7 +163,7 @@ const firebaseConfig = {
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('password', password);
       sessionStorage.setItem('role', role);
-      window.location.replace("./researcherBoard.html");
+      window.location.replace("./currentResearcherBoard.html");
     }
     else{
       sessionStorage.removeItem('email');
@@ -198,7 +198,7 @@ const firebaseConfig = {
 
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('password', password);
-      window.location.replace("./researcherBoard.html");
+      window.location.replace("./currentResearcherBoard.html");
     }
     else{
       sessionStorage.removeItem('email');
