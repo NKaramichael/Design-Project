@@ -1,24 +1,23 @@
 version: 2.1
+orbs:
+  codecov: codecov/codecov@3
 
 jobs:
   build:
     docker:
-      - image: node:lts
+      - image: cimg/node:current
     steps:
       - checkout
-      - run: yarn install # or yarn install if you're using yarn
       - run:
-          name: Run tests with coverage
-          command: yarn test coverage
+          name: Install dependencies
+          command: npm install
       - run:
-          name: Upload coverage report to Codecov
-          command: |
-            bash <(curl -s https://codecov.io/bash) \
-              -t $CODECOV_TOKEN \
-              -f coverage/lcov.info \
-              -F javascript
+          name: Run tests and collect coverage
+          command: npm run test
+      - codecov/upload
 
-workflows:
-  build_and_test:
+workflow:
+  version: 2.1
+  build-test:
     jobs:
       - build

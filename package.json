@@ -1,10 +1,11 @@
 {
-  "devDependencies": {
-    "mocha": "^10.2.0"
-  },
+  "name": "@codecov/design-project",
+  "version": "0.0.1",
+  "description": "Codecov Javascript",
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha test/mytest.js"
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
   }
 }
-
