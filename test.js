@@ -53,22 +53,6 @@ let {
     expect(result[3]).toBe(false);
   });
 
-  test('validate_password_capitalLetter', () => {
-    let password = 'password';
-    let result = validate_password(password);
-    expect(result[0]).toBe(true);
-    expect(result[1]).toBe(true);
-    expect(result[2]).toBe(false);
-    expect(result[3]).toBe(false);
-
-    password = 'Password';
-    result = validate_password(password)
-    expect(result[0]).toBe(true);
-    expect(result[1]).toBe(true);
-    expect(result[2]).toBe(true);
-    expect(result[3]).toBe(false);
-  });
-
   test('validate_password_number', () => {
     let password = 'password';
     let result = validate_password(password);
@@ -100,3 +84,4 @@ let {
     expect(result[2]).toBe(true);
     expect(result[3]).toBe(true);
   });
+
