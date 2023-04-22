@@ -25,6 +25,41 @@ const firebaseConfig = {
     document.getElementById('loginForm').addEventListener('submit', submitLogin);
   }
 
+  // Listen to if form button submitChangePassword and change them in the database
+  function changePassword(){
+    document.getElementById('Form').addEventListener('submit', submitChangePassword);
+  }
+  // Submits changed password to the database and replaces the 
+  function submitChangePassword(e){
+    e.preventDefault();
+    var newPassword = getElementVal('password'); //Find the password of the current user through their session info
+    var email = sessionStorage.getItem('email');
+    
+    firebase.database().ref("contactForm").orderByChild("email").equalTo(email).once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        const childKey = childSnapshot.key;
+        const childData = childSnapshot.val();
+
+        // update the password value of the node with the matching email address
+        var updates = {
+          password : newPassword
+        }
+
+        firebase.database().ref("contactForm/" + childKey).update(updates);
+        alert("Password Successfully Changed!");
+        if(sessionStorage.getItem('role') == "Reasearcher"){
+          sessionStorage.setItem('password', newPassword);
+          window.location.replace("./researcherBoard.html");
+        }
+        else{
+          sessionStorage.setItem('password', newPassword);
+          window.location.replace("./currentUserBoard.html");
+        }
+      });
+    });
+
+  }
+
   function submitLogin(e){
     e.preventDefault();
 
@@ -123,20 +158,22 @@ const firebaseConfig = {
       sessionStorage.removeItem('email');
       sessionStorage.removeItem('password');
       const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value
+      const password = document.getElementById('password').value;
 
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('password', password);
+      sessionStorage.setItem('role', role);
       window.location.replace("./researcherBoard.html");
     }
     else{
       sessionStorage.removeItem('email');
       sessionStorage.removeItem('password');
       const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value
+      const password = document.getElementById('password').value;
 
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('password', password);
+      sessionStorage.setItem('role', role);
       window.location.replace("./newUserBoard.html");
     }
     

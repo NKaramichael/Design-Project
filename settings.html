@@ -178,27 +178,28 @@
 	<div class="container">
 		<h1>Settings</h1>
 
-		<!-- Creating the form with fields - Email, Password, Role -->
-		<form action="" id="changeEmailForm">
-			<label for="email">Change Email:</label>
-			<input type="text" id="email" name="email" required>
+		<!-- Creating the form with fields - ChangeEmail, ChangePassword-->
+		<form action="" id="Form">
+			<label for="password">Password:</label>
+			<input type="text" id="password" name="password" required>
 
-			<button type="submit" id="loginBtn" onclick="login()">submit</button>
+			<button type="submit" id="loginBtn" onclick="changePassword()">Change Password</button>
 
 			<input type="button" value="⬅" onclick="history.back()" class="back-button">
 		</form>
-        <form action="" id="changePasswordForm">
+
+        <!-- <form action="" id="changePasswordForm">
 			<label for="email">Change Password:</label>
-			<input type="text" id="email" name="email" required>
+			<input type="text" id="changePassword" name="email" required>
 
-			<button type="submit" id="loginBtn" onclick="login()">submit</button>
+			<button type="submit" id="submitChangePassword" onclick="changePassword()">Change Password</button>
 
 			<input type="button" value="⬅" onclick="history.back()" class="back-button">
-		</form>
+		</form> -->
 	</div>
 
-	<!-- import firebase into login.html and call on firebase-init.js to handle requests -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+	<!-- import firebase into settings.html and call on firebase-init.js to handle requests -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script> 
 	<script type="text/javascript" src="./firebase-init.js"></script>
 </body>
 </html>
