@@ -1,4 +1,4 @@
-const {
+let {
     validate_email,
     validate_password,
   } = require('./validation.js');
@@ -22,8 +22,8 @@ const {
   });
 
   test('validate_password_length', () => {
-    const password = 'pass';
-    const result = validate_password(password);
+    let password = 'pass';
+    let result = validate_password(password);
     expect(result[0]).toBe(false);
     expect(result[1]).toBe(true);
     expect(result[2]).toBe(false);
@@ -38,8 +38,8 @@ const {
   });
 
   test('validate_password_capitalLetter', () => {
-    const password = 'password';
-    const result = validate_password(password);
+    let password = 'password';
+    let result = validate_password(password);
     expect(result[0]).toBe(true);
     expect(result[1]).toBe(true);
     expect(result[2]).toBe(false);
@@ -54,8 +54,8 @@ const {
   });
 
   test('validate_password_capitalLetter', () => {
-    const password = 'password';
-    const result = validate_password(password);
+    let password = 'password';
+    let result = validate_password(password);
     expect(result[0]).toBe(true);
     expect(result[1]).toBe(true);
     expect(result[2]).toBe(false);
@@ -70,8 +70,8 @@ const {
   });
 
   test('validate_password_number', () => {
-    const password = 'password';
-    const result = validate_password(password);
+    let password = 'password';
+    let result = validate_password(password);
     expect(result[0]).toBe(true);
     expect(result[1]).toBe(true);
     expect(result[2]).toBe(false);
@@ -86,8 +86,8 @@ const {
   });
 
   test('validate_password_number_capitalLetter', () => {
-    const password = 'Password';
-    const result = validate_password(password);
+    let password = 'Password';
+    let result = validate_password(password);
     expect(result[0]).toBe(true);
     expect(result[1]).toBe(true);
     expect(result[2]).toBe(true);
