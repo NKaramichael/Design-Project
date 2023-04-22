@@ -73,7 +73,7 @@
         }
 
         .box-column {
-            background-color: #FE4CF4;
+            background-color: #fff;
             font-family: 'Press Start 2P', cursive;
             width: 25%;
             text-align: center;
@@ -107,6 +107,17 @@
             cursor: pointer;
             width: 300px;
         }
+        .buttonCurrentPage {
+			width: 300px;
+			font-family: 'Press Start 2P', cursive;
+			padding: 10px 20px;
+			background-color: #ffffff;
+			border: 2px solid #000000;
+			border-radius: 5px;
+			margin: 0 10px;
+			font-size: 18px;
+			cursor: pointer;
+		}
 
         /* This class is used to style the cog icon in the header */
         .settings-button {
@@ -156,6 +167,10 @@
 			font-size: 30px;
 		}
 
+        p{
+			color:#000
+		}
+
 		ul{
 			list-style-type: none;
             line-height: 1.5;
@@ -163,17 +178,21 @@
     </style>
     <script>
         function createdFunction() {
-
+            window.location.href="createdResearcherBoard.html"
         }
         function currentFunction() {
-
+            window.location.href="currentResearcherBoard.html"
         }
         function newFunction() {
+            alert("You are viewing all new surveys")
 
         }
         function logout() {
             window.location.href = "login.html"
         }
+        function settings() {
+			window.location.href = "settings.html"
+		}
     </script>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
@@ -185,16 +204,16 @@
         <li class="settings-button">
             <a href="#"><i class="fa fa-cog"></i></a>
             <ul class="dropdown-menu">
+                <li><a href="#" onclick=settings()>Settings</a></li>
                 <li><a href="#" onclick=logout()>Log Out</a></li>
-                <li><a href="#" onclick=Settings()>Settings</a></li>
-                <li><a href="#" onclick=Profile()>Profile</a></li>
+                <!-- <li><a href="#" onclick=Profile()>Profile</a></li> -->
             </ul>
         </li>
     </header>
     <div class="BtnContainer">
         <button class="button" onclick="createdFunction()">Created</button>
         <button class="button" onclick="currentFunction()">Current</button>
-        <button class="button" onclick="newFunction()">New</button>
+        <button class="buttonCurrentPage" onclick="newFunction()">New</button>
     </div>
     <div class="blocky-background"></div>
     <!DOCTYPE html>
@@ -209,7 +228,7 @@
         <div class="box-container">
             <div class="box">
                 <div class="box-img">
-                    <img src="https://images.unsplash.com/photo-1599409333465-8b0b9e905f37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHJldHJvJTIwZ2FtaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                    <img src="https://images.unsplash.com/photo-1534620780923-1ce0db377c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80"
                         alt="Image 1">
                 </div>
                 <div class="box-desc">
