@@ -15,6 +15,9 @@ jobs:
           name: Run tests and collect coverage
           command: npm run test
       - codecov/upload
+      - store_test_results:
+          path: test-results
+
 
 workflow:
   version: 2.1
