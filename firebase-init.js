@@ -176,3 +176,5 @@ const firebaseConfig = {
 
     return [lengthValid, hasLowerCaseLetter, hasCapitalLetter, hasNumber];
   }
+
+  module.exports = { validate_email, validate_password };
