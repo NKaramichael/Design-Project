@@ -1,3 +1,6 @@
+import { validate_email } from "./validation.js";
+import { validate_password } from "./validation.js";
+
 // This document handles account queries such as signup/login/change username/change password
 //configuration for connecting to firebase database
 const firebaseConfig = {
@@ -119,9 +122,19 @@ const firebaseConfig = {
   const sendToDash = (email,role) => {
     //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
     if(role == "Researcher"){
+      sessionStorage.removeItem('email');
+      const email = document.getElementById('email').value;
+      console.log(email);
+
+      sessionStorage.setItem('email', email);
       window.location.replace("./researcherBoard.html");
     }
     else{
+      sessionStorage.removeItem('email');
+      const email = document.getElementById('email').value;
+      console.log(email);
+
+      sessionStorage.setItem('email', email);
       window.location.replace("./newUserBoard.html");
     }
     
@@ -139,9 +152,19 @@ const firebaseConfig = {
     
     //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
     if(role == "Researcher"){
+      sessionStorage.removeItem('email');
+      const email = document.getElementById('email').value;
+      console.log(email);
+
+      sessionStorage.setItem('email', email);
       window.location.replace("./researcherBoard.html");
     }
     else{
+      sessionStorage.removeItem('email');
+      const email = document.getElementById('email').value;
+      console.log(email);
+
+      sessionStorage.setItem('email', email);
       window.location.replace("./newUserBoard.html");
     }
     
@@ -151,28 +174,3 @@ const firebaseConfig = {
     return document.getElementById(id).value;
   };
 
-  //checks if email is a valid format
-  function validate_email(email){
-    let expression = /^[^@]+@\w+(\.\w+)+\w$/;
-    return expression.test(email) == true;
-  }
-
-  //checks if password is longer than 7 characters, and has at least one capital letter and number
-  function validate_password(password){
-    let lengthValid = false;
-
-    if (password.length >= 8){
-      lengthValid = true;
-    }
-
-    // check if the password contains at least one lowercase letter
-    const hasLowerCaseLetter = /[a-z]/.test(password);
-
-    // check if the password contains at least one capital letter
-    const hasCapitalLetter = /[A-Z]/.test(password);
-
-    // check if the password contains at least one number
-    const hasNumber = /\d/.test(password);
-
-    return [lengthValid, hasLowerCaseLetter, hasCapitalLetter, hasNumber];
-  }
