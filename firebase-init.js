@@ -119,10 +119,10 @@ const firebaseConfig = {
   const sendToDash = (email,role) => {
     //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
     if(role == "Researcher"){
-      window.location.replace("./researcherDashboard.html");
+      window.location.replace("./researcherBoard.html");
     }
     else{
-      window.location.replace("./userDashboard.html");
+      window.location.replace("./newUserBoard.html");
     }
     
   };
@@ -139,10 +139,10 @@ const firebaseConfig = {
     
     //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
     if(role == "Researcher"){
-      window.location.replace("./researcherDashboard.html");
+      window.location.replace("./researcherBoard.html");
     }
     else{
-      window.location.replace("./userDashboard.html");
+      window.location.replace("./newUserBoard.html");
     }
     
   };

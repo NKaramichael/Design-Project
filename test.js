@@ -1,7 +1,7 @@
 let {
     validate_email,
     validate_password,
-  } = require('./firebase-init.js');
+  } = require('./validation.js');
   
   test('validate_email', () => {
     expect(validate_email("name")).toBe(false);
