@@ -42,7 +42,7 @@ function submitChangePassword(e) {
  
   if (!passwordValidationArr[0]) {
     passError = true
-    outputPass += "\n- Password is not 8 characters long"
+    outputPass += "\n- Password is not between 8 and 32 characters"
   }
   if (!passwordValidationArr[1]) {
     passError = true
@@ -141,11 +141,11 @@ function submitSignUp(e) {
   let passwordValidationArr = validate_password(password);
   if (!validate_email(email)) {
     emailError = true
-    outputEmail += "Invalid email. Ensure your email is of a valid domain and that it has not been used to create an account before"
+    outputEmail += "Invalid email. Ensure your email is of a valid domain and that it has not been used to create an account before. Also, make sure your email is less than 50 characters long"
   }
   if (!passwordValidationArr[0]) {
     passError = true
-    outputPass += "\n- Password is not 8 characters long"
+    outputPass += "\n- Password is not between 8 and 32 characters"
   }
   if (!passwordValidationArr[1]) {
     passError = true
@@ -201,7 +201,7 @@ const sendToDash = (email, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("./newUserBoard.html");
+    window.location.replace("./currentUserBoard.html");
   }
 
 };
@@ -240,7 +240,7 @@ const saveMessages = (email, password, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("./newUserBoard.html");
+    window.location.replace("./currentUserBoard.html");
   }
 
 };
@@ -251,15 +251,19 @@ const getElementVal = (id) => {
 
 //checks if email is a valid format
 function validate_email(email) {
+  let valid = false;
+  if (email.length <= 50){
+    valid = true;
+  }
   let expression = /^[^@]+@\w+(\.\w+)+\w$/;
-  return expression.test(email) == true;
+  return (expression.test(email) == true && valid);
 }
 
-//checks if password is longer than 7 characters, and has at least one capital letter and number
+//checks if password is longer than 7 characters and up to 32, and has at least one capital letter and number
 function validate_password(password) {
   let lengthValid = false;
 
-  if (password.length >= 8) {
+  if (password.length >= 8 && password.length <= 32) {
     lengthValid = true;
   }
 
