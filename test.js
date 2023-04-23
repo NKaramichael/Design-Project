@@ -23,6 +23,15 @@ let {
     expect(validate_email("name@domain.com")).toBe(true);
   });
 
+  test('validate_password_empty', () => {
+    const password = '';
+    const result = validate_password(password);
+    expect(result[0]).toBe(false);
+    expect(result[1]).toBe(false);
+    expect(result[2]).toBe(false);
+    expect(result[3]).toBe(false);
+  });
+
   test('validate_password_types', () => {
     const password = 'password';
     const result = validate_password(password);
@@ -31,7 +40,7 @@ let {
     expect(typeof result[1]).toBe('boolean');
     expect(typeof result[2]).toBe('boolean');
     expect(typeof result[3]).toBe('boolean');
-    expect(result.length).toBe(4);  
+    expect(result.length).toBe(4);
   });
 
   test('validate_password_length_invalid', () => {
