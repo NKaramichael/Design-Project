@@ -95,9 +95,9 @@ let {
   test('validate_returns_an_array_of_emails', () => {
     const emails = getEmails();
     expect(emails).toBeInstanceOf(Array);
-    expect(emails).toContain('e1@ex.com');
-    expect(emails).toContain('e2@ex.com');
-    expect(emails).toContain('e3@ex.com');
+    expect(emails).toContain('ex1@ex.com');
+    expect(emails).toContain('ex2@ex.com');
+    expect(emails).toContain('ex3@ex.com');
   });
 
   test('validate_returns_an_array_of_passwords', () => {
