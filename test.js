@@ -80,17 +80,6 @@ let {
     expect(result[2]).toBe(false);
   });
 
-  test('validate_password_hasCapitalLetter_valid', () => {
-    password = 'Password';
-    result = validate_password(password)
-    expect(result[2]).toBe(true);
-  });
-
-  test('validate_password_hasNumber_invalid', () => {
-    let password = 'password';
-    let result = validate_password(password);
-    expect(result[3]).toBe(false);
-  });
 
   test('validate_returns_an_array_of_emails', () => {
     const emails = getEmails();
@@ -153,6 +142,18 @@ let {
     expect(checkSurveyID_unique(6)).toBe(8);
     expect(checkSurveyID_unique(7)).toBe(13);
     expect(checkSurveyID_unique(8)).toBe(21);
+  });
+  
+  test('validate_password_hasCapitalLetter_valid', () => {
+    password = 'Password';
+    result = validate_password(password)
+    expect(result[2]).toBe(true);
+  });
+
+  test('validate_password_hasNumber_invalid', () => {
+    let password = 'password';
+    let result = validate_password(password);
+    expect(result[3]).toBe(false);
   });
 
   test('validate_password_hasNumber_valid', () => {
