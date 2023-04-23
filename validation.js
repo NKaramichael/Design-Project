@@ -2,41 +2,27 @@
 function validate_email(email){
     let expression = /^[^@]+@\w+(\.\w+)+\w$/;
     return expression.test(email) == true;
+};
+
+//checks if password is longer than 7 characters, and has at least one capital letter and number
+function validate_password(password){
+  let lengthValid = false;
+
+  if (password.length >= 8){
+    lengthValid = true;
   }
 
-  //checks if password is longer than 7 characters, and has at least one capital letter and number
-  function validate_password(password){
-    let lengthValid = false;
+  // check if the password contains at least one lowercase letter
+  const hasLowerCaseLetter = /[a-z]/.test(password);
 
-    if (password.length >= 8){
-      lengthValid = true;
-    }
+  // check if the password contains at least one capital letter
+  const hasCapitalLetter = /[A-Z]/.test(password);
 
-    // check if the password contains at least one lowercase letter
-    const hasLowerCaseLetter = /[a-z]/.test(password);
+  // check if the password contains at least one number
+  const hasNumber = /\d/.test(password);
 
-    // check if the password contains at least one capital letter
-    const hasCapitalLetter = /[A-Z]/.test(password);
-
-    // check if the password contains at least one number
-    const hasNumber = /\d/.test(password);
-
-    return [lengthValid, hasLowerCaseLetter, hasCapitalLetter, hasNumber];
-  }
-
-//listen to if the signup button is pressed or login button, redirect to respective methods
-function signUp() {
-  document.getElementById('signupForm').addEventListener('submit', submitSignUp);
-}
-
-function login() {
-  document.getElementById('loginForm').addEventListener('submit', submitLogin);
-}
-
-// Listen to if form button submitChangePassword and change them in the database
-function changePassword() {
-  document.getElementById('Form').addEventListener('submit', submitChangePassword);
-}
+  return [lengthValid, hasLowerCaseLetter, hasCapitalLetter, hasNumber];
+};
 
 function submitLogin(e) {
   e.preventDefault();
@@ -53,13 +39,4 @@ const getElementVal = (id) => {
   return document.getElementById(id).value;
 };
 
-//Code to display email and password in profile
-function displayE() {
-  return sessionStorage.getItem("email")
-}
-
-function displayP() {
-  return sessionStorage.getItem("password")
-}
-
-  module.exports = { validate_email, validate_password };
+module.exports = { validate_email, validate_password };
