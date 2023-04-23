@@ -204,9 +204,9 @@
 
 		</style>
 		<!-- Specify icons and fonts -->
-		<a href="Homepage.html">
+		<!-- <a href="Homepage.html">
 			<img src="Resources/home-icon-black-small.inverted.png" />
-		</a>
+		</a> -->
 		
 		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 	  </head>
@@ -234,7 +234,7 @@
 	  
 			<button type="submit" id="signup" onclick="signUp()">signup</button>
 	  
-			<input type="button" value="⬅" onclick="history.back()" class="back-button">
+			<input type="button" value="⬅" onclick="home()" class="back-button">
 		  </form>
 		</div>
 		
@@ -242,6 +242,11 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 		<script type="text/javascript" src="./firebase-init.js"></script>
 		<script type="text/javascript" src="./firebase-login.js"></script>
+		<script>
+			function home() {
+				window.location.href="Homepage.html"
+			}
+		</script>
 	</body>
 	  
 	  </html>

@@ -169,9 +169,9 @@
 
 	</style>
 	<!-- Define the animated background and fonts -->
-	<a href="Homepage.html">
+	<!-- <a href="Homepage.html">
 		<img src="Resources/home-icon-black-small.inverted.png" />
-	</a>
+	</a> -->
 	  
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
@@ -189,12 +189,17 @@
 
 			<button type="submit" id="loginBtn" onclick="login()">login</button>
 
-			<input type="button" value="⬅" onclick="history.back()" class="back-button">
+			<input type="button" value="⬅" onclick="home()" class="back-button">
 		</form>
 	</div>
 
 	<!-- import firebase into login.html and call on firebase-init.js to handle requests -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 	<script type="text/javascript" src="./firebase-init.js"></script>
+	<script>
+		function home() {
+			window.location.href="Homepage.html"
+		}
+	</script>
 </body>
 </html>
