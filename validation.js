@@ -69,7 +69,7 @@ function changePage(currentPage, newPage) {
 }
 
 function checkRole(userRole) {
-  return userRole === 'researcher';
+  return userRole === 'admin';
 }
 
 function changeRole(currentUserRole, newRole) {
