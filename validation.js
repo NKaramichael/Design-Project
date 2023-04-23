@@ -92,5 +92,43 @@ function checkSurveyID_unique(n) {
   }
 }
 
+//add user credentials to firebase database
+const saveMessages = (email, password, role) => {
+  var newContactForm = contactFormDB.push();
+
+  newContactForm.set({
+    email: email,
+    password: password,
+    role: role,
+  });
+
+  //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
+  if (role == "Researcher") {
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('password');
+    sessionStorage.removeItem('role');
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value
+    
+
+    sessionStorage.setItem('email', email);
+    sessionStorage.setItem('password', password);
+    sessionStorage.setItem('role', role);
+    window.location.replace("./currentResearcherBoard.html");
+  }
+  else {
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('password');
+    sessionStorage.removeItem('role');
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value
+
+    sessionStorage.setItem('email', email);
+    sessionStorage.setItem('password', password);
+    sessionStorage.setItem('role', role);
+    window.location.replace("./newUserBoard.html");
+  }
+
+};
 
 module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword, checkSurveyID_unique};
