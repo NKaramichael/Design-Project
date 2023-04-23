@@ -141,7 +141,7 @@ let {
   });
   
   test('returns false if user does not have researcher role', () => {
-    const userRole = 'researcher';
+    const userRole = 'user';
     expect(checkRole(userRole)).toBe(false);
   });
   
