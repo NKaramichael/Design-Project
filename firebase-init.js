@@ -35,6 +35,7 @@ function submitChangePassword(e) {
   var newPassword = getElementVal('password'); //Find the password of the current user through their session info
   var email = sessionStorage.getItem('email');
 
+<<<<<<< Updated upstream
   firebase.database().ref("contactForm").orderByChild("email").equalTo(email).once("value", function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
       const childKey = childSnapshot.key;
@@ -79,6 +80,22 @@ function submitLogin(e) {
         } else {
           // The password doesn't match, show an error message
           alert("Incorrect password!");
+=======
+        // update the password value of the node with the matching email address
+        var updates = {
+          password : newPassword
+        }
+         // Redirect to specific dashboard based on role
+        firebase.database().ref("contactForm/" + childKey).update(updates);
+        alert("Password Successfully Changed!");
+        if(sessionStorage.getItem('role') == "Researcher"){
+          sessionStorage.setItem('password', newPassword);
+          window.location.replace("./currentResearcherBoard.html");
+        }
+        else{
+          sessionStorage.setItem('password', newPassword);
+          window.location.replace("./currentUserBoard.html");
+>>>>>>> Stashed changes
         }
       });
     } else {
