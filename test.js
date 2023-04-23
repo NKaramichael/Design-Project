@@ -95,17 +95,17 @@ let {
   test('validate_returns_an_array_of_emails', () => {
     const emails = getEmails();
     expect(emails).toBeInstanceOf(Array);
-    expect(emails).toContain('example1@example.com');
-    expect(emails).toContain('example2@example.com');
-    expect(emails).toContain('example3@example.com');
+    expect(emails).toContain('e1@ex.com');
+    expect(emails).toContain('e2@ex.com');
+    expect(emails).toContain('e3@ex.com');
   });
 
   test('validate_returns_an_array_of_passwords', () => {
     const passwords = getPasswords();
     expect(passwords).toBeInstanceOf(Array);
-    expect(passwords).toContain('password1');
-    expect(passwords).toContain('password2');
-    expect(passwords).toContain('password3');
+    expect(passwords).toContain('p1');
+    expect(passwords).toContain('p2');
+    expect(passwords).toContain('p3');
   });
   
   test('validate_changes_the_page', () => {

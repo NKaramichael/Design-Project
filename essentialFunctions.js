@@ -52,15 +52,15 @@ function displayE() {
 // Returns list of emails
 function getEmails() {
   return [
-    'example1@example.com',
-    'example2@example.com',
-    'example3@example.com'
+    'ex1@ex.com',
+    'ex2@ex.com',
+    'ex3@ex.com'
   ];
 }
 
 // Fetches all passwords
 function getPasswords() {
-  return ['password1', 'password2', 'password3'];
+  return ['p1','p2','p3'];
 }
 
 // Changes pages
