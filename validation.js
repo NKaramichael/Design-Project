@@ -38,43 +38,6 @@ function changePassword() {
   document.getElementById('Form').addEventListener('submit', submitChangePassword);
 }
 
-// Submits changed password to the database and replaces the current password
-function submitChangePassword(e) {
-  e.preventDefault();
-  var newPassword = getElementVal('password'); //Find the password of the current user through their session info
-  var email = sessionStorage.getItem('email');
-
-  // Validate password is of the correct form
-  let outputPass = "Invalid password. Address the following:"
-  let passError = false
-  let passwordValidationArr = validate_password(newPassword);
- 
-  if (!passwordValidationArr[0]) {
-    passError = true
-    outputPass += "\n- Password is not 8 characters long"
-  }
-  if (!passwordValidationArr[1]) {
-    passError = true
-    outputPass += "\n- Password does not contain a lower case letter"
-  }
-  if (!passwordValidationArr[2]) {
-    passError = true
-    outputPass += "\n- Password does not contain a capital letter"
-  }
-  if (!passwordValidationArr[3]) {
-    passError = true
-    outputPass += "\n- Password does not contain a number"
-  }
-
-  if (passError) {
-    alert(outputPass); //Alert error if its not in the correct form
-  }
-  else{ //Update it in the database if it is of the correct form
-    return true;
-  }
-
-}
-
 function submitLogin(e) {
   e.preventDefault();
 
@@ -82,56 +45,6 @@ function submitLogin(e) {
   var email = getElementVal('email');
   var password = getElementVal('password');
 
-  // Query the database to see if the email is already in use
-  
-}
-
-//The main signup method
-function submitSignUp(e) {
-  e.preventDefault();
-
-  //get the values put into the form using getElementval and store in var's.
-  var email = getElementVal('email');
-  var password = getElementVal('password');
-  var role = '';
-  var checkbox = document.getElementById('role');
-
-  //sets role based on the state of the checkbox
-  if (checkbox.checked) {
-    role = "Researcher";
-  }
-  else {
-    role = "User";
-  }
-
-  //verify that email and password are in correct format
-  let outputPass = "Invalid password. Address the following:"
-  let passError = false
-  let outputEmail = ""
-  let emailError = false
-  let passwordValidationArr = validate_password(password);
-  if (!validate_email(email)) {
-    emailError = true
-    outputEmail += "Invalid email. Ensure your email is of a valid domain and that it has not been used to create an account before"
-  }
-  if (!passwordValidationArr[0]) {
-    passError = true
-    outputPass += "\n- Password is not 8 characters long"
-  }
-  if (!passwordValidationArr[1]) {
-    passError = true
-    outputPass += "\n- Password does not contain a lower case letter"
-  }
-  if (!passwordValidationArr[2]) {
-    passError = true
-    outputPass += "\n- Password does not contain a capital letter"
-  }
-  if (!passwordValidationArr[3]) {
-    passError = true
-    outputPass += "\n- Password does not contain a number"
-  }
-
-  //alert("signing up with these details: " + "\n" + email + "\n" + password + "\n" + role)
   // Query the database to see if the email is already in use
   
 }
