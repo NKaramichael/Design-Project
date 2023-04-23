@@ -204,6 +204,7 @@
 			text-shadow: 2px 2px #000;
 			-webkit-text-stroke: 0;
         }
+
         input{
             font-size: 10px;
 			font-family: 'Press Start 2P', cursive;
@@ -216,6 +217,7 @@
 			text-shadow: 2px 2px #000;
 			-webkit-text-stroke: 0;
         }
+
         img#preview{
             display: block;
             margin: 0 auto;
@@ -224,12 +226,43 @@
 			-webkit-text-stroke: 0;
         }
 
+        .back-button {
+			position:absolute;
+			top: 0;
+  			left: 0;
+			background-color: #FE4CF4;
+			color: #ffffff;
+			border: 2px solid #000;
+			border-radius: 40px;
+			padding: 1rem 1rem;
+			font-size: 2rem;
+			margin: 1rem;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			box-shadow: 2px 2px #000;
+			width: 100px;
+			max-width: 80%;
+			-webkit-text-stroke: 0;
+		}
+
+		.back-button:hover {
+			background: none;
+			color: #fff;
+			border: 2px solid #ffffff;
+			box-shadow: none;
+			-webkit-text-stroke: 0;
+		}
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
 <body>
 <header>
+    <input type="button" value="⬅" onclick="history.back()" class="back-button">
+
     <h1>Create a survey</h1>
 
     <!-- Adding in the gear cog with the settings, logout and profile options -->
@@ -238,7 +271,7 @@
 			<ul class="dropdown-menu">
 				<li><a class="aList" href="#" onclick=profile()>Profile</a></li>
 				<li><a class="aList" href="#" onclick=settings()>Settings</a></li>
-				<li><a class="aList" href="#" onclick=logout()>Log Out</a></li>				
+				<li><a class="aList" href="#" onclick=logout()>Log Out</a></li>
 			</ul>
 		</li>
     
