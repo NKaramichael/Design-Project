@@ -47,4 +47,38 @@ function displayE() {
   return sessionStorage.getItem("email")
 };
 
-module.exports = { validate_email, validate_password };
+function getEmails() {
+  return [
+    'example1@example.com',
+    'example2@example.com',
+    'example3@example.com'
+  ];
+}
+
+function getPasswords() {
+  return ['password1', 'password2', 'password3'];
+}
+
+function getSurveyID() {
+  const uuid = require('uuid'); // or however you generate UUIDs
+  return uuid.v4(); // generates a random UUID version 4
+}
+
+function changePage(currentPage, newPage) {
+  return newPage;
+}
+
+function checkRole(userRole) {
+  return userRole === 'researcher';
+}
+
+function changeRole(currentUserRole, newRole) {
+  return newRole;
+}
+
+function changePassword(currentPassword, newPassword) {
+  return newPassword;
+}
+
+
+module.exports = { validate_email, validate_password, getEmails, getPasswords, getSurveyID, changePage, checkRole, changeRole, changePassword};
