@@ -84,4 +84,3 @@ let {
     expect(result[2]).toBe(true);
     expect(result[3]).toBe(true);
   });
-
