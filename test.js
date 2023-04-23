@@ -8,7 +8,7 @@ let {
     changeRole, 
     changePassword,
     checkSurveyID_unique
-  } = require('./validation.js');
+  } = require('./essentialFunctions.js');
   
   test('validate_email_invalid_email', () => {
     expect(validate_email("name")).toBe(false);
