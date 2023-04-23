@@ -123,12 +123,6 @@ let {
     expect(passwords).toContain('password3');
   });
   
-  test('returns a survey ID', () => {
-    const surveyID = getSurveyID();
-    expect(typeof surveyID).toBe('string');
-    expect(surveyID.length).toBeGreaterThan(0);
-  });
-  
   test('changes the page', () => {
     const currentPage = 'home';
     const newPage = 'about';

@@ -59,11 +59,6 @@ function getPasswords() {
   return ['password1', 'password2', 'password3'];
 }
 
-function getSurveyID() {
-  const uuid = require('uuid'); // or however you generate UUIDs
-  return uuid.v4(); // generates a random UUID version 4
-}
-
 function changePage(currentPage, newPage) {
   return newPage;
 }
@@ -81,4 +76,4 @@ function changePassword(currentPassword, newPassword) {
 }
 
 
-module.exports = { validate_email, validate_password, getEmails, getPasswords, getSurveyID, changePage, checkRole, changeRole, changePassword};
+module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword};
