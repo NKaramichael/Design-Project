@@ -35,6 +35,32 @@ function submitChangePassword(e) {
   var newPassword = getElementVal('password'); //Find the password of the current user through their session info
   var email = sessionStorage.getItem('email');
 
+  // Validate password is of correct form
+  let outputPass = "Invalid password. Address the following:"
+  let passError = false
+  let passwordValidationArr = validate_password(newPassword);
+ 
+  if (!passwordValidationArr[0]) {
+    passError = true
+    outputPass += "\n- Password is not 8 characters long"
+  }
+  if (!passwordValidationArr[1]) {
+    passError = true
+    outputPass += "\n- Password does not contain a lower case letter"
+  }
+  if (!passwordValidationArr[2]) {
+    passError = true
+    outputPass += "\n- Password does not contain a capital letter"
+  }
+  if (!passwordValidationArr[3]) {
+    passError = true
+    outputPass += "\n- Password does not contain a number"
+  }
+
+  if (passError) {
+    alert(outputPass); //Alert error if its not in the correct form
+  }
+  else{ //Update it in the database if it is of the correct form
   firebase.database().ref("contactForm").orderByChild("email").equalTo(email).once("value", function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
       const childKey = childSnapshot.key;
@@ -57,6 +83,7 @@ function submitChangePassword(e) {
       }
     });
   });
+}
 
 }
 
@@ -193,21 +220,26 @@ const saveMessages = (email, password, role) => {
   if (role == "Researcher") {
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('password');
+    sessionStorage.removeItem('role');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value
+    
 
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
+    sessionStorage.setItem('role', role);
     window.location.replace("./currentResearcherBoard.html");
   }
   else {
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('password');
+    sessionStorage.removeItem('role');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value
 
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
+    sessionStorage.setItem('role', role);
     window.location.replace("./newUserBoard.html");
   }
 
