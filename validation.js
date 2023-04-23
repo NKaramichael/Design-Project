@@ -47,72 +47,6 @@ function submitLogin(e) {
 
   // Query the database to see if the email is already in use
   
-}
-
-const sendToDash = (email, role) => {
-  //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
-  if (role == "Researcher") {
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    sessionStorage.setItem('email', email);
-    sessionStorage.setItem('password', password);
-    sessionStorage.setItem('role', role);
-    window.location.replace("./currentResearcherBoard.html");
-  }
-  else {
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    sessionStorage.setItem('email', email);
-    sessionStorage.setItem('password', password);
-    sessionStorage.setItem('role', role);
-    window.location.replace("./newUserBoard.html");
-  }
-
-};
-
-//add user credentials to firebase database
-const saveMessages = (email, password, role) => {
-  var newContactForm = contactFormDB.push();
-
-  newContactForm.set({
-    email: email,
-    password: password,
-    role: role,
-  });
-
-  //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
-  if (role == "Researcher") {
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
-    sessionStorage.removeItem('role');
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value
-    
-
-    sessionStorage.setItem('email', email);
-    sessionStorage.setItem('password', password);
-    sessionStorage.setItem('role', role);
-    window.location.replace("./currentResearcherBoard.html");
-  }
-  else {
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
-    sessionStorage.removeItem('role');
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value
-
-    sessionStorage.setItem('email', email);
-    sessionStorage.setItem('password', password);
-    sessionStorage.setItem('role', role);
-    window.location.replace("./newUserBoard.html");
-  }
-
 };
 
 const getElementVal = (id) => {
@@ -126,26 +60,6 @@ function displayE() {
 
 function displayP() {
   return sessionStorage.getItem("password")
-}
-
-function account() {
-  var myDiv1 = document.getElementById("email");
-  var myDiv2 = document.getElementById("password");
-  if (myDiv1.textContent != "" && myDiv2.textContent != "") {
-    myDiv1.textContent = "";
-    myDiv2.textContent = "";
-    var Div3 = document.getElementById("AccountBtn");
-    Div3.textContent = "View Account Details"
-  } else {
-    var myDiv1 = document.getElementById("email");
-    mail = displayE();
-    myDiv1.textContent = mail;
-    var myDiv2 = document.getElementById("password");
-    pass = displayP();
-    myDiv2.textContent = pass;
-    var Div3 = document.getElementById("AccountBtn");
-    Div3.textContent = "Hide Account Details"
-  }
 }
 
   module.exports = { validate_email, validate_password };
