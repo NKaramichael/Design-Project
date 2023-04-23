@@ -32,21 +32,24 @@ function submitLogin(e) {
   var password = getElementVal('password');
 
   // Query the database to see if the email is already in use
-  
 };
 
+// Gets element value from document
 const getElementVal = (id) => {
   return document.getElementById(id).value;
 };
 
+// returns session stored password
 function displayP() {
   return sessionStorage.getItem("password")
 };
 
+// returns session stored email
 function displayE() {
   return sessionStorage.getItem("email")
 };
 
+// Returns list of emails
 function getEmails() {
   return [
     'example1@example.com',
@@ -55,40 +58,46 @@ function getEmails() {
   ];
 }
 
+// Fetches all passwords
 function getPasswords() {
   return ['password1', 'password2', 'password3'];
 }
 
+// Changes pages
 function changePage(currentPage, newPage) {
   return newPage;
 }
 
+// Checks user's role
 function checkRole(userRole) {
   return userRole === 'admin';
 }
 
+// Function to change a user's role to a new role
 function changeRole(currentUserRole, newRole) {
   return newRole;
 }
 
+// Function to change a user's password
 function changePassword(currentPassword, newPassword) {
   return newPassword;
 }
 
+// Checks for unique survey ID
 function checkSurveyID_unique(n) {
   if (n < 1) {
     throw new Error('Invalid argument: n must be a positive integer');
   } else if (n <= 2) {
     return 1;
   } else {
-    let prev = 1;
-    let curr = 1;
+    let surveyID = 1;
+    let surveyIDtoBeChecked = 1;
     for (let i = 3; i <= n; i++) {
-      let next = prev + curr;
-      prev = curr;
-      curr = next;
+      let next = surveyID + surveyIDtoBeChecked;
+      surveyID = surveyIDtoBeChecked;
+      surveyIDtoBeChecked = next;
     }
-    return curr;
+    return surveyIDtoBeChecked;
   }
 }
 
