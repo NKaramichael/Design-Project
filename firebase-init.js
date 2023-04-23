@@ -29,13 +29,13 @@ function login() {
 function changePassword() {
   document.getElementById('Form').addEventListener('submit', submitChangePassword);
 }
-// Submits changed password to the database and replaces the 
+// Submits changed password to the database and replaces the current password
 function submitChangePassword(e) {
   e.preventDefault();
   var newPassword = getElementVal('password'); //Find the password of the current user through their session info
   var email = sessionStorage.getItem('email');
 
-  // Validate password is of correct form
+  // Validate password is of the correct form
   let outputPass = "Invalid password. Address the following:"
   let passError = false
   let passwordValidationArr = validate_password(newPassword);

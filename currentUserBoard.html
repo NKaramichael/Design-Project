@@ -177,6 +177,7 @@
 		}
 	</style>
 	<script>
+		// Function for navigating through the dashboard correctly
 		function currentFunction() {
 			alert("You are viewing your current PCG surveys")
 		}
@@ -206,6 +207,7 @@
 	<header>
 		<h1>PCG Evaluation</h1>
 
+		<!-- Adding in the gear cog with the settings, logout and profile options -->
 		<li class="settings-button">
 			<a href="#"><i class="fa fa-cog"></i></a>
 			<ul class="dropdown-menu">
@@ -215,11 +217,13 @@
 			</ul>
 		</li>
 	</header>
+	<!-- This code allows navigation through the 3 html pages -->
 	<div class="BtnContainer">
 		<button class="button" onclick="completedFunction()">Completed</button>
 		<button class="buttonCurrentPage" onclick="currentFunction()">Current</button>
 		<button class="button" onclick="newFunction()">New</button>
 	</div>
+	<!-- Adding in the functionality for the placeholder scrollable box -->
 	<div class="blocky-background"></div>
 	<div id="scrollable-box">
 		<div class="text-boxes">
