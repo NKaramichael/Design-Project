@@ -167,6 +167,13 @@
 			font-size: 30px;
 		}
 
+        .aList{
+			color:#ffffff;
+			height: 20px;
+			width: 20px;
+			font-size: 30px;
+		}
+
         p{
 			color:#000
 		}
@@ -185,7 +192,6 @@
         }
         function newFunction() {
             alert("You are viewing all new surveys")
-
         }
         function logout() {
             window.location.href = "login.html"
@@ -207,9 +213,9 @@
         <li class="settings-button">
             <a href="#"><i class="fa fa-cog"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="#" onclick=settings()>Settings</a></li>
-                <li><a href="#" onclick=logout()>Log Out</a></li>
-                <li><a href="#" onclick=Profile()>Profile</a></li>
+                <li><a class="aList" href="#" onclick=profile()>Profile</a></li>
+                <li><a class="aList" href="#" onclick=settings()>Settings</a></li>
+                <li><a class="aList" href="#" onclick=logout()>Log Out</a></li>
             </ul>
         </li>
     </header>

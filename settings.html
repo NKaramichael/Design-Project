@@ -201,5 +201,15 @@
 	<!-- import firebase into settings.html and call on firebase-init.js to handle requests -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script> 
 	<script type="text/javascript" src="./firebase-init.js"></script>
+	<script>
+		function dash() {
+			const role = sessionStorage.getItem('role');
+			if (role == "Researcher"){
+				window.location.href="currentResearcherBoard.html";
+			} else {
+				window.location.href="currentUserBoard.html";
+			}
+		}
+	</script>
 </body>
 </html>

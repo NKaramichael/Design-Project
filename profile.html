@@ -197,13 +197,23 @@
             <label class="label2" id="password" name="password" ></label>
 
             <button type="button" id="AccountBtn" onclick="account()">View Account Details</button>
-            <input type="button" value="⬅" onclick="history.back()" class="back-button">
+            <input type="button" value="⬅" onclick="dash()" class="back-button">
         </form>
     </div>
 
     <!-- import firebase into login.html and call on firebase-init.js to handle requests -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
     <script type="text/javascript" src="./firebase-init.js"></script>
+    <script>
+		function dash() {
+			const role = sessionStorage.getItem('role');
+			if (role == "Researcher"){
+				window.location.href="currentResearcherBoard.html";
+			} else {
+				window.location.href="currentUserBoard.html";
+			}
+		}
+	</script>
 </body>
 
 </html>
