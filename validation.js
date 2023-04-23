@@ -41,6 +41,10 @@ const getElementVal = (id) => {
 
 function displayP() {
   return sessionStorage.getItem("password")
-}
+};
+
+function displayE() {
+  return sessionStorage.getItem("email")
+};
 
 module.exports = { validate_email, validate_password };
