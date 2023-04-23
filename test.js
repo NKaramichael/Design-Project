@@ -2,12 +2,12 @@ let {
     validate_email,
     validate_password,
     getEmails, 
-    getPasswords, 
-    getSurveyID, 
+    getPasswords,  
     changePage, 
     checkRole, 
     changeRole, 
-    changePassword
+    changePassword,
+    checkSurveyID_unique
   } = require('./validation.js');
   
   test('validate_email_invalid_email', () => {
@@ -92,6 +92,69 @@ let {
     expect(result[3]).toBe(false);
   });
 
+  test('validate_returns_an_array_of_emails', () => {
+    const emails = getEmails();
+    expect(emails).toBeInstanceOf(Array);
+    expect(emails).toContain('example1@example.com');
+    expect(emails).toContain('example2@example.com');
+    expect(emails).toContain('example3@example.com');
+  });
+
+  test('validate_returns_an_array_of_passwords', () => {
+    const passwords = getPasswords();
+    expect(passwords).toBeInstanceOf(Array);
+    expect(passwords).toContain('password1');
+    expect(passwords).toContain('password2');
+    expect(passwords).toContain('password3');
+  });
+  
+  test('validate_changes_the_page', () => {
+    const currentPage = 'home';
+    const newPage = 'about';
+    expect(changePage(currentPage, newPage)).toBe(newPage);
+  });
+  
+  test('validate_returns_true_if_user_has_admin_role', () => {
+    const userRole = 'admin';
+    expect(checkRole(userRole)).toBe(true);
+  });
+  
+  test('validate_returns_false_if_user_does_not_have_researcher_role', () => {
+    const userRole = 'user';
+    expect(checkRole(userRole)).toBe(false);
+  });
+  
+  test('validate_changes_the_user_role', () => {
+    const currentUserRole = 'user';
+    const newRole = 'admin';
+    expect(changeRole(currentUserRole, newRole)).toBe(newRole);
+  });
+  
+  test('validate_changes_the_user_password', () => {
+    const currentPassword = 'password1';
+    const newPassword = 'newpassword';
+    expect(changePassword(currentPassword, newPassword)).toBe(newPassword);
+  });
+  
+  test('validate_throws_an_error_if_n_is_less_than_1', () => {
+    expect(() => checkSurveyID_unique(0)).toThrow('Invalid argument: n must be a positive integer');
+    expect(() => checkSurveyID_unique(-1)).toThrow('Invalid argument: n must be a positive integer');
+  });
+
+  test('validate_returns_1_if_n_is_1_or_2', () => {
+    expect(checkSurveyID_unique(1)).toBe(1);
+    expect(checkSurveyID_unique(2)).toBe(1);
+  });
+
+  test('validate_returns_correct_large_n', () => {
+    expect(checkSurveyID_unique(3)).toBe(2);
+    expect(checkSurveyID_unique(4)).toBe(3);
+    expect(checkSurveyID_unique(5)).toBe(5);
+    expect(checkSurveyID_unique(6)).toBe(8);
+    expect(checkSurveyID_unique(7)).toBe(13);
+    expect(checkSurveyID_unique(8)).toBe(21);
+  });
+
   test('validate_password_hasNumber_valid', () => {
     let password = 'password1';
     let result = validate_password(password)
@@ -106,48 +169,3 @@ let {
     expect(result[2]).toBe(true);
     expect(result[3]).toBe(true);
   });
-
-  test('returns an array of emails', () => {
-    const emails = getEmails();
-    expect(emails).toBeInstanceOf(Array);
-    expect(emails).toContain('example1@example.com');
-    expect(emails).toContain('example2@example.com');
-    expect(emails).toContain('example3@example.com');
-  });
-
-  test('returns an array of passwords', () => {
-    const passwords = getPasswords();
-    expect(passwords).toBeInstanceOf(Array);
-    expect(passwords).toContain('password1');
-    expect(passwords).toContain('password2');
-    expect(passwords).toContain('password3');
-  });
-  
-  test('changes the page', () => {
-    const currentPage = 'home';
-    const newPage = 'about';
-    expect(changePage(currentPage, newPage)).toBe(newPage);
-  });
-  
-  test('returns true if user has admin role', () => {
-    const userRole = 'admin';
-    expect(checkRole(userRole)).toBe(true);
-  });
-  
-  test('returns false if user does not have researcher role', () => {
-    const userRole = 'user';
-    expect(checkRole(userRole)).toBe(false);
-  });
-  
-  test('changes the user role', () => {
-    const currentUserRole = 'user';
-    const newRole = 'admin';
-    expect(changeRole(currentUserRole, newRole)).toBe(newRole);
-  });
-  
-  test('changes the user password', () => {
-    const currentPassword = 'password1';
-    const newPassword = 'newpassword';
-    expect(changePassword(currentPassword, newPassword)).toBe(newPassword);
-  });
-  

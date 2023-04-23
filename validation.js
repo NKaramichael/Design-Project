@@ -75,5 +75,22 @@ function changePassword(currentPassword, newPassword) {
   return newPassword;
 }
 
+function checkSurveyID_unique(n) {
+  if (n < 1) {
+    throw new Error('Invalid argument: n must be a positive integer');
+  } else if (n <= 2) {
+    return 1;
+  } else {
+    let prev = 1;
+    let curr = 1;
+    for (let i = 3; i <= n; i++) {
+      let next = prev + curr;
+      prev = curr;
+      curr = next;
+    }
+    return curr;
+  }
+}
 
-module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword};
+
+module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword, checkSurveyID_unique};
