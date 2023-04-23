@@ -3,10 +3,23 @@ let {
     validate_password,
   } = require('./validation.js');
   
-  test('validate_email', () => {
+  test('validate_email_invalid_email', () => {
     expect(validate_email("name")).toBe(false);
     expect(validate_email("name.surname")).toBe(false);
     expect(validate_email("name@domain")).toBe(false);
+  });
+
+  test('validate_email_empty', () => {
+    expect(validate_email("")).toBe(false);
+  });
+
+  test('validate_email_types', () => {
+    const email = 'test@example.com';
+    const result = validate_email(email);
+    expect(typeof result).toBe('boolean');
+  });
+
+  test('validate_email_valid_email', () => {
     expect(validate_email("name@domain.com")).toBe(true);
   });
 
@@ -21,64 +34,57 @@ let {
     expect(result.length).toBe(4);  
   });
 
-  test('validate_password_length', () => {
+  test('validate_password_length_invalid', () => {
     let password = 'pass';
     let result = validate_password(password);
     expect(result[0]).toBe(false);
-    expect(result[1]).toBe(true);
-    expect(result[2]).toBe(false);
-    expect(result[3]).toBe(false);
-
-    password = 'password';
-    result = validate_password(password)
+  });
+  
+  test('validate_password_length_valid', () => {
+    let password = 'password';
+    let result = validate_password(password)
     expect(result[0]).toBe(true);
-    expect(result[1]).toBe(true);
-    expect(result[2]).toBe(false);
-    expect(result[3]).toBe(false);
   });
 
-  test('validate_password_capitalLetter', () => {
+  test('validate_password_hasLowercaseLetter_invalid', () => {
+    let password = 'PASSWORD';
+    let result = validate_password(password);
+    expect(result[1]).toBe(false);
+  });
+
+  test('validate_password_hasLowercaseLetter_valid', () => {
+    let password = 'password';
+    let result = validate_password(password)
+    expect(result[1]).toBe(true);
+  });
+
+  test('validate_password_hasCapitalLetter_invalid', () => {
     let password = 'password';
     let result = validate_password(password);
-    expect(result[0]).toBe(true);
-    expect(result[1]).toBe(true);
     expect(result[2]).toBe(false);
-    expect(result[3]).toBe(false);
+  });
 
+  test('validate_password_hasCapitalLetter_valid', () => {
     password = 'Password';
     result = validate_password(password)
-    expect(result[0]).toBe(true);
-    expect(result[1]).toBe(true);
     expect(result[2]).toBe(true);
+  });
+
+  test('validate_password_hasNumber_invalid', () => {
+    let password = 'password';
+    let result = validate_password(password);
     expect(result[3]).toBe(false);
   });
 
-  test('validate_password_number', () => {
-    let password = 'password';
-    let result = validate_password(password);
-    expect(result[0]).toBe(true);
-    expect(result[1]).toBe(true);
-    expect(result[2]).toBe(false);
-    expect(result[3]).toBe(false);
-
-    password = 'password1';
-    result = validate_password(password)
-    expect(result[0]).toBe(true);
-    expect(result[1]).toBe(true);
-    expect(result[2]).toBe(false);
+  test('validate_password_hasNumber_valid', () => {
+    let password = 'password1';
+    let result = validate_password(password)
     expect(result[3]).toBe(true);
   });
 
-  test('validate_password_number_capitalLetter', () => {
-    let password = 'Password';
+  test('validate_password_valid_input', () => {
+    let password = 'Password1';
     let result = validate_password(password);
-    expect(result[0]).toBe(true);
-    expect(result[1]).toBe(true);
-    expect(result[2]).toBe(true);
-    expect(result[3]).toBe(false);
-
-    password = 'Password1';
-    result = validate_password(password)
     expect(result[0]).toBe(true);
     expect(result[1]).toBe(true);
     expect(result[2]).toBe(true);
