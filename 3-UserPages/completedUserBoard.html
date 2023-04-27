@@ -32,7 +32,6 @@
 			font-size: 2em;
 			font-family: 'Press Start 2P', cursive;
 			margin: 0.6;
-			padding-left: 30%;
 			line-height: 0em;
 			letter-spacing: 0.1em;
 			font-size: 2rem;
@@ -40,6 +39,11 @@
 			text-align: center;
 			text-shadow: 3px 3px #000;
 			-webkit-text-stroke: 0;
+			text-align: center;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			top: 0;
 		}
 
 		/* This class is used to style the scrollable section that contains multiple text boxes */
@@ -179,6 +183,14 @@
 			line-height: 1.5;
 			font-size: 20px;
 		}
+
+		.row{
+			display: flex;
+		}
+
+		.column {
+        	flex: 85%;
+        }
 	</style>
 	<script>
 		// Function for navigating through the dashboard correctly
@@ -207,8 +219,8 @@
 
 <body>
 	<header>
-		<h1>PCG Evaluation</h1>
-
+		<h1 style="right: 0; position: relative;">PCG Evaluation</h1>
+		
 		<!-- Adding in the gear cog with the settings, logout and profile options -->
 		<li class="settings-button">
 			<a href="#"><i class="fa fa-cog"></i></a>
