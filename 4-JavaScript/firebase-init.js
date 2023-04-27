@@ -75,11 +75,11 @@ function submitChangePassword(e) {
       alert("Password Successfully Changed!");
       if (sessionStorage.getItem('role') == "Researcher") {
         sessionStorage.setItem('password', newPassword);
-        window.location.replace("./currentResearcherBoard.html");
+        window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
       }
       else {
         sessionStorage.setItem('password', newPassword);
-        window.location.replace("./currentUserBoard.html");
+        window.location.replace("../3-UserPages/currentUserBoard.html");
       }
     });
   });
@@ -190,7 +190,7 @@ const sendToDash = (email, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("./currentResearcherBoard.html");
+    window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
   }
   else {
     sessionStorage.removeItem('email');
@@ -201,7 +201,7 @@ const sendToDash = (email, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("./currentUserBoard.html");
+    window.location.replace("../3-UserPages/currentUserBoard.html");
   }
 
 };
@@ -228,7 +228,7 @@ const saveMessages = (email, password, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("./currentResearcherBoard.html");
+    window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
   }
   else {
     sessionStorage.removeItem('email');
@@ -240,7 +240,7 @@ const saveMessages = (email, password, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("./currentUserBoard.html");
+    window.location.replace("../3-UserPages/currentUserBoard.html");
   }
 
 };
