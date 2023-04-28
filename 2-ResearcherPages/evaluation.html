@@ -329,7 +329,7 @@
         <textarea rows="5" cols="50"></textarea>
     </div>
     <div class="BtnContainer">
-        <button class="button">Submit</button>
+        <button class="button" onclick="submit()">Submit</button>
     </div>
     <div class="blocky-background"></div>
 
@@ -338,6 +338,9 @@
             var preview = document.getElementById('preview');
             preview.style.display = "block";
             preview.src = URL.createObjectURL(event.target.files[0]);
+        }
+        function submit(){
+            window.location.href = "./currentResearcherBoard.html"
         }
     </script>
 
