@@ -154,6 +154,8 @@
 			top: 10%;
 			right: 10%;
 			z-index: 1;
+            background-color: #440068;
+			box-shadow: 3px 3px #000;
         }
 
         .settings-button:hover .dropdown-menu {
@@ -259,11 +261,27 @@
 			-webkit-text-stroke: 0;
 		}
 
+        .question {
+        margin-bottom: 20px;
+        }
+
+        .question h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        }
+
+        .question:not(#scaleQuestion),
+        .question:not(#radioQuestion),
+        .question:not(#checkboxQuestion) {
+        display: none;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
-<body>
+
 <header>
     <input type="button" value="⬅" onclick="history.back()" class="back-button">
 
@@ -282,6 +300,17 @@
     </div>
 </header>
 
+<body>
+    <div style="text-align: end; align-items: end; padding-right: 5%; margin-bottom: 10px;">
+        <h3>Question Type:</h3>
+        <select id="questionType">
+            <option value="none">- Select a type of question to add -</option>
+          <option value="scale">Scale from 1 to 10</option>
+          <option value="radio">Radio buttons</option>
+          <option value="checkbox">Checkbox buttons</option>
+        </select>
+      </div>
+      
     <div style="text-align: center; align-items: center; margin-bottom: 10px;">
         
             <form action="" method="POST" enctype="multipart/form-data">
@@ -298,38 +327,53 @@
         <textarea rows="3" cols="50"></textarea>
 
         <!-- Section to add placeholder questions within a scroll-box -->
+        <div  class="question" id="scaleQuestion">
+            <h3>Scale Question:</h3>
+            <p>Rate your Rizz ;-; (1 - low, 10 - high):</p>
+            <input type="range" min="1" max="10" step="1" id="scaleSlider">
+            <output for="scaleSlider" id="scaleOutput"></output>
+        </div>
+
+        <div class="question" id="radioQuestion">
+            <h3>Multiple Choice:</h3>
+            <p>Are you gay?</p>
+            
+            <ul class="options">
+              <li>
+                <input type="radio" name="q1" id="q1a" value="a">
+                <label for="q1a">Yes</label>
+              </li>
+              <li>
+                <input type="radio" name="q1" id="q1b" value="b">
+                <label for="q1b">No</label>
+              </li>
+              <li>
+                <input type="radio" name="q1" id="q1c" value="c">
+                <label for="q1c">Definitely not (definitely lying)</label>
+              </li>
+            </ul>
+          </div>
+
+          <div class="question" id="checkboxQuestion">
+            <h3>Checkbox Question:</h3>
+            <p>Who was in paris?</p>
+            <ul class="options">
+              <li>
+                <input type="checkbox" id="checkboxOption1" value="option1">
+                <label for="checkboxOption1">Ye</label>
+              </li>
+              <li>
+                <input type="checkbox" id="checkboxOption2" value="option2">
+                <label for="checkboxOption2">Jay</label>
+              </li>
+              <li>
+                <input type="checkbox" id="checkboxOption3" value="option3">
+                <label for="checkboxOption3">Nope, can't say that word. No sir, not black, uh uh.</label>
+              </li>
+            </ul>
+        </div>
     </div>
-    <div class="scroll-box">
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>Enter your question:</header p>
-        <textarea rows="5" cols="50"></textarea>
-    </div>
+      
     <div class="BtnContainer">
         <button class="button" onclick="submit()">Submit</button>
     </div>
@@ -345,6 +389,20 @@
         function submit(){
             window.location.href = "./currentResearcherBoard.html"
         }
+
+        const questionTypeSelect = document.getElementById('questionType');
+        const scaleQuestion = document.getElementById('scaleQuestion');
+        const radioQuestion = document.getElementById('radioQuestion');
+        const checkboxQuestion = document.getElementById('checkboxQuestion');
+
+        questionTypeSelect.addEventListener('change', function() {
+        const selectedType = questionTypeSelect.value;
+        
+        scaleQuestion.style.display = (selectedType === 'scale') ? 'block' : 'none';
+        radioQuestion.style.display = (selectedType === 'radio') ? 'block' : 'none';
+        checkboxQuestion.style.display = (selectedType === 'checkbox') ? 'block' : 'none';
+        });
+
     </script>
 
 <script>
