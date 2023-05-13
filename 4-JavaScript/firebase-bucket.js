@@ -24,8 +24,8 @@ var UserFirestore = db.collection('Users');
 
 // Fetchg and diosplay the user's currently active quizzes
 function displayCurrentQuizzes() {
-  // var email = sessionStorage.getItem('email');
-  var email = 'meow10@catmail.com';
+  var email = sessionStorage.getItem('email');
+  // var email = 'meow10@catmail.com';
   userRef = UserFirestore.doc(email);
   // query database for array of currently active quizzes
   userRef.get().then((doc) => {
