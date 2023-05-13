@@ -287,8 +287,16 @@
         .question:not(#radioYNQuestion),
         .question:not(#checkABCQuestion),
         .question:not(#checkABQuestion) {
-        display: none;
+            display: none;
         }
+        
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px;
+        }
+</style>
+
 
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -316,14 +324,46 @@
 <body class="blocky-background">
       
     <div style="text-align: center; align-items: center; margin-bottom: 10px;">
-        
-            <form action="" method="POST" enctype="multipart/form-data">
-                <label for="image">Select image:</label>
-                <input multiple style="color: #ffffff; margin-bottom: 10px;" type="file" id="image" name="image" onchange="previewImage(event);">
-                <img id="preview" src="#" alt="Preview" style="max-width: 300px; max-height: 300px; display: none;">
+
+        <form>
+                <input style="color: #ffffff;" type="file" id="fileInput" multiple>
+                <input style="margin-bottom: 10px;" type="button" value="Upload" onclick="handleUpload()"><br>
+
+                <select style="display: none;" id="modelType0">
+                    <option value="none">-- Select a model type --</option>
+                    <option value="nWFC">Normal WFC</option>
+                    <option value="hWFC">Hierarchical WFC</option>
+                  </select>
+                <select style="display: none;" id="modelType1">
+                    <option value="none">-- Select a model type --</option>
+                    <option value="nWFC">Normal WFC</option>
+                    <option value="hWFC">Hierarchical WFC</option>
+                </select>
+                <select style="display: none;" id="modelType2">
+                    <option value="none">-- Select a model type --</option>
+                    <option value="nWFC">Normal WFC</option>
+                    <option value="hWFC">Hierarchical WFC</option>
+                </select>
+
+                <select style="display: none;" id="domain0">
+                    <option value="none">-- Select a domain/system for the level --</option>
+                    <option value="nWFC">Normal WFC</option>
+                    <option value="hWFC">Hierarchical WFC</option>
+                  </select>
+                <select style="display: none;" id="domain1">
+                    <option value="none">-- Select a model type --</option>
+                    <option value="nWFC">Normal WFC</option>
+                    <option value="hWFC">Hierarchical WFC</option>
+                </select>
+                <select style="display: none;" id="domain2">
+                    <option value="none">-- Select a model type --</option>
+                    <option value="nWFC">Normal WFC</option>
+                    <option value="hWFC">Hierarchical WFC</option>
+                </select>
             </form>
-            <!-- <img class="header-image" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fHJldHJvJTIwZ2FtaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-        alt="Header Image" id="header-image"> -->
+          
+        <div id="imagePreviewArea"></div>
+
         <header p>Heading</header p>
         <textarea rows="1" cols="50"></textarea>
 
@@ -483,6 +523,7 @@
             function createScaleQuestion(){
                 const type = "scale";
                 const inputText = scale.value;
+                scale.value = "";
                 if (inputText != ""){
                     createQuestion(type, inputText);
                 } else {
@@ -492,6 +533,7 @@
             function createRadioABCQuestion(){
                 const type = "radioABC";
                 const inputText = radioABC.value;
+                radioABC.value = "";
                 if (inputText != ""){
                     createQuestion(type, inputText);
                 } else {
@@ -501,6 +543,7 @@
             function createRadioABQuestion(){
                 const type = "radioAB";
                 const inputText = radioAB.value;
+                radioAB.value = "";
                 if (inputText != ""){
                     createQuestion(type, inputText);
                 } else {
@@ -510,6 +553,7 @@
             function createRadioYNQuestion(){
                 const type = "radioYN";
                 const inputText = radioYN.value;
+                radioYN.value = "";
                 if (inputText != ""){
                     createQuestion(type, inputText);
                 } else {
@@ -519,6 +563,7 @@
             function createCheckABCQuestion(){
                 const type = "checkABC";
                 const inputText = checkABC.value;
+                checkABC.value = "";
                 if (inputText != ""){
                     createQuestion(type, inputText);
                 } else {
@@ -528,6 +573,7 @@
             function createCheckABQuestion(){
                 const type = "checkAB";
                 const inputText = checkAB.value;
+                checkAB.value = "";
                 if (inputText != ""){
                     createQuestion(type, inputText);
                 } else {
@@ -604,11 +650,40 @@
 
     <!-- Code to display the image selected from the users files -->
     <script>
-        function previewImage(event) {
-            var preview = document.getElementById('preview');
-            preview.style.display = "block";
-            preview.src = URL.createObjectURL(event.target.files[0]);
+
+        function handleUpload() {
+            const files = document.getElementById('fileInput').files;
+            const imagePreviewArea = document.getElementById('imagePreviewArea');
+
+            // Clear previous display
+            imagePreviewArea.innerHTML = '';
+
+            // Iterate through each file
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileReader = new FileReader();
+
+                // Read file as data URL
+                fileReader.onload = function(e) {
+                const imageUrl = e.target.result;
+
+                // Display image preview
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.classList.add('preview-image');
+                imagePreviewArea.appendChild(img);
+                };
+
+                // Read file as data URL
+                fileReader.readAsDataURL(file);
+
+                var selectName = 'modelType';
+                selectName += i;
+                const select = document.getElementById(selectName);
+                select.style.display = "";
+            }
         }
+
         function submit(){
             window.location.href = "./currentResearcherBoard.html"
         }
@@ -633,6 +708,7 @@
 
         const container = document.getElementById("container");
         container.innerHTML = '';
+        container.style.border = "";
         });
 
     </script>
