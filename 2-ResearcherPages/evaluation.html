@@ -468,7 +468,7 @@
         </div>
 
         <!-- Container -->
-        <div id="container" style="margin: 0 auto; margin-bottom: 20px; width: 50%; background-color: #440068;"></div>
+        <div id="container" style="margin: 0 auto; margin-bottom: 20px; width: fit-content; min-height: fit-content;"></div>
 
         <button style="top: 0; right: 0;" class="button" onclick="submit()">Submit</button>
         
@@ -539,7 +539,7 @@
     </div>
     
     <!-- Navigation Panel -->
-    <ul id="nav-panel" style="position: absolute; top: 5%; right: 5%;"></ul> 
+    <ul id="nav-panel" style="width: fit-content; align-items: center; background-color: #440068; position: absolute; top: 5%; right: 5%;"></ul> 
 
     <!-- Script for Navigation Panel -->
     <script>
@@ -594,6 +594,9 @@
                 const question = questions.find(q => q.id === parseInt(questionId));
                 container.innerHTML = "";
                 container.innerHTML = question.content;
+                container.style.border = "10px solid #000000";
+                container.style.borderRadius = " 50px";
+                container.style.backgroundColor = "#000000";
                 }
             });
         }
