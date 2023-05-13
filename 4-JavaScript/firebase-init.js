@@ -20,7 +20,7 @@ var contactFormDB = firebase.database().ref('contactForm')
 //create reference for firestore collections
 var UserFirestore = db.collection('Users');
 var ResearcherFirestore = db.collection('Researchers');
-UserFirestore.doc("__initializer__").set({});
+UserFirestore.doc("initializer").set({});
 //listen to if the signup button is pressed or login button, redirect to respective methods
 function signUp() {
   document.getElementById('signupForm').addEventListener('submit', submitSignUp);
@@ -226,7 +226,8 @@ const saveMessages = (email, password, role) => {
       completedQuizzes: [],currentQuizzes: [] });
   }
   else if (role == 'Researcher') {
-    ResearcherFirestore.doc(email).set({});
+    ResearcherFirestore.doc(email).set({
+      mySurveys: [] });
   };
 
   //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
