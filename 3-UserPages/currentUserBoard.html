@@ -234,38 +234,15 @@
 	</div>
 	<!-- Adding in the functionality for the placeholder scrollable box -->
 	<div class="blocky-background"></div>
-	<div id="scrollable-box">
-		<div class="text-boxes">
-			<div class="text-box">
-				<img id="image1" src=""
-					alt="Image 1">
-				<button onclick="openSurvey()" style="color: white;background-color: rgb(65, 239, 65);" class="button">Open</button>
-				<button style="color: white;background-color: rgb(241, 16, 16);" class="button">Remove</button>
-				<h2>Game Over</h2>
-				<p>This is a survey on end-game</p>
-			</div>
-			<div class="text-box">
-				<img src="https://images.unsplash.com/photo-1585881728919-5c0ce925ad10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-					alt="Image 2">
-					<button onclick="openSurvey()" style="color: white;background-color: rgb(65, 239, 65);" class="button">Open</button>
-					<button style="color: white;background-color: rgb(241, 16, 16);" class="button">Remove</button>
-					<h2>Controller</h2>
-					<p>This is a survey on input devices</p>
-			</div>
-			<div class="text-box">
-				<img src="https://images.unsplash.com/photo-1623910270913-3e0294a1c765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cmV0cm8lMjBnYW1pbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60"
-					alt="Image 3">
-					<button onclick="openSurvey()" style="color: white;background-color: rgb(65, 239, 65);" class="button">Open</button>
-					<button style="color: white;background-color: rgb(241, 16, 16);" class="button">Remove</button>
-					<h2>Sega</h2>
-					<p>This is a survey on sonic</p>
-			</div>
+	<div class=scrollable-box id="scrollable-box">
+		<div class="text-boxes" id="text-boxes">
 		</div>
 	</div>
 
 	<!-- import firebase into currentUserBoard.html and call on firebase-bucket.js to handle image requests -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 	<script type="text/javascript" src="../4-JavaScript/firebase-bucket.js"></script>
+	<script> displayCurrentQuizzes() </script>	
 </body>
 
 </html>
