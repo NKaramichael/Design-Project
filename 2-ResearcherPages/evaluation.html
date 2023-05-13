@@ -329,6 +329,13 @@
                 <input style="color: #ffffff;" type="file" id="fileInput" multiple>
                 <input style="margin-bottom: 10px;" type="button" value="Upload" onclick="handleUpload()"><br>
 
+                <!-- Image Letter Display -->
+                <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label0">Image A</h3>
+                <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label1">Image B</h3>
+                <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label2">Image C</h3>
+                <br>
+
+                <!-- Dropdown for model Type -->
                 <select style="display: none;" id="modelType0">
                     <option value="none">-- Select a model type --</option>
                     <option value="nWFC">Normal WFC</option>
@@ -343,23 +350,31 @@
                     <option value="none">-- Select a model type --</option>
                     <option value="nWFC">Normal WFC</option>
                     <option value="hWFC">Hierarchical WFC</option>
-                </select>
+                </select> <br>
 
+                <!-- Dropdown for domain type -->
                 <select style="display: none;" id="domain0">
                     <option value="none">-- Select a domain/system for the level --</option>
-                    <option value="nWFC">Normal WFC</option>
-                    <option value="hWFC">Hierarchical WFC</option>
+                    <option value="Maze">Maze</option>
+                    <option value="Minecraft">Minecraft</option>
+                    <option value="RL2d">RogueLike 2D</option>
+                    <option value="RL3D">RogueLike 3D</option>
                   </select>
                 <select style="display: none;" id="domain1">
                     <option value="none">-- Select a model type --</option>
-                    <option value="nWFC">Normal WFC</option>
-                    <option value="hWFC">Hierarchical WFC</option>
+                    <option value="Maze">Maze</option>
+                    <option value="Minecraft">Minecraft</option>
+                    <option value="RL2d">RogueLike 2D</option>
+                    <option value="RL3D">RogueLike 3D</option>
                 </select>
                 <select style="display: none;" id="domain2">
                     <option value="none">-- Select a model type --</option>
-                    <option value="nWFC">Normal WFC</option>
-                    <option value="hWFC">Hierarchical WFC</option>
+                    <option value="Maze">Maze</option>
+                    <option value="Minecraft">Minecraft</option>
+                    <option value="RL2d">RogueLike 2D</option>
+                    <option value="RL3D">RogueLike 3D</option>
                 </select>
+                
             </form>
           
         <div id="imagePreviewArea"></div>
@@ -385,8 +400,9 @@
 
         <!-- Section to add placeholder questions within a scroll-box -->
         <div class="question" id="scaleQuestion">
-            <h3>Scale Question Preview:</h3>
+            <h3>Write Your Question Here:</h3>
             <input type="text" name="scaleInput" id="scaleInput"><br>
+            <h3>Scale Question Preview:</h3>
             <input type="range" min="1" max="10" step="1" id="scaleSlider">
             <output for="scaleSlider" id="scaleOutput"></output>
 
@@ -397,9 +413,9 @@
         </div>
 
         <div class="question" id="radioABCQuestion">
-            <h3>Multiple Choice Preview:</h3>
+            <h3>Write Your Question Here:</h3>
             <input type="text" name="radioABCInput" id="radioABCInput"><br>
-            
+            <h3>Multiple Choice Preview:</h3>
             <ul class="options">
               <li>
                 <input class="option-input" type="radio" name="q1" id="q1a" value="a">
@@ -422,9 +438,9 @@
           </div>
 
           <div class="question" id="radioABQuestion">
-            <h3>Multiple Choice Preview:</h3>
+            <h3>Write Your Question Here:</h3>
             <input type="text" name="radioABInput" id="radioABInput"><br>
-            
+            <h3>Multiple Choice Preview:</h3>
             <ul class="options">
               <li>
                 <input class="option-input" type="radio" name="q1" id="q1a" value="a">
@@ -443,9 +459,9 @@
           </div>
 
           <div class="question" id="radioYNQuestion">
-            <h3>Multiple Choice Preview:</h3>
+            <h3>Write Your Question Here:</h3>
             <input type="text" name="radioYNInput" id="radioYNInput"><br>
-            
+            <h3>Multiple Choice Preview:</h3>
             <ul class="options">
               <li>
                 <input class="option-input" type="radio" name="q1" id="q1a" value="a">
@@ -464,8 +480,9 @@
           </div>
 
           <div class="question" id="checkABCQuestion">
-            <h3>Checkbox Question Preview:</h3>
+            <h3>Write Your Question Here:</h3>
             <input type="text" name="checkABCInput" id="checkABCInput"><br>
+            <h3>Checkbox Question Preview:</h3>
             <ul class="options">
               <li>
                 <input class="option-input" type="checkbox" id="checkboxOption1" value="option1">
@@ -488,8 +505,9 @@
             </div>
 
             <div class="question" id="checkABQuestion">
-                <h3>Checkbox Question Preview:</h3>
+                <h3>Write Your Question Here:</h3>
                 <input type="text" name="checkABInput" id="checkABInput"><br>
+                <h3>Checkbox Question Preview:</h3>
                 <ul class="options">
                   <li>
                     <input class="option-input" type="checkbox" id="checkboxOption1" value="option1">
@@ -617,6 +635,8 @@
             // Get references to the navigation panel and container elements
             const navPanel = document.getElementById('nav-panel');
             const container = document.getElementById('container');
+
+            // Clear the navPanel
             while (navPanel.firstChild) {
                 navPanel.removeChild(navPanel.firstChild);
             }
@@ -655,11 +675,19 @@
             const files = document.getElementById('fileInput').files;
             const imagePreviewArea = document.getElementById('imagePreviewArea');
 
-            // Clear previous display
+            //Break statement to make sure no more than 3 files are selected
+            if(files.length > 3){
+                    alert("Please Select 3 Files or Less");
+                    return 0;
+                }
+
+             // Clear previous display
             imagePreviewArea.innerHTML = '';
 
             // Iterate through each file
             for (let i = 0; i < files.length; i++) {
+
+                
                 const file = files[i];
                 const fileReader = new FileReader();
 
@@ -677,14 +705,37 @@
                 // Read file as data URL
                 fileReader.readAsDataURL(file);
 
+                // Make the correct Image Label Appear
+                var selectLabel = 'label';
+                selectLabel += i;
+                const selectL = document.getElementById(selectLabel);
+                selectL.style.display = "inline-block";
+
+                // Display the model type dropdown
                 var selectName = 'modelType';
                 selectName += i;
                 const select = document.getElementById(selectName);
                 select.style.display = "";
+
+                // Display the model domain dropdown
+                var selectDomain = 'domain';
+                selectDomain += i;
+                const selectD = document.getElementById(selectDomain);
+                selectD.style.display = "";
+
+                
             }
         }
 
+        // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
         function submit(){
+
+            // Submit Images(Levels) & metadata to levels table in database
+
+            // Submit Questions & details to questions table in database
+
+            // Submit Quiz as a whole with reference to images and questions to Quiz table in database
+
             window.location.href = "./currentResearcherBoard.html"
         }
 
