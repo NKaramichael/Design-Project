@@ -237,7 +237,7 @@
 	<div id="scrollable-box">
 		<div class="text-boxes">
 			<div class="text-box">
-				<img src="https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmV0cm8lMjBnYW1pbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60"
+				<img id="image1" src=""
 					alt="Image 1">
 				<button onclick="openSurvey()" style="color: white;background-color: rgb(65, 239, 65);" class="button">Open</button>
 				<button style="color: white;background-color: rgb(241, 16, 16);" class="button">Remove</button>
@@ -263,6 +263,9 @@
 		</div>
 	</div>
 
+	<!-- import firebase into currentUserBoard.html and call on firebase-bucket.js to handle image requests -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+	<script type="text/javascript" src="../4-JavaScript/firebase-bucket.js"></script>
 </body>
 
 </html>
