@@ -193,7 +193,7 @@ function uploadImage(file, domain, model) {
 }
 function select(){
 let selectedImage;
-
+alert('Hellio')
 function selectImage(imageUrl) {
   selectedImage = imageUrl;
 }

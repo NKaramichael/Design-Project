@@ -298,7 +298,7 @@
 </style>
 
 
-    </style>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
@@ -324,7 +324,9 @@
 <body class="blocky-background">
       
     <div style="text-align: center; align-items: center; margin-bottom: 10px;">
-
+        <form id="selectImage">
+            <button style="margin-bottom: 10px;" class="button" onclick="select()">Choose global</button>
+        </form>
         <form>
                 <input style="color: #ffffff;" type="file" id="fileInput" multiple>
                 <input style="margin-bottom: 10px;" type="button" value="Upload" onclick="handleUpload()"><br>
