@@ -18,19 +18,28 @@ var storage = firebase.storage();
 // Create a storage reference from our storage service
 var storageRef = storage.ref();
 
-//firestore reference
+//firestore references
 const db = firebase.firestore();
 var UserFirestore = db.collection('Users');
+var ResearcherFirestore = db.collection('Researchers');
 
-// Fetchg and diosplay the user's currently active quizzes
 function displayCurrentQuizzes() {
+  displayQuizzes("current");
+};
+
+function displayCompletedQuizzes() {
+  displayQuizzes("completed");
+};
+
+// Fetchg and diosplay the user's quizzes
+function displayQuizzes(status) {
   var email = sessionStorage.getItem('email');
   // var email = 'meow10@catmail.com';
-  userRef = UserFirestore.doc(email);
+  Ref = UserFirestore.doc(email);
   // query database for array of currently active quizzes
-  userRef.get().then((doc) => {
+  Ref.get().then((doc) => {
       if (doc.exists) {
-        quizRefs = (doc.data()['currentQuizzes']);
+        quizRefs = (doc.data()[status+'Quizzes']);
         // loop through array and get info for each quiz to display
         quizRefs.forEach((ref) => {
           ref.get().then((doc) => {
