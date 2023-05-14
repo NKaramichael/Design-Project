@@ -21,7 +21,6 @@ var contactFormDB = firebase.database().ref('contactForm')
 var UserFirestore = db.collection('Users');
 var ResearcherFirestore = db.collection('Researchers');
 UserFirestore.doc("initializer").set({});
-
 //listen to if the signup button is pressed or login button, redirect to respective methods
 function signUp() {
   document.getElementById('signupForm').addEventListener('submit', submitSignUp);
@@ -221,6 +220,15 @@ const saveMessages = (email, password, role) => {
     password: password,
     role: role,
   });
+  
+  if (role == 'User') {
+    UserFirestore.doc(email).set({
+      completedQuizzes: [],currentQuizzes: [] });
+  }
+  else if (role == 'Researcher') {
+    ResearcherFirestore.doc(email).set({
+      mySurveys: [] });
+  };
 
   // create user/researcher document copy in firestore
   if (role == 'User') {
