@@ -1,10 +1,3 @@
-
-// function submit(){
-//     submitQuiz
-
-//     window.location.href = "./currentResearcherBoard.html"
-// }
-
 const firebaseConfig = {
     apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
     authDomain: "pcgevaluation-49d75.firebaseapp.com",
