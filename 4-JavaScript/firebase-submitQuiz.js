@@ -122,6 +122,8 @@ function submit(e){
         return;
     }
 
+    var refArr = [];
+
     // Iterate through the items
     for (var i = 0; i < questions.length; i++) {
         var question = questions[i];
@@ -135,29 +137,51 @@ function submit(e){
             Type: type,
           };
         
-        // collectionRef.add(data)
-        // .then(function(docRef) {
-        // console.log("Document written with ID: ", docRef.id);
-        // })
-        // .catch(function(error) {
-        // console.error("Error adding document: ", error);
-        // });
+        collectionRef.add(data)
+        .then(function(docRef) {
+          refArr.push(docRef.id + "");
+        console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+        console.error("Error adding document: ", error);
+        });
     }
 
     // Submit Quiz as a whole with reference to images and questions to Quiz table in database
+    collectionRef = db.collection("Quizzes");
+
+    var data = {
+      Title: heading,
+      Description: desc,
+      Status: true,
+      Quizzes: refArr
+    };
+
+    collectionRef.add(data)
+      .then(function(docRef) {
+        var quiz = data;
+
+        collectionRef.doc(docRef.id).set(quiz)
+        .then(function() {
+          console.log("Successfully added quiz");
+        })
+        .catch(function(error) {
+        console.error("Error adding Quiz: ", error);
+        });
+      })
+      .catch(function(error) {
+      console.error("Error adding Quiz: ", error);
+      });
 
     // Upload images to firebase storage and firestore
     for (let i = 0; i < files.length; i++){
-        const file = files[i];
+      const file = files[i];
 
-        const imgDetails = imageArr[i];
-        const dom = imgDetails.get('domain');
-        const mod = imgDetails.get('model');
-
-        console.log(dom);
-        console.log(mod);
-        
-        uploadImage(file, dom, mod);
+      const imgDetails = imageArr[i];
+      const dom = imgDetails.get('domain');
+      const mod = imgDetails.get('model');
+      
+      uploadImage(file, dom, mod);
     }
 }
 
@@ -191,6 +215,7 @@ function uploadImage(file, domain, model) {
         });
     });
 }
+
 function select(){
 let selectedImage;
 alert('Hellio')
