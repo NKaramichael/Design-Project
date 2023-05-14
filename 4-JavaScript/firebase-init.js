@@ -230,6 +230,16 @@ const saveMessages = (email, password, role) => {
       mySurveys: [] });
   };
 
+  // create user/researcher document copy in firestore
+  if (role == 'User') {
+    UserFirestore.doc(email).set({
+      completedQuizzes: [],currentQuizzes: [] });
+  }
+  else if (role == 'Researcher') {
+    ResearcherFirestore.doc(email).set({
+      mySurveys: [] });
+  };
+
   //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
   if (role == "Researcher") {
     sessionStorage.removeItem('email');
