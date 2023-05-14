@@ -145,4 +145,49 @@ function submit(e){
     }
 
     // Submit Quiz as a whole with reference to images and questions to Quiz table in database
+
+    // Upload images to firebase storage and firestore
+    for (let i = 0; i < files.length; i++){
+        const file = files[i];
+
+        const imgDetails = imageArr[i];
+        const dom = imgDetails.get('domain');
+        const mod = imgDetails.get('model');
+
+        console.log(dom);
+        console.log(mod);
+        
+        uploadImage(file, dom, mod);
+    }
+}
+
+// Get a reference to the Firebase Storage service
+var storage = firebase.storage();
+
+// Get a reference to the Firebase Firestore database
+var firestore = firebase.firestore();
+
+function uploadImage(file, domain, model) {
+
+    // Create a storage reference for the image file
+    var storageRef = storage.ref().child('Level/images/' + file.name);
+
+    // Upload the image file to Firebase Storage
+    storageRef.put(file).then(function (snapshot) {
+        console.log('Image uploaded successfully!');
+
+        // Get the download URL of the uploaded image
+        storageRef.getDownloadURL().then(function (url) {
+            console.log('Image URL:', url);
+
+            // Save the image URL in Cloud Firestore
+            firestore.collection('Levels').add({
+                imageUrl: url,
+                domain: domain,
+                model: model
+            }).then(function (docRef) {
+                console.log('Image URL saved in Firestore!');
+            });
+        });
+    });
 }
