@@ -47,7 +47,7 @@ function submit(e){
     const files = document.getElementById('fileInput').files;
 
     if (files.length == 0){
-        alert("Pee pee poo poo upload image");
+        alert("Please upload at least 1 image");
         return;
     }
 
