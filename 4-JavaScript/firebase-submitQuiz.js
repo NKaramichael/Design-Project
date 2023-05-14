@@ -191,7 +191,7 @@ function uploadImage(file, domain, model) {
         });
     });
 }
-
+function select(){
 let selectedImage;
 
 function selectImage(imageUrl) {
@@ -244,4 +244,5 @@ form.addEventListener('submit', function(event) {
 function selectImage(imageUrl) {
   selectedImage = imageUrl;
   selectedImageInput.value = imageUrl;
+}
 }
