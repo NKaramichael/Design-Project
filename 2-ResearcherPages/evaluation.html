@@ -336,17 +336,17 @@
                 <br>
 
                 <!-- Dropdown for model Type -->
-                <select style="display: none;" id="modelType0">
+                <select style="display: none;" id="model0">
                     <option value="none">-- Select a model type --</option>
                     <option value="nWFC">Normal WFC</option>
                     <option value="hWFC">Hierarchical WFC</option>
                   </select>
-                <select style="display: none;" id="modelType1">
+                <select style="display: none;" id="model1">
                     <option value="none">-- Select a model type --</option>
                     <option value="nWFC">Normal WFC</option>
                     <option value="hWFC">Hierarchical WFC</option>
                 </select>
-                <select style="display: none;" id="modelType2">
+                <select style="display: none;" id="model2">
                     <option value="none">-- Select a model type --</option>
                     <option value="nWFC">Normal WFC</option>
                     <option value="hWFC">Hierarchical WFC</option>
@@ -361,14 +361,14 @@
                     <option value="RL3D">RogueLike 3D</option>
                   </select>
                 <select style="display: none;" id="domain1">
-                    <option value="none">-- Select a model type --</option>
+                    <option value="none">-- Select a domain/system for the level --</option>
                     <option value="Maze">Maze</option>
                     <option value="Minecraft">Minecraft</option>
                     <option value="RL2d">RogueLike 2D</option>
                     <option value="RL3D">RogueLike 3D</option>
                 </select>
                 <select style="display: none;" id="domain2">
-                    <option value="none">-- Select a model type --</option>
+                    <option value="none">-- Select a domain/system for the level --</option>
                     <option value="Maze">Maze</option>
                     <option value="Minecraft">Minecraft</option>
                     <option value="RL2d">RogueLike 2D</option>
@@ -527,8 +527,12 @@
 
         <!-- Container -->
         <div id="container" style="margin: 0 auto; margin-bottom: 20px; width: fit-content; min-height: fit-content;"></div>
+        
+        <form id="submitQuizForm">
+            <button style="top: 0; right: 0;" class="button" onclick="submitQuiz()">Submit</button>
+        </form>
 
-        <button style="top: 0; right: 0;" class="button" onclick="submit()">Submit</button>
+        <ul style="display: none" id="questionList"></ul>
         
         <script>
             const scale = document.getElementById("scaleInput");
@@ -632,6 +636,11 @@
             list = {id: size + 1, text: 'Question ' + (size+1), content: details};
             questions.push(list);
 
+            var newQuestion = document.createElement('li');
+            newQuestion.textContent = list.content;
+            var questionList = document.getElementById('questionList');
+            questionList.appendChild(newQuestion);
+
             // Get references to the navigation panel and container elements
             const navPanel = document.getElementById('nav-panel');
             const container = document.getElementById('container');
@@ -670,24 +679,43 @@
 
     <!-- Code to display the image selected from the users files -->
     <script>
-
         function handleUpload() {
             const files = document.getElementById('fileInput').files;
             const imagePreviewArea = document.getElementById('imagePreviewArea');
 
-            //Break statement to make sure no more than 3 files are selected
+            // Break statement to make sure no more than 3 files are selected
             if(files.length > 3){
-                    alert("Please Select 3 Files or Less");
-                    return 0;
-                }
+                alert("Please Select 3 Files or Less");
+                return 0;
+            }
 
-             // Clear previous display
+            // Clear previous display
             imagePreviewArea.innerHTML = '';
+
+            // Hide the various dropdowns so they are reset when the user re-uploads images
+            for (let i = 0; i < 3; i++) {
+                // Hide the labels
+                var selectLabel = 'label';
+                selectLabel += i;
+                const selectL = document.getElementById(selectLabel);
+                selectL.style.display = 'none';
+
+                // Hide the model dropdown
+                var selectName = 'model';
+                selectName += i;
+                const select = document.getElementById(selectName);
+                select.style.display = 'none';
+
+                // Hide the domain dropdown
+                var selectDomain = 'domain';
+                selectDomain += i;
+                const selectD = document.getElementById(selectDomain);
+                selectD.style.display = 'none';
+            }
 
             // Iterate through each file
             for (let i = 0; i < files.length; i++) {
 
-                
                 const file = files[i];
                 const fileReader = new FileReader();
 
@@ -712,7 +740,7 @@
                 selectL.style.display = "inline-block";
 
                 // Display the model type dropdown
-                var selectName = 'modelType';
+                var selectName = 'model';
                 selectName += i;
                 const select = document.getElementById(selectName);
                 select.style.display = "";
@@ -722,21 +750,7 @@
                 selectDomain += i;
                 const selectD = document.getElementById(selectDomain);
                 selectD.style.display = "";
-
-                
             }
-        }
-
-        // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
-        function submit(){
-
-            // Submit Images(Levels) & metadata to levels table in database
-
-            // Submit Questions & details to questions table in database
-
-            // Submit Quiz as a whole with reference to images and questions to Quiz table in database
-
-            window.location.href = "./currentResearcherBoard.html"
         }
 
         const questionTypeSelect = document.getElementById('questionType');
@@ -776,6 +790,10 @@
         window.location.href="../1-SharedPages/profile.html"
     }
 </script>
+
+<!-- import firebase into evaluation.html and call on firebase-submitQuiz.js to handle requests -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script type="text/javascript" src="../4-JavaScript/firebase-submitQuiz.js"></script>
 </body>
 
 </html>
