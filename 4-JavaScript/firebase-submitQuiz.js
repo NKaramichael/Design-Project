@@ -191,58 +191,57 @@ function uploadImage(file, domain, model) {
         });
     });
 }
-const storageRef = firebase.storage().ref();
+
+let selectedImage;
+
+function selectImage(imageUrl) {
+  selectedImage = imageUrl;
+}
+
+const storageRef = firebase.storage().ref().child('Level/images');
 storageRef.listAll()
   .then(function(result) {
     result.items.forEach(function(imageRef) {
-      // Display the image as a thumbnail
-      // ...
+      // Create an img element for each image
+      const img = document.createElement('img');
+      img.width = 100;
+      img.height = 100;
+
+      // Get the download URL for the image
+      imageRef.getDownloadURL().then(function(url) {
+        img.src = url;
+
+        // Add an event listener to capture the user's selection
+        img.addEventListener('click', function() {
+          selectImage(img.src);
+        });
+
+        // Append the img element to the page
+        document.body.appendChild(img);
+      }).catch(function(error) {
+        console.log(error);
+      });
     });
   })
   .catch(function(error) {
     console.log(error);
   });
-  
-  storageRef.listAll()
-    .then(function(result) {
-      result.items.forEach(function(imageRef) {
-        // Create an img element for each image
-        const img = document.createElement('img');
-        img.src = imageRef.getDownloadURL();
-        img.width = 100;
-        img.height = 100;
-  
-        // Append the img element to the page
-        document.body.appendChild(img);
-      });
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-    let selectedImage;
 
-    function selectImage(imageUrl) {
-      selectedImage = imageUrl;
-    }
-    storageRef.listAll()
-      .then(function(result) {
-        result.items.forEach(function(imageRef) {
-          // Create an img element for each image
-          const img = document.createElement('img');
-          img.src = imageRef.getDownloadURL();
-          img.width = 100;
-          img.height = 100;
-    
-          // Add an event listener to capture the user's selection
-          img.addEventListener('click', function() {
-            selectImage(img.src);
-          });
-    
-          // Append the img element to the page
-          document.body.appendChild(img);
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-    
+const form = document.querySelector('form');
+const selectedImageInput = document.createElement('input');
+selectedImageInput.type = 'hidden';
+selectedImageInput.name = 'selected-image';
+form.appendChild(selectedImageInput);
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Send the selected image URL to the server
+  const selectedImageUrl = selectedImageInput.value;
+  // ...
+});
+
+function selectImage(imageUrl) {
+  selectedImage = imageUrl;
+  selectedImageInput.value = imageUrl;
+}
