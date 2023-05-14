@@ -15,8 +15,10 @@ const firebaseConfig = {
     appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
   };
   
-//initialise firebase
+// Initialise firebase
 firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+var collectionRef = db.collection("Questions");
 
 function submitQuiz(){
     document.getElementById('submitQuizForm').addEventListener('submit', submit);
@@ -41,9 +43,36 @@ function change(num){
 function submit(e){
     e.preventDefault();
 
+    // Checking that user has uploaded at least one image
     const files = document.getElementById('fileInput').files;
+
+    if (files.length == 0){
+        alert("Pee pee poo poo upload image");
+        return;
+    }
+
+    // Checking that heading and description are filled in
+    const heading = document.getElementById('heading').value;
+    const desc = document.getElementById('description').value;
     var process = true;
     var errorOutput = "Address the following issues: \n";
+
+    if (heading == ""){
+        errorOutput += "Please enter a Quiz heading\n";
+        process = false;
+    }
+    if (desc == ""){
+        errorOutput += "Please enter a Quiz description\n";
+        process = false;
+    }
+
+    if (process == false){
+        alert(errorOutput);
+        return;
+    }
+    
+    process = true;
+    errorOutput = "Address the following issues: \n";
     var imageArr = [];
 
     // Submit Images(Levels) & metadata to levels table in database
@@ -84,17 +113,36 @@ function submit(e){
         return;
     }
 
+    // Submit Questions & details to questions table in database
     var questionList = document.getElementById('questionList');
     var questions = questionList.getElementsByTagName('li');
+
+    if (questions.length == 0){
+        alert("Cannot create quiz with no questions!");
+        return;
+    }
 
     // Iterate through the items
     for (var i = 0; i < questions.length; i++) {
         var question = questions[i];
-        // Do something with each item (e.g., retrieve text content)
-        console.log(question.textContent);
-    }
 
-    // Submit Questions & details to questions table in database
+        // Do something with each item (e.g., retrieve text content)
+        var description = question.textContent.split("|")[0].trim();
+        var type = question.textContent.split("|")[1].trim();
+
+        var data = {
+            Description: description,
+            Type: type,
+          };
+        
+        // collectionRef.add(data)
+        // .then(function(docRef) {
+        // console.log("Document written with ID: ", docRef.id);
+        // })
+        // .catch(function(error) {
+        // console.error("Error adding document: ", error);
+        // });
+    }
 
     // Submit Quiz as a whole with reference to images and questions to Quiz table in database
 }
