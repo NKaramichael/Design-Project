@@ -191,14 +191,16 @@ async function submit(e) {
             Type: type,
         };
 
+
         collectionRef.add(data)
-            .then(function (docRef) {
-                refArr.push(docRef.id + "");
-                console.log("Document written with ID: ", docRef.id);
-            })
-            .catch(function (error) {
-                console.error("Error adding document: ", error);
-            });
+        .then(function (docRef) {
+            refArr.push(docRef.id + "");
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function (error) {
+            console.error("Error adding document: ", error);
+        });
+        
     }
 
     var imgRefArr = [];
@@ -239,6 +241,8 @@ async function submit(e) {
         .catch(function (error) {
             console.error("Error adding Quiz: ", error);
         });
+
+    //window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
 }
 
 async function uploadImages(imageList, imageArr) {
