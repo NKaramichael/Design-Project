@@ -180,6 +180,7 @@ async function submit(e) {
         .catch(function (error) {
             console.error("Error adding Quiz: ", error);
         });
+    
 }
 
 // Get a reference to the Firebase Storage service
