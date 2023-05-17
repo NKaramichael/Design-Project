@@ -170,12 +170,5 @@ function change(num) {
   return out;
 }
 
-function getStorageItems(email, password, role){
-  sessionStorage.setItem('email', email);
-  sessionStorage.setItem('password', password);
-  sessionStorage.setItem('role', role);
-
-  return [sessionsStorage.getItem('email'), sessionsStorage.getItem('password'), sessionsStorage.getItem('role')];
-}
-
-module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword, checkSurveyID_unique, getData, change, getStorageItems};
+module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, 
+  checkRole, changeRole, changePassword, checkSurveyID_unique, getData, change};

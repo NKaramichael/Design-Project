@@ -9,8 +9,7 @@ let {
     changePassword,
     checkSurveyID_unique,
     getData,
-    change,
-    getStorageItems
+    change
   } = require('./essentialFunctions.js');
   
   test('validate_email_invalid_email', () => {
@@ -202,23 +201,5 @@ let {
     expect(result1).toBe('');
     const result2 = change(-1);
     expect(result2).toBe('');
-  });
-  
-  test('validate_sessionStorage_returns_correct_items', () => {
-    // Mock values for testing
-    const email = 'test@example.com';
-    const password = 'Password123';
-    const role = 'user';
-  
-    // Retrieve data from Session Storage
-    const items = getStorageItems(email, password, role);
-    const retrievedEmail = items[0];
-    const retrievedPassword = items[1];
-    const retrievedRole = items[2];
-  
-    // Perform assertions to check the retrieved data
-    expect(retrievedEmail).toBe(email);
-    expect(retrievedPassword).toBe(password);
-    expect(retrievedRole).toBe(role);
   });
   
