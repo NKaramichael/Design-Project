@@ -180,7 +180,7 @@ let {
     let data = getData(heading, description, questions, images);
 
     expect(data).toBeInstanceOf(Object);
-    expect(typeof data.get('Title')).toBe(String);
+    expect(typeof data.Title).toBe(String);
     expect(typeof data.get('Description')).toBe(String);
     expect(typeof data.get('Status')).toBe(Boolean);
     expect(data.get('Questions')).toBeInstanceOf(Array);
