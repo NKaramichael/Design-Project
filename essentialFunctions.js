@@ -152,4 +152,20 @@ const getData = (heading, desc, refArr, imgRefArr) => {
   return data;
 }
 
-module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword, checkSurveyID_unique, getData};
+function change(num) {
+
+  let out = '';
+  switch (num) {
+      case 0: out = 'A';
+          break;
+      case 1: out = 'B';
+          break;
+      case 2: out = 'C';
+          break;
+      default: out = 'A';
+  }
+
+  return out;
+}
+
+module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword, checkSurveyID_unique, getData, change};

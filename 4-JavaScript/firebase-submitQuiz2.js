@@ -63,7 +63,7 @@ function previewImages(urlParams) {
         // Make the correct Image Label Appear
         var selectLabel = 'label';
         selectLabel += i;
-        console.log(selectLabel);
+        // console.log(selectLabel);
         const selectL = document.getElementById(selectLabel);
         selectL.style.display = "inline-block";
 
@@ -197,7 +197,6 @@ async function submit(e) {
             Description: description,
             Type: type,
         };
-
 
         collectionRef.add(data)
         .then(function (docRef) {
