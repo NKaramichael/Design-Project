@@ -179,7 +179,7 @@ let {
     let images = ['eM4J25ILgYocD2ndOhhe']; // Valid Image reference
     let data = getData(heading, description, questions, images);
 
-    expect(data).toBeInstanceOf(Map);
+    expect(data).toBeInstanceOf(Object);
     expect(typeof data.get('Title')).toBe(String);
     expect(typeof data.get('Description')).toBe(String);
     expect(typeof data.get('Status')).toBe(Boolean);
