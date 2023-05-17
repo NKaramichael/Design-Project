@@ -179,10 +179,9 @@ let {
     let images = ['eM4J25ILgYocD2ndOhhe']; // Valid Image reference
     let data = getData(heading, description, questions, images);
 
-    expect(data).toBeInstanceOf(Object);
-    expect(typeof data.Title).toBe(String);
-    expect(typeof data.get('Description')).toBe(String);
-    expect(typeof data.get('Status')).toBe(Boolean);
-    expect(data.get('Questions')).toBeInstanceOf(Array);
-    expect(data.get('Images')).toBeInstanceOf(Array);
+    expect(typeof data.Title).toBe('string');
+    expect(typeof data.Description).toBe('string');
+    expect(typeof data.Status).toBe('boolean');
+    expect(Array.isArray(data.Questions)).toBe(true);
+    expect(Array.isArray(data.Images)).toBe(true);
   });
