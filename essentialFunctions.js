@@ -140,4 +140,16 @@ const saveMessages = (email, password, role) => {
 
 };
 
-module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword, checkSurveyID_unique};
+const getData = (heading, desc, refArr, imgRefArr) => {
+  var data = {
+    Title: heading,
+    Description: desc,
+    Status: true,
+    Questions: refArr,
+    Images: imgRefArr
+  };
+
+  return data;
+}
+
+module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, checkRole, changeRole, changePassword, checkSurveyID_unique, getData};

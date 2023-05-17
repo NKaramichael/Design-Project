@@ -98,6 +98,8 @@ function change(num) {
     return out;
 }
 
+var loadingScreen = document.getElementById('loading-screen');
+
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
 async function submit(e) {
     e.preventDefault();
@@ -174,6 +176,11 @@ async function submit(e) {
         return;
     }
 
+    var mainDiv = document.getElementById('mainDiv');
+    mainDiv.style.display = 'none';
+    document.getElementById('mainHeading').style.display = 'none';
+    loadingScreen.style.display = 'flex';
+
     await uploadImages(imageList, imageArr);
 
     var refArr = [];
@@ -232,6 +239,7 @@ async function submit(e) {
 
             collectionRef.doc(docRef.id).set(quiz)
                 .then(function () {
+                    alert("Quiz added with ref: " + docRef.id);
                     console.log("Successfully added quiz: ", docRef.id);
                 })
                 .catch(function (error) {
@@ -241,8 +249,8 @@ async function submit(e) {
         .catch(function (error) {
             console.error("Error adding Quiz: ", error);
         });
-
-    //window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
+    
+    window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
 }
 
 async function uploadImages(imageList, imageArr) {

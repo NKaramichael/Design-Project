@@ -7,7 +7,8 @@ let {
     checkRole, 
     changeRole, 
     changePassword,
-    checkSurveyID_unique
+    checkSurveyID_unique,
+    getData
   } = require('./essentialFunctions.js');
   
   test('validate_email_invalid_email', () => {
@@ -169,4 +170,19 @@ let {
     expect(result[1]).toBe(true);
     expect(result[2]).toBe(true);
     expect(result[3]).toBe(true);
+  });
+
+  test('validate_getData_returns_valid_types', () => {
+    let heading = 'Heading';
+    let description = 'Description';
+    let questions = ["ABsda3221aX@231"]; // Valid Question Reference
+    let images = ['eM4J25ILgYocD2ndOhhe']; // Valid Image reference
+    let data = getData(heading, description, questions, images);
+
+    expect(data).toBeInstanceOf(Map);
+    expect(typeof data.get('Title')).toBe(String);
+    expect(typeof data.get('Description')).toBe(String);
+    expect(typeof data.get('Status')).toBe(Boolean);
+    expect(data.get('Questions')).toBeInstanceOf(Array);
+    expect(data.get('Images')).toBeInstanceOf(Array);
   });

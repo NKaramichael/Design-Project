@@ -295,6 +295,21 @@
             max-height: 200px;
             margin: 10px;
         }
+
+        #loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
 </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
@@ -303,7 +318,7 @@
 <header>
     <input type="button" value="⬅" onclick="history.back()" class="back-button">
 
-    <h1>Create a survey</h1>
+    <h1 id="mainHeading">Create a survey</h1>
 
     <!-- Adding in the gear cog with the settings, logout and profile options -->
 		<li class="settings-button">
@@ -319,8 +334,12 @@
 </header>
 
 <body class="blocky-background">
+    <div id="loading-screen">
+        <div class="loading-spinner"></div>
+        <h1>Submitting Quiz ...</h1>
+      </div>
       
-    <div style="text-align: center; align-items: center; margin-bottom: 10px;">
+    <div id="mainDiv" style="text-align: center; align-items: center; margin-bottom: 10px;">
         <form style="align-items: baseline;">
             <button style="margin-bottom: 10px; margin-top: 10px;" class="button" onclick="transfer()"> Reset images </button>
         </form>
@@ -719,6 +738,7 @@
     // Redirecting to user image selection page
     function transfer(){
         window.location.href = "../2-ResearcherPages/evaluation.html";
+        alert("");
     }
 </script>
 
