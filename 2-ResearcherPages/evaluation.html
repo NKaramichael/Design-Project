@@ -666,11 +666,17 @@
                     alert("Please enter a valid question.");
                 }
             }
+
+            function greyOutImage(image) {
+                image.style.filter = "grayscale(100%)";
+            }  
+
             function displayImages() {
                 const imagePopup = document.getElementById('imagePopup');
                 const imageContainer = document.getElementById('imageContainer');
                 imageContainer.innerHTML = '';
 
+                
                 // Retrieve and display the images in the popup
                 const storageRef = firebase.storage().ref().child('Level/images');
                 storageRef.listAll().then(function (result) {
@@ -693,10 +699,12 @@
                 // Show the popup
                 imagePopup.style.display = 'flex';
             }
+
             function closePopup() {
                 const imagePopup = document.getElementById('imagePopup');
                 imagePopup.style.display = 'none';
               }
+
             function submitImage() {
                 const selectedImages = document.querySelectorAll('.selected');
                 const form = document.querySelector('form');
@@ -706,16 +714,34 @@
                 form.appendChild(selectedImageInput);
 
                 // Store the selected image URLs in an array
-                const selectedImageUrls = [];
+                var selectedImageUrls = [];
                 selectedImages.forEach(function (img) {
                     selectedImageUrls.push(img.src);
                 });
 
-                // Set the input value to the selected image URLs
-                selectedImageInput.value = JSON.stringify(selectedImageUrls);
+                if (selectedImageUrls.length > 3){
+                    alert("Please select up to 3 images only!");
+                    return;
+                }
 
                 // Submit the form (you can customize this according to your needs)
-                //form.submit();
+                if (selectedImageUrls.length == 0){
+                    alert("You have not selected any images!");
+                } else {
+                    // var dataToSend = "Hello, World!"; // The data you want to send
+                    var url = "../2-ResearcherPages/evaluation2.html?";
+                    for (let i = 0; i < selectedImageUrls.length; i++){
+                        const imgUrl = selectedImageUrls[i];
+
+                        if (i == 0){
+                            url += "img" + i + "=" + encodeURIComponent(imgUrl);
+                        } else {
+                            url += "&img" + i + "=" + encodeURIComponent(imgUrl);
+                        }
+                    }
+
+                    window.location.href = url;
+                }
             }
 
         </script>
