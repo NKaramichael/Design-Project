@@ -896,18 +896,24 @@
 
     </script>
 
-    <script>
-        // Functions for navigating through the dropdown correctly
-        function logout() {
-            window.location.href = "../1-SharedPages/login.html"
-        }
-        function settings() {
-            window.location.href = "../1-SharedPages/settings.html"
-        }
-        function profile() {
-            window.location.href = "../1-SharedPages/profile.html"
-        }
-    </script>
+<script>
+    // Functions for navigating through the dropdown correctly
+    function logout() {
+        window.location.href = "../1-SharedPages/login.html"
+    }
+    function settings() {
+        window.location.href = "../1-SharedPages/settings.html"
+    }
+    function profile(){
+        window.location.href="../1-SharedPages/profile.html"
+    }
+
+    // Redirecting to global image selection page
+    function transfer(){
+        window.location.href = "../2-ResearcherPages/selectImages.html";
+        alert("");
+    }
+</script>
 
     <!-- import firebase into evaluation.html and call on firebase-submitQuiz.js to handle requests -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>

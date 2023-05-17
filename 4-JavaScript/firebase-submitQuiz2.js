@@ -13,6 +13,71 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var collectionRef = db.collection("Questions");
+var urlParams = new URLSearchParams(window.location.search);
+var imageList = previewImages(urlParams);
+
+function previewImages(urlParams) {
+    const imagePreviewArea = document.getElementById('imagePreviewArea');
+
+    // Clear previous display
+    imagePreviewArea.innerHTML = '';
+
+    // Hide the various dropdowns so they are reset when the user re-uploads images
+    for (let i = 0; i < 3; i++) {
+        // Hide the labels
+        var selectLabel = 'label';
+        selectLabel += i;
+        const selectL = document.getElementById(selectLabel);
+        selectL.style.display = 'none';
+
+        // Hide the model dropdown
+        var selectName = 'model';
+        selectName += i;
+        const select = document.getElementById(selectName);
+        select.style.display = 'none';
+
+        // Hide the domain dropdown
+        var selectDomain = 'domain';
+        selectDomain += i;
+        const selectD = document.getElementById(selectDomain);
+        selectD.style.display = 'none';
+    }
+
+    var imageList = [];
+    // Loop through all query parameters and retrieve their values
+    urlParams.forEach(function(value, key) {
+        imageList.push(value);
+    });
+
+    for (let i = 0; i < imageList.length; i++){
+        // Display image preview
+        const img = document.createElement('img');
+        img.src = imageList[i];
+        img.classList.add('preview-image');
+        imagePreviewArea.appendChild(img);
+
+        // Make the correct Image Label Appear
+        var selectLabel = 'label';
+        selectLabel += i;
+        console.log(selectLabel);
+        const selectL = document.getElementById(selectLabel);
+        selectL.style.display = "inline-block";
+
+        // Display the model type dropdown
+        var selectName = 'model';
+        selectName += i;
+        const select = document.getElementById(selectName);
+        select.style.display = "";
+
+        // Display the model domain dropdown
+        var selectDomain = 'domain';
+        selectDomain += i;
+        const selectD = document.getElementById(selectDomain);
+        selectD.style.display = "";
+    }
+
+    return imageList;
+}
 
 function submitQuiz(){
     document.getElementById('submitQuizForm').addEventListener('submit', submit);
@@ -37,14 +102,6 @@ function change(num){
 function submit(e){
     e.preventDefault();
 
-    // Checking that user has uploaded at least one image
-    const files = document.getElementById('fileInput').files;
-
-    if (files.length == 0){
-        alert("Please upload at least 1 image");
-        return;
-    }
-
     // Checking that heading and description are filled in
     const heading = document.getElementById('heading').value;
     const desc = document.getElementById('description').value;
@@ -68,9 +125,10 @@ function submit(e){
     process = true;
     errorOutput = "Address the following issues: \n";
     var imageArr = [];
+    imageList = imageList;
 
     // Submit Images(Levels) & metadata to levels table in database
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < imageList.length; i++) {
         const details = new Map();
 
         // Fetching the selected value from model dropdown
@@ -107,6 +165,12 @@ function submit(e){
         return;
     }
 
+    for (let i = 0; i < imageList.length; i++){
+        const dom = imageArr[i].get("domain");
+        const mod = imageArr[i].get("model");
+        uploadImage(imageList[i], dom, mod);
+    }
+
     // Submit Questions & details to questions table in database
     var questionList = document.getElementById('questionList');
     var questions = questionList.getElementsByTagName('li');
@@ -141,16 +205,6 @@ function submit(e){
         });
     }
 
-    // Upload images to firebase storage and firestore
-    for (let i = 0; i < files.length; i++){
-        const file = files[i];
-  
-        const imgDetails = imageArr[i];
-        const dom = imgDetails.get('domain');
-        const mod = imgDetails.get('model');
-        
-        const ref = uploadImage(file, dom, mod);
-      }
     // Submit Quiz as a whole with reference to images and questions to Quiz table in database
     collectionRef = db.collection("Quizzes");
 
@@ -158,7 +212,8 @@ function submit(e){
       Title: heading,
       Description: desc,
       Status: true,
-      Quizzes: refArr
+      Questions: refArr,
+      Images: imageList
     };
 
     collectionRef.add(data)
@@ -176,93 +231,40 @@ function submit(e){
       .catch(function(error) {
       console.error("Error adding Quiz: ", error);
       });
+
+    
 }
 
-// Get a reference to the Firebase Storage service
-var storage = firebase.storage();
-
-// Get a reference to the Firebase Firestore database
-var firestore = firebase.firestore();
-
-function uploadImage(file, domain, model) {
-    var ref;
+function uploadImage(url, domain, model) {
+    var refArr = [];
 
     // Create a storage reference for the image file
-    var storageRef = storage.ref().child('Level/images/' + file.name);
+    var db = firebase.firestore();
+    var collectionRef = db.collection("Levels");
+    
+    // Save the image URL in Cloud Firestore
+    collectionRef.add({
+        imageUrl: url,
+        domain: domain,
+        model: model
+    }).then(function (docRef) {
 
-    // Upload the image file to Firebase Storage
-    storageRef.put(file).then(function (snapshot) {
-        console.log('Image uploaded successfully!');
-
-        // Get the download URL of the uploaded image
-        storageRef.getDownloadURL().then(function (url) {
-            console.log('Image URL:', url);
-
-            // Save the image URL in Cloud Firestore
-            firestore.collection('Levels').add({
-                imageUrl: url,
-                domain: domain,
-                model: model
-            }).then(function (docRef) {
-                ref = docRef.id;
-                console.log('Image URL saved in Firestore!');
-            });
-        });
+        console.log('Image URL saved in Firestore!');
     });
+    
 }
 
-function select(){
-let selectedImage;
-function selectImage(imageUrl) {
-  selectedImage = imageUrl;
-}
-
-const storageRef = firebase.storage().ref().child('Level/images');
-storageRef.listAll()
-  .then(function(result) {
-    result.items.forEach(function(imageRef) {
-      // Create an img element for each image
-      const img = document.createElement('img');
-      img.width = 100;
-      img.height = 100;
-      img.margin=100
-
-      // Get the download URL for the image
-      imageRef.getDownloadURL().then(function(url) {
-        img.src = url;
-
-        // Add an event listener to capture the user's selection
-        img.addEventListener('click', function() {
-          selectImage(img.src);
-        });
-
-        // Append the img element to the page
-        document.body.appendChild(img);
-      }).catch(function(error) {
-        console.log(error);
-      });
+function fetchImageRefs(imageList){
+    // Step 1: Retrieve image URLs from Firestore collection
+    var collectionRef = db.collection('Levels');
+    
+    collectionRef.where("imageUrl", "in", imageList).get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        refArr.push(doc.id);
     });
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+    }).catch(function(error) {
+    console.log("Error retrieving Firestore documents:", error);
+    });
 
-const form = document.querySelector('form');
-const selectedImageInput = document.createElement('input');
-selectedImageInput.type = 'hidden';
-selectedImageInput.name = 'selected-image';
-form.appendChild(selectedImageInput);
-
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  // Send the selected image URL to the server
-  const selectedImageUrl = selectedImageInput.value;
-  // ...
-});
-
-function selectImage(imageUrl) {
-  selectedImage = imageUrl;
-  selectedImageInput.value = imageUrl;
-}
+    return refArr;
 }
