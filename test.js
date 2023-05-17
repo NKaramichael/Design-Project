@@ -8,7 +8,8 @@ let {
     changeRole, 
     changePassword,
     checkSurveyID_unique,
-    getData
+    getData,
+    change
   } = require('./essentialFunctions.js');
   
   test('validate_email_invalid_email', () => {
@@ -194,10 +195,11 @@ let {
     const result3 = change(2);
     expect(result3).toBe('C');
   });
-
+  
   test('validate_change_invalid_input', () => {
     const result1 = change(3);
     expect(result1).toBe('');
     const result2 = change(-1);
     expect(result2).toBe('');
   });
+  
