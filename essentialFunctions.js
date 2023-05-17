@@ -163,6 +163,7 @@ function change(num) {
       case 2: out = 'C';
           break;
       default: out = 'A';
+          break;
   }
 
   return out;
