@@ -197,7 +197,7 @@ let {
 
   test('validate_change_invalid_input', () => {
     const result1 = change(3);
-    expect(result1).toBe('A');
+    expect(result1).toBe('');
     const result2 = change(-1);
-    expect(result2).toBe('A');
+    expect(result2).toBe('');
   });
