@@ -218,7 +218,6 @@ function uploadImage(file, domain, model) {
 
 function select(){
 let selectedImage;
-alert('Hellio')
 function selectImage(imageUrl) {
   selectedImage = imageUrl;
 }
@@ -231,6 +230,7 @@ storageRef.listAll()
       const img = document.createElement('img');
       img.width = 100;
       img.height = 100;
+      img.margin=100
 
       // Get the download URL for the image
       imageRef.getDownloadURL().then(function(url) {
