@@ -205,21 +205,6 @@
 		function profile(){
             window.location.href="../1-SharedPages/profile.html"
         }
-		function add1(){
-			const button = document.getElementById("btn1");
-			button.innerHTML = '<i class="fas fa-check"></i>';
-			button.disabled = true;
-		}
-		function add2(){
-			const button = document.getElementById("btn2");
-			button.innerHTML = '<i class="fas fa-check"></i>';
-			button.disabled = true;
-		}
-		function add3(){
-			const button = document.getElementById("btn3");
-			button.innerHTML = '<i class="fas fa-check"></i>';
-			button.disabled = true;
-		}
 	</script>
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
@@ -246,32 +231,14 @@
 	</div>
 	<!-- Adding in the functionality for the placeholder scrollable box -->
 	<div class="blocky-background"></div>
-	<div id="scrollable-box">
-		<div class="text-boxes">
-			<div class="text-box">
-				<img src="https://images.unsplash.com/photo-1605134550917-5fe8cf25a125?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHJldHJvJTIwZ2FtaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-					alt="Image 1">
-					<button id="btn1" style="color: white;background-color: rgb(65, 239, 65);" class="button" onclick="add1()">Add to current</button>
-					<h2>Sega</h2>
-					<p>This is a survey on sega systems</p>
-			</div>
-			<div class="text-box">
-				<img src="https://images.unsplash.com/photo-1585881728919-5c0ce925ad10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-					alt="Image 2">
-					<button id="btn2" style="color: white;background-color: rgb(65, 239, 65);" class="button" onclick="add2()">Add to current</button>
-					<h2>Controller</h2>
-					<p>This is a survey on input</p>
-			</div>
-			<div class="text-box">
-				<img src="https://images.unsplash.com/photo-1623910270913-3e0294a1c765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cmV0cm8lMjBnYW1pbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60"
-					alt="Image 3">
-					<button id="btn3" style="color: white;background-color: rgb(65, 239, 65);" class="button" onclick="add3()">Add to current</button>
-					<h2>Sega</h2>
-					<p>This is a survey on sonic the hedgehog</p>
-			</div>
+	<div class=scrollable-box id="scrollable-box">
+		<div class="text-boxes"id="text-boxes">
 		</div>
 	</div>
-
+	<!-- import firebase into newUserBoard.html and call on firebase-bucket.js to handle fetches -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+	<script type="text/javascript" src="../4-JavaScript/firebase-bucket.js"></script>
+	<script> displayNewQuizzes() </script>	
 </body>
 
 </html>

@@ -200,7 +200,9 @@
 		function currentFunction() {
 			window.location.href="currentUserBoard.html"
 		}
-
+		function openSurvey(){
+            window.location.href="surveyView.html"
+        }
 		function newFunction() {
 			window.location.href="newUserBoard.html"
 		}
@@ -244,7 +246,7 @@
 		</div>
 	</div>
 	
-	<!-- import firebase into currentUserBoard.html and call on firebase-bucket.js to handle image requests -->
+	<!-- import firebase into currentUserBoard.html and call on firebase-bucket.js to handle fetches -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 	<script type="text/javascript" src="../4-JavaScript/firebase-bucket.js"></script>
 	<script> displayCompletedQuizzes() </script>	

@@ -22,6 +22,8 @@ var storageRef = storage.ref();
 const db = firebase.firestore();
 var UserFirestore = db.collection('Users');
 var ResearcherFirestore = db.collection('Researchers');
+var LevelFirestore = db.collection('Levels');
+var QuizFirestore = db.collection('Quizzes');
 
 function displayCurrentQuizzes() {
   displayQuizzes("current");
@@ -31,38 +33,97 @@ function displayCompletedQuizzes() {
   displayQuizzes("completed");
 };
 
-// Fetchg and diosplay the user's quizzes
+function displayNewQuizzes() {
+  displayQuizzes("new");
+};
+
+// Fetching and display the user's quizzes
 function displayQuizzes(status) {
   var email = sessionStorage.getItem('email');
   // var email = 'meow10@catmail.com';
   Ref = UserFirestore.doc(email);
-  // query database for array of currently active quizzes
-  Ref.get().then((doc) => {
-      if (doc.exists) {
-        quizRefs = (doc.data()[status+'Quizzes']);
-        // loop through array and get info for each quiz to display
-        quizRefs.forEach((ref) => {
-          ref.get().then((doc) => {
-              if (doc.exists) {
-                // display the quiz block
-                createQuizBlock(doc.data());
-              } else {
+
+  if (status != 'new') {
+    Ref.get()
+      .then((doc) => {
+        if (doc.exists) {
+          const quizRefs = doc.data()[status+'Quizzes'];
+          // loop through array and get info for each quiz to display
+          quizRefs.forEach((name) => {
+            const ref = QuizFirestore.doc(name);
+            ref.get()
+              .then((doc) => {
+                if (doc.exists) {
+                  // display the quiz block
+                  createQuizBlock(doc.data());
+                } else {
                   // The document doesn't exist
                   console.log("No such document!");
-              }
-          }).catch((error) => {
-              // An error occurred while retrieving the document
-              console.log("Error getting document:", error);
+                }
+              })
+              .catch((error) => {
+                // An error occurred while retrieving the document
+                console.log("Error getting document:", error);
+              });
           });
-      });
-      } else {
+        } else {
           // doc.data() will be undefined in this case
-          alert("No such document!");
-      }
-  }).catch((error) => {
-      alert("Error getting document:", error);
-  });
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }else {
+    Ref.get()
+      .then((doc) => {
+        if (doc.exists) {
+          const usedQuizRefs = doc.data()['completedQuizzes'].concat(doc.data()['currentQuizzes']);
+          QuizFirestore.get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                if (doc.exists && !usedQuizRefs.includes(doc.id)) {
+                  // display the quiz block
+                  createQuizBlockNew(doc.data(), doc.id);
+                } else {
+                  // The document doesn't exist or is already used
+                  console.log("No such document!");
+                }
+              });
+            })
+            .catch((error) => {
+              console.log("Error getting documents: ", error);
+            });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }
 };
+
+async function getLevelUrl(levelName) {
+  const levelRef = LevelFirestore.doc(levelName);
+  let url = '';
+  
+  try {
+    const doc = await levelRef.get();
+    if (doc.exists) {
+      url = doc.data()['imageUrl'];
+    } else {
+      console.log("No such document!");
+    }
+  } catch (error) {
+    console.log("Error getting document");
+  }
+  
+  return url;
+};
+
+
 
 async function createQuizBlock(data) {
   // define values for the box
@@ -76,18 +137,12 @@ async function createQuizBlock(data) {
 
   const textBox = document.createElement("div");
   textBox.classList.add("text-box");
-  // get and set thumbnail link froim storage
-  parentDirec = 'Levels/Thumbnails/'
+  // get and set thumbnail link from storage
+
   const image = document.createElement("img");
-  await storageRef.child(parentDirec+data['Thumbnail']).getDownloadURL()
-  .then((url) => {
-    // `url` is the download URL\
-    image.setAttribute("src", url);
-  })
-  .catch((error) => {
-    // Handle any errors
-    console.log(error)
-  });
+  levelName = data["Images"][0];
+  const url = await getLevelUrl(levelName);
+  image.setAttribute("src", url)
 
   const title = document.createElement("h2");
   title.textContent = box.title;
@@ -118,3 +173,59 @@ async function createQuizBlock(data) {
   // Add the text box to the parent element
   parent.appendChild(textBox);
 };
+
+async function createQuizBlockNew(data, id) {
+  // define values for the box
+  const box = {
+    title: data['Title'],
+    description: data['Description']
+  };
+  // Get a reference to the container element
+  // Get the parent element to which the text boxes will be added
+  const parent = document.getElementById("text-boxes");
+
+  const textBox = document.createElement("div");
+  textBox.classList.add("text-box");
+  // get and set thumbnail link from storage
+
+  const image = document.createElement("img");
+  levelName = data["Images"][0];
+  const url = await getLevelUrl(levelName);
+  image.setAttribute("src", url)
+
+  const title = document.createElement("h2");
+  title.textContent = box.title;
+
+  const description = document.createElement("p");
+  description.textContent = box.description;
+
+  const addButton = document.createElement("button");
+  addButton.classList.add("button");
+  addButton.style.backgroundColor = "rgb(65, 239, 65)";
+  addButton.style.color = "white";
+  addButton.textContent = "Add to Current";
+  addButton.setAttribute('data-value', id);
+  addButton.addEventListener("click", addToCurrent);
+
+
+  // Add the elements to the text box
+  textBox.appendChild(image);
+  textBox.appendChild(addButton);
+  textBox.appendChild(title);
+  textBox.appendChild(description);
+
+  // Add the text box to the parent element
+  parent.appendChild(textBox);
+};
+
+function addToCurrent(event) {
+  const button = event.target;
+  button.innerHTML = '<i class="fas fa-check"></i>';
+  button.disabled = true;
+  const name = button.getAttribute("data-value");
+  var email = sessionStorage.getItem('email');
+  Ref = UserFirestore.doc(email);
+  Ref.update({
+    currentQuizzes: firebase.firestore.FieldValue.arrayUnion(name)
+  });
+}
