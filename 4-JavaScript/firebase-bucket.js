@@ -55,7 +55,7 @@ function displayQuizzes(status) {
               .then((doc) => {
                 if (doc.exists) {
                   // display the quiz block
-                  createQuizBlock(doc.data());
+                   createQuizBlock(doc.data(), status, doc.id);
                 } else {
                   // The document doesn't exist
                   console.log("No such document!");
@@ -84,7 +84,7 @@ function displayQuizzes(status) {
               querySnapshot.forEach((doc) => {
                 if (doc.exists && !usedQuizRefs.includes(doc.id)) {
                   // display the quiz block
-                  createQuizBlockNew(doc.data(), doc.id);
+                  createQuizBlock(doc.data(), status, doc.id);
                 } else {
                   // The document doesn't exist or is already used
                   console.log("No such document!");
@@ -125,7 +125,7 @@ async function getLevelUrl(levelName) {
 
 
 
-async function createQuizBlock(data) {
+async function createQuizBlock(data, status, id) {
   // define values for the box
   const box = {
     title: data['Title'],
@@ -149,68 +149,42 @@ async function createQuizBlock(data) {
 
   const description = document.createElement("p");
   description.textContent = box.description;
-
-  const openButton = document.createElement("button");
-  openButton.classList.add("button");
-  openButton.style.backgroundColor = "rgb(65, 239, 65)";
-  openButton.style.color = "white";
-  openButton.textContent = "Open";
-  openButton.addEventListener("click", openSurvey);
-
-  const removeButton = document.createElement("button");
-  removeButton.classList.add("button");
-  removeButton.style.backgroundColor = "rgb(241, 16, 16)";
-  removeButton.style.color = "white";
-  removeButton.textContent = "Remove";
-
-  // Add the elements to the text box
+  
   textBox.appendChild(image);
-  textBox.appendChild(openButton);
-  textBox.appendChild(removeButton);
-  textBox.appendChild(title);
-  textBox.appendChild(description);
 
-  // Add the text box to the parent element
-  parent.appendChild(textBox);
-};
+  if (status == 'new'){
+    const addButton = document.createElement("button");
+    addButton.classList.add("button");
+    addButton.style.backgroundColor = "rgb(65, 239, 65)";
+    addButton.style.color = "white";
+    addButton.textContent = "Add to Current";
+    addButton.setAttribute('data-value', id);
+    addButton.addEventListener("click", addToCurrent);
+    textBox.appendChild(addButton);
+  } else {
+    const openButton = document.createElement("button");
+    openButton.classList.add("button");
+    openButton.style.backgroundColor = "rgb(65, 239, 65)";
+    openButton.style.color = "white";
+    openButton.textContent = "Open";
+    openButton.setAttribute('data-value', id);
+    openButton.addEventListener("click", openSurvey);
 
-async function createQuizBlockNew(data, id) {
-  // define values for the box
-  const box = {
-    title: data['Title'],
-    description: data['Description']
-  };
-  // Get a reference to the container element
-  // Get the parent element to which the text boxes will be added
-  const parent = document.getElementById("text-boxes");
+    
+    textBox.appendChild(openButton);
 
-  const textBox = document.createElement("div");
-  textBox.classList.add("text-box");
-  // get and set thumbnail link from storage
-
-  const image = document.createElement("img");
-  levelName = data["Images"][0];
-  const url = await getLevelUrl(levelName);
-  image.setAttribute("src", url)
-
-  const title = document.createElement("h2");
-  title.textContent = box.title;
-
-  const description = document.createElement("p");
-  description.textContent = box.description;
-
-  const addButton = document.createElement("button");
-  addButton.classList.add("button");
-  addButton.style.backgroundColor = "rgb(65, 239, 65)";
-  addButton.style.color = "white";
-  addButton.textContent = "Add to Current";
-  addButton.setAttribute('data-value', id);
-  addButton.addEventListener("click", addToCurrent);
-
-
-  // Add the elements to the text box
-  textBox.appendChild(image);
-  textBox.appendChild(addButton);
+    if (status == 'current') {
+      const removeButton = document.createElement("button");
+      removeButton.classList.add("button");
+      removeButton.style.backgroundColor = "rgb(241, 16, 16)";
+      removeButton.style.color = "white";
+      removeButton.textContent = "Remove";
+      removeButton.setAttribute('data-value', id);
+      removeButton.addEventListener("click", removeFromCurrent);
+      // Add the elements to the text box
+      textBox.appendChild(removeButton);
+    } 
+  } 
   textBox.appendChild(title);
   textBox.appendChild(description);
 
@@ -228,4 +202,16 @@ function addToCurrent(event) {
   Ref.update({
     currentQuizzes: firebase.firestore.FieldValue.arrayUnion(name)
   });
-}
+};
+
+function removeFromCurrent(event) {
+  const button = event.target;
+  button.innerHTML = '<i class="fas fa-check"></i>';
+  button.disabled = true;
+  const name = button.getAttribute("data-value");
+  var email = sessionStorage.getItem('email');
+  Ref = UserFirestore.doc(email);
+  Ref.update({
+    currentQuizzes: firebase.firestore.FieldValue.arrayRemove(name)
+  });
+};
