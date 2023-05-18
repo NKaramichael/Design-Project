@@ -277,18 +277,7 @@
 <header>
     <input type="button" value="⬅" onclick="history.back()" class="back-button">
 
-    <h1>Survey View</h1>
-
-    <!-- Adding in the gear cog with the settings, logout and profile options -->
-		<li class="settings-button">
-			<a href="#"><i class="fa fa-cog"></i></a>
-			<ul class="dropdown-menu">
-				<li><a class="aList" href="#" onclick=profile()>Profile</a></li>
-				<li><a class="aList" href="#" onclick=settings()>Settings</a></li>
-				<li><a class="aList" href="#" onclick=logout()>Log Out</a></li>
-			</ul>
-		</li>
-    
+    <h1>Survey View</h1> 
     </div>
 </header>
 <body>
@@ -336,18 +325,17 @@
         }
     </script>
 
-<script>
-    // Functions for navigating through the dropdown correctly
-    function logout() {
-        window.location.href = "../1-SharedPages/login.html"
-    }
-    function settings() {
-        window.location.href = "../1-SharedPages/settings.html"
-    }
-    function profile(){
-        window.location.href="../1-SharedPages/profile.html"
-    }
-</script>
+<!-- Navigation Panel -->
+<ul id="nav-panel" style="float: right;"></ul>
+
+<!-- Container -->
+<div id="container" style="margin: 0 auto; width: 50%;"></div>
+
+
+<!-- import firebase into surveyView.html and call on createQuiz.js to handle Survey Creation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script type="text/javascript" src="../4-JavaScript/createQuiz.js"></script>
+<script> navPanel() </script>	
 </body>
 
 </html>
