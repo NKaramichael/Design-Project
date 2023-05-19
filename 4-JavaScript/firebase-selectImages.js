@@ -24,34 +24,38 @@ let selectedImage;
 
 const storageRef = firebase.storage().ref().child('Level/images');
 var imageList = [];
+listAll();
 
-// storageRef.listAll()
-//   .then(function(result) {
-//     result.items.forEach(function(imageRef) {
-//       // Create an img element for each image
-//       // const img = document.createElement('img');
-//       // img.width = 100;
-//       // img.height = 100;
+async function listAll(){
+  storageRef.listAll()
+    .then(function(result) {
+      result.items.forEach(function(imageRef) {
+        // Create an img element for each image
+        // const img = document.createElement('img');
+        // img.width = 100;
+        // img.height = 100;
 
-//       // Get the download URL for the image
-//       imageRef.getDownloadURL().then(function(url) {
-//         // img.src = url;
+        // Get the download URL for the image
+        imageRef.getDownloadURL().then(function(url) {
+          // img.src = url;
 
-//         // Add an event listener to capture the user's selection
-//         // img.addEventListener('click', function() {
-//         //   selectImage(img.src, img);
-//         // });
+          // Add an event listener to capture the user's selection
+          // img.addEventListener('click', function() {
+          //   selectImage(img.src, img);
+          // });
 
-//         // Append the img element to the page
-//         // document.getElementById("imageSpace").appendChild(img);
-//       }).catch(function(error) {
-//         console.log(error);
-//       });
-//     });
-//   })
-//   .catch(function(error) {
-//     console.log(error);
-//   });
+          // Append the img element to the page
+          // document.getElementById("imageSpace").appendChild(img);
+        }).catch(function(error) {
+          console.log(error);
+        });
+      });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+}
+
 
 // const form = document.getElementById('ImageForm');
 // const selectedImageInput = document.createElement('input');
