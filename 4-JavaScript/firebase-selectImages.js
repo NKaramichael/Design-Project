@@ -24,9 +24,10 @@ let selectedImage;
 
 const storageRef = firebase.storage().ref().child('Level/images');
 var imageList = [];
-await listAll();
+listAll();
 
 async function listAll(){
+  var foundArr = [];
   storageRef.listAll()
     .then(function(result) {
       result.items.forEach(function(imageRef) {
@@ -38,7 +39,7 @@ async function listAll(){
         // Get the download URL for the image
         imageRef.getDownloadURL().then(function(url) {
           // img.src = url;
-
+          foundArr.push(url);
           // Add an event listener to capture the user's selection
           // img.addEventListener('click', function() {
           //   selectImage(img.src, img);
@@ -54,6 +55,7 @@ async function listAll(){
     .catch(function(error) {
       console.log(error);
     });
+    return foundArr;
 }
 
 
@@ -101,4 +103,4 @@ function submitToEval(){
     // }
 }
 
-module.exports = {selectImage, greyOutImage, submitToEval};
+module.exports = {selectImage, greyOutImage, submitToEval, listAll};
