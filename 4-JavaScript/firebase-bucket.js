@@ -168,9 +168,7 @@ async function createQuizBlock(data, status, id) {
     openButton.style.color = "white";
     openButton.textContent = "Open";
     openButton.setAttribute('data-value', id);
-    openButton.addEventListener("click", openSurvey);
-
-    
+    openButton.addEventListener("click", openSurveyPage);
     textBox.appendChild(openButton);
 
     if (status == 'current') {
@@ -214,4 +212,94 @@ function removeFromCurrent(event) {
   Ref.update({
     currentQuizzes: firebase.firestore.FieldValue.arrayRemove(name)
   });
+};
+
+function openSurveyPage(event) {
+  const button = event.target;
+  const name = button.getAttribute("data-value");
+
+  // Create the URL with query parameter
+  const url = `surveyView.html?quizId=${name}`;
+
+  // Redirect to the other HTML page
+  window.location.href = url;
+};
+
+function openSurvey() {
+  // Get the quizId from the URL query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const name = urlParams.get('quizId');
+
+  quizRef = QuizFirestore.doc(name)
+  quizRef.get()
+              .then((doc) => {
+                if (doc.exists) {
+                  // display the quiz block
+                  displayHeader(doc.data());
+                  displayImages(doc.data());
+                } else {
+                  // The document doesn't exist
+                  console.log("No such document!");
+                }
+              })
+              .catch((error) => {
+                // An error occurred while retrieving the document
+                console.log("Error getting document:", error);
+              });
+  
+};
+
+async function displayImages(data) {
+  // Get a reference to the parent container element
+  const parentContainer = document.getElementById('imageContainer');
+
+  // Create the outer row element
+  const rowElement = document.createElement("div");
+  rowElement.classList.add("row", "justify-content-center", "align-items-center");
+  
+  // Define an async function to be used inside the forEach loop
+  const loadImage = async (levelName) => {
+    // Create the column element
+    const col = document.createElement("div");
+    col.classList.add("col");
+    
+    // Create the image element
+    const image = document.createElement("img");
+    image.classList.add("img-fluid");
+    image.style.maxWidth = "300px";
+    image.style.maxHeight = "300px";
+    image.style.boxShadow = "2px 2px #000";
+
+    const url = await getLevelUrl(levelName);
+    image.setAttribute("src", url)
+    
+    col.appendChild(image);
+    rowElement.appendChild(col);
+  };
+  
+  // Iterate over the image names and load them asynchronously
+  for (const levelName of data['Images']) {
+    await loadImage(levelName);
+  }
+
+  parentContainer.appendChild(rowElement);
+};
+
+async function displayHeader(data) {
+  // Get a reference to the parent container element
+  const headerContainer = document.getElementById("headerContainer");
+
+  // Create the header elements
+  const titleHeader = document.createElement("header");
+  titleHeader.textContent = data['Title'];
+  titleHeader.classList.add("header");
+
+  const descriptionHeader = document.createElement("header");
+  descriptionHeader.textContent = data['Description'];
+  descriptionHeader.classList.add("header");
+
+  // Append the header elements to the header container
+  headerContainer.appendChild(titleHeader);
+  headerContainer.appendChild(descriptionHeader);
+  
 };

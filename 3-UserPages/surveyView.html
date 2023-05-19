@@ -292,18 +292,8 @@
     </div>
 </header>
 <body>
-    <header p>Heading</header p>
-
-    <header p>Description</header p>
-    <!-- Displaying 2 pcg levels side-by-side -->    
-    <div class="row justify-content-center align-items-center">
-        <div class="col">
-            <img style="max-width: 300px; max-height: 300px; box-shadow: 2px 2px#000;" class="img-fluid" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fHJldHJvJTIwZ2FtaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Header Image 1">
-        </div>
-        <div class="col">
-            <img style="max-width: 300px; max-height: 300px; box-shadow: 2px 2px#000; margin-left: 1rem;" class="img-fluid" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fHJldHJvJTIwZ2FtaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Header Image 2">
-        </div>
-        </div>          
+    <div id="headerContainer" class="header"></div>
+    <div id="imageContainer"></div>    
     
       <!-- Adding the scroll-box section for questions to be answere -->
     <div class="scroll-box">
@@ -348,6 +338,16 @@
         window.location.href="../1-SharedPages/profile.html"
     }
 </script>
+
+<!-- import firebase into currentUserBoard.html and call on firebase-bucket.js to handle image requests -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script type="text/javascript" src="../4-JavaScript/firebase-bucket.js"></script>
+<script>
+    // Call the function once the page is loaded
+    window.addEventListener('load', function() {
+      openSurvey();
+    });
+  </script>
 </body>
 
 </html>
