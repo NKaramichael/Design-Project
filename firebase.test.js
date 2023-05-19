@@ -10,7 +10,7 @@ test('selectImage', async () => {
 
   // Call your Firebase function or execute the code that interacts with Firebase
 
-    expect(typeof (listAll())).toBe(Object);
+    expect(typeof (listAll())).toBe("object");
 
   // Make assertions to check the expected behavior or outcomes
 
