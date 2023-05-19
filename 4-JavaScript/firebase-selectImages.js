@@ -29,21 +29,21 @@ storageRef.listAll()
   .then(function(result) {
     result.items.forEach(function(imageRef) {
       // Create an img element for each image
-      const img = document.createElement('img');
-      img.width = 100;
-      img.height = 100;
+      // const img = document.createElement('img');
+      // img.width = 100;
+      // img.height = 100;
 
       // Get the download URL for the image
       imageRef.getDownloadURL().then(function(url) {
-        img.src = url;
+        // img.src = url;
 
         // Add an event listener to capture the user's selection
-        img.addEventListener('click', function() {
-          selectImage(img.src, img);
-        });
+        // img.addEventListener('click', function() {
+        //   selectImage(img.src, img);
+        // });
 
         // Append the img element to the page
-        document.getElementById("imageSpace").appendChild(img);
+        // document.getElementById("imageSpace").appendChild(img);
       }).catch(function(error) {
         console.log(error);
       });
