@@ -2,7 +2,7 @@ let {
     selectImage, greyOutImage, submitToEval, listAll
   } = require('./4-JavaScript/firebase-selectImages.js');
 
-test('selectImage', async (done) => {
+test('selectImage', async () => {
   // Mock Firebase dependencies or initialize Firebase emulator
   // to create a controlled testing environment
 
@@ -15,5 +15,5 @@ test('selectImage', async (done) => {
   // Make assertions to check the expected behavior or outcomes
 
   // Clean up any test-specific resources or data
-  done();
+  
 });
