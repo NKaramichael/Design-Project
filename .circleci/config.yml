@@ -13,9 +13,11 @@ jobs:
           command: npm install
       - run:
           name: Run tests and collect coverage
-          command: npm run test
+          command: |
+            npm run test
+            # Add your Firebase test command here
+            npm run test:firebase
       - codecov/upload
-
 
 workflow:
   version: 2.1
