@@ -1,5 +1,3 @@
-import firebase from 'firebase/app';
-
 let {
     selectImage, greyOutImage, submitToEval
   } = require('./4-JavaScript/firebase-selectImages.js');
