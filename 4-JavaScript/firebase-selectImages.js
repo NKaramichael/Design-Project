@@ -24,7 +24,7 @@ let selectedImage;
 
 const storageRef = firebase.storage().ref().child('Level/images');
 var imageList = [];
-listAll();
+await listAll();
 
 async function listAll(){
   storageRef.listAll()
