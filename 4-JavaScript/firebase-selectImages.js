@@ -88,3 +88,5 @@ function submitToEval(){
         window.location.href = url;
     }
 }
+
+module.exports = {selectImage, greyOutImage, submitToEval};
