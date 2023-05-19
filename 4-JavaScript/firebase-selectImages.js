@@ -24,7 +24,6 @@ let selectedImage;
 
 const storageRef = firebase.storage().ref().child('Level/images');
 var imageList = [];
-listAll();
 
 async function listAll(){
   storageRef.listAll()
@@ -101,4 +100,4 @@ function submitToEval(){
     // }
 }
 
-module.exports = {selectImage, greyOutImage, submitToEval};
+module.exports = {selectImage, greyOutImage, submitToEval, listAll};
