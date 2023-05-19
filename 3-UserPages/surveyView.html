@@ -304,6 +304,12 @@
     </div>
     <div class="blocky-background"></div>
 
+    <!-- Navigation Panel -->
+    <ul id="nav-panel" style="width: fit-content; align-items: center; background-color: #440068; position: absolute; top: 5%; right: 5%;"></ul> 
+
+    <!-- Container -->
+    <div id="container" style="margin: 0 auto; width: 50%;"></div>
+
     <script>
         function previewImage(event) {
             var preview = document.getElementById('preview');
@@ -315,17 +321,6 @@
         }
     </script>
 
-<!-- Navigation Panel -->
-<ul id="nav-panel" style="float: right;"></ul>
-
-<!-- Container -->
-<div id="container" style="margin: 0 auto; width: 50%;"></div>
-
-
-<!-- import firebase into surveyView.html and call on createQuiz.js to handle Survey Creation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
-<script type="text/javascript" src="../4-JavaScript/createQuiz.js"></script>
-<script> navPanel() </script>	
 
 <!-- import firebase into currentUserBoard.html and call on firebase-bucket.js to handle image requests -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>

@@ -24,6 +24,7 @@ var UserFirestore = db.collection('Users');
 var ResearcherFirestore = db.collection('Researchers');
 var LevelFirestore = db.collection('Levels');
 var QuizFirestore = db.collection('Quizzes');
+var QuestionFirestore = db.collection('Questions');
 
 function displayCurrentQuizzes() {
   displayQuizzes("current");
@@ -237,6 +238,7 @@ function openSurvey() {
                   // display the quiz block
                   displayHeader(doc.data());
                   displayImages(doc.data());
+                  navPanel(doc.data());
                 } else {
                   // The document doesn't exist
                   console.log("No such document!");
@@ -303,3 +305,49 @@ async function displayHeader(data) {
   headerContainer.appendChild(descriptionHeader);
   
 };
+
+async function navPanel(docData) {
+  try {
+
+    questions = [];
+    const questionNames = docData.Questions;
+    console.log(questionNames);
+    const navPanel = document.getElementById('nav-panel');
+    const container = document.getElementById('container');
+    
+    await QuestionFirestore.where(firebase.firestore.FieldPath.documentId(), 'in', questionNames).get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((questionDoc) => {
+          // doc.data() is never undefined for query doc snapshots
+          const questionData = questionDoc.data();
+          console.log(questionData)
+          const questionText = questionData.Description;
+          const size = questions.length;
+          const list = { id: questionDoc.id, text: 'Question ' + (size + 1), content: questionText };
+          questions.push(list);
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#';
+          a.dataset.questionId = questionDoc.id;
+          a.textContent = list.text;
+          li.appendChild(a);
+          navPanel.appendChild(li);
+          console.log(questionText);
+          });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+
+    navPanel.addEventListener('click', (event) => {
+      if (event.target.matches('[data-question-id]')) {
+        event.preventDefault();
+        const questionId = event.target.dataset.questionId;
+        const question = questions.find((q) => q.id === questionId);
+        container.innerHTML = question.content;
+      }
+    });
+  } catch (error) {
+    console.log("Error fetching question documents:", error);
+  }
+}
