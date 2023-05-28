@@ -289,11 +289,12 @@
             bottom: 10px;
             right: 10px;
         }
+
         #backButton {
             position: absolute;
             bottom: 10px;
             left: 10px;
-          }
+        }
 
 
         .back-button {
@@ -350,6 +351,26 @@
             margin: 10px;
         }
 
+        .filter-bar {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-bar label {
+            font-weight: bold;
+        }
+
+        .filter-bar select {
+            padding: 5px;
+        }
+
+        .filter-bar button {
+            padding: 5px 10px;
+        }
+
         #loading-screen {
             display: none;
             position: fixed;
@@ -372,7 +393,7 @@
 <header>
     <input type="button" value="⬅" onclick="history.back()" class="back-button">
 
-    <h1 id="mainHeading" >Create a survey</h1>
+    <h1 id="mainHeading">Create a survey</h1>
 
     <!-- Adding in the gear cog with the settings, logout and profile options -->
     <li class="settings-button">
@@ -391,18 +412,34 @@
     <div id="loading-screen">
         <div class="loading-spinner"></div>
         <h1>Submitting Quiz ...</h1>
-      </div>
+    </div>
 
     <div style="text-align: center; align-items: center; margin-bottom: 10px;" id="mainDiv">
         <button type="button" onclick="displayImages()">Select image from database</button>
         <div id="imagePopup" class="popup">
             <div class="popup-content">
+                <div id="filterBar" class="filter-bar">
+                    <label for="modelSelect">Model:</label>
+                    <select id="modelSelect">
+                        <option value="all">All</option>
+                        <option value="model1">Normal WFC</option>
+                        <option value="model2">Hierarchical WFC</option>
+                    </select>
+                    <label for="domainSelect">Domain:</label>
+                    <select id="domainSelect">
+                        <option value="all">All</option>
+                        <option value="domain1">Maze</option>
+                        <option value="domain2">Minecraft</option>
+                        <option value="domain3">RogueLike 2D</option>
+                        <option value="domain4">RogueLike 3D</option>
+                    </select>
+                    <button type="button" onclick="">Apply Filter</button>
+                </div>
                 <div id="imageContainer" class="image-container"></div>
                 <button id="backButton" type="button" onclick="closePopup()">Back</button>
                 <button id="submitButton" type="button" onclick="submitImage()">Submit</button>
             </div>
         </div>
-
         </form>
         <form>
             <input style="color: #ffffff;" type="file" id="fileInput" multiple>
@@ -685,15 +722,15 @@
 
             function greyOutImage(image) {
                 image.style.filter = "grayscale(100%)";
-            }  
+            }
 
             function displayImages() {
                 const imagePopup = document.getElementById('imagePopup');
                 const imageContainer = document.getElementById('imageContainer');
+                const filterBar = document.getElementById('filterBar');
                 imageContainer.innerHTML = '';
 
-                
-                // Retrieve and display the images in the popup
+                // Retrieve and display all the images in the popup
                 const storageRef = firebase.storage().ref().child('Level/images');
                 storageRef.listAll().then(function (result) {
                     result.items.forEach(function (imageRef) {
@@ -715,11 +752,10 @@
                 // Show the popup
                 imagePopup.style.display = 'flex';
             }
-
             function closePopup() {
                 const imagePopup = document.getElementById('imagePopup');
                 imagePopup.style.display = 'none';
-              }
+            }
 
             function submitImage() {
                 const selectedImages = document.querySelectorAll('.selected');
@@ -735,21 +771,21 @@
                     selectedImageUrls.push(img.src);
                 });
 
-                if (selectedImageUrls.length > 3){
+                if (selectedImageUrls.length > 3) {
                     alert("Please select up to 3 images only!");
                     return;
                 }
 
                 // Submit the form (you can customize this according to your needs)
-                if (selectedImageUrls.length == 0){
+                if (selectedImageUrls.length == 0) {
                     alert("You have not selected any images!");
                 } else {
                     // var dataToSend = "Hello, World!"; // The data you want to send
                     var url = "../2-ResearcherPages/evaluation2.html?";
-                    for (let i = 0; i < selectedImageUrls.length; i++){
+                    for (let i = 0; i < selectedImageUrls.length; i++) {
                         const imgUrl = selectedImageUrls[i];
 
-                        if (i == 0){
+                        if (i == 0) {
                             url += "img" + i + "=" + encodeURIComponent(imgUrl);
                         } else {
                             url += "&img" + i + "=" + encodeURIComponent(imgUrl);
@@ -938,24 +974,24 @@
 
     </script>
 
-<script>
-    // Functions for navigating through the dropdown correctly
-    function logout() {
-        window.location.href = "../1-SharedPages/login.html"
-    }
-    function settings() {
-        window.location.href = "../1-SharedPages/settings.html"
-    }
-    function profile(){
-        window.location.href="../1-SharedPages/profile.html"
-    }
+    <script>
+        // Functions for navigating through the dropdown correctly
+        function logout() {
+            window.location.href = "../1-SharedPages/login.html"
+        }
+        function settings() {
+            window.location.href = "../1-SharedPages/settings.html"
+        }
+        function profile() {
+            window.location.href = "../1-SharedPages/profile.html"
+        }
 
-    // Redirecting to global image selection page
-    function transfer(){
-        window.location.href = "../2-ResearcherPages/selectImages.html";
-        alert("");
-    }
-</script>
+        // Redirecting to global image selection page
+        function transfer() {
+            window.location.href = "../2-ResearcherPages/selectImages.html";
+            alert("");
+        }
+    </script>
 
     <!-- import firebase into evaluation.html and call on firebase-submitQuiz.js to handle requests -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
