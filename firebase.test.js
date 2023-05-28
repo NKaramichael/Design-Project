@@ -2,21 +2,36 @@ let {
   selectImage, greyOutImage, submitToEval, listAll
 } = require('./4-JavaScript/firebase-selectImages.js');
 
-test('selectImage', async (done) => {
-  // Mock Firebase dependencies or initialize Firebase emulator
-  // to create a controlled testing environment
+const firebase = require('firebase');
+const { initializeTestApp, initializeAdminApp, assertFails, assertSucceeds } = require('@firebase/testing');
 
-  expect(1).toBe(1);
+const projectId = 'your-project-id'; // Provide a unique project ID
 
-  try {
-    // Call your Firebase function or execute the code that interacts with Firebase
-    const result = await listAll();
+const firebaseApp = initializeTestApp({
+  projectId,
+});
 
-    expect(typeof result).toBe("object");
-    // Make assertions to check the expected behavior or outcomes
+// Set up a reference to the database
+const db = firebaseApp.firestore();
 
-    // Clean up any test-specific resources or data
-  } catch (error) {
-    throw error; // If there's an error, throw it to fail the test
-  }
+// Define any initial test data or configuration
+const initialData = { /* ... */ };
+
+// Set up the database with initial data
+beforeAll(async () => {
+  await firebaseApp.firestore().doc('collection/document').set(initialData);
+});
+
+// Clean up the database after the tests
+afterAll(async () => {
+  await firebaseApp.delete();
+});
+
+describe('Firebase Database Testing', () => {
+  test('Example test case', async () => {
+    // Use the `db` reference to perform database operations
+    const doc = await db.doc('collection/document').get();
+    expect(doc.exists).toBe(true);
+    // ... more assertions and tests
+  });
 });
