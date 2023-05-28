@@ -7,7 +7,7 @@ test('selectImage', async (done) => {
   // to create a controlled testing environment
 
   expect(1).toBe(1);
-  
+
   try {
     // Call your Firebase function or execute the code that interacts with Firebase
     const result = await listAll();
@@ -19,4 +19,6 @@ test('selectImage', async (done) => {
   } catch (error) {
     throw error; // If there's an error, throw it to fail the test
   }
+
+  done()
 });
