@@ -19,6 +19,4 @@ test('selectImage', async (done) => {
   } catch (error) {
     throw error; // If there's an error, throw it to fail the test
   }
-
-  done()
 });
