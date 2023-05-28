@@ -7,12 +7,16 @@ test('selectImage', async (done) => {
   // to create a controlled testing environment
 
   expect(1).toBe(1);
+  
+  try {
+    // Call your Firebase function or execute the code that interacts with Firebase
+    const result = await listAll();
 
-  // Call your Firebase function or execute the code that interacts with Firebase
+    expect(typeof result).toBe("object");
+    // Make assertions to check the expected behavior or outcomes
 
-  expect(typeof (listAll())).toBe("object");
-
-  // Make assertions to check the expected behavior or outcomes
-
-  // Clean up any test-specific resources or data
+    // Clean up any test-specific resources or data
+  } catch (error) {
+    throw error; // If there's an error, throw it to fail the test
+  }
 });
