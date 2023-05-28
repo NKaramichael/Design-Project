@@ -422,18 +422,18 @@
                     <label for="modelSelect">Model:</label>
                     <select id="modelSelect">
                         <option value="all">All</option>
-                        <option value="model1">Normal WFC</option>
-                        <option value="model2">Hierarchical WFC</option>
+                        <option value="nWFC">Normal WFC</option>
+                        <option value="hWFC">Hierarchical WFC</option>
                     </select>
                     <label for="domainSelect">Domain:</label>
                     <select id="domainSelect">
                         <option value="all">All</option>
-                        <option value="domain1">Maze</option>
-                        <option value="domain2">Minecraft</option>
-                        <option value="domain3">RogueLike 2D</option>
-                        <option value="domain4">RogueLike 3D</option>
+                        <option value="Maze">Maze</option>
+                        <option value="Minecraft">Minecraft</option>
+                        <option value="RL2d">RogueLike 2D</option>
+                        <option value="RL3D">RogueLike 3D</option>
                     </select>
-                    <button type="button" onclick="">Apply Filter</button>
+                    <button id="filterButton" type="button" onclick="displayImages()">Apply Filter</button>
                 </div>
                 <div id="imageContainer" class="image-container"></div>
                 <button id="backButton" type="button" onclick="closePopup()">Back</button>
@@ -725,22 +725,31 @@
             }
 
             function displayImages() {
+                const modelSelect = document.getElementById('modelSelect');
+                const filterValue = modelSelect.value
                 const imagePopup = document.getElementById('imagePopup');
                 const imageContainer = document.getElementById('imageContainer');
                 const filterBar = document.getElementById('filterBar');
                 imageContainer.innerHTML = '';
 
-                // Retrieve and display all the images in the popup
+                // Retrieve and display images based on the filter value
                 const storageRef = firebase.storage().ref().child('Level/images');
                 storageRef.listAll().then(function (result) {
                     result.items.forEach(function (imageRef) {
-                        imageRef.getDownloadURL().then(function (url) {
-                            const img = document.createElement('img');
-                            img.src = url;
-                            img.addEventListener('click', function () {
-                                img.classList.toggle('selected');
-                            });
-                            imageContainer.appendChild(img);
+                        imageRef.getMetadata().then(function (metadata) {
+                            // Check if the filter value is "All" or if the image matches the filter value
+                            if (filterValue === 'all' || (metadata && metadata.customMetadata && metadata.customMetadata.model === filterValue)) {
+                                imageRef.getDownloadURL().then(function (url) {
+                                    const img = document.createElement('img');
+                                    img.src = url;
+                                    img.addEventListener('click', function () {
+                                        img.classList.toggle('selected');
+                                    });
+                                    imageContainer.appendChild(img);
+                                }).catch(function (error) {
+                                    console.log(error);
+                                });
+                            }
                         }).catch(function (error) {
                             console.log(error);
                         });
@@ -752,6 +761,7 @@
                 // Show the popup
                 imagePopup.style.display = 'flex';
             }
+
             function closePopup() {
                 const imagePopup = document.getElementById('imagePopup');
                 imagePopup.style.display = 'none';

@@ -1,13 +1,13 @@
 // Work in prgress to hamdle user generated conted eg images
 //configuration for connecting to firebase database
 const firebaseConfig = {
-    apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
-    authDomain: "pcgevaluation-49d75.firebaseapp.com",
-    databaseURL: "https://pcgevaluation-49d75-default-rtdb.firebaseio.com",
-    projectId: "pcgevaluation-49d75",
-    storageBucket: "pcgevaluation-49d75.appspot.com",
-    messagingSenderId: "369543877095",
-    appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
+  apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
+  authDomain: "pcgevaluation-49d75.firebaseapp.com",
+  databaseURL: "https://pcgevaluation-49d75-default-rtdb.firebaseio.com",
+  projectId: "pcgevaluation-49d75",
+  storageBucket: "pcgevaluation-49d75.appspot.com",
+  messagingSenderId: "369543877095",
+  appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
 };
 
 
@@ -48,7 +48,7 @@ function displayQuizzes(status) {
     Ref.get()
       .then((doc) => {
         if (doc.exists) {
-          const quizRefs = doc.data()[status+'Quizzes'];
+          const quizRefs = doc.data()[status + 'Quizzes'];
           // loop through array and get info for each quiz to display
           quizRefs.forEach((name) => {
             const ref = QuizFirestore.doc(name);
@@ -56,7 +56,7 @@ function displayQuizzes(status) {
               .then((doc) => {
                 if (doc.exists) {
                   // display the quiz block
-                   createQuizBlock(doc.data(), status, doc.id);
+                  createQuizBlock(doc.data(), status, doc.id);
                 } else {
                   // The document doesn't exist
                   console.log("No such document!");
@@ -75,7 +75,7 @@ function displayQuizzes(status) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }else {
+  } else {
     Ref.get()
       .then((doc) => {
         if (doc.exists) {
@@ -109,7 +109,7 @@ function displayQuizzes(status) {
 async function getLevelUrl(levelName) {
   const levelRef = LevelFirestore.doc(levelName);
   let url = '';
-  
+
   try {
     const doc = await levelRef.get();
     if (doc.exists) {
@@ -120,7 +120,7 @@ async function getLevelUrl(levelName) {
   } catch (error) {
     console.log("Error getting document");
   }
-  
+
   return url;
 };
 
@@ -150,10 +150,10 @@ async function createQuizBlock(data, status, id) {
 
   const description = document.createElement("p");
   description.textContent = box.description;
-  
+
   textBox.appendChild(image);
 
-  if (status == 'new'){
+  if (status == 'new') {
     const addButton = document.createElement("button");
     addButton.classList.add("button");
     addButton.style.backgroundColor = "rgb(65, 239, 65)";
@@ -182,8 +182,8 @@ async function createQuizBlock(data, status, id) {
       removeButton.addEventListener("click", removeFromCurrent);
       // Add the elements to the text box
       textBox.appendChild(removeButton);
-    } 
-  } 
+    }
+  }
   textBox.appendChild(title);
   textBox.appendChild(description);
 
@@ -233,22 +233,22 @@ function openSurvey() {
 
   quizRef = QuizFirestore.doc(name)
   quizRef.get()
-              .then((doc) => {
-                if (doc.exists) {
-                  // display the quiz block
-                  displayHeader(doc.data());
-                  displayImages(doc.data());
-                  navPanel(doc.data());
-                } else {
-                  // The document doesn't exist
-                  console.log("No such document!");
-                }
-              })
-              .catch((error) => {
-                // An error occurred while retrieving the document
-                console.log("Error getting document:", error);
-              });
-  
+    .then((doc) => {
+      if (doc.exists) {
+        // display the quiz block
+        displayHeader(doc.data());
+        displayImages(doc.data());
+        navPanel(doc.data());
+      } else {
+        // The document doesn't exist
+        console.log("No such document!");
+      }
+    })
+    .catch((error) => {
+      // An error occurred while retrieving the document
+      console.log("Error getting document:", error);
+    });
+
 };
 
 async function displayImages(data) {
@@ -258,13 +258,13 @@ async function displayImages(data) {
   // Create the outer row element
   const rowElement = document.createElement("div");
   rowElement.classList.add("row", "justify-content-center", "align-items-center");
-  
+
   // Define an async function to be used inside the forEach loop
   const loadImage = async (levelName) => {
     // Create the column element
     const col = document.createElement("div");
     col.classList.add("col");
-    
+
     // Create the image element
     const image = document.createElement("img");
     image.classList.add("img-fluid");
@@ -274,11 +274,11 @@ async function displayImages(data) {
 
     const url = await getLevelUrl(levelName);
     image.setAttribute("src", url)
-    
+
     col.appendChild(image);
     rowElement.appendChild(col);
   };
-  
+
   // Iterate over the image names and load them asynchronously
   for (const levelName of data['Images']) {
     await loadImage(levelName);
@@ -303,7 +303,7 @@ async function displayHeader(data) {
   // Append the header elements to the header container
   headerContainer.appendChild(titleHeader);
   headerContainer.appendChild(descriptionHeader);
-  
+
 };
 
 async function navPanel(docData) {
@@ -314,10 +314,10 @@ async function navPanel(docData) {
     console.log(questionNames);
     const navPanel = document.getElementById('nav-panel');
     const container = document.getElementById('container');
-    
+
     await QuestionFirestore.where(firebase.firestore.FieldPath.documentId(), 'in', questionNames).get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((questionDoc) => {
+      .then((querySnapshot) => {
+        querySnapshot.forEach((questionDoc) => {
           // doc.data() is never undefined for query doc snapshots
           const questionData = questionDoc.data();
           console.log(questionData)
@@ -333,11 +333,11 @@ async function navPanel(docData) {
           li.appendChild(a);
           navPanel.appendChild(li);
           console.log(questionText);
-          });
-    })
-    .catch((error) => {
+        });
+      })
+      .catch((error) => {
         console.log("Error getting documents: ", error);
-    });
+      });
 
     navPanel.addEventListener('click', (event) => {
       if (event.target.matches('[data-question-id]')) {
@@ -350,4 +350,36 @@ async function navPanel(docData) {
   } catch (error) {
     console.log("Error fetching question documents:", error);
   }
+}
+// Handle filter button click event
+function handleFilter() {
+
+  const levelsCollection = firebase.firestore().collection("Levels");
+
+  // Retrieve the selected filter model
+  const filterModel = document.getElementById("modelSelect").value;
+
+  // Clear previous result
+  const imageContainer = document.getElementById("imageContainer");
+  imageContainer.innerHTML = "";
+  console.log("HI")
+  // Perform Firestore query
+  levelsCollection.where("model", "==", filterModel)
+    .get()
+    .then((querySnapshot) => {
+      // Process the query results
+      querySnapshot.forEach((doc) => {
+        // Get the imageUrl from the document
+        const data = doc.data();
+        const imageUrl = data.imageUrl;
+
+        // Display the image in the UI
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        imageContainer.appendChild(img);
+      });
+    })
+    .catch((error) => {
+      console.error("Error retrieving filtered documents: ", error);
+    });
 }
