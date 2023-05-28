@@ -2,6 +2,9 @@ let {
   selectImage, greyOutImage, submitToEval, listAll
 } = require('./4-JavaScript/firebase-selectImages.js');
 
+const firebase = require('firebase');
+const { initializeTestApp, initializeAdminApp, assertFails, assertSucceeds } = require('@firebase/testing');
+
 const projectId = 'your-project-id'; // Provide a unique project ID
 
 const firebaseApp = initializeTestApp({
