@@ -2,10 +2,14 @@ let {
     submitToEval
   } = require('./firebase/firebase-selectImages.js');
   
+  const firebase = require('firebase/app');
+  require('firebase/auth');
+  require('firebase/firestore');
+
   test('Test myFirebaseFunction', () => {
     // Mock Firebase dependencies or initialize Firebase emulator
     // to create a controlled testing environment
-  
+    
     // Call your Firebase function or execute the code that interacts with Firebase
     submitToEval;
     expect(1).toBe(1);
