@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 
 // Initialise firebase
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig); Do Not need to reinitialise for testing
 var db = firebase.firestore();
 var collectionRef = db.collection("Questions");
 
