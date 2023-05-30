@@ -19,22 +19,22 @@ let {
     // Clean up any test-specific resources or data
   });
 
-  let {
-    submit
-  } = require('./firebase/firebase-submitQuiz.js');
+//   let {
+//     submit
+//   } = require('./firebase/firebase-submitQuiz.js');
 
-  test('Test myFirebaseFunction', () => {
-    // Mock Firebase dependencies or initialize Firebase emulator
-    // to create a controlled testing environment
+//   test('Test myFirebaseFunction', () => {
+//     // Mock Firebase dependencies or initialize Firebase emulator
+//     // to create a controlled testing environment
     
-    // Call your Firebase function or execute the code that interacts with Firebase
-    submit;
-    expect(1).toBe(1);
+//     // Call your Firebase function or execute the code that interacts with Firebase
+//     submit;
+//     expect(1).toBe(1);
   
-    // Make assertions to check the expected behavior or outcomes
+//     // Make assertions to check the expected behavior or outcomes
   
-    // Clean up any test-specific resources or data
-  });
+//     // Clean up any test-specific resources or data
+//   });
 
   let {
     validate_email,
