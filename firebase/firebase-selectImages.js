@@ -15,10 +15,10 @@ const firebaseConfig = {
 // Initialise firebase
 firebase.initializeApp(firebaseConfig);
 
-// let selectedImage;
+let selectedImage;
 
 // const storageRef = firebase.storage().ref().child('Level/images');
-// var imageList = [];
+var imageList = [];
 
 // storageRef.listAll()
 //   .then(function(result) {

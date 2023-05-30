@@ -1,18 +1,26 @@
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
-//     authDomain: "pcgevaluation-49d75.firebaseapp.com",
-//     databaseURL: "https://pcgevaluation-49d75-default-rtdb.firebaseio.com",
-//     projectId: "pcgevaluation-49d75",
-//     storageBucket: "pcgevaluation-49d75.appspot.com",
-//     messagingSenderId: "369543877095",
-//     appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
-// };
+const firebase = require('firebase/app');
 
-// // Initialise firebase
-// firebase.initializeApp(firebaseConfig);
-// var db = firebase.firestore();
-// var collectionRef = db.collection("Questions");
+const firebaseConfig = {
+    apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
+    authDomain: "pcgevaluation-49d75.firebaseapp.com",
+    databaseURL: "https://pcgevaluation-49d75-default-rtdb.firebaseio.com",
+    projectId: "pcgevaluation-49d75",
+    storageBucket: "pcgevaluation-49d75.appspot.com",
+    messagingSenderId: "369543877095",
+    appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
+};
+
+// Initialise firebase
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+var collectionRef = db.collection("Questions");
+
+// Get a reference to the Firebase Storage service
+var storage = firebase.storage();
+
+// Get a reference to the Firebase Firestore database
+var firestore = firebase.firestore();
 
 function submitQuiz() {
     // document.getElementById('submitQuizForm').addEventListener('submit', submit);
@@ -194,12 +202,6 @@ async function submit(e) {
     // // alert("Quiz submitted!");
     // window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
 }
-
-// // Get a reference to the Firebase Storage service
-// var storage = firebase.storage();
-
-// // Get a reference to the Firebase Firestore database
-// var firestore = firebase.firestore();
 
 async function uploadImages(files, imageArr) {
     // // Upload images to Firebase Storage and Firestore
