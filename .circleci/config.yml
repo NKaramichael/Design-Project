@@ -13,9 +13,13 @@ jobs:
           command: npm install
       - run:
           name: Run tests and collect coverage
-          command: npm run test
+          command: |
+            npm run test
+            export FIREBASE_PROJECT_ID="your-project-id"
+            npx firebase emulators:start --only firestore &
+            sleep 10 # Wait for emulators to start
+            npm run test:firebase
       - codecov/upload
-
 
 workflow:
   version: 2.1
