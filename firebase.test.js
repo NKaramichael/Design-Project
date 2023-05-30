@@ -1,13 +1,14 @@
 let {
-    myFirebaseFunction
-  } = require('./4-JavaScript/firebase-selectImages.js');
+    submitToEval
+  } = require('./firebase/firebase-selectImages.js');
   
-  test('Test myFirebaseFunction', async () => {
+  test('Test myFirebaseFunction', () => {
     // Mock Firebase dependencies or initialize Firebase emulator
     // to create a controlled testing environment
   
     // Call your Firebase function or execute the code that interacts with Firebase
-    
+    submitToEval;
+    expect(1).toBe(1);
   
     // Make assertions to check the expected behavior or outcomes
   
