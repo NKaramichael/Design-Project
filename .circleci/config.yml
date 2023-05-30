@@ -15,7 +15,7 @@ jobs:
           name: Run tests and collect coverage
           command: |
             npm run test
-            export FIREBASE_PROJECT_ID="your-project-id"
+            export FIREBASE_PROJECT_ID="pcgevaluation-49d75"
             npx firebase emulators:start --only firestore &
             sleep 10 # Wait for emulators to start
             npm run test:firebase
