@@ -32,7 +32,7 @@ let {
     expect(1).toBe(1);
   
     // Make assertions to check the expected behavior or outcomes
-  
+    expect(2).toBe(2);
     // Clean up any test-specific resources or data
   });
 
