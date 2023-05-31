@@ -12,7 +12,7 @@ const firebaseConfig = {
     appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
   };
 
-const change = (num) => {
+function change (num) {
     let out = '';
     switch (num) {
         case 0:
