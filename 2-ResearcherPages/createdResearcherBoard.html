@@ -247,6 +247,10 @@
     </div>
 
     <div class="blocky-background"></div>
+	<div class=scrollable-box id="scrollable-box">
+		<div class="text-boxes"id="text-boxes">
+		</div>
+	</div>
     <!DOCTYPE html>
     <html>
 
@@ -256,34 +260,91 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
 
-    <body>
-        <div class="box-container">
-            <div class="box">
-
-                <div class="box-img">
-                    <img src="https://images.unsplash.com/photo-1555864326-5cf22ef123cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHJldHJvJTIwZ2FtaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Image 2">
-                </div>
-                <div class="box-desc">
-                    <div class="box-column">
-                        <p>1. Description of item 1</p>
-                    </div>
-                    <div class="box-column">
-                        <p>2. Description of item 2</p>
-                    </div>
-                    <div class="box-column">
-                        <p>3. Description of item 3</p>
-                    </div>
-                    <div class="box-column">
-                        <p>4. Description of item 4</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
 
     </html>
+<script>
+    function displayQuizzes() {
+        var email = sessionStorage.getItem('email');
+        // var email = 'meow10@catmail.com';
+        Ref = UserFirestore.doc(email);
+      
+        Ref.get()
+          .then((doc) => {
+            if (doc.exists) {
+              const currentQuizzes = doc.data()['currentQuizzes'];
+              // loop through array and get info for each quiz to display
+              currentQuizzes.forEach((name) => {
+                const ref = QuizFirestore.doc(name);
+                ref.get()
+                  .then((doc) => {
+                    if (doc.exists && doc.data().Researcher === email) {
+                      // display the quiz block
+                      createQuizBlock(doc.data(), 'current', doc.id);
+                    } else {
+                      // The document doesn't exist or the Researcher field doesn't match the email
+                      console.log("No such document or Researcher doesn't match the email!");
+                    }
+                  })
+                  .catch((error) => {
+                    // An error occurred while retrieving the document
+                    console.log("Error getting document:", error);
+                  });
+              });
+            } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+          });
+      };
+      
+      async function createQuizBlock(data, status, id) {
+        // define values for the box
+        const box = {
+          title: data['Title'],
+          description: data['Description']
+        };
+        // Get a reference to the container element
+        // Get the parent element to which the text boxes will be added
+        const parent = document.getElementById("text-boxes");
+      
+        const textBox = document.createElement("div");
+        textBox.classList.add("text-box");
+        // get and set thumbnail link from storage
+      
+        const image = document.createElement("img");
+        levelName = data["Images"][0];
+        const url = await getLevelUrl(levelName);
+        image.setAttribute("src", url);
+      
+        const title = document.createElement("h2");
+        title.textContent = box.title;
+      
+        const description = document.createElement("p");
+        description.textContent = box.description;
+      
+        textBox.appendChild(image);
+      
+        const addButton = document.createElement("button");
+        addButton.classList.add("button");
+        addButton.style.backgroundColor = "rgb(65, 239, 65)";
+        addButton.style.color = "white";
+        addButton.textContent = "Add to Current";
+        addButton.setAttribute('data-value', id);
+        addButton.addEventListener("click", addToCurrent);
+        textBox.appendChild(addButton);
+        textBox.appendChild(title);
+        textBox.appendChild(description);
+      
+        // Add the text box to the parent element
+        parent.appendChild(textBox);
+      }
+      
 
+
+</script>
 
 </body>
 
