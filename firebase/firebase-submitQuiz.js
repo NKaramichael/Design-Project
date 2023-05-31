@@ -1,4 +1,5 @@
 
+// import firebase from 'firebase/app';
 const firebase = require('firebase/app');
 
 const firebaseConfig = {
@@ -9,18 +10,10 @@ const firebaseConfig = {
     storageBucket: "pcgevaluation-49d75.appspot.com",
     messagingSenderId: "369543877095",
     appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
-};
-
+  };
+  
 // Initialise firebase
-// firebase.initializeApp(firebaseConfig); Do Not need to reinitialise for testing
-var db = firebase.firestore();
-var collectionRef = db.collection("Questions");
-
-// Get a reference to the Firebase Storage service
-var storage = firebase.storage();
-
-// Get a reference to the Firebase Firestore database
-var firestore = firebase.firestore();
+firebase.initializeApp(firebaseConfig);
 
 const change = (num) => {
     let out = '';

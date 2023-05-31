@@ -102,20 +102,6 @@ test('validate_change_invalid_input', () => {
   expect(result4).toBe('');
 });
 
-// Mock the displayQuizzes function
-jest.mock('./firebase/firebase-submitQuiz.js', () => ({
-  submitQuiz: jest.fn()
-}));
-
-describe('displayCurrentQuizzes', () => {
-  it('should call displayQuizzes with "current" argument', () => {
-    // Call the function to be tested
-    submitQuiz();
-
-    
-  });
-});
-
 ///////////////////////////////////////////////
 ///////// TESTING ESSENTIAL FUNCTIONS /////////
 ///////////////////////////////////////////////
