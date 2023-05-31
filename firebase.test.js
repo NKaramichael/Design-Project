@@ -23,7 +23,7 @@ test('validate_greyOutImage_greys_out_image', () => {
   const image = { style: style};
   
   const newFilter = greyOutImage(image);
-  expect(newFilter).toBe("grayed");
+  expect(newFilter).toBe("grayscale(100%)");
 });
 
 ///////////////////////////////////////////////
