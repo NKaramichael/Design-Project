@@ -40,7 +40,7 @@ test('validate_submitToEval_valid_imageList', () => {
   const imageList = [mockImage];
 
   const output = submitToEval(imageList);
-  const validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURI(imageList[0]);
+  const validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURIComponent(imageList[0]);
   expect(output).toBe(validOutput);
 });
 
