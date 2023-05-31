@@ -128,20 +128,22 @@ test('validate_submit_return_invalid_textAreas', async () => {
   var files = [mockImage];
   var heading = "";
   var description = "";
-  const result = await submit(files);
 
   // Blank heading and description
+  var result = await submit(files, heading, description);
   var expectedOutput = "Address the following issues: \n";
   expectedOutput += "Please enter a Quiz heading\n";
   expectedOutput += "Please enter a Quiz description\n";
   expect(result).toBe(expectedOutput);
 
   // Blank heading
+  result = await submit(files, heading, description);
   expectedOutput = "Address the following issues: \n";
   expectedOutput += "Please enter a Quiz heading\n";
   expect(result).toBe(expectedOutput);
 
   // Blank description
+  result = await submit(files, heading, description);
   expectedOutput = "Address the following issues: \n";
   expectedOutput += "Please enter a Quiz description\n";
   expect(result).toBe(expectedOutput);
