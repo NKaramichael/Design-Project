@@ -1,33 +1,33 @@
 // Work in prgress to hamdle user generated conted eg images
 //configuration for connecting to firebase database
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
-//   authDomain: "pcgevaluation-49d75.firebaseapp.com",
-//   databaseURL: "https://pcgevaluation-49d75-default-rtdb.firebaseio.com",
-//   projectId: "pcgevaluation-49d75",
-//   storageBucket: "pcgevaluation-49d75.appspot.com",
-//   messagingSenderId: "369543877095",
-//   appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
-// };
+const firebaseConfig = {
+  apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
+  authDomain: "pcgevaluation-49d75.firebaseapp.com",
+  databaseURL: "https://pcgevaluation-49d75-default-rtdb.firebaseio.com",
+  projectId: "pcgevaluation-49d75",
+  storageBucket: "pcgevaluation-49d75.appspot.com",
+  messagingSenderId: "369543877095",
+  appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
+};
 
 
 // //initialise firebase
-// firebase.initializeApp(firebaseConfig);
-// // Get a reference to the storage service, which is used to create references in your storage bucket
-// var storage = firebase.storage();
-// // Create a storage reference from our storage service
-// var storageRef = storage.ref();
+firebase.initializeApp(firebaseConfig);
+// Get a reference to the storage service, which is used to create references in your storage bucket
+var storage = firebase.storage();
+// Create a storage reference from our storage service
+var storageRef = storage.ref();
 
 // //firestore references
-// const db = firebase.firestore();
-// var UserFirestore = db.collection('Users');
-// var ResearcherFirestore = db.collection('Researchers');
-// var LevelFirestore = db.collection('Levels');
-// var QuizFirestore = db.collection('Quizzes');
-// var QuestionFirestore = db.collection('Questions');
+const db = firebase.firestore();
+var UserFirestore = db.collection('Users');
+var ResearcherFirestore = db.collection('Researchers');
+var LevelFirestore = db.collection('Levels');
+var QuizFirestore = db.collection('Quizzes');
+var QuestionFirestore = db.collection('Questions');
 
 function displayCurrentQuizzes() {
-  // displayQuizzes("current");
+  displayQuizzes("current");
 };
 
 function displayCompletedQuizzes() {
@@ -123,8 +123,6 @@ async function getLevelUrl(levelName) {
 
   // return url;
 };
-
-
 
 async function createQuizBlock(data, status, id) {
   // // define values for the box
@@ -288,21 +286,21 @@ async function displayImages(data) {
 };
 
 async function displayHeader(data) {
-  // Get a reference to the parent container element
-  const headerContainer = document.getElementById("headerContainer");
+  // // Get a reference to the parent container element
+  // const headerContainer = document.getElementById("headerContainer");
 
-  // Create the header elements
-  const titleHeader = document.createElement("header");
-  titleHeader.textContent = data['Title'];
-  titleHeader.classList.add("header");
+  // // Create the header elements
+  // const titleHeader = document.createElement("header");
+  // titleHeader.textContent = data['Title'];
+  // titleHeader.classList.add("header");
 
-  const descriptionHeader = document.createElement("header");
-  descriptionHeader.textContent = data['Description'];
-  descriptionHeader.classList.add("header");
+  // const descriptionHeader = document.createElement("header");
+  // descriptionHeader.textContent = data['Description'];
+  // descriptionHeader.classList.add("header");
 
-  // Append the header elements to the header container
-  headerContainer.appendChild(titleHeader);
-  headerContainer.appendChild(descriptionHeader);
+  // // Append the header elements to the header container
+  // headerContainer.appendChild(titleHeader);
+  // headerContainer.appendChild(descriptionHeader);
 
 };
 
@@ -310,43 +308,43 @@ async function navPanel(docData) {
   try {
 
     questions = [];
-    const questionNames = docData.Questions;
-    console.log(questionNames);
-    const navPanel = document.getElementById('nav-panel');
-    const container = document.getElementById('container');
+    // const questionNames = docData.Questions;
+    // console.log(questionNames);
+    // const navPanel = document.getElementById('nav-panel');
+    // const container = document.getElementById('container');
 
     await QuestionFirestore.where(firebase.firestore.FieldPath.documentId(), 'in', questionNames).get()
       .then((querySnapshot) => {
         querySnapshot.forEach((questionDoc) => {
           // doc.data() is never undefined for query doc snapshots
           const questionData = questionDoc.data();
-          console.log(questionData)
+          // console.log(questionData)
           const questionText = questionData.Description;
           const size = questions.length;
           const list = { id: questionDoc.id, text: 'Question ' + (size + 1), content: questionText };
           questions.push(list);
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = '#';
-          a.dataset.questionId = questionDoc.id;
-          a.textContent = list.text;
-          li.appendChild(a);
-          navPanel.appendChild(li);
-          console.log(questionText);
+          // const li = document.createElement('li');
+          // const a = document.createElement('a');
+          // a.href = '#';
+          // a.dataset.questionId = questionDoc.id;
+          // a.textContent = list.text;
+          // li.appendChild(a);
+          // navPanel.appendChild(li);
+          // console.log(questionText);
         });
       })
       .catch((error) => {
-        console.log("Error getting documents: ", error);
+        // console.log("Error getting documents: ", error);
       });
 
-    navPanel.addEventListener('click', (event) => {
-      if (event.target.matches('[data-question-id]')) {
-        event.preventDefault();
-        const questionId = event.target.dataset.questionId;
-        const question = questions.find((q) => q.id === questionId);
-        container.innerHTML = question.content;
-      }
-    });
+    // navPanel.addEventListener('click', (event) => {
+    //   if (event.target.matches('[data-question-id]')) {
+    //     event.preventDefault();
+    //     const questionId = event.target.dataset.questionId;
+    //     const question = questions.find((q) => q.id === questionId);
+    //     container.innerHTML = question.content;
+    //   }
+    // });
   } catch (error) {
     console.log("Error fetching question documents:", error);
   }
@@ -357,12 +355,12 @@ function handleFilter() {
   const levelsCollection = firebase.firestore().collection("Levels");
 
   // Retrieve the selected filter model
-  const filterModel = document.getElementById("modelSelect").value;
+  // const filterModel = document.getElementById("modelSelect").value;
 
   // Clear previous result
-  const imageContainer = document.getElementById("imageContainer");
-  imageContainer.innerHTML = "";
-  console.log("HI")
+  // const imageContainer = document.getElementById("imageContainer");
+  // imageContainer.innerHTML = "";
+  // console.log("HI")
   // Perform Firestore query
   levelsCollection.where("model", "==", filterModel)
     .get()
@@ -374,9 +372,9 @@ function handleFilter() {
         const imageUrl = data.imageUrl;
 
         // Display the image in the UI
-        const img = document.createElement("img");
-        img.src = imageUrl;
-        imageContainer.appendChild(img);
+        // const img = document.createElement("img");
+        // img.src = imageUrl;
+        // imageContainer.appendChild(img);
       });
     })
     .catch((error) => {
