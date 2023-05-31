@@ -36,9 +36,7 @@ test('validate_submitToEval_invalid_imageList', () => {
 });
 
 test('validate_submitToEval_valid_imageList', () => {
-  const mockImage = {
-    url: "https://someGoogleApi"
-  };
+  const mockImage = "https://someGoogleApi";
   const imageList = [mockImage];
 
   const output = submitToEval(imageList);
