@@ -34,30 +34,19 @@ function submitQuiz() {
     submit();
 }
 
-async function fetchData() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('Data');
-      }, 1000);
-    });
-  }
-
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
-async function submit() {
+async function submit(files) {
+    const output = "";
 
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve('Data');
-        }, 3000);
-    });
-
-    // // Checking that user has uploaded at least one image
-    // const files = document.getElementById('fileInput').files;
-
-    // if (files.length == 0) {
-    //     alert("Please upload at least 1 image");
-    //     return;
-    // }
+    // Checking that user has uploaded at least one image
+    if (files.length == 0) {
+        output = ("Please upload at least 1 image");
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(output);
+            }, 3000);
+        });
+    }
 
     // // Checking that heading and description are filled in
     // const heading = document.getElementById('heading').value;
