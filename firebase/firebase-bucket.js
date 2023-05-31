@@ -10,7 +10,6 @@ const firebaseConfig = {
   appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
 };
 
-
 // //initialise firebase
 firebase.initializeApp(firebaseConfig);
 // Get a reference to the storage service, which is used to create references in your storage bucket
