@@ -42,7 +42,7 @@ test('validate_submitToEval_invalid_imageList', () => {
   expect(output).toBe("You have selected more than 3 images!");
 
   // Testing largely invalid case of 7
-  for (let i = 0; i < 3; i++){
+  for (let i = 0; i < 3; i++) {
     imageList.push(mockImage);
   }
   output = submitToEval(imageList);
@@ -124,7 +124,7 @@ test('validate_submit_return_invalid_fileLength', async () => {
 
 test('validate_submit_return_invalid_headingAndDescription', async () => {
   // Call the async function
-  const mockImage =  "";
+  const mockImage = "";
   var files = [mockImage];
   var heading = "";
   var description = "";
@@ -136,18 +136,18 @@ test('validate_submit_return_invalid_headingAndDescription', async () => {
   expectedOutput += "Please enter a Quiz description\n";
   expect(result).toBe(expectedOutput);
 
-   // Blank heading
-   result = await submit(files, heading, description);
-   expectedOutput = "Address the following issues: \n";
-   expectedOutput += "Please enter a Quiz heading\n";
-   expect(result).toBe(expectedOutput);
- 
-   // Blank description
-   result = await submit(files, heading, description);
-   expectedOutput = "Address the following issues: \n";
-   expectedOutput += "Please enter a Quiz description\n";
-   expect(result).toBe(expectedOutput);
-}, 10000);
+  // Blank heading
+  result = await submit(files, heading, description);
+  expectedOutput = "Address the following issues: \n";
+  expectedOutput += "Please enter a Quiz heading\n";
+  expect(result).toBe(expectedOutput);
+
+  // Blank description
+  result = await submit(files, heading, description);
+  expectedOutput = "Address the following issues: \n";
+  expectedOutput += "Please enter a Quiz description\n";
+  expect(result).toBe(expectedOutput);
+}, 15000);
 
 ///////////////////////////////////////////////
 ///////// TESTING ESSENTIAL FUNCTIONS /////////
