@@ -118,10 +118,10 @@ async function submit(e) {
         return;
     }
 
-    var mainDiv = document.getElementById('mainDiv');
-    mainDiv.style.display = 'none';
-    document.getElementById('mainHeading').style.display = 'none';
-    loadingScreen.style.display = 'flex';
+    // var mainDiv = document.getElementById('mainDiv');
+    // mainDiv.style.display = 'none';
+    // document.getElementById('mainHeading').style.display = 'none';
+    // loadingScreen.style.display = 'flex';
 
     await uploadImages(files, imageArr);
 
@@ -165,14 +165,14 @@ async function submit(e) {
 
     // Submit Quiz as a whole with reference to images and questions to Quiz table in database
     collectionRef = db.collection("Quizzes");
-
+    
     var data = {
         Title: heading,
         Description: desc,
         Status: true,
         Questions: refArr,
         Images: imgRefArr,
-        Researcher: sessionStorage.getItem('email')
+        Researcher: email
     };
 
     collectionRef.add(data)
@@ -193,7 +193,7 @@ async function submit(e) {
         });
 
     
-    window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
+    // window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
 }
 
 // Get a reference to the Firebase Storage service

@@ -187,8 +187,6 @@ function submitSignUp(e) {
 const sendToDash = (email, role) => {
   //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
   if (role == "Researcher") {
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -198,8 +196,6 @@ const sendToDash = (email, role) => {
     window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
   }
   else {
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -242,12 +238,8 @@ const saveMessages = (email, password, role) => {
 
   //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
   if (role == "Researcher") {
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
-    sessionStorage.removeItem('role');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value
-    
 
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
@@ -255,9 +247,6 @@ const saveMessages = (email, password, role) => {
     window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
   }
   else {
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
-    sessionStorage.removeItem('role');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value
 
