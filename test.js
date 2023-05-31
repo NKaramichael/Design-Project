@@ -8,7 +8,8 @@ let {
     changeRole, 
     changePassword,
     checkSurveyID_unique,
-    getData
+    getData,
+    change
   } = require('./essentialFunctions.js');
   
   test('validate_email_invalid_email', () => {
