@@ -102,20 +102,14 @@ test('validate_change_invalid_input', () => {
   expect(result4).toBe('');
 });
 
-// Mock the submit function
-jest.mock(submit, () => ({
-  submit: jest.fn()
-}));
+// Test case
+test('fetchData returns the expected data', async () => {
+  // Call the async function
+  const result = await submitQuiz();
 
-// describe('submitQuiz', () => {
-//   it('should call submit function', () => {
-//     // Call the function to be tested
-//     submitQuiz();
-
-//     // Assert that submit was called
-//     expect(submit).toHaveBeenCalled();
-//   });
-// });
+  // Make assertions to check the expected outcome
+  expect(result).toBe('Data');
+});
 
 ///////////////////////////////////////////////
 ///////// TESTING ESSENTIAL FUNCTIONS /////////

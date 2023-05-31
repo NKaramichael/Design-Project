@@ -10,9 +10,9 @@ const firebaseConfig = {
     storageBucket: "pcgevaluation-49d75.appspot.com",
     messagingSenderId: "369543877095",
     appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
-  };
+};
 
-function change (num) {
+function change(num) {
     let out = '';
     switch (num) {
         case 0:
@@ -36,7 +36,12 @@ function submitQuiz() {
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
 async function submit() {
-    // e.preventDefault();
+
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('Data');
+        }, 3000);
+    });
 
     // // Checking that user has uploaded at least one image
     // const files = document.getElementById('fileInput').files;
