@@ -183,6 +183,34 @@
 			line-height: 1.5;
 			font-size: 20px;
 		}
+		.back-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #FE4CF4;
+            color: #ffffff;
+            border: 2px solid #000;
+            border-radius: 40px;
+            padding: 1rem 1rem;
+            font-size: 2rem;
+            margin: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 2px 2px #000;
+            width: 100px;
+            max-width: 80%;
+            -webkit-text-stroke: 0;
+        }
+
+        .back-button:hover {
+            background: none;
+            color: #fff;
+            border: 2px solid #ffffff;
+            box-shadow: none;
+            -webkit-text-stroke: 0;
+        }
 	</style>
 	<script>
 		// Function for navigating through the dashboard correctly
@@ -199,7 +227,7 @@
 	</script>
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
-
+<input type="button" value="⬅" onclick="history.back()" class="back-button">
 <body>
 	<header>
 		<h1>PCG Evaluation</h1>
