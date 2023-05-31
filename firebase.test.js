@@ -14,7 +14,7 @@ let {
   describe('displayCurrentQuizzes', () => {
     it('should call displayQuizzes with "current" argument', () => {
       // Call the function to be tested
-      displayCurrentQuizzes();
+      displayCurrentQuizzes('current');
   
       // Assert that displayQuizzes was called with the expected argument
       expect(displayQuizzes).toHaveBeenCalledWith('current');
