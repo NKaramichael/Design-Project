@@ -445,6 +445,7 @@ function handleFilter() {
       console.error("Error retrieving filtered documents: ", error);
     });
 }
+
 function fetchQuizzesByResearcher() {
   const email = sessionStorage.getItem('email');
 
@@ -452,6 +453,7 @@ function fetchQuizzesByResearcher() {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        console.log(doc.id);
         const quizData = doc.data();
         const quizId = doc.id;
 
