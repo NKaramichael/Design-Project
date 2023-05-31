@@ -80,7 +80,7 @@ async function submit(files, heading, desc) {
         // Fetching the selected value from model dropdown
         var selectModel = 'model';
         selectModel += i;
-        const valueM = files.selectModel;
+        const valueM = files[i].selectModel;
         
 
         if (valueM == 'none') {
@@ -93,7 +93,7 @@ async function submit(files, heading, desc) {
         // Fetching the selected value from domain dropdown
         var selectDomain = 'domain';
         selectDomain += i;
-        const valueD = files.selectDomain;
+        const valueD = files[i].selectDomain;
 
         if (valueD == 'none') {
             errorOutput += "Please select a valid domain type for image " + change(i) + "\n";
