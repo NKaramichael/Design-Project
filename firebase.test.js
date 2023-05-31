@@ -163,8 +163,8 @@ test('validate_submit_return_invalid_modelOrDomain', async () => {
     domain: "none"
   };
   var files = [mockImage];
-  var heading = "";
-  var description = "";
+  var heading = "Some heading";
+  var description = "Some description";
 
   // Invalid model and domain
   var result = await submit(files, heading, description);
