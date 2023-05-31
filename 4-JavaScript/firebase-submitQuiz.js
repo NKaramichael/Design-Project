@@ -15,7 +15,6 @@ var db = firebase.firestore();
 var collectionRef = db.collection("Questions");
 
 function submitQuiz() {
-    alert(sessionStorage.getItem('email'));
     document.getElementById('submitQuizForm').addEventListener('submit', submit);
 }
 
@@ -173,7 +172,7 @@ async function submit(e) {
         Status: true,
         Questions: refArr,
         Images: imgRefArr,
-        Researcher: email
+        Researcher: sessionStorage.getItem('email')
     };
 
     collectionRef.add(data)
