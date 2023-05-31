@@ -15,94 +15,97 @@
         /*This class is used to style the header section of the page*/
         header {
             display: flex;
-			flex-direction: column;
-			align-items: center;
-			font-family: 'Press Start 2P', cursive;
-			color: #ffffff;
-			text-align: center;
-			height: 20px;
-			padding: 1em;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Press Start 2P', cursive;
+            color: #ffffff;
+            text-align: center;
+            height: 20px;
+            padding: 1em;
             text-shadow: 2px 2px #000;
-			-webkit-text-stroke: 0;
+            -webkit-text-stroke: 0;
         }
 
-        .title{
+        .title {
             display: flex;
-			flex-direction: row;
-			align-items: center;
-			font-family: 'Press Start 2P', cursive;
-			color: #ffffff;
-			text-align: center;
-			height: 30px;
-			padding: 1em;
+            flex-direction: row;
+            align-items: center;
+            font-family: 'Press Start 2P', cursive;
+            color: #ffffff;
+            text-align: center;
+            height: 30px;
+            padding: 1em;
             text-shadow: 3px 3px #000;
-			-webkit-text-stroke: 0;
+            -webkit-text-stroke: 0;
         }
 
         /* This class is used to style the title of the page  */
         h1 {
             font-size: 2em;
-			font-family: 'Press Start 2P', cursive;
-			margin-top: 1.5%;
-			line-height: 0em;
-			letter-spacing: 0.1em;
-			font-size: 2rem;
-			color: #ffffff;
-			text-align: center;
-			text-shadow: 3px 3px #000;
-			-webkit-text-stroke: 0;
+            font-family: 'Press Start 2P', cursive;
+            margin-top: 1.5%;
+            line-height: 0em;
+            letter-spacing: 0.1em;
+            font-size: 2rem;
+            color: #ffffff;
             text-align: center;
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%);
-			top: 0;
+            text-shadow: 3px 3px #000;
+            -webkit-text-stroke: 0;
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
         }
 
-        .titleH1{
+        .titleH1 {
             font-size: 2em;
-			font-family: 'Press Start 2P', cursive;
-			margin: 0.6;
-			padding-left: 37.5%;
-			line-height: 0em;
-			letter-spacing: 0.1em;
-			font-size: 2rem;
-			color: #ffffff;
-			text-align: center;
-			text-shadow: 3px 3px #000;
-			-webkit-text-stroke: 0;
+            font-family: 'Press Start 2P', cursive;
+            margin: 0.6;
+            padding-left: 37.5%;
+            line-height: 0em;
+            letter-spacing: 0.1em;
+            font-size: 2rem;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 3px 3px #000;
+            -webkit-text-stroke: 0;
         }
-        
+
         .text-box {
-			width: 30%;
-			background-color: #fff;
-			border: 1px solid #ccc;
-			padding: 20px;
-			text-align: center;
-			box-sizing: border-box;
-			margin-bottom: 20px;
-			margin-top: 20px;
-		}
+            width: 30%;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
         /* Style for the image */
         .header-image {
             width: 25%;
-			height: 15%;
-			object-fit: cover;
+            height: 15%;
+            object-fit: cover;
             margin-top: 10px;
-			margin-bottom: 20px;
+            margin-bottom: 20px;
             box-shadow: 3px 3px #000000;
             text-shadow: 3px 3px #000000;
-			-webkit-text-stroke: 0;
+            -webkit-text-stroke: 0;
         }
+
         .header-h2 {
-			font-size: 16px;
-			color: #fff;
-			margin-bottom: 10px;
-		}
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
         /* This class is used to style the description of the header image */
-		.header p {
-			font-size: 16px;
-			color: #666;
-		}
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
 
         /* Style for the text boxes */
         .scroll-box {
@@ -116,7 +119,7 @@
 
         /* This class is used to style the container that holds the buttons */
         .BtnContainer {
-            
+
             justify-content: center;
             align-items: center;
             margin-top: 15px;
@@ -133,39 +136,39 @@
             margin: 0 10px;
             font-size: 18px;
             cursor: pointer;
-            
+
         }
 
         /* This class is used to style the cog icon in the header */
         .settings-button {
             color: #ffffff;
-			list-style-type: none;
-			position: absolute;
-			padding-right: 2%;
-			font-size: 30px;
-			right: 0;
-            
+            list-style-type: none;
+            position: absolute;
+            padding-right: 2%;
+            font-size: 30px;
+            right: 0;
+
         }
 
         /* This class is used to style the dropdown menu that appears when the cog icon is clicked */
         .dropdown-menu {
             display: none;
-			position: absolute;
-			color: #ffffff;
-			font-size: 30px;
-			top: 10%;
-			right: 10%;
-			z-index: 1;
+            position: absolute;
+            color: #ffffff;
+            font-size: 30px;
+            top: 10%;
+            right: 10%;
+            z-index: 1;
             background-color: #440068;
-			box-shadow: 3px 3px #000;
+            box-shadow: 3px 3px #000;
         }
 
         .settings-button:hover .dropdown-menu {
             color: #fff;
-			display: inline-block;
-			background-size: cover;
-			font-size: 30px;
-			padding: 10px;
+            display: inline-block;
+            background-size: cover;
+            font-size: 30px;
+            padding: 10px;
         }
 
         /* This class is used to style the background of the page */
@@ -177,108 +180,108 @@
             width: 100%;
         }
 
-        a{
-			color:#ffffff;
-			height: 20px;
-			width: 20px;
-			font-size: 40px;
-		}
-
-		.aList{
-			color:#ffffff;
-			height: 20px;
-			width: 20px;
-			font-size: 30px;
-		}
-
-		ul{
-			list-style-type: none;
-			line-height: 1.5;
-			font-size: 20px;
-		}
-
-        label{
-            font-size: 10px;
-			font-family: 'Press Start 2P', cursive;
-			margin-top: 15px;
-			padding-left: 0%;
-			line-height: 0em;
-			letter-spacing: 0.1em;
-			color: #ffffff;
-			text-align: center;
-			text-shadow: 2px 2px #000;
-			-webkit-text-stroke: 0;
+        a {
+            color: #ffffff;
+            height: 20px;
+            width: 20px;
+            font-size: 40px;
         }
 
-        input{
+        .aList {
+            color: #ffffff;
+            height: 20px;
+            width: 20px;
+            font-size: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            line-height: 1.5;
+            font-size: 20px;
+        }
+
+        label {
             font-size: 10px;
-			/* font-family: 'Press Start 2P', cursive; */
-			margin-top: 15px;
-			padding-left: 0%;
-			line-height: 2em;
-			letter-spacing: 0.1em;
-			color: #000000;
-			text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            margin-top: 15px;
+            padding-left: 0%;
+            line-height: 0em;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 2px 2px #000;
+            -webkit-text-stroke: 0;
+        }
+
+        input {
+            font-size: 10px;
+            /* font-family: 'Press Start 2P', cursive; */
+            margin-top: 15px;
+            padding-left: 0%;
+            line-height: 2em;
+            letter-spacing: 0.1em;
+            color: #000000;
+            text-align: center;
             width: 18rem;
         }
 
-        .option-input{
+        .option-input {
             font-size: 10px;
-			font-family: 'Press Start 2P', cursive;
-			margin-top: 15px;
-			padding-left: 0%;
-			line-height: 2em;
-			letter-spacing: 0.1em;
-			color: #ffffff;
-			text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            margin-top: 15px;
+            padding-left: 0%;
+            line-height: 2em;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            text-align: center;
             width: 1rem;
         }
 
-        img#preview{
+        img#preview {
             display: block;
             margin: 0 auto;
             box-shadow: 3px 3px #000000;
             text-shadow: 3px 3px #000000;
-			-webkit-text-stroke: 0;
+            -webkit-text-stroke: 0;
         }
 
         .back-button {
-			position:absolute;
-			top: 0;
-  			left: 0;
-			background-color: #FE4CF4;
-			color: #ffffff;
-			border: 2px solid #000;
-			border-radius: 40px;
-			padding: 1rem 1rem;
-			font-size: 2rem;
-			margin: 1rem;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-			box-shadow: 2px 2px #000;
-			width: 100px;
-			max-width: 80%;
-			-webkit-text-stroke: 0;
-		}
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #FE4CF4;
+            color: #ffffff;
+            border: 2px solid #000;
+            border-radius: 40px;
+            padding: 1rem 1rem;
+            font-size: 2rem;
+            margin: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 2px 2px #000;
+            width: 100px;
+            max-width: 80%;
+            -webkit-text-stroke: 0;
+        }
 
-		.back-button:hover {
-			background: none;
-			color: #fff;
-			border: 2px solid #ffffff;
-			box-shadow: none;
-			-webkit-text-stroke: 0;
-		}
+        .back-button:hover {
+            background: none;
+            color: #fff;
+            border: 2px solid #ffffff;
+            box-shadow: none;
+            -webkit-text-stroke: 0;
+        }
 
         .question {
-        margin-bottom: 20px;
+            margin-bottom: 20px;
         }
 
         .question h3 {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .question:not(#scaleQuestion),
@@ -310,7 +313,7 @@
             flex-direction: column;
             text-align: center;
         }
-</style>
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
@@ -321,15 +324,15 @@
     <h1 id="mainHeading">Create a survey</h1>
 
     <!-- Adding in the gear cog with the settings, logout and profile options -->
-		<li class="settings-button">
-			<a href="#"><i class="fa fa-cog"></i></a>
-			<ul class="dropdown-menu">
-				<li><a class="aList" href="#" onclick=profile()>Profile</a></li>
-				<li><a class="aList" href="#" onclick=settings()>Settings</a></li>
-				<li><a class="aList" href="#" onclick=logout()>Log Out</a></li>
-			</ul>
-		</li>
-    
+    <li class="settings-button">
+        <a href="#"><i class="fa fa-cog"></i></a>
+        <ul class="dropdown-menu">
+            <li><a class="aList" href="#" onclick=profile()>Profile</a></li>
+            <li><a class="aList" href="#" onclick=settings()>Settings</a></li>
+            <li><a class="aList" href="#" onclick=logout()>Log Out</a></li>
+        </ul>
+    </li>
+
     </div>
 </header>
 
@@ -337,84 +340,45 @@
     <div id="loading-screen">
         <div class="loading-spinner"></div>
         <h1>Submitting Quiz ...</h1>
-      </div>
-      
+    </div>
+
     <div id="mainDiv" style="text-align: center; align-items: center; margin-bottom: 10px;">
         <form style="align-items: baseline;">
-           
+
         </form>
         <form>
-                <!-- <input style="color: #ffffff;" type="file" id="fileInput" multiple> -->
-                <!-- <input style="margin-bottom: 10px;" type="button" value="Upload" onclick="handleUpload()"><br> -->
+            <!-- <input style="color: #ffffff;" type="file" id="fileInput" multiple> -->
+            <!-- <input style="margin-bottom: 10px;" type="button" value="Upload" onclick="handleUpload()"><br> -->
 
-                <!-- Image Letter Display -->
-                <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label0">Image A</h3>
-                <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label1">Image B</h3>
-                <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label2">Image C</h3>
-                <br>
+            <!-- Image Letter Display -->
+            <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label0">Image A</h3>
+            <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label1">Image B</h3>
+            <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label2">Image C</h3>
+            <br>
 
-                <!-- Dropdown for model Type -->
-                <select style="display: none;" id="model0">
-                    <option value="none">-- Select a model type --</option>
-                    <option value="nWFC">Normal WFC</option>
-                    <option value="hWFC">Hierarchical WFC</option>
-                  </select>
-                <select style="display: none;" id="model1">
-                    <option value="none">-- Select a model type --</option>
-                    <option value="nWFC">Normal WFC</option>
-                    <option value="hWFC">Hierarchical WFC</option>
-                </select>
-                <select style="display: none;" id="model2">
-                    <option value="none">-- Select a model type --</option>
-                    <option value="nWFC">Normal WFC</option>
-                    <option value="hWFC">Hierarchical WFC</option>
-                </select> <br>
+            <!-- Dropdown for model Type -->
+        </form>
 
-                <!-- Dropdown for domain type -->
-                <select style="display: none;" id="domain0">
-                    <option value="none">-- Select a domain/system for the level --</option>
-                    <option value="Maze">Maze</option>
-                    <option value="Minecraft">Minecraft</option>
-                    <option value="RL2d">RogueLike 2D</option>
-                    <option value="RL3D">RogueLike 3D</option>
-                  </select>
-                <select style="display: none;" id="domain1">
-                    <option value="none">-- Select a domain/system for the level --</option>
-                    <option value="Maze">Maze</option>
-                    <option value="Minecraft">Minecraft</option>
-                    <option value="RL2d">RogueLike 2D</option>
-                    <option value="RL3D">RogueLike 3D</option>
-                </select>
-                <select style="display: none;" id="domain2">
-                    <option value="none">-- Select a domain/system for the level --</option>
-                    <option value="Maze">Maze</option>
-                    <option value="Minecraft">Minecraft</option>
-                    <option value="RL2d">RogueLike 2D</option>
-                    <option value="RL3D">RogueLike 3D</option>
-                </select>
-                
-            </form>
-          
         <div id="imagePreviewArea"></div>
 
         <header p>Heading</header p>
         <textarea id="heading" rows="1" cols="50"></textarea>
 
-        <header p >Description</header p>
+        <header p>Description</header p>
         <textarea id="description" rows="3" cols="50"></textarea>
 
         <div style="margin-bottom: 10px;">
             <h3>Question Type:</h3>
             <select id="questionType">
-              <option value="none">-- Select a type of question to add --</option>
-              <option value="scaleQuestion">Scale from 1 to 10</option>
-              <option value="radioABCQuestion">Radio Type : A-B-C</option>
-              <option value="radioABQuestion">Radio Type : A-B</option>
-              <option value="radioYNQuestion">Radio Type : Yes No</option>
-              <option value="checkABCQuestion">Checkbox Type : A-B-C</option>
-              <option value="checkABQuestion">Checkbox Type : A-B</option>
+                <option value="none">-- Select a type of question to add --</option>
+                <option value="scaleQuestion">Scale from 1 to 10</option>
+                <option value="radioABCQuestion">Radio Type : A-B-C</option>
+                <option value="radioABQuestion">Radio Type : A-B</option>
+                <option value="radioYNQuestion">Radio Type : Yes No</option>
+                <option value="checkABCQuestion">Checkbox Type : A-B-C</option>
+                <option value="checkABQuestion">Checkbox Type : A-B</option>
             </select>
-          </div>
+        </div>
 
         <!-- Section to add placeholder questions within a scroll-box -->
         <div class="question" id="scaleQuestion">
@@ -435,107 +399,107 @@
             <input type="text" name="radioABCInput" id="radioABCInput"><br>
             <h3>Multiple Choice Preview:</h3>
             <ul class="options">
-              <li>
-                <input class="option-input" type="radio" name="q1" id="q1a" value="a">
-                <label for="q1a">A</label>
-              </li>
-              <li>
-                <input class="option-input" type="radio" name="q1" id="q1b" value="b">
-                <label for="q1b">B</label>
-              </li>
-              <li>
-                <input class="option-input" type="radio" name="q1" id="q1c" value="c">
-                <label for="q1c">C</label>
-              </li>
+                <li>
+                    <input class="option-input" type="radio" name="q1" id="q1a" value="a">
+                    <label for="q1a">A</label>
+                </li>
+                <li>
+                    <input class="option-input" type="radio" name="q1" id="q1b" value="b">
+                    <label for="q1b">B</label>
+                </li>
+                <li>
+                    <input class="option-input" type="radio" name="q1" id="q1c" value="c">
+                    <label for="q1c">C</label>
+                </li>
             </ul>
 
             <!-- Button to create Question -->
             <div class="BtnContainer" id="createQuestionButton">
                 <button class="button" onclick="createRadioABCQuestion()">Create Question</button>
             </div>
-          </div>
+        </div>
 
-          <div class="question" id="radioABQuestion">
+        <div class="question" id="radioABQuestion">
             <h3>Write Your Question Here:</h3>
             <input type="text" name="radioABInput" id="radioABInput"><br>
             <h3>Multiple Choice Preview:</h3>
             <ul class="options">
-              <li>
-                <input class="option-input" type="radio" name="q1" id="q1a" value="a">
-                <label for="q1a">A</label>
-              </li>
-              <li>
-                <input class="option-input" type="radio" name="q1" id="q1b" value="b">
-                <label for="q1b">B</label>
-              </li>
+                <li>
+                    <input class="option-input" type="radio" name="q1" id="q1a" value="a">
+                    <label for="q1a">A</label>
+                </li>
+                <li>
+                    <input class="option-input" type="radio" name="q1" id="q1b" value="b">
+                    <label for="q1b">B</label>
+                </li>
             </ul>
 
             <!-- Button to create Question -->
             <div class="BtnContainer" id="createQuestionButton">
                 <button class="button" onclick="createRadioABQuestion()">Create Question</button>
             </div>
-          </div>
+        </div>
 
-          <div class="question" id="radioYNQuestion">
+        <div class="question" id="radioYNQuestion">
             <h3>Write Your Question Here:</h3>
             <input type="text" name="radioYNInput" id="radioYNInput"><br>
             <h3>Multiple Choice Preview:</h3>
             <ul class="options">
-              <li>
-                <input class="option-input" type="radio" name="q1" id="q1a" value="a">
-                <label for="q1a">Yes</label>
-              </li>
-              <li>
-                <input class="option-input" type="radio" name="q1" id="q1b" value="b">
-                <label for="q1b">No</label>
-              </li>
+                <li>
+                    <input class="option-input" type="radio" name="q1" id="q1a" value="a">
+                    <label for="q1a">Yes</label>
+                </li>
+                <li>
+                    <input class="option-input" type="radio" name="q1" id="q1b" value="b">
+                    <label for="q1b">No</label>
+                </li>
             </ul>
 
             <!-- Button to create Question -->
             <div class="BtnContainer" id="createQuestionButton">
                 <button class="button" onclick="createRadioYNQuestion()">Create Question</button>
             </div>
-          </div>
+        </div>
 
-          <div class="question" id="checkABCQuestion">
+        <div class="question" id="checkABCQuestion">
             <h3>Write Your Question Here:</h3>
             <input type="text" name="checkABCInput" id="checkABCInput"><br>
             <h3>Checkbox Question Preview:</h3>
             <ul class="options">
-              <li>
-                <input class="option-input" type="checkbox" id="checkboxOption1" value="option1">
-                <label for="checkboxOption1">A</label>
-              </li>
-              <li>
-                <input class="option-input" type="checkbox" id="checkboxOption2" value="option2">
-                <label for="checkboxOption2">B</label>
-              </li>
-              <li>
-                <input class="option-input" type="checkbox" id="checkboxOption3" value="option3">
-                <label for="checkboxOption3">C</label>
-              </li>
+                <li>
+                    <input class="option-input" type="checkbox" id="checkboxOption1" value="option1">
+                    <label for="checkboxOption1">A</label>
+                </li>
+                <li>
+                    <input class="option-input" type="checkbox" id="checkboxOption2" value="option2">
+                    <label for="checkboxOption2">B</label>
+                </li>
+                <li>
+                    <input class="option-input" type="checkbox" id="checkboxOption3" value="option3">
+                    <label for="checkboxOption3">C</label>
+                </li>
             </ul>
 
             <!-- Button to create Question -->
             <div class="BtnContainer" id="createQuestionButton">
                 <button class="button" onclick="createCheckABCQuestion()">Create Question</button>
             </div>
-            </div>
+        </div>
 
-            <div class="question" id="checkABQuestion">
-                <h3>Write Your Question Here:</h3>
-                <input type="text" name="checkABInput" id="checkABInput"><br>
-                <h3>Checkbox Question Preview:</h3>
-                <ul class="options">
-                  <li>
+        <div class="question" id="checkABQuestion">
+            <h3>Write Your Question Here:</h3>
+            <input type="text" name="checkABInput" id="checkABInput"><br>
+            <h3>Checkbox Question Preview:</h3>
+            <ul class="options">
+                <li>
                     <input class="option-input" type="checkbox" id="checkboxOption1" value="option1">
                     <label for="checkboxOption1">A</label>
-                  </li>
-                  <li>
+                </li>
+                <li>
                     <input class="option-input" type="checkbox" id="checkboxOption2" value="option2">
                     <label for="checkboxOption2">B</label>
-                  </li>
-                </ul>
+                </li>
+            </ul>
 
             <!-- Button to create Question -->
             <div class="BtnContainer" id="createQuestionButton">
@@ -544,14 +508,15 @@
         </div>
 
         <!-- Container -->
-        <div id="container" style="margin: 0 auto; margin-bottom: 20px; width: fit-content; min-height: fit-content;"></div>
-        
+        <div id="container" style="margin: 0 auto; margin-bottom: 20px; width: fit-content; min-height: fit-content;">
+        </div>
+
         <form id="submitQuizForm">
             <button style="top: 0; right: 0;" class="button" onclick="submitQuiz()">Submit</button>
         </form>
 
         <ul style="display: none" id="questionList"></ul>
-        
+
         <script>
             const scale = document.getElementById("scaleInput");
             const radioABC = document.getElementById("radioABCInput");
@@ -560,98 +525,100 @@
             const checkABC = document.getElementById("checkABCInput");
             const checkAB = document.getElementById("checkABInput");
 
-            function createScaleQuestion(){
+            function createScaleQuestion() {
                 const type = "scale";
                 const inputText = scale.value;
                 scale.value = "";
-                if (inputText != ""){
+                if (inputText != "") {
                     createQuestion(type, inputText);
                 } else {
                     alert("Please enter a valid question.");
                 }
             }
-            function createRadioABCQuestion(){
+            function createRadioABCQuestion() {
                 const type = "radioABC";
                 const inputText = radioABC.value;
                 radioABC.value = "";
-                if (inputText != ""){
+                if (inputText != "") {
                     createQuestion(type, inputText);
                 } else {
                     alert("Please enter a valid question.");
                 }
             }
-            function createRadioABQuestion(){
+            function createRadioABQuestion() {
                 const type = "radioAB";
                 const inputText = radioAB.value;
                 radioAB.value = "";
-                if (inputText != ""){
+                if (inputText != "") {
                     createQuestion(type, inputText);
                 } else {
                     alert("Please enter a valid question.");
                 }
             }
-            function createRadioYNQuestion(){
+            function createRadioYNQuestion() {
                 const type = "radioYN";
                 const inputText = radioYN.value;
                 radioYN.value = "";
-                if (inputText != ""){
+                if (inputText != "") {
                     createQuestion(type, inputText);
                 } else {
                     alert("Please enter a valid question.");
                 }
             }
-            function createCheckABCQuestion(){
+            function createCheckABCQuestion() {
                 const type = "checkABC";
                 const inputText = checkABC.value;
                 checkABC.value = "";
-                if (inputText != ""){
+                if (inputText != "") {
                     createQuestion(type, inputText);
                 } else {
                     alert("Please enter a valid question.");
                 }
             }
-            function createCheckABQuestion(){
+            function createCheckABQuestion() {
                 const type = "checkAB";
                 const inputText = checkAB.value;
                 checkAB.value = "";
-                if (inputText != ""){
+                if (inputText != "") {
                     createQuestion(type, inputText);
                 } else {
                     alert("Please enter a valid question.");
                 }
             }
         </script>
-        </div>
     </div>
-    
+    </div>
+
     <!-- Navigation Panel -->
-    <ul id="nav-panel" style="width: fit-content; align-items: center; background-color: #440068; position: absolute; top: 5%; right: 5%;"></ul> 
+    <ul id="nav-panel"
+        style="width: fit-content; align-items: center; background-color: #440068; position: absolute; top: 5%; right: 5%;">
+    </ul>
 
     <!-- Script for Navigation Panel -->
     <script>
         // Define an array of questions
         var questions = [];
 
-        function createQuestion(type, questionText){
-            
+        function createQuestion(type, questionText) {
+
             var details = questionText + " |";
-            switch(type){
+            switch (type) {
                 case "scale": details += ' Scale from 1 to 10';
-                break;
+                    break;
                 case "radioABC": details += ' Radio Type : A-B-C';
-                break;
+                    break;
                 case "radioAB": details += ' Radio Type : A-B';
-                break;
+                    break;
                 case "radioYN": details += ' Radio Type : Yes No';
-                break;
+                    break;
                 case "checkABC": details += ' Checkbox Type : A-B-C';
-                break;
+                    break;
                 case "checkAB": details += ' Checkbox Type : A-B';
-                break;
+                    break;
             }
 
             const size = questions.length;
-            list = {id: size + 1, text: 'Question ' + (size+1), content: details};
+            list = { id: size + 1, text: 'Question ' + (size + 1), content: details };
             questions.push(list);
 
             var newQuestion = document.createElement('li');
@@ -682,14 +649,14 @@
             // Add event listeners to the navigation panel elements
             navPanel.addEventListener('click', event => {
                 if (event.target.matches('[data-question-id]')) {
-                event.preventDefault();
-                const questionId = event.target.dataset.questionId;
-                const question = questions.find(q => q.id === parseInt(questionId));
-                container.innerHTML = "";
-                container.innerHTML = question.content;
-                container.style.border = "10px solid #000000";
-                container.style.borderRadius = " 50px";
-                container.style.backgroundColor = "#000000";
+                    event.preventDefault();
+                    const questionId = event.target.dataset.questionId;
+                    const question = questions.find(q => q.id === parseInt(questionId));
+                    container.innerHTML = "";
+                    container.innerHTML = question.content;
+                    container.style.border = "10px solid #000000";
+                    container.style.borderRadius = " 50px";
+                    container.style.backgroundColor = "#000000";
                 }
             });
         }
@@ -706,42 +673,42 @@
         const checkABCQuestion = document.getElementById('checkABCQuestion');
         const checkABQuestion = document.getElementById('checkABQuestion');
 
-        questionTypeSelect.addEventListener('change', function() {
-        const selectedType = questionTypeSelect.value;
-        
-        scaleQuestion.style.display = (selectedType === 'scaleQuestion') ? 'block' : 'none';
-        radioABCQuestion.style.display = (selectedType === 'radioABCQuestion') ? 'block' : 'none';
-        radioABQuestion.style.display = (selectedType === 'radioABQuestion') ? 'block' : 'none';
-        radioYNQuestion.style.display = (selectedType === 'radioYNQuestion') ? 'block' : 'none';
-        checkABCQuestion.style.display = (selectedType === 'checkABCQuestion') ? 'block' : 'none';
-        checkABQuestion.style.display = (selectedType === 'checkABQuestion') ? 'block' : 'none';
+        questionTypeSelect.addEventListener('change', function () {
+            const selectedType = questionTypeSelect.value;
 
-        const container = document.getElementById("container");
-        container.innerHTML = '';
-        container.style.border = "";
+            scaleQuestion.style.display = (selectedType === 'scaleQuestion') ? 'block' : 'none';
+            radioABCQuestion.style.display = (selectedType === 'radioABCQuestion') ? 'block' : 'none';
+            radioABQuestion.style.display = (selectedType === 'radioABQuestion') ? 'block' : 'none';
+            radioYNQuestion.style.display = (selectedType === 'radioYNQuestion') ? 'block' : 'none';
+            checkABCQuestion.style.display = (selectedType === 'checkABCQuestion') ? 'block' : 'none';
+            checkABQuestion.style.display = (selectedType === 'checkABQuestion') ? 'block' : 'none';
+
+            const container = document.getElementById("container");
+            container.innerHTML = '';
+            container.style.border = "";
         });
 
     </script>
 
-<script>
-    // Functions for navigating through the dropdown correctly
-    function logout() {
-        window.location.href = "../1-SharedPages/login.html"
-    }
-    function settings() {
-        window.location.href = "../1-SharedPages/settings.html"
-    }
-    function profile(){
-        window.location.href="../1-SharedPages/profile.html"
-    }
+    <script>
+        // Functions for navigating through the dropdown correctly
+        function logout() {
+            window.location.href = "../1-SharedPages/login.html"
+        }
+        function settings() {
+            window.location.href = "../1-SharedPages/settings.html"
+        }
+        function profile() {
+            window.location.href = "../1-SharedPages/profile.html"
+        }
 
     // Redirecting to user image selection page
 
-</script>
+    </script>
 
-<!-- import firebase into evaluation.html and call on firebase-submitQuiz.js to handle requests -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
-<script type="text/javascript" src="../4-JavaScript/firebase-submitQuiz2.js"></script>
+    <!-- import firebase into evaluation.html and call on firebase-submitQuiz.js to handle requests -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script type="text/javascript" src="../4-JavaScript/firebase-submitQuiz2.js"></script>
 </body>
 
 </html>
