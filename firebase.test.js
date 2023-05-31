@@ -122,9 +122,12 @@ test('validate_submit_return_invalid_fileLength', async () => {
   expect(result).toBe('Please upload at least 1 image');
 });
 
-test('validate_submit_return_invalid_headingAndDescription', async () => {
+test('validate_submit_return_invalid_headingOrDescription', async () => {
   // Call the async function
-  const mockImage = "";
+  const mockImage = {
+    model: "nWFC",
+    domain: "Maze"
+  };
   var files = [mockImage];
   var heading = "";
   var description = "";
@@ -150,6 +153,46 @@ test('validate_submit_return_invalid_headingAndDescription', async () => {
   result = await submit(files, heading, description);
   expectedOutput = "Address the following issues: \n";
   expectedOutput += "Please enter a Quiz description\n";
+  expect(result).toBe(expectedOutput);
+}, 4000);
+
+test('validate_submit_return_invalid_modelOrDomain', async () => {
+  // Call the async function
+  var mockImage = {
+    model: "none",
+    domain: "none"
+  };
+  var files = [mockImage];
+  var heading = "";
+  var description = "";
+
+  // Invalid model and domain
+  var result = await submit(files, heading, description);
+  var expectedOutput = "Address the following issues: \n";
+  expectedOutput += "Please select a valid model type for image 0\n";
+  expectedOutput += "Please select a valid domain type for image 0\n";
+  expect(result).toBe(expectedOutput);
+
+  // Invalid domain
+  mockImage = {
+    model: "nWFC",
+    domain: "none"
+  };
+  files = [mockImage];
+  result = await submit(files, heading, description);
+  expectedOutput = "Address the following issues: \n";
+  expectedOutput += "Please select a valid domain type for image 0\n";
+  expect(result).toBe(expectedOutput);
+
+  // Invalid model
+  mockImage = {
+    model: "none",
+    domain: "Maze"
+  };
+  files = [mockImage];
+  result = await submit(files, heading, description);
+  expectedOutput = "Address the following issues: \n";
+  expectedOutput += "Please select a valid model type for image 0\n";
   expect(result).toBe(expectedOutput);
 }, 4000);
 

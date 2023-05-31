@@ -69,47 +69,49 @@ async function submit(files, heading, desc) {
         });
     }
 
-    // process = true;
-    // errorOutput = "Address the following issues: \n";
-    // var imageArr = [];
+    process = true;
+    errorOutput = "Address the following issues: \n";
+    var imageArr = [];
 
-    // // Submit Images(Levels) & metadata to levels table in database
-    // for (let i = 0; i < files.length; i++) {
-    //     const details = new Map();
+    // Submit Images(Levels) & metadata to levels table in database
+    for (let i = 0; i < files.length; i++) {
+        const details = new Map();
 
-    //     // Fetching the selected value from model dropdown
-    //     var selectModel = 'model';
-    //     selectModel += i;
-    //     const selectM = document.getElementById(selectModel);
-    //     const valueM = selectM.value;
+        // Fetching the selected value from model dropdown
+        var selectModel = 'model';
+        selectModel += i;
+        const valueM = files.model;
+        
 
-    //     if (valueM === 'none') {
-    //         errorOutput += "Please select a valid model type for image " + change(i) + "\n";
-    //         process = false;
-    //     } else {
-    //         details.set("model", valueM);
-    //     }
+        if (valueM == 'none') {
+            errorOutput += "Please select a valid model type for image " + change(i) + "\n";
+            process = false;
+        } else {
+            details.set("model", valueM);
+        }
 
-    //     // Fetching the selected value from domain dropdown
-    //     var selectDomain = 'domain';
-    //     selectDomain += i;
-    //     const selectD = document.getElementById(selectDomain);
-    //     const valueD = selectD.value;
+        // Fetching the selected value from domain dropdown
+        var selectDomain = 'domain';
+        selectDomain += i;
+        const valueD = files.domain;
 
-    //     if (valueD === 'none') {
-    //         errorOutput += "Please select a valid domain type for image " + change(i) + "\n";
-    //         process = false;
-    //     } else {
-    //         details.set("domain", valueD);
-    //     }
+        if (valueD == 'none') {
+            errorOutput += "Please select a valid domain type for image " + change(i) + "\n";
+            process = false;
+        } else {
+            details.set("domain", valueD);
+        }
 
-    //     imageArr.push(details);
-    // }
+        imageArr.push(details);
+    }
 
-    // if (process == false) {
-    //     alert(errorOutput);
-    //     return;
-    // }
+    if (process == false) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(errorOutput);
+            }, 1000);
+        });
+    }
 
     // // Submit Questions & details to questions table in database
     // var questionList = document.getElementById('questionList');
