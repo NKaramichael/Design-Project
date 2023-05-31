@@ -22,7 +22,7 @@ var storage = firebase.storage();
 // Get a reference to the Firebase Firestore database
 var firestore = firebase.firestore();
 
-function change(num) {
+const change = (num) => {
     let out = '';
     switch (num) {
         case 0:
