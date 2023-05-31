@@ -469,8 +469,8 @@ async function displayQuiz(data, id) {
   const quizContainer = document.createElement('div');
   // define values for the box
   const box = {
-    title: data['Title'],
-    description: data['Description']
+    title: data.Title,
+    description: data.Description
   };
   // Get a reference to the container element
   // Get the parent element to which the text boxes will be added
@@ -501,7 +501,6 @@ async function displayQuiz(data, id) {
 
   // Append the quiz container to the document body or a specific element
   document.body.appendChild(quizContainer);
+  console.log(data)
 }
 
-// Call the function to fetch and display quizzes
-fetchQuizzesByResearcher();
