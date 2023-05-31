@@ -118,10 +118,10 @@ async function submit(e) {
         return;
     }
 
-    // var mainDiv = document.getElementById('mainDiv');
-    // mainDiv.style.display = 'none';
-    // document.getElementById('mainHeading').style.display = 'none';
-    // loadingScreen.style.display = 'flex';
+    var mainDiv = document.getElementById('mainDiv');
+    mainDiv.style.display = 'none';
+    document.getElementById('mainHeading').style.display = 'none';
+    loadingScreen.style.display = 'flex';
 
     await uploadImages(files, imageArr);
 
@@ -172,7 +172,7 @@ async function submit(e) {
         Status: true,
         Questions: refArr,
         Images: imgRefArr,
-        Researcher: 'someEmail'
+        Researcher: sessionStorage.getItem('email')
     };
 
     collectionRef.add(data)
