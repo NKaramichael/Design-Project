@@ -102,20 +102,20 @@ test('validate_change_invalid_input', () => {
   expect(result4).toBe('');
 });
 
-// // Mock the submit function
-// jest.mock('./firebase/firebase-submitQuiz.js', () => ({
-//   submit: jest.fn()
-// }));
+// Mock the submit function
+jest.mock('./firebase/firebase-submitQuiz.js', () => ({
+  submit: jest.fn()
+}));
 
-// describe('submitQuiz', () => {
-//   it('should call submit function', () => {
-//     // Call the function to be tested
-//     submitQuiz();
+describe('submitQuiz', () => {
+  it('should call submit function', () => {
+    // Call the function to be tested
+    submitQuiz();
 
-//     // Assert that submit was called
-//     expect(submit).toHaveBeenCalled();
-//   });
-// });
+    // Assert that submit was called
+    expect(submit).toHaveBeenCalled();
+  });
+});
 
 ///////////////////////////////////////////////
 ///////// TESTING ESSENTIAL FUNCTIONS /////////
