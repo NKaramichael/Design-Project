@@ -103,7 +103,7 @@ test('validate_change_invalid_input', () => {
 });
 
 // Mock the submit function
-jest.mock('./firebase/firebase-submitQuiz.js', () => ({
+jest.mock('function', () => ({
   submit: jest.fn()
 }));
 
