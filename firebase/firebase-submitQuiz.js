@@ -24,6 +24,7 @@ var firestore = firebase.firestore();
 
 function submitQuiz() {
     // document.getElementById('submitQuizForm').addEventListener('submit', submit);
+    submit();
 }
 
 function change(num) {
@@ -42,7 +43,7 @@ function change(num) {
 }
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
-async function submit(e) {
+async function submit() {
     // e.preventDefault();
 
     // // Checking that user has uploaded at least one image
