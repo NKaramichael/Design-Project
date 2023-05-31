@@ -159,8 +159,8 @@ test('validate_submit_return_invalid_headingOrDescription', async () => {
 test('validate_submit_return_invalid_modelOrDomain', async () => {
   // Call the async function
   var mockImage = {
-    model: "none",
-    domain: "none"
+    model0: "none",
+    domain0: "none"
   };
   var files = [mockImage];
   var heading = "Some heading";
@@ -175,8 +175,8 @@ test('validate_submit_return_invalid_modelOrDomain', async () => {
 
   // Invalid domain
   mockImage = {
-    model: "nWFC",
-    domain: "none"
+    model0: "nWFC",
+    domain0: "none"
   };
   files = [mockImage];
   result = await submit(files, heading, description);
@@ -186,8 +186,8 @@ test('validate_submit_return_invalid_modelOrDomain', async () => {
 
   // Invalid model
   mockImage = {
-    model: "none",
-    domain: "Maze"
+    model0: "none",
+    domain0: "Maze"
   };
   files = [mockImage];
   result = await submit(files, heading, description);
