@@ -19,19 +19,22 @@ function submitQuiz() {
 }
 
 function change(num) {
-
     let out = '';
     switch (num) {
-        case 0: out = 'A';
-            break;
-        case 1: out = 'B';
-            break;
-        case 2: out = 'C';
-            break;
+      case 0:
+        out = 'A';
+        break;
+      case 1:
+        out = 'B';
+        break;
+      case 2:
+        out = 'C';
+        break;
+      default:
+        out = ''; // Assign a default value when num doesn't match any case
     }
-
     return out;
-}
+  }
 
 var loadingScreen = document.getElementById('loading-screen');
 
@@ -118,10 +121,10 @@ async function submit(e) {
         return;
     }
 
-    // var mainDiv = document.getElementById('mainDiv');
-    // mainDiv.style.display = 'none';
-    // document.getElementById('mainHeading').style.display = 'none';
-    // loadingScreen.style.display = 'flex';
+    var mainDiv = document.getElementById('mainDiv');
+    mainDiv.style.display = 'none';
+    document.getElementById('mainHeading').style.display = 'none';
+    loadingScreen.style.display = 'flex';
 
     await uploadImages(files, imageArr);
 
@@ -193,7 +196,7 @@ async function submit(e) {
         });
 
     
-    // window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
+    window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
 }
 
 // Get a reference to the Firebase Storage service

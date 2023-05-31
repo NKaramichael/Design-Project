@@ -75,11 +75,47 @@ test('validate_submitToEval_valid_imageList', () => {
 
 ///////// submitQuiz /////////
 
-const {
+let {
   submitQuiz, change, submit, uploadImages, uploadImage
 } = require('./firebase/firebase-submitQuiz.js');
 
+test('validate_change_valid_input', () => {
+  const result1 = change(0);
+  expect(result1).toBe('A');
+  const result2 = change(1);
+  expect(result2).toBe('B');
+  const result3 = change(2);
+  expect(result3).toBe('C');
+});
 
+test('validate_change_invalid_input', () => {
+  // Edge cases
+  const result1 = change(3);
+  expect(result1).toBe('');
+  const result2 = change(-1);
+  expect(result2).toBe('');
+
+  // Largely Invalid
+  const result3 = change(8);
+  expect(result3).toBe('');
+  const result4 = change(-5);
+  expect(result4).toBe('');
+});
+
+// // Mock the submit function
+// jest.mock('./firebase/firebase-submitQuiz.js', () => ({
+//   submit: jest.fn()
+// }));
+
+// describe('submitQuiz', () => {
+//   it('should call submit function', () => {
+//     // Call the function to be tested
+//     submitQuiz();
+
+//     // Assert that submit was called
+//     expect(submit).toHaveBeenCalled();
+//   });
+// });
 
 ///////////////////////////////////////////////
 ///////// TESTING ESSENTIAL FUNCTIONS /////////
@@ -95,8 +131,7 @@ let {
   changeRole,
   changePassword,
   checkSurveyID_unique,
-  getData,
-  change
+  getData
 } = require('./essentialFunctions.js');
 
 test('validate_email_invalid_email', () => {
@@ -272,20 +307,4 @@ test('validate_getData_returns_valid_types', () => {
   expect(typeof data.Status).toBe('boolean');
   expect(Array.isArray(data.Questions)).toBe(true);
   expect(Array.isArray(data.Images)).toBe(true);
-});
-
-test('validate_change_valid_input', () => {
-  const result1 = change(0);
-  expect(result1).toBe('A');
-  const result2 = change(1);
-  expect(result2).toBe('B');
-  const result3 = change(2);
-  expect(result3).toBe('C');
-});
-
-test('validate_change_invalid_input', () => {
-  const result1 = change(3);
-  expect(result1).toBe('');
-  const result2 = change(-1);
-  expect(result2).toBe('');
 });

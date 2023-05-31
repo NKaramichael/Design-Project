@@ -1,4 +1,5 @@
 
+// import firebase from 'firebase/app';
 const firebase = require('firebase/app');
 
 const firebaseConfig = {
@@ -9,40 +10,32 @@ const firebaseConfig = {
     storageBucket: "pcgevaluation-49d75.appspot.com",
     messagingSenderId: "369543877095",
     appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
-};
+  };
 
-// Initialise firebase
-// firebase.initializeApp(firebaseConfig); Do Not need to reinitialise for testing
-var db = firebase.firestore();
-var collectionRef = db.collection("Questions");
-
-// Get a reference to the Firebase Storage service
-var storage = firebase.storage();
-
-// Get a reference to the Firebase Firestore database
-var firestore = firebase.firestore();
-
-function submitQuiz() {
-    // document.getElementById('submitQuizForm').addEventListener('submit', submit);
-}
-
-function change(num) {
-
+function change (num) {
     let out = '';
     switch (num) {
-        case 0: out = 'A';
+        case 0:
+            out = 'A';
             break;
-        case 1: out = 'B';
+        case 1:
+            out = 'B';
             break;
-        case 2: out = 'C';
+        case 2:
+            out = 'C';
             break;
+        default:
+            out = ''; // Assign a default value when num doesn't match any case
     }
-
     return out;
 }
 
+function submitQuiz() {
+    submit();
+}
+
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
-async function submit(e) {
+async function submit() {
     // e.preventDefault();
 
     // // Checking that user has uploaded at least one image
@@ -247,4 +240,4 @@ async function uploadImage(file, domain, model, imageNum) {
     // }
 }
 
-module.exports = { submitQuiz, change, submit, uploadImages, uploadImage};
+module.exports = { submitQuiz, change, submit, uploadImages, uploadImage };
