@@ -34,6 +34,14 @@ function submitQuiz() {
     submit();
 }
 
+async function fetchData() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('Data');
+      }, 1000);
+    });
+  }
+
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
 async function submit() {
 
@@ -245,4 +253,4 @@ async function uploadImage(file, domain, model, imageNum) {
     // }
 }
 
-module.exports = { submitQuiz, change, submit, uploadImages, uploadImage };
+module.exports = { submitQuiz, change, submit, uploadImages, uploadImage, fetchData};
