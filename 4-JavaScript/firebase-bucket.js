@@ -367,24 +367,20 @@ function createQuestion(type, questionText) {
 
 async function navPanel(docData) {
   try {
-
-    questions = [];
-
+    const questions = [];
 
     const questionNames = docData.Questions;
-    console.log(questionNames);
     const navPanel = document.getElementById('nav-panel');
     const container = document.getElementById('container');
 
     await QuestionFirestore.where(firebase.firestore.FieldPath.documentId(), 'in', questionNames).get()
       .then((querySnapshot) => {
         querySnapshot.forEach((questionDoc) => {
-          // doc.data() is never undefined for query doc snapshots
           const questionData = questionDoc.data();
-          console.log(questionData)
           const questionText = questionData.Description;
+          const questionType = questionData.Type;
           const size = questions.length;
-          const list = { id: questionDoc.id, text: 'Question ' + (size + 1), content: questionText };
+          const list = { id: questionDoc.id, text: 'Question ' + (size + 1), content: questionText, type: questionType };
           questions.push(list);
           const li = document.createElement('li');
           const a = document.createElement('a');
@@ -393,7 +389,6 @@ async function navPanel(docData) {
           a.textContent = list.text;
           li.appendChild(a);
           navPanel.appendChild(li);
-          console.log(questionText);
         });
       })
       .catch((error) => {
@@ -405,13 +400,73 @@ async function navPanel(docData) {
         event.preventDefault();
         const questionId = event.target.dataset.questionId;
         const question = questions.find((q) => q.id === questionId);
-        container.innerHTML = question.content;
+        container.innerHTML = generateQuestionContent(question.type);
       }
     });
   } catch (error) {
     console.log("Error fetching question documents:", error);
   }
 }
+
+function generateQuestionContent(type) {
+  let questionContent = '';
+  console.log(type)
+  if (type === 'Scale from 1 to 10') {
+    questionContent = `
+      <label for="scaleSlider">Rate from 1 to 10:</label>
+      <input type="range" min="1" max="10" step="1" id="scaleSlider">
+      <output for="scaleSlider" id="scaleOutput"></output>
+    `;
+  } else if (type === 'Radio Type : A-B') {
+    questionContent = `
+      <label for="radioAB">Choose A or B:</label>
+      <input type="radio" id="radioA" name="radioAB" value="A">
+      <label for="radioA">A</label>
+      <input type="radio" id="radioB" name="radioAB" value="B">
+      <label for="radioB">B</label>
+    `;
+  } else if (type === 'Checkbox A-B-C') {
+    questionContent = `
+      <label for="checkboxABC">Choose one or more:</label>
+      <input type="checkbox" id="checkboxA" name="checkboxABC" value="A">
+      <label for="checkboxA">A</label>
+      <input type="checkbox" id="checkboxB" name="checkboxABC" value="B">
+      <label for="checkboxB">B</label>
+      <input type="checkbox" id="checkboxC" name="checkboxABC" value="C">
+      <label for="checkboxC">C</label>
+    `;
+  } else if (type === 'Radio Type : A-B-C') {
+    questionContent = `
+      <label for="radioABC">Choose A, B, or C:</label>
+      <input type="radio" id="radioA" name="radioABC" value="A">
+      <label for="radioA">A</label>
+      <input type="radio" id="radio
+      <input type="radio" id="radioB" name="radioABC" value="B">
+      <label for="radioB">B</label>
+      <input type="radio" id="radioC" name="radioABC" value="C">
+      <label for="radioC">C</label>
+    `;
+  } else if (type === 'Checkbox A-B') {
+    questionContent = `
+      <label for="checkboxAB">Choose one or more:</label>
+      <input type="checkbox" id="checkboxA" name="checkboxAB" value="A">
+      <label for="checkboxA">A</label>
+      <input type="checkbox" id="checkboxB" name="checkboxAB" value="B">
+      <label for="checkboxB">B</label>
+    `;
+  } else if (type === 'Radio Yes-No') {
+    questionContent = `
+      <label for="radioYesNo">Choose Yes or No:</label>
+      <input type="radio" id="radioYes" name="radioYesNo" value="Yes">
+      <label for="radioYes">Yes</label>
+      <input type="radio" id="radioNo" name="radioYesNo" value="No">
+      <label for="radioNo">No</label>
+    `;
+  }
+
+  return questionContent;
+}
+
 
 // Handle filter button click event
 function handleFilter() {
