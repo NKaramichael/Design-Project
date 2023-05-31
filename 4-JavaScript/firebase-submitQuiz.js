@@ -192,8 +192,8 @@ async function submit(e) {
             console.error("Error adding Quiz: ", error);
         });
 
-    // alert("Quiz submitted!");
-    // window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
+    
+    window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
 }
 
 // Get a reference to the Firebase Storage service
