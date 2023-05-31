@@ -2,6 +2,8 @@
 ///////// TESTING FIREBASE FUNCTIONS /////////
 ///////////////////////////////////////////////
 
+///////// selectImages /////////
+
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/storage');
@@ -70,6 +72,14 @@ test('validate_submitToEval_valid_imageList', () => {
     + "&img1=" + encodeURIComponent(imageList[1]) + "&img2=" + encodeURIComponent(imageList[2]);
   expect(output).toBe(validOutput);
 });
+
+///////// submitQuiz /////////
+
+const {
+  submitQuiz, change, submit, uploadImages, uploadImage
+} = require('./firebase/firebase-submitQuiz.js');
+
+
 
 ///////////////////////////////////////////////
 ///////// TESTING ESSENTIAL FUNCTIONS /////////

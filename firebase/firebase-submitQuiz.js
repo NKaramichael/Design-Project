@@ -28,20 +28,18 @@ function submitQuiz() {
 
 function change(num) {
 
-    // let out = '';
-    // switch (num) {
-    //     case 0: out = 'A';
-    //         break;
-    //     case 1: out = 'B';
-    //         break;
-    //     case 2: out = 'C';
-    //         break;
-    // }
+    let out = '';
+    switch (num) {
+        case 0: out = 'A';
+            break;
+        case 1: out = 'B';
+            break;
+        case 2: out = 'C';
+            break;
+    }
 
-    // return out;
+    return out;
 }
-
-// var loadingScreen = document.getElementById('loading-screen');
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
 async function submit(e) {
@@ -249,6 +247,4 @@ async function uploadImage(file, domain, model, imageNum) {
     // }
 }
 
-
-
-
+module.exports = { submitQuiz, change, submit, uploadImages, uploadImage};
