@@ -152,23 +152,23 @@ const getData = (heading, desc, refArr, imgRefArr) => {
   return data;
 }
 
-function change(num) {
-  let out = '';
-  switch (num) {
-    case 0:
-      out = 'A';
-      break;
-    case 1:
-      out = 'B';
-      break;
-    case 2:
-      out = 'C';
-      break;
-    default:
-      out = ''; // Assign a default value when num doesn't match any case
-  }
-  return out;
-}
+// function change(num) {
+//   let out = '';
+//   switch (num) {
+//     case 0:
+//       out = 'A';
+//       break;
+//     case 1:
+//       out = 'B';
+//       break;
+//     case 2:
+//       out = 'C';
+//       break;
+//     default:
+//       out = ''; // Assign a default value when num doesn't match any case
+//   }
+//   return out;
+// }
 
 module.exports = { validate_email, validate_password, getEmails, getPasswords, changePage, 
-  checkRole, changeRole, changePassword, checkSurveyID_unique, getData, change};
+  checkRole, changeRole, changePassword, checkSurveyID_unique, getData};
