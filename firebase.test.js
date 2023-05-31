@@ -1,5 +1,5 @@
 let {
-    submitToEval
+    displayCurrentQuizzes
   } = require('./firebase/firebase-bucket.js');
 
   require('firebase/auth');
