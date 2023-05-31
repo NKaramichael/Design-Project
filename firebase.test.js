@@ -102,14 +102,49 @@ test('validate_change_invalid_input', () => {
   expect(result4).toBe('');
 });
 
-// Test case
 test('validate_submit_return_invalid_input', async () => {
   // Call the async function
   var files = []
   const result = await submit(files);
 
-  // Make assertions to check the expected outcome
+  // If files is empty, want to return immediately
   expect(result).toBe('Please upload at least 1 image');
+});
+
+test('validate_submit_return_invalid_fileLength', async () => {
+  // Call the async function
+  var files = []
+  const heading = "Some heading";
+  const description = "Some description";
+  const result = await submit(files, heading, description);
+
+  // If files is empty, want to return immediately
+  expect(result).toBe('Please upload at least 1 image');
+});
+
+test('validate_submit_return_invalid_textAreas', async () => {
+  // Call the async function
+  const mockImage =  "";
+  var files = [mockImage];
+  var heading = "";
+  var description = "";
+  const result = await submit(files);
+
+  // Blank heading and description
+  var expectedOutput = "Address the following issues: \n";
+  expectedOutput += "Please enter a Quiz heading\n";
+  expectedOutput += "Please enter a Quiz description\n";
+  expect(result).toBe(expectedOutput);
+
+  // Blank heading
+  expectedOutput = "Address the following issues: \n";
+  expectedOutput += "Please enter a Quiz heading\n";
+  expect(result).toBe(expectedOutput);
+
+  // Blank description
+  expectedOutput = "Address the following issues: \n";
+  expectedOutput += "Please enter a Quiz description\n";
+  expect(result).toBe(expectedOutput);
 });
 
 ///////////////////////////////////////////////

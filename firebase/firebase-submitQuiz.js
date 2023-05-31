@@ -35,7 +35,7 @@ function submitQuiz() {
 }
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
-async function submit(files) {
+async function submit(files, heading, desc) {
     var output = "";
 
     // Checking that user has uploaded at least one image
@@ -48,25 +48,26 @@ async function submit(files) {
         });
     }
 
-    // // Checking that heading and description are filled in
-    // const heading = document.getElementById('heading').value;
-    // const desc = document.getElementById('description').value;
-    // var process = true;
-    // var errorOutput = "Address the following issues: \n";
+    // Checking that heading and description are filled in
+    var process = true;
+    var errorOutput = "Address the following issues: \n";
 
-    // if (heading == "") {
-    //     errorOutput += "Please enter a Quiz heading\n";
-    //     process = false;
-    // }
-    // if (desc == "") {
-    //     errorOutput += "Please enter a Quiz description\n";
-    //     process = false;
-    // }
+    if (heading == "") {
+        errorOutput += "Please enter a Quiz heading\n";
+        process = false;
+    }
+    if (desc == "") {
+        errorOutput += "Please enter a Quiz description\n";
+        process = false;
+    }
 
-    // if (process == false) {
-    //     alert(errorOutput);
-    //     return;
-    // }
+    if (process == false) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(errorOutput);
+            }, 3000);
+        });
+    }
 
     // process = true;
     // errorOutput = "Address the following issues: \n";
