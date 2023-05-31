@@ -242,4 +242,4 @@ async function uploadImage(file, domain, model, imageNum) {
     // }
 }
 
-module.exports = { submitQuiz, change, submit, uploadImages, uploadImage, fetchData};
+module.exports = { submitQuiz, change, submit, uploadImages, uploadImage};

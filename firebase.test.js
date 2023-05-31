@@ -76,7 +76,7 @@ test('validate_submitToEval_valid_imageList', () => {
 ///////// submitQuiz /////////
 
 let {
-  submitQuiz, change, submit, uploadImages, uploadImage, fetchData
+  submitQuiz, change, submit, uploadImages, uploadImage
 } = require('./firebase/firebase-submitQuiz.js');
 
 test('validate_change_valid_input', () => {
