@@ -151,7 +151,7 @@ test('validate_submit_return_invalid_headingAndDescription', async () => {
   expectedOutput = "Address the following issues: \n";
   expectedOutput += "Please enter a Quiz description\n";
   expect(result).toBe(expectedOutput);
-}, 20000);
+}, 4000);
 
 ///////////////////////////////////////////////
 ///////// TESTING ESSENTIAL FUNCTIONS /////////

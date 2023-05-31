@@ -44,7 +44,7 @@ async function submit(files, heading, desc) {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(output);
-            }, 3000);
+            }, 1000);
         });
     }
 
@@ -65,7 +65,7 @@ async function submit(files, heading, desc) {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(errorOutput);
-            }, 5000);
+            }, 1000);
         });
     }
 
