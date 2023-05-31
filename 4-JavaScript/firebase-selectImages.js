@@ -70,7 +70,9 @@ function greyOutImage(image) {
 
 function submitToEval(){
     if (imageList.length == 0){
-        alert("You have not selected any images!");
+      alert("You have not selected any images!");
+    } else if (imageList.length > 3){
+      alert("You have selected more than 3 images!");
     } else {
         // var dataToSend = "Hello, World!"; // The data you want to send
         var url = "../2-ResearcherPages/evaluation2.html?";

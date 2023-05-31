@@ -2,28 +2,44 @@
 ///////// TESTING FIREBASE FUNCTIONS /////////
 ///////////////////////////////////////////////
 
-const {
-  selectImage, greyOutImage
-} = require('./firebase/firebase-selectImages.js');
-
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/storage');
 
+const {
+  selectImage, greyOutImage, submitToEval
+} = require('./firebase/firebase-selectImages.js');
+
 test('validate_selectImage_changesImageStatus', () => {
   const ImageUrl = "https://firebasestorage.googleapis.com/v0/b/pcgevaluation-49d75.appspot.com/o/Level%2Fimages%2Fmaze2.png?alt=media&token=0d850088-3860-4d62-90fb-25e5ac4fec53";
-  const image = { status: "unselected"};
-  
+  const image = { status: "unselected" };
+
   const status = selectImage(ImageUrl, image);
   expect(status).toBe("selected");
 });
 
 test('validate_greyOutImage_greys_out_image', () => {
-  const style = {filter: "ungrayed"};
-  const image = { style: style};
-  
+  const style = { filter: "ungrayed" };
+  const image = { style: style };
+
   const newFilter = greyOutImage(image);
   expect(newFilter).toBe("grayscale(100%)");
+});
+
+test('validate_submitToEval_invalid_imageList', () => {
+  const imageList = []; // Invalid implies empty imageList
+
+  const output = submitToEval(imageList);
+  expect(output).toBe("You have not selected any images!");
+});
+
+test('validate_submitToEval_valid_imageList', () => {
+  const mockImage = "https://someGoogleApi";
+  const imageList = [mockImage];
+
+  const output = submitToEval(imageList);
+  const validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURIComponent(imageList[0]);
+  expect(output).toBe(validOutput);
 });
 
 ///////////////////////////////////////////////
@@ -33,11 +49,11 @@ test('validate_greyOutImage_greys_out_image', () => {
 let {
   validate_email,
   validate_password,
-  getEmails, 
-  getPasswords,  
-  changePage, 
-  checkRole, 
-  changeRole, 
+  getEmails,
+  getPasswords,
+  changePage,
+  checkRole,
+  changeRole,
   changePassword,
   checkSurveyID_unique,
   getData,
