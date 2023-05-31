@@ -75,7 +75,7 @@ test('validate_submitToEval_valid_imageList', () => {
 
 ///////// submitQuiz /////////
 
-let {
+const {
   submitQuiz, change, submit, uploadImages, uploadImage
 } = require('./firebase/firebase-submitQuiz.js');
 
