@@ -27,7 +27,7 @@ test('validate_greyOutImage_greys_out_image', () => {
 });
 
 test('validate_submitToEval_invalid_imageList', () => {
-  const imageList = []; // Invalid implies empty imageList
+  var imageList = []; // Invalid implies empty imageList
 
   // Testing edge case of 0
   var output = submitToEval(imageList);
@@ -49,7 +49,7 @@ test('validate_submitToEval_invalid_imageList', () => {
 
 test('validate_submitToEval_valid_imageList', () => {
   const mockImage = "https://someGoogleApi";
-  const imageList = [mockImage];
+  var imageList = [mockImage];
 
   // Valid input for 1 image
   var output = submitToEval(imageList);
