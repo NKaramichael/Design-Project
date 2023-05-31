@@ -103,7 +103,7 @@ test('validate_change_invalid_input', () => {
 });
 
 // Mock the submit function
-jest.mock('function', () => ({
+jest.mock(submit, () => ({
   submit: jest.fn()
 }));
 
