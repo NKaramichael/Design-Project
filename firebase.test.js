@@ -76,7 +76,7 @@ test('validate_submitToEval_valid_imageList', () => {
 ///////// submitQuiz /////////
 
 let {
-  submitQuiz, change, submit, uploadImages, uploadImage
+  submitQuiz, change, submit, uploadImages, uploadImage, fetchData
 } = require('./firebase/firebase-submitQuiz.js');
 
 test('validate_change_valid_input', () => {
@@ -105,7 +105,7 @@ test('validate_change_invalid_input', () => {
 // Test case
 test('fetchData returns the expected data', async () => {
   // Call the async function
-  const result = await submitQuiz();
+  const result = await fetchData();
 
   // Make assertions to check the expected outcome
   expect(result).toBe('Data');
