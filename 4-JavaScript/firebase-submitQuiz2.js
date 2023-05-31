@@ -229,7 +229,9 @@ async function submit(e) {
         Description: desc,
         Status: true,
         Questions: refArr,
-        Images: imgRefArr
+        Images: imgRefArr,
+        Researcher: sessionStorage.getItem('email')
+        
     };
 
     collectionRef.add(data)
