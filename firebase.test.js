@@ -169,8 +169,8 @@ test('validate_submit_return_invalid_modelOrDomain', async () => {
   // Invalid model and domain
   var result = await submit(files, heading, description);
   var expectedOutput = "Address the following issues: \n";
-  expectedOutput += "Please select a valid model type for image 0\n";
-  expectedOutput += "Please select a valid domain type for image 0\n";
+  expectedOutput += "Please select a valid model type for image A\n";
+  expectedOutput += "Please select a valid domain type for image A\n";
   expect(result).toBe(expectedOutput);
 
   // Invalid domain
@@ -181,7 +181,7 @@ test('validate_submit_return_invalid_modelOrDomain', async () => {
   files = [mockImage];
   result = await submit(files, heading, description);
   expectedOutput = "Address the following issues: \n";
-  expectedOutput += "Please select a valid domain type for image 0\n";
+  expectedOutput += "Please select a valid domain type for image A\n";
   expect(result).toBe(expectedOutput);
 
   // Invalid model
@@ -192,7 +192,7 @@ test('validate_submit_return_invalid_modelOrDomain', async () => {
   files = [mockImage];
   result = await submit(files, heading, description);
   expectedOutput = "Address the following issues: \n";
-  expectedOutput += "Please select a valid model type for image 0\n";
+  expectedOutput += "Please select a valid model type for image A\n";
   expect(result).toBe(expectedOutput);
 }, 4000);
 
