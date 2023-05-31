@@ -381,3 +381,5 @@ function handleFilter() {
       console.error("Error retrieving filtered documents: ", error);
     });
 }
+
+module.exports = { displayCurrentQuizzes, displayQuizzes};

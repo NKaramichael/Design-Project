@@ -1,5 +1,5 @@
 let {
-    displayCurrentQuizzes
+    displayCurrentQuizzes, displayQuizzes
   } = require('./firebase/firebase-bucket.js');
 
   require('firebase/auth');
