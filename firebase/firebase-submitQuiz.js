@@ -21,12 +21,6 @@ var storage = firebase.storage();
 
 // Get a reference to the Firebase Firestore database
 var firestore = firebase.firestore();
-
-function submitQuiz() {
-    // document.getElementById('submitQuizForm').addEventListener('submit', submit);
-    submit();
-}
-
 function change(num) {
 
     let out = '';
@@ -41,6 +35,12 @@ function change(num) {
 
     return out;
 }
+
+function submitQuiz() {
+    // document.getElementById('submitQuizForm').addEventListener('submit', submit);
+    submit();
+}
+
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
 async function submit() {
