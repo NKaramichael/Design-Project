@@ -27,9 +27,7 @@ test('validate_greyOutImage_greys_out_image', () => {
 });
 
 test('validate_submitToEval_invalid_imageList', () => {
-  const mockImage = {
-  };
-  const imageList = [mockImage]; // Invalid implies empty imageList
+  const imageList = []; // Invalid implies empty imageList
 
   const output = submitToEval(imageList);
   expect(output).toBe("You have not selected any images!");
