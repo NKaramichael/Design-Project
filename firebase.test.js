@@ -105,7 +105,8 @@ test('validate_change_invalid_input', () => {
 // Test case
 test('fetchData returns the expected data', async () => {
   // Call the async function
-  const result = await submit();
+  var files = []
+  const result = await submit(files);
 
   // Make assertions to check the expected outcome
   expect(result).toBe('Data');
