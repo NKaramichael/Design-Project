@@ -29,16 +29,45 @@ test('validate_greyOutImage_greys_out_image', () => {
 test('validate_submitToEval_invalid_imageList', () => {
   const imageList = []; // Invalid implies empty imageList
 
-  const output = submitToEval(imageList);
+  // Testing edge case of 0
+  var output = submitToEval(imageList);
   expect(output).toBe("You have not selected any images!");
+
+  // Testing edge case of 4
+  const mockImage = "https://firebaseImageAPI";
+  imageList = [mockImage, mockImage, mockImage, mockImage];
+  output = submitToEval(imageList);
+  expect(output).toBe("You have selected more than 3 images!");
+
+  // Testing largely invalid case of 7
+  for (let i = 0; i < 3; i++){
+    imageList.push(mockImage);
+  }
+  output = submitToEval(imageList);
+  expect(output).toBe("You have selected more than 3 images!");
 });
 
 test('validate_submitToEval_valid_imageList', () => {
   const mockImage = "https://someGoogleApi";
   const imageList = [mockImage];
 
-  const output = submitToEval(imageList);
-  const validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURIComponent(imageList[0]);
+  // Valid input for 1 image
+  var output = submitToEval(imageList);
+  var validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURIComponent(imageList[0]);
+  expect(output).toBe(validOutput);
+
+  // Valid input for 2 images
+  imageList.push("https://someOtherGoogleApi");
+  output = submitToEval(imageList);
+  validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURIComponent(imageList[0])
+    + "?img1=" + encodeURIComponent(imageList[1]);
+  expect(output).toBe(validOutput);
+
+  // Valid input for 3 images
+  imageList.push("https://lastGoogleApi");
+  output = submitToEval(imageList);
+  validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURIComponent(imageList[0])
+    + "?img1=" + encodeURIComponent(imageList[1]) + "?img2=" + encodeURIComponent(imageList[2]);
   expect(output).toBe(validOutput);
 });
 
