@@ -45,6 +45,7 @@
             top: 0;
         }
 
+        /* This class is used to style the scrollable section that contains multiple text boxes */
         #scrollable-box {
             height: 800px;
             overflow-y: scroll;
@@ -91,62 +92,17 @@
             color: #666;
         }
 
-        .box-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .box {
-            width: 800px;
-            height: 600px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            overflow-y: scroll;
-        }
-
-        .box-img {
-            width: 100%;
-            height: 66%;
-        }
-
-        .box-img img {
-            width: 100%;
-            height: 100%;
-        }
-
-        .box-desc {
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-            height: 33%;
-        }
-
-        .box-column {
-            background-color: #fff;
-            font-family: 'Press Start 2P', cursive;
-            width: 25%;
-            text-align: center;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        input[type="text"] {
-            width: 80%;
-            margin-top: 5px;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-
         /* This class is used to style the container that holds the buttons */
         .BtnContainer {
             display: flex;
             justify-content: center;
             align-items: center;
+
         }
 
         /* This class is used to style the buttons on the page */
         .button {
+            width: 300px;
             font-family: 'Press Start 2P', cursive;
             padding: 10px 20px;
             background-color: #FE4CF4;
@@ -155,9 +111,9 @@
             margin: 0 10px;
             font-size: 18px;
             cursor: pointer;
-            width: 300px;
         }
 
+        /* Change the colour of the button for the current page we're on */
         .buttonCurrentPage {
             width: 300px;
             font-family: 'Press Start 2P', cursive;
@@ -198,7 +154,7 @@
             display: inline-block;
             background-size: cover;
             font-size: 30px;
-            padding: 5px;
+            padding: 10px;
         }
 
         /* This class is used to style the background of the page */
@@ -217,7 +173,7 @@
             color: #ffffff;
             height: 20px;
             width: 20px;
-            font-size: 30px;
+            font-size: 40px;
         }
 
         .aList {
@@ -227,13 +183,10 @@
             font-size: 30px;
         }
 
-        p {
-            color: #000
-        }
-
         ul {
             list-style-type: none;
             line-height: 1.5;
+            font-size: 20px;
         }
     </style>
     <script>
@@ -311,89 +264,9 @@
 
 
     </html>
-    <script>
-        function displayQuizzes() {
-            var email = sessionStorage.getItem('email');
-            // var email = 'meow10@catmail.com';
-            Ref = UserFirestore.doc(email);
-
-            Ref.get()
-                .then((doc) => {
-                    if (doc.exists) {
-                        const currentQuizzes = doc.data()['currentQuizzes'];
-                        // loop through array and get info for each quiz to display
-                        currentQuizzes.forEach((name) => {
-                            const ref = QuizFirestore.doc(name);
-                            ref.get()
-                                .then((doc) => {
-                                    if (doc.exists && doc.data().Researcher === email) {
-                                        // display the quiz block
-                                        createQuizBlock(doc.data(), 'current', doc.id);
-                                    } else {
-                                        // The document doesn't exist or the Researcher field doesn't match the email
-                                        console.log("No such document or Researcher doesn't match the email!");
-                                    }
-                                })
-                                .catch((error) => {
-                                    // An error occurred while retrieving the document
-                                    console.log("Error getting document:", error);
-                                });
-                        });
-                    } else {
-                        // doc.data() will be undefined in this case
-                        console.log("No such document!");
-                    }
-                })
-                .catch((error) => {
-                    console.log("Error getting document:", error);
-                });
-        };
-
-        async function createQuizBlock(data, status, id) {
-            // define values for the box
-            const box = {
-                title: data['Title'],
-                description: data['Description']
-            };
-            // Get a reference to the container element
-            // Get the parent element to which the text boxes will be added
-            const parent = document.getElementById("text-boxes");
-
-            const textBox = document.createElement("div");
-            textBox.classList.add("text-box");
-            // get and set thumbnail link from storage
-
-            const image = document.createElement("img");
-            levelName = data["Images"][0];
-            const url = await getLevelUrl(levelName);
-            image.setAttribute("src", url);
-
-            const title = document.createElement("h2");
-            title.textContent = box.title;
-
-            const description = document.createElement("p");
-            description.textContent = box.description;
-
-            textBox.appendChild(image);
-
-            const addButton = document.createElement("button");
-            addButton.classList.add("button");
-            addButton.style.backgroundColor = "rgb(65, 239, 65)";
-            addButton.style.color = "white";
-            addButton.textContent = "Add to Current";
-            addButton.setAttribute('data-value', id);
-            addButton.addEventListener("click", addToCurrent);
-            textBox.appendChild(addButton);
-            textBox.appendChild(title);
-            textBox.appendChild(description);
-
-            // Add the text box to the parent element
-            parent.appendChild(textBox);
-        }
-
-
-
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+	<script type="text/javascript" src="../4-JavaScript/firebase-bucket.js"></script>
+    <script> </script>
 
 </body>
 
