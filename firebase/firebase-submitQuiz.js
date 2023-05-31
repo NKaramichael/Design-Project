@@ -31,7 +31,6 @@ function change (num) {
 }
 
 function submitQuiz() {
-    // document.getElementById('submitQuizForm').addEventListener('submit', submit);
     submit();
 }
 
