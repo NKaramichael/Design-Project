@@ -304,25 +304,25 @@ async function displayHeader(data) {
 
 };
 
-function createQuestion(type, questionText){
+function createQuestion(type, questionText) {
   var details = questionText + " |";
-  switch(type){
-      case "scale": details += ' Scale from 1 to 10';
+  switch (type) {
+    case "scale": details += ' Scale from 1 to 10';
       break;
-      case "radioABC": details += ' Radio Type : A-B-C';
+    case "radioABC": details += ' Radio Type : A-B-C';
       break;
-      case "radioAB": details += ' Radio Type : A-B';
+    case "radioAB": details += ' Radio Type : A-B';
       break;
-      case "radioYN": details += ' Radio Type : Yes No';
+    case "radioYN": details += ' Radio Type : Yes No';
       break;
-      case "checkABC": details += ' Checkbox Type : A-B-C';
+    case "checkABC": details += ' Checkbox Type : A-B-C';
       break;
-      case "checkAB": details += ' Checkbox Type : A-B';
+    case "checkAB": details += ' Checkbox Type : A-B';
       break;
   }
 
   const size = questions.length;
-  list = {id: size + 1, text: 'Question ' + (size+1), content: details};
+  list = { id: size + 1, text: 'Question ' + (size + 1), content: details };
   questions.push(list);
 
   var newQuestion = document.createElement('li');
@@ -336,23 +336,23 @@ function createQuestion(type, questionText){
 
   // Clear the navPanel
   while (navPanel.firstChild) {
-      navPanel.removeChild(navPanel.firstChild);
+    navPanel.removeChild(navPanel.firstChild);
   }
 
   // Generate the HTML for the navigation panel dynamically
   questions.forEach(question => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = '#';
-      a.dataset.questionId = question.id;
-      a.textContent = question.text;
-      li.appendChild(a);
-      navPanel.appendChild(li);
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#';
+    a.dataset.questionId = question.id;
+    a.textContent = question.text;
+    li.appendChild(a);
+    navPanel.appendChild(li);
   });
 
   // Add event listeners to the navigation panel elements
   navPanel.addEventListener('click', event => {
-      if (event.target.matches('[data-question-id]')) {
+    if (event.target.matches('[data-question-id]')) {
       event.preventDefault();
       const questionId = event.target.dataset.questionId;
       const question = questions.find(q => q.id === parseInt(questionId));
@@ -361,7 +361,7 @@ function createQuestion(type, questionText){
       container.style.border = "10px solid #000000";
       container.style.borderRadius = " 50px";
       container.style.backgroundColor = "#000000";
-      }
+    }
   });
 }
 
@@ -370,7 +370,7 @@ async function navPanel(docData) {
 
     questions = [];
 
-   
+
     const questionNames = docData.Questions;
     console.log(questionNames);
     const navPanel = document.getElementById('nav-panel');
@@ -445,3 +445,63 @@ function handleFilter() {
       console.error("Error retrieving filtered documents: ", error);
     });
 }
+function fetchQuizzesByResearcher() {
+  const email = sessionStorage.getItem('email');
+
+  QuizFirestore.where('Researcher', '==', email)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const quizData = doc.data();
+        const quizId = doc.id;
+
+        // Call the displayQuiz function to render the quiz
+        displayQuiz(quizData, quizId);
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting quizzes: ", error);
+    });
+}
+
+async function displayQuiz(data, id) {
+  // Example implementation: Create an HTML element to display the quiz
+  const quizContainer = document.createElement('div');
+  // define values for the box
+  const box = {
+    title: data['Title'],
+    description: data['Description']
+  };
+  // Get a reference to the container element
+  // Get the parent element to which the text boxes will be added
+  const parent = document.getElementById("text-boxes");
+
+  const textBox = document.createElement("div");
+  textBox.classList.add("text-box");
+  // get and set thumbnail link from storage
+
+  const image = document.createElement("img");
+  levelName = data["Images"][0];
+  const url = await getLevelUrl(levelName);
+  image.setAttribute("src", url)
+
+  const title = document.createElement("h2");
+  title.textContent = box.title;
+
+  const description = document.createElement("p");
+  description.textContent = box.description;
+
+  textBox.appendChild(image);
+
+  textBox.appendChild(title);
+  textBox.appendChild(description);
+
+  // Add the text box to the parent element
+  parent.appendChild(textBox);
+
+  // Append the quiz container to the document body or a specific element
+  document.body.appendChild(quizContainer);
+}
+
+// Call the function to fetch and display quizzes
+fetchQuizzesByResearcher();
