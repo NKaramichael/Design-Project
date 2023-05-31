@@ -410,7 +410,7 @@ async function navPanel(docData) {
 
 function generateQuestionContent(description, type) {
   let questionContent = '';
-  
+
   if (type === 'Scale from 1 to 10') {
     questionContent = `
    
@@ -455,7 +455,7 @@ function generateQuestionContent(description, type) {
       <input type="checkbox" id="checkboxB" name="checkboxAB" value="B">
       <label for="checkboxB">B</label>
     `;
-  } else if (type === 'Radio Type : Yes-No') {
+  } else if (type === 'Radio Type : Yes No') {
     questionContent = `
       <label for="radioYesNo">${description} <br> Choose Yes or No:</label>
       <input type="radio" id="radioYes" name="radioYesNo" value="Yes">
