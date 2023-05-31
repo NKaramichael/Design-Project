@@ -40,7 +40,7 @@ async function submit() {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve('Data');
-        }, 1000);
+        }, 3000);
     });
 
     // // Checking that user has uploaded at least one image
