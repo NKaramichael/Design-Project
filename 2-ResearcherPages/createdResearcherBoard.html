@@ -213,11 +213,10 @@
         function eval() {
             window.location.href = "evaluation.html"
         }
+        function stat(){
+            window.location.href="surveyStatistics.html"
+        }
 
-        // if(sessionStorage.getItem('role') != "Researcher"){
-        //     alert("This is not your dashboard!")
-
-        // }
     </script>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
@@ -241,10 +240,15 @@
         <button class="buttonCurrentPage" onclick="createdFunction()">Created</button>
         <button class="button" onclick="currentFunction()">Current</button>
         <button class="button" onclick="newFunction()">Peer Surveys</button>
-        <span style="display:inline-block;background-color:#FE4CF4;padding:10px; border: 2px solid black;
-        border-radius: 5px;border-radius:50%;font-size:20px;cursor:pointer;"><i class="fas fa-plus"
-                onclick="eval()"></i></span>
 
+        <!-- code for the plus icon that allows you to create surveys -->
+        <span style="display:inline-block;background-color:#FE4CF4;padding:10px; border: 2px solid black;
+        border-radius: 5px;border-radius:50%;font-size:20px;cursor:pointer;"><i class="fas fa-plus" onclick="eval()"></i></span>
+
+          <!-- Code for implementing the button to take you to the statistics page -->
+        <span style="display:inline-block;background-color:#FE4CF4;padding:10px; border: 2px solid black;
+        border-radius: 5px;border-radius:50%;font-size:20px;cursor:pointer;"><i class="fa fa-address-card" aria-hidden="true" onclick="stat()"></i></span>
+        
     </div>
 
     <div class="blocky-background"></div>
