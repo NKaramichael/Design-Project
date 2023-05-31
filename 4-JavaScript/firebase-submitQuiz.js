@@ -19,19 +19,22 @@ function submitQuiz() {
 }
 
 function change(num) {
-
     let out = '';
     switch (num) {
-        case 0: out = 'A';
-            break;
-        case 1: out = 'B';
-            break;
-        case 2: out = 'C';
-            break;
+      case 0:
+        out = 'A';
+        break;
+      case 1:
+        out = 'B';
+        break;
+      case 2:
+        out = 'C';
+        break;
+      default:
+        out = ''; // Assign a default value when num doesn't match any case
     }
-
     return out;
-}
+  }
 
 var loadingScreen = document.getElementById('loading-screen');
 

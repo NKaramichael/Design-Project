@@ -21,18 +21,22 @@ var storage = firebase.storage();
 
 // Get a reference to the Firebase Firestore database
 var firestore = firebase.firestore();
-function change(num) {
 
+function change(num) {
     let out = '';
     switch (num) {
-        case 0: out = 'A';
+        case 0:
+            out = 'A';
             break;
-        case 1: out = 'B';
+        case 1:
+            out = 'B';
             break;
-        case 2: out = 'C';
+        case 2:
+            out = 'C';
             break;
+        default:
+            out = ''; // Assign a default value when num doesn't match any case
     }
-
     return out;
 }
 
@@ -40,7 +44,6 @@ function submitQuiz() {
     // document.getElementById('submitQuizForm').addEventListener('submit', submit);
     submit();
 }
-
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
 async function submit() {
@@ -248,4 +251,4 @@ async function uploadImage(file, domain, model, imageNum) {
     // }
 }
 
-module.exports = { submitQuiz, change, submit, uploadImages, uploadImage};
+module.exports = { submitQuiz, change, submit, uploadImages, uploadImage };
