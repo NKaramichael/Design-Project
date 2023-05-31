@@ -10,7 +10,6 @@ const firebaseConfig = {
   appId: "1:369543877095:web:84e7d5c5fdb84dd72eed42"
 };
 
-
 //initialise firebase
 firebase.initializeApp(firebaseConfig);
 // Get a reference to the storage service, which is used to create references in your storage bucket
@@ -123,8 +122,6 @@ async function getLevelUrl(levelName) {
 
   return url;
 };
-
-
 
 async function createQuizBlock(data, status, id) {
   // define values for the box
@@ -251,6 +248,7 @@ function openSurvey() {
 
 };
 
+
 async function displayImages(data) {
   // Get a reference to the parent container element
   const parentContainer = document.getElementById('imageContainer');
@@ -306,10 +304,73 @@ async function displayHeader(data) {
 
 };
 
+function createQuestion(type, questionText){
+  var details = questionText + " |";
+  switch(type){
+      case "scale": details += ' Scale from 1 to 10';
+      break;
+      case "radioABC": details += ' Radio Type : A-B-C';
+      break;
+      case "radioAB": details += ' Radio Type : A-B';
+      break;
+      case "radioYN": details += ' Radio Type : Yes No';
+      break;
+      case "checkABC": details += ' Checkbox Type : A-B-C';
+      break;
+      case "checkAB": details += ' Checkbox Type : A-B';
+      break;
+  }
+
+  const size = questions.length;
+  list = {id: size + 1, text: 'Question ' + (size+1), content: details};
+  questions.push(list);
+
+  var newQuestion = document.createElement('li');
+  newQuestion.textContent = list.content;
+  var questionList = document.getElementById('questionList');
+  questionList.appendChild(newQuestion);
+
+  // Get references to the navigation panel and container elements
+  const navPanel = document.getElementById('nav-panel');
+  const container = document.getElementById('container');
+
+  // Clear the navPanel
+  while (navPanel.firstChild) {
+      navPanel.removeChild(navPanel.firstChild);
+  }
+
+  // Generate the HTML for the navigation panel dynamically
+  questions.forEach(question => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#';
+      a.dataset.questionId = question.id;
+      a.textContent = question.text;
+      li.appendChild(a);
+      navPanel.appendChild(li);
+  });
+
+  // Add event listeners to the navigation panel elements
+  navPanel.addEventListener('click', event => {
+      if (event.target.matches('[data-question-id]')) {
+      event.preventDefault();
+      const questionId = event.target.dataset.questionId;
+      const question = questions.find(q => q.id === parseInt(questionId));
+      container.innerHTML = "";
+      container.innerHTML = question.content;
+      container.style.border = "10px solid #000000";
+      container.style.borderRadius = " 50px";
+      container.style.backgroundColor = "#000000";
+      }
+  });
+}
+
 async function navPanel(docData) {
   try {
 
     questions = [];
+
+   
     const questionNames = docData.Questions;
     console.log(questionNames);
     const navPanel = document.getElementById('nav-panel');
@@ -351,6 +412,7 @@ async function navPanel(docData) {
     console.log("Error fetching question documents:", error);
   }
 }
+
 // Handle filter button click event
 function handleFilter() {
 
