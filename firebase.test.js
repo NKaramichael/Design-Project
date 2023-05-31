@@ -79,7 +79,28 @@ const {
   submitQuiz, change, submit, uploadImages, uploadImage
 } = require('./firebase/firebase-submitQuiz.js');
 
+test('validate_change_valid_input', () => {
+  const result1 = change(0);
+  expect(result1).toBe('A');
+  const result2 = change(1);
+  expect(result2).toBe('B');
+  const result3 = change(2);
+  expect(result3).toBe('C');
+});
 
+test('validate_change_invalid_input', () => {
+  // Edge cases
+  const result1 = change(3);
+  expect(result1).toBe('');
+  const result2 = change(-1);
+  expect(result2).toBe('');
+
+  // Largely Invalid
+  const result3 = change(8);
+  expect(result3).toBe('');
+  const result4 = change(-5);
+  expect(result4).toBe('');
+});
 
 ///////////////////////////////////////////////
 ///////// TESTING ESSENTIAL FUNCTIONS /////////
@@ -272,20 +293,4 @@ test('validate_getData_returns_valid_types', () => {
   expect(typeof data.Status).toBe('boolean');
   expect(Array.isArray(data.Questions)).toBe(true);
   expect(Array.isArray(data.Images)).toBe(true);
-});
-
-test('validate_change_valid_input', () => {
-  const result1 = change(0);
-  expect(result1).toBe('A');
-  const result2 = change(1);
-  expect(result2).toBe('B');
-  const result3 = change(2);
-  expect(result3).toBe('C');
-});
-
-test('validate_change_invalid_input', () => {
-  const result1 = change(3);
-  expect(result1).toBe('');
-  const result2 = change(-1);
-  expect(result2).toBe('');
 });
