@@ -213,6 +213,9 @@
         function eval(){
             window.location.href="evaluation.html"
         }
+        function stat(){
+            window.location.href="surveyStatistics.html"
+        }
     </script>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
@@ -232,12 +235,19 @@
         </li>
     </header>
     <!-- This code allows navigation through the 3 html pages -->
+
     <div class="BtnContainer">
         <button class="button" onclick="createdFunction()">Created</button>
         <button class="buttonCurrentPage" onclick="currentFunction()">Current</button>
         <button class="button" onclick="newFunction()">Peer Surveys</button>
+
+        <!-- code for the plus icon that allows you to create surveys -->
         <span style="display:inline-block;background-color:#FE4CF4;padding:10px; border: 2px solid black;
-        border-radius: 5px;border-radius:50%;font-size:20px;cursor:pointer;"><i class="fas fa-plus" onclick="eval()"></i></span>
+        border-radius: 5px;border-radius:50%;font-size:20px;cursor:pointer;"><i class="fa fa-plus" aria-hidden="true" onclick="eval()"></i></span>
+
+        <!-- Code for implementing the button to take you to the statistics page -->
+        <span style="display:inline-block;background-color:#FE4CF4;padding:10px; border: 2px solid black;
+        border-radius: 5px;border-radius:50%;font-size:20px;cursor:pointer;"><i class="fa fa-address-card" aria-hidden="true" onclick="stat()"></i></span>
         
     </div>
     <div class="blocky-background"></div>
