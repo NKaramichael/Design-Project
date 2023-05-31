@@ -53,19 +53,13 @@ var imageList = [];
 // selectedImageInput.type = 'hidden';
 // selectedImageInput.name = 'selected-image';
 // form.appendChild(selectedImageInput);
+// Gets element value from document
 
-function selectImage(imageUrl, image) {
-  // selectedImage = imageUrl;
-  // selectedImageInput.value = imageUrl;
-  
-  // if (imageList.length < 3){
-  //   imageList.push(imageUrl);
-  //   greyOutImage(image);
-  // } else {
-  //   alert("3 images already selected!");
-  // }
-
-}
+const image = {status: "unselected"};
+const selectImage = (imageUrl, image) => {
+  image.status = "selected";
+  return image.status;
+};
 
 function greyOutImage(image) {
     // image.style.filter = "grayscale(100%)";
