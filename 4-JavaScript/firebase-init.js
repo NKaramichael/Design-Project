@@ -193,7 +193,7 @@ const sendToDash = (email, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
+    window.location.href = ("../2-ResearcherPages/currentResearcherBoard.html");
   }
   else {
     const email = document.getElementById('email').value;
@@ -202,7 +202,7 @@ const sendToDash = (email, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("../3-UserPages/currentUserBoard.html");
+    window.location.href = ("../3-UserPages/currentUserBoard.html");
   }
 
 };
@@ -244,7 +244,7 @@ const saveMessages = (email, password, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
+    window.location.href = ("../2-ResearcherPages/currentResearcherBoard.html");
   }
   else {
     const email = document.getElementById('email').value;
@@ -253,7 +253,7 @@ const saveMessages = (email, password, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.replace("../3-UserPages/currentUserBoard.html");
+    window.location.href = ("../3-UserPages/currentUserBoard.html");
   }
 
 };

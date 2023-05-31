@@ -15,6 +15,7 @@ var db = firebase.firestore();
 var collectionRef = db.collection("Questions");
 
 function submitQuiz() {
+    alert(sessionStorage.getItem('email'));
     document.getElementById('submitQuizForm').addEventListener('submit', submit);
 }
 
