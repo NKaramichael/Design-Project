@@ -61,8 +61,9 @@ const selectImage = (imageUrl, image) => {
   return image.status;
 };
 
-function greyOutImage(image) {
-    // image.style.filter = "grayscale(100%)";
+const greyOutImage = (image) => {
+    image.style.filter = "grayscale(100%)";
+    return image.style.filter;
   }  
 
 function submitToEval(){
@@ -86,4 +87,4 @@ function submitToEval(){
     // }
 }
 
-module.exports = { selectImage};
+module.exports = { selectImage , greyOutImage};

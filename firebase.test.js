@@ -1,17 +1,29 @@
+///////////////////////////////////////////////
+///////// TESTING FIREBASE FUNCTIONS /////////
+///////////////////////////////////////////////
+
 const {
-  selectImage
+  selectImage, greyOutImage
 } = require('./firebase/firebase-selectImages.js');
 
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/storage');
 
-test('selectImage', () => {
+test('validate_selectImage_changesImageStatus', () => {
   const ImageUrl = "https://firebasestorage.googleapis.com/v0/b/pcgevaluation-49d75.appspot.com/o/Level%2Fimages%2Fmaze2.png?alt=media&token=0d850088-3860-4d62-90fb-25e5ac4fec53";
   const image = { status: "unselected"};
   
   const status = selectImage(ImageUrl, image);
   expect(status).toBe("selected");
+});
+
+test('validate_greyOutImage_greys_out_image', () => {
+  const style = {filter: "ungrayed"};
+  const image = { style: style};
+  
+  const newFilter = greyOutImage(image);
+  expect(newFilter).toBe("grayed");
 });
 
 ///////////////////////////////////////////////
