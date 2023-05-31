@@ -14,8 +14,8 @@ const firebaseConfig = {
   };
   
 // Initialise firebase
-const app = firebase.initializeApp(firebaseConfig);
-const storage = app.storage();
+firebase.initializeApp(firebaseConfig);
+// const storage = app.storage();
 let selectedImage;
 
 // const storageRef = storage.ref().child('Level/images');
