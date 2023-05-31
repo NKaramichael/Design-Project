@@ -413,7 +413,6 @@ function generateQuestionContent(description, type) {
 
   if (type === 'Scale from 1 to 10') {
     questionContent = `
-   
       <label for="scaleSlider">${description} <br> Rate from 1 to 10:</label>
       <input type="range" min="1" max="10" step="1" id="scaleSlider">
       <output for="scaleSlider" id="scaleOutput"></output>
