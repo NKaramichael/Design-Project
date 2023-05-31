@@ -1,6 +1,7 @@
 
 // import firebase from 'firebase/app';
 const firebase = require('firebase/app');
+const storage = require('firebase/storage');
 
 const firebaseConfig = {
     apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
@@ -17,7 +18,7 @@ firebase.initializeApp(firebaseConfig);
 
 let selectedImage;
 
-const storageRef = firebase.storage().ref().child('Level/images');
+const storageRef = storage.ref().child('Level/images');
 var imageList = [];
 
 storageRef.listAll()
