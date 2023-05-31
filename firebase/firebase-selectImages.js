@@ -18,7 +18,7 @@ firebase.initializeApp(firebaseConfig);
 
 let selectedImage;
 
-const storageRef = storage.ref().child('Level/images');
+const storageRef = ref(storage);
 var imageList = [];
 
 storageRef.listAll()
