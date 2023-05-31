@@ -60,14 +60,14 @@ test('validate_submitToEval_valid_imageList', () => {
   imageList.push("https://someOtherGoogleApi");
   output = submitToEval(imageList);
   validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURIComponent(imageList[0])
-    + "?img1=" + encodeURIComponent(imageList[1]);
+    + "&img1=" + encodeURIComponent(imageList[1]);
   expect(output).toBe(validOutput);
 
   // Valid input for 3 images
   imageList.push("https://lastGoogleApi");
   output = submitToEval(imageList);
   validOutput = "../2-ResearcherPages/evaluation2.html?img0=" + encodeURIComponent(imageList[0])
-    + "?img1=" + encodeURIComponent(imageList[1]) + "?img2=" + encodeURIComponent(imageList[2]);
+    + "&img1=" + encodeURIComponent(imageList[1]) + "&img2=" + encodeURIComponent(imageList[2]);
   expect(output).toBe(validOutput);
 });
 
