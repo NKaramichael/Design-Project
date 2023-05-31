@@ -11,7 +11,7 @@ let {
     displayQuizzes: jest.fn()
   }));
 
-  describe('validate_displayCurrentQuizzes_runs_displayQuizzes', () => {
+  describe('displayCurrentQuizzes', () => {
     it('should call displayQuizzes with "current" argument', () => {
       // Call the function to be tested
       displayCurrentQuizzes();
