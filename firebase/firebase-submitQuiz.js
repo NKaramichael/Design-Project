@@ -36,7 +36,7 @@ function submitQuiz() {
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
 async function submit(files) {
-    const output = "";
+    var output = "";
 
     // Checking that user has uploaded at least one image
     if (files.length == 0) {
