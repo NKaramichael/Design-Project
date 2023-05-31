@@ -1,6 +1,6 @@
 const {
   selectImage
-} = require('./firebase/firebase-images.js');
+} = require('./firebase/firebase-selectImages.js');
 
 require('firebase/auth');
 require('firebase/firestore');
