@@ -103,13 +103,13 @@ test('validate_change_invalid_input', () => {
 });
 
 // Test case
-test('fetchData returns the expected data', async () => {
+test('validate_submit_return_invalid_input', async () => {
   // Call the async function
   var files = []
   const result = await submit(files);
 
   // Make assertions to check the expected outcome
-  expect(result).toBe('Data');
+  expect(result).toBe('Please upload at least 1 image');
 });
 
 ///////////////////////////////////////////////
