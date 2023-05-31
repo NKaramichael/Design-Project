@@ -1,7 +1,7 @@
 
 // import firebase from 'firebase/app';
-const firebase = require('firebase/app');
-const storage = require('firebase');
+const {firebase} = require('firebase/app');
+const {storage} = require('firebase');
 
 const firebaseConfig = {
     apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
@@ -14,8 +14,8 @@ const firebaseConfig = {
   };
   
 // Initialise firebase
-firebase.initializeApp(firebaseConfig);
-
+const app = firebase.initializeApp(firebaseConfig);
+const storage = app.storage();
 let selectedImage;
 
 const storageRef = storage.ref().child('Level/images');
