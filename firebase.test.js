@@ -135,6 +135,18 @@ test('validate_submit_return_invalid_headingAndDescription', async () => {
   expectedOutput += "Please enter a Quiz heading\n";
   expectedOutput += "Please enter a Quiz description\n";
   expect(result).toBe(expectedOutput);
+
+   // Blank heading
+   result = await submit(files, heading, description);
+   expectedOutput = "Address the following issues: \n";
+   expectedOutput += "Please enter a Quiz heading\n";
+   expect(result).toBe(expectedOutput);
+ 
+   // Blank description
+   result = await submit(files, heading, description);
+   expectedOutput = "Address the following issues: \n";
+   expectedOutput += "Please enter a Quiz description\n";
+   expect(result).toBe(expectedOutput);
 }, 10000);
 
 ///////////////////////////////////////////////
