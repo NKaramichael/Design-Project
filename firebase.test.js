@@ -2,13 +2,13 @@
 ///////// TESTING FIREBASE FUNCTIONS /////////
 ///////////////////////////////////////////////
 
-const {
-  selectImage, greyOutImage
-} = require('./firebase/firebase-selectImages.js');
-
 require('firebase/auth');
 require('firebase/firestore');
 require('firebase/storage');
+
+const {
+  selectImage, greyOutImage
+} = require('./firebase/firebase-selectImages.js');
 
 test('validate_selectImage_changesImageStatus', () => {
   const ImageUrl = "https://firebasestorage.googleapis.com/v0/b/pcgevaluation-49d75.appspot.com/o/Level%2Fimages%2Fmaze2.png?alt=media&token=0d850088-3860-4d62-90fb-25e5ac4fec53";
