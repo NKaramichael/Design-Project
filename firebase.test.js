@@ -1,10 +1,8 @@
-const {
-  displayCurrentQuizzes, displayQuizzes
-} = require('./firebase/firebase-bucket.js');
+import { displayCurrentQuizzes, displayQuizzes } from './firebase/firebase-bucket.js';
 
-require('firebase/auth');
-require('firebase/firestore');
-require('firebase/storage');
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
 
 // Mock the displayQuizzes function
 jest.mock('./firebase/firebase-bucket.js', () => ({
