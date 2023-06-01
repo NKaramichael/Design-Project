@@ -248,7 +248,6 @@ function openSurvey() {
 
 };
 
-
 async function displayImages(data) {
   // Get a reference to the parent container element
   const parentContainer = document.getElementById('imageContainer');
@@ -363,7 +362,7 @@ function createQuestion(type, questionText) {
       container.style.backgroundColor = "#000000";
     }
   });
-}
+};
 
 async function navPanel(docData) {
   try {
@@ -406,7 +405,7 @@ async function navPanel(docData) {
   } catch (error) {
     console.log("Error fetching question documents:", error);
   }
-}
+};
 
 function generateQuestionContent(description, type) {
   let questionContent = '';
@@ -465,8 +464,7 @@ function generateQuestionContent(description, type) {
   }
 
   return questionContent;
-}
-
+};
 
 // Handle filter button click event
 function handleFilter() {
@@ -499,7 +497,7 @@ function handleFilter() {
     .catch((error) => {
       console.error("Error retrieving filtered documents: ", error);
     });
-}
+};
 
 function fetchQuizzesByResearcher() {
   const email = sessionStorage.getItem('email');
@@ -519,7 +517,7 @@ function fetchQuizzesByResearcher() {
     .catch((error) => {
       console.log("Error getting quizzes: ", error);
     });
-}
+};
 
 async function displayQuiz(data, id) {
   // Example implementation: Create an HTML element to display the quiz
@@ -559,5 +557,19 @@ async function displayQuiz(data, id) {
   // Append the quiz container to the document body or a specific element
   document.body.appendChild(quizContainer);
   console.log(data)
-}
+};
 
+async function submit() {
+  const email = sessionStorage.getItem("email");
+
+  // Get the quizId from the URL query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const quizId = urlParams.get('quizId');
+
+  UserFirestore.doc(email).update({
+    currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),
+    completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
+  });
+
+  window.location.href = "./completedUserBoard.html"
+};
