@@ -566,10 +566,10 @@ async function submit() {
   const urlParams = new URLSearchParams(window.location.search);
   const quizId = urlParams.get('quizId');
 
-  UserFirestore.doc(email).update({
+  await UserFirestore.doc(email).update({
     currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),
     completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
   });
-
+  
   window.location.href = "./completedUserBoard.html"
 };
