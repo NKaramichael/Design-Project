@@ -165,11 +165,15 @@ async function createQuizBlock(data, status, id) {
     openButton.style.backgroundColor = "rgb(65, 239, 65)";
     openButton.style.color = "white";
     openButton.textContent = "Open";
-    openButton.setAttribute('data-value', id);
-    openButton.addEventListener("click", openSurveyPage);
+    openButton.setAttribute('data-value', JSON.stringify([id, status]));
     textBox.appendChild(openButton);
 
+    if (status == 'completed') {
+      openButton.addEventListener("click", openSurveyPage);
+    }
     if (status == 'current') {
+      openButton.addEventListener("click", openSurveyPage);
+
       const removeButton = document.createElement("button");
       removeButton.classList.add("button");
       removeButton.style.backgroundColor = "rgb(241, 16, 16)";
@@ -214,10 +218,11 @@ function removeFromCurrent(event) {
 
 function openSurveyPage(event) {
   const button = event.target;
-  const name = button.getAttribute("data-value");
-
+  const dataValue = JSON.parse(button.getAttribute("data-value"));
+  const name = dataValue[0];
+  const status = dataValue[1];
   // Create the URL with query parameter
-  const url = `surveyView.html?quizId=${name}`;
+  const url = `surveyView.html?quizId=${name}&status=${status}`;
 
   // Redirect to the other HTML page
   window.location.href = url;
@@ -227,6 +232,12 @@ function openSurvey() {
   // Get the quizId from the URL query parameters
   const urlParams = new URLSearchParams(window.location.search);
   const name = urlParams.get('quizId');
+  const status = urlParams.get('status');
+
+  if (status == 'completed') {
+    submitButton = document.getElementById('submitButton')
+    submitButton.disabled = true;
+  }
 
   quizRef = QuizFirestore.doc(name)
   quizRef.get()
@@ -570,6 +581,6 @@ async function submit() {
     currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),
     completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
   });
-  
+
   window.location.href = "./completedUserBoard.html"
 };
