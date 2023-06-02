@@ -285,23 +285,7 @@
     <div id="imageContainer"></div>    
     
       <!-- Adding the scroll-box section for questions to be answere -->
-    <div class="scroll-box"> 
-        <header p>How is the completeability?:</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>How difficult is it?</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>How are the visual components?</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-        <header p>How random is it?</header p>
-        <textarea rows="5" cols="50"></textarea>
-
-    </div>
-    <div class="BtnContainer">
-        <button class="button" onclick="submit()">Submit</button>
-    </div>
+    
     <div class="blocky-background"></div>
 
     <!-- Navigation Panel -->
@@ -309,15 +293,14 @@
 
     <!-- Container -->
     <div id="container" style="margin: 0 auto; width: 50%;"></div>
-
+    <div class="BtnContainer">
+        <button class="button" id="submitButton" onclick="submit()">Submit</button>
+    </div>
     <script>
         function previewImage(event) {
             var preview = document.getElementById('preview');
             preview.style.display = "block";
             preview.src = URL.createObjectURL(event.target.files[0]);
-        }
-        function submit(){
-            window.location.href = "./currentUserBoard.html"
         }
     </script>
 

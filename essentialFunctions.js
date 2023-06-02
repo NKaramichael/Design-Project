@@ -39,16 +39,6 @@ const getElementVal = (id) => {
   return document.getElementById(id).value;
 };
 
-// returns session stored password
-function displayP() {
-  return sessionStorage.getItem("password")
-};
-
-// returns session stored email
-function displayE() {
-  return sessionStorage.getItem("email")
-};
-
 // Returns list of emails
 function getEmails() {
   return [

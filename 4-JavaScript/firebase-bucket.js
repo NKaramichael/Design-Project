@@ -165,11 +165,15 @@ async function createQuizBlock(data, status, id) {
     openButton.style.backgroundColor = "rgb(65, 239, 65)";
     openButton.style.color = "white";
     openButton.textContent = "Open";
-    openButton.setAttribute('data-value', id);
-    openButton.addEventListener("click", openSurveyPage);
+    openButton.setAttribute('data-value', JSON.stringify([id, status]));
     textBox.appendChild(openButton);
 
+    if (status == 'completed') {
+      openButton.addEventListener("click", openSurveyPage);
+    }
     if (status == 'current') {
+      openButton.addEventListener("click", openSurveyPage);
+
       const removeButton = document.createElement("button");
       removeButton.classList.add("button");
       removeButton.style.backgroundColor = "rgb(241, 16, 16)";
@@ -214,10 +218,11 @@ function removeFromCurrent(event) {
 
 function openSurveyPage(event) {
   const button = event.target;
-  const name = button.getAttribute("data-value");
-
+  const dataValue = JSON.parse(button.getAttribute("data-value"));
+  const name = dataValue[0];
+  const status = dataValue[1];
   // Create the URL with query parameter
-  const url = `surveyView.html?quizId=${name}`;
+  const url = `surveyView.html?quizId=${name}&status=${status}`;
 
   // Redirect to the other HTML page
   window.location.href = url;
@@ -227,6 +232,12 @@ function openSurvey() {
   // Get the quizId from the URL query parameters
   const urlParams = new URLSearchParams(window.location.search);
   const name = urlParams.get('quizId');
+  const status = urlParams.get('status');
+
+  if (status == 'completed') {
+    submitButton = document.getElementById('submitButton')
+    submitButton.disabled = true;
+  }
 
   quizRef = QuizFirestore.doc(name)
   quizRef.get()
@@ -247,7 +258,6 @@ function openSurvey() {
     });
 
 };
-
 
 async function displayImages(data) {
   // Get a reference to the parent container element
@@ -363,28 +373,24 @@ function createQuestion(type, questionText) {
       container.style.backgroundColor = "#000000";
     }
   });
-}
+};
 
 async function navPanel(docData) {
   try {
-
-    questions = [];
-
+    const questions = [];
 
     const questionNames = docData.Questions;
-    console.log(questionNames);
     const navPanel = document.getElementById('nav-panel');
     const container = document.getElementById('container');
 
     await QuestionFirestore.where(firebase.firestore.FieldPath.documentId(), 'in', questionNames).get()
       .then((querySnapshot) => {
         querySnapshot.forEach((questionDoc) => {
-          // doc.data() is never undefined for query doc snapshots
           const questionData = questionDoc.data();
-          console.log(questionData)
           const questionText = questionData.Description;
+          const questionType = questionData.Type;
           const size = questions.length;
-          const list = { id: questionDoc.id, text: 'Question ' + (size + 1), content: questionText };
+          const list = { id: questionDoc.id, text: 'Question ' + (size + 1), content: questionText, type: questionType };
           questions.push(list);
           const li = document.createElement('li');
           const a = document.createElement('a');
@@ -393,7 +399,6 @@ async function navPanel(docData) {
           a.textContent = list.text;
           li.appendChild(a);
           navPanel.appendChild(li);
-          console.log(questionText);
         });
       })
       .catch((error) => {
@@ -405,13 +410,72 @@ async function navPanel(docData) {
         event.preventDefault();
         const questionId = event.target.dataset.questionId;
         const question = questions.find((q) => q.id === questionId);
-        container.innerHTML = question.content;
+        container.innerHTML = generateQuestionContent(question.content, question.type);
       }
     });
   } catch (error) {
     console.log("Error fetching question documents:", error);
   }
-}
+};
+
+function generateQuestionContent(description, type) {
+  let questionContent = '';
+
+  if (type === 'Scale from 1 to 10') {
+    questionContent = `
+      <label for="scaleSlider">${description} <br> Rate from 1 to 10:</label>
+      <input type="range" min="1" max="10" step="1" id="scaleSlider">
+      <output for="scaleSlider" id="scaleOutput"></output>
+    `;
+  } else if (type === 'Radio Type : A-B') {
+    questionContent = `
+      <label for="radioAB">${description} <br> Choose A or B:</label>
+      <input type="radio" id="radioA" name="radioAB" value="A">
+      <label for="radioA">A</label>
+      <input type="radio" id="radioB" name="radioAB" value="B">
+      <label for="radioB">B</label>
+    `;
+  } else if (type === 'Checkbox Type : A-B-C') {
+    questionContent = `
+      <label for="checkboxABC">${description} <br> Choose one or more:</label>
+      <input type="checkbox" id="checkboxA" name="checkboxABC" value="A">
+      <label for="checkboxA">A</label>
+      <input type="checkbox" id="checkboxB" name="checkboxABC" value="B">
+      <label for="checkboxB">B</label>
+      <input type="checkbox" id="checkboxC" name="checkboxABC" value="C">
+      <label for="checkboxC">C</label>
+    `;
+  } else if (type === 'Radio Type : A-B-C') {
+    questionContent = `
+      <label for="radioABC">${description} <br> Choose A, B, or C:</label>
+      <input type="radio" id="radioA" name="radioABC" value="A">
+      <label for="radioA">A</label>
+      <input type="radio" id="radio
+      <input type="radio" id="radioB" name="radioABC" value="B">
+      <label for="radioB">B</label>
+      <input type="radio" id="radioC" name="radioABC" value="C">
+      <label for="radioC">C</label>
+    `;
+  } else if (type === 'Checkbox Type : A-B') {
+    questionContent = `
+      <label for="checkboxAB">${description} <br> Choose one or more:</label>
+      <input type="checkbox" id="checkboxA" name="checkboxAB" value="A">
+      <label for="checkboxA">A</label>
+      <input type="checkbox" id="checkboxB" name="checkboxAB" value="B">
+      <label for="checkboxB">B</label>
+    `;
+  } else if (type === 'Radio Type : Yes No') {
+    questionContent = `
+      <label for="radioYesNo">${description} <br> Choose Yes or No:</label>
+      <input type="radio" id="radioYes" name="radioYesNo" value="Yes">
+      <label for="radioYes">Yes</label>
+      <input type="radio" id="radioNo" name="radioYesNo" value="No">
+      <label for="radioNo">No</label>
+    `;
+  }
+
+  return questionContent;
+};
 
 // Handle filter button click event
 function handleFilter() {
@@ -444,7 +508,7 @@ function handleFilter() {
     .catch((error) => {
       console.error("Error retrieving filtered documents: ", error);
     });
-}
+};
 
 function fetchQuizzesByResearcher() {
   const email = sessionStorage.getItem('email');
@@ -464,7 +528,7 @@ function fetchQuizzesByResearcher() {
     .catch((error) => {
       console.log("Error getting quizzes: ", error);
     });
-}
+};
 
 async function displayQuiz(data, id) {
   // Example implementation: Create an HTML element to display the quiz
@@ -504,5 +568,19 @@ async function displayQuiz(data, id) {
   // Append the quiz container to the document body or a specific element
   document.body.appendChild(quizContainer);
   console.log(data)
-}
+};
 
+async function submit() {
+  const email = sessionStorage.getItem("email");
+
+  // Get the quizId from the URL query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const quizId = urlParams.get('quizId');
+
+  await UserFirestore.doc(email).update({
+    currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),
+    completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
+  });
+
+  window.location.href = "./completedUserBoard.html"
+};

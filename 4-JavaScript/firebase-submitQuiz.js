@@ -185,6 +185,7 @@ async function submit(e) {
             collectionRef.doc(docRef.id).set(quiz)
                 .then(function () {
                     alert("Quiz added with ref: " + docRef.id);
+                    window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
                     console.log("Successfully added quiz: ", docRef.id);
                 })
                 .catch(function (error) {
@@ -194,9 +195,6 @@ async function submit(e) {
         .catch(function (error) {
             console.error("Error adding Quiz: ", error);
         });
-
-    
-    window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
 }
 
 // Get a reference to the Firebase Storage service
