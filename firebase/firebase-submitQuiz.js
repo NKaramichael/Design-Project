@@ -111,103 +111,18 @@ async function submit(files, heading, desc) {
             }, 1000);
         });
     }
-
-    // // Submit Questions & details to questions table in database
-    // var questionList = document.getElementById('questionList');
-    // var questions = questionList.getElementsByTagName('li');
-
-    // if (questions.length == 0) {
-    //     alert("Cannot create quiz with no questions!");
-    //     return;
-    // }
-
-    // var mainDiv = document.getElementById('mainDiv');
-    // mainDiv.style.display = 'none';
-    // document.getElementById('mainHeading').style.display = 'none';
-    // loadingScreen.style.display = 'flex';
-
-    // await uploadImages(files, imageArr);
-
-    // var refArr = [];
-    // // Iterate through the items
-    // for (var i = 0; i < questions.length; i++) {
-    //     var question = questions[i];
-
-    //     // Do something with each item (e.g., retrieve text content)
-    //     var description = question.textContent.split("|")[0].trim();
-    //     var type = question.textContent.split("|")[1].trim();
-
-    //     var data = {
-    //         Description: description,
-    //         Type: type,
-    //     };
-
-
-    //     collectionRef.add(data)
-    //         .then(function (docRef) {
-    //             refArr.push(docRef.id + "");
-    //             console.log("Document written with ID: ", docRef.id);
-    //         })
-    //         .catch(function (error) {
-    //             console.error("Error adding document: ", error);
-    //         });
-
-    // }
-
-    // var imgRefArr = [];
-    // for (let i = 0; i < files.length; i++) {
-    //     const ref = 'ref' + i;
-    //     const refer = sessionStorage.getItem(ref);
-    //     imgRefArr.push(refer);
-    // }
-
-    // for (let i = 0; i < files.length; i++) {
-    //     const ref = 'ref' + i;
-    //     sessionStorage.removeItem(ref);
-    // }
-
-    // // Submit Quiz as a whole with reference to images and questions to Quiz table in database
-    // collectionRef = db.collection("Quizzes");
-
-    // var data = {
-    //     Title: heading,
-    //     Description: desc,
-    //     Status: true,
-    //     Questions: refArr,
-    //     Images: imgRefArr
-    // };
-
-    // collectionRef.add(data)
-    //     .then(function (docRef) {
-    //         var quiz = data;
-
-    //         collectionRef.doc(docRef.id).set(quiz)
-    //             .then(function () {
-    //                 alert("Quiz added with ref: " + docRef.id);
-    //                 console.log("Successfully added quiz: ", docRef.id);
-    //             })
-    //             .catch(function (error) {
-    //                 console.error("Error adding Quiz: ", error);
-    //             });
-    //     })
-    //     .catch(function (error) {
-    //         console.error("Error adding Quiz: ", error);
-    //     });
-
-    // // alert("Quiz submitted!");
-    // window.location.href = "../2-ResearcherPages/currentResearcherBoard.html";
 }
 
 async function uploadImages(files, imageArr) {
-    // // Upload images to Firebase Storage and Firestore
-    // for (let i = 0; i < files.length; i++) {
-    //     const file = files[i];
-    //     const imgDetails = imageArr[i];
-    //     const dom = imgDetails.get('domain');
-    //     const mod = imgDetails.get('model');
+    // Upload images to Firebase Storage and Firestore
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const imgDetails = imageArr[i];
+        const dom = imgDetails.get('domain');
+        const mod = imgDetails.get('model');
 
-    //     await uploadImage(file, dom, mod, i);
-    // }
+        await uploadImage(file, dom, mod, i);
+    }
 }
 
 async function uploadImage(file, domain, model, imageNum) {
@@ -244,4 +159,4 @@ async function uploadImage(file, domain, model, imageNum) {
     // }
 }
 
-module.exports = { submitQuiz, change, submit, uploadImages, uploadImage};
+module.exports = { submitQuiz, change, submit};
