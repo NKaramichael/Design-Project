@@ -1,0 +1,46 @@
+.survey-card-container {
+    width: 100%;
+    height: 987px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .survey-card-gallery-card {
+    width: 700px;
+    height: 408px;
+    display: flex;
+    max-width: var(--dl-size-size-maxwidth);
+    align-self: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+  }
+  .survey-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .survey-card-text {
+    align-self: flex-start;
+    margin-top: var(--dl-space-space-halfunit);
+    font-weight: 600;
+    margin-bottom: var(--dl-space-space-halfunit);
+  }
+  .survey-card-text1 {
+    color: var(--dl-color-gray-500);
+    align-self: flex-start;
+  }
+  @media(max-width: 767px) {
+    .survey-card-gallery-card {
+      flex-direction: column;
+    }
+  }
+  @media(max-width: 479px) {
+    .survey-card-image {
+      height: 10rem;
+    }
+  }
+  

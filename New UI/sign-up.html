@@ -191,24 +191,22 @@
         <form class="sign-up-form" >
           <!-- Email -->
           <p class="sign-up-text05">Email</p>
-          <textarea id="email" placeholder="JohnSmith@gmail.com" class="textarea"></textarea>
+          <input id="email" placeholder="JohnSmith@gmail.com" class="textarea"></input>
 
           <!-- Password -->
           <p class="sign-up-text06">Password</p>
-          <textarea id="password" placeholder="JohnSmith123!" class="textarea"></textarea>
+          <input id="password" type='password' placeholder="JohnSmith123!" class="textarea"></input>
 
-          <!-- Researcher/User Radio Selection -->
+          <!-- Researcher/User Checkbox Selection -->
           <p class="sign-up-text07">
             <span class="sign-up-text08">Researcher</span>
             <br/>
           </p>
-          <input id="role" type="radio" name="radio" class="sign-up-radiobutton" />
+          <input id="role" type="checkbox" name="radio" class="sign-up-radiobutton" />
 
         </form>
         <!-- Submit form above button -->
-        <div class="sign-up-get-started">
-          <button id="signupForm" type="submit" onclick="signUp()" class="sign-up-text10">Get Started</button>
-        </div>
+        <button id="signupForm" type="submit" onclick="signUp()" class="sign-up-get-started">Get Started</button>
         
       </section>
 

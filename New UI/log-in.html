@@ -43,7 +43,7 @@
 
       body::-webkit-scrollbar-thumb {
          background-color:white;
-         box-shadow:0 -100vh 0 100vh #5128f5;//magic
+         box-shadow:0 -100vh 0 100vh #5128f5;
        }
     </style>
     <link rel="stylesheet" href="./style.css" />
@@ -140,15 +140,18 @@ closeButton.addEventListener('click', function() {
           </header>
           <form class="log-in-form">
             <p class="log-in-text6">Username</p>
-            <textarea placeholder="John Smith" class="textarea"></textarea>
+            <input id="email" placeholder="John Smith" class="textarea" required></input>
             <p class="log-in-text7">Password</p>
-            <textarea placeholder="Pickles123!" class="textarea"></textarea>
+            <input id="password" type="password" placeholder="Pickles123!" class="textarea" required></input>
           </form>
-          <div class="log-in-continue-button">
-            <span class="log-in-text8">Continue</span>
-          </div>
+          <button onclick="login()" class="log-in-continue-button">Continue</button>
         </section>
       </div>
     </div>
+
+     <!-- import firebase into signup.html and call on firebase-init.js to handle requests -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+      <script type="text/javascript" src="../4-JavaScript/firebase-init.js"></script>
+
   </body>
 </html>

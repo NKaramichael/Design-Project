@@ -124,72 +124,94 @@ async function getLevelUrl(levelName) {
 };
 
 async function createQuizBlock(data, status, id) {
-  // define values for the box
-  const box = {
-    title: data['Title'],
-    description: data['Description']
-  };
+  // <div>
+  //   <link href="./survey-card.css" rel="stylesheet" />
+  //   <div class="survey-card-container">
+  //     <div class="survey-card-gallery-card testimonal">
+  //       <img
+  //         alt="image"
+  //         src="https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDEyfHxmb3Jlc3R8ZW58MHx8fHwxNjI2MjUxMjg4&amp;ixlib=rb-1.2.1&amp;w=1500"
+  //         class="survey-card-image"
+  //       />
+  //       <h2 class="survey-card-text">Project Title</h2>
+  //       <span class="survey-card-text1">Lorem ipsum dolor sit amet</span>
+  //     </div>
+  //   </div>
+  // </div>
+
   // Get a reference to the container element
   // Get the parent element to which the text boxes will be added
-  const parent = document.getElementById("text-boxes");
+  const parent = document.getElementById("container");
 
-  const textBox = document.createElement("div");
-  textBox.classList.add("text-box");
-  // get and set thumbnail link from storage
+  const card = document.createElement("div");
+  
+  const link = document.createElement("link").setAttribute("rel", "stylesheet").setAttribute("href", "/components/survey-card.css");
+  card.appendChild(link);
 
-  const image = document.createElement("img");
-  levelName = data["Images"][0];
-  const url = await getLevelUrl(levelName);
-  image.setAttribute("src", url)
+  const div1 = document.createElement("div").setAttribute("class","survey-card-container");
+  card.appendChild(div1);
+  const div2 = document.createElement("div").setAttribute("class", "survey-card-gallery-card testimonal");
+  div1.appendChild(div2);
 
-  const title = document.createElement("h2");
-  title.textContent = box.title;
+  const image = document.createElement("img").setAttribute("alt", "image").setAttribute("class", "survey-card-image");
+  div2.appendChild(image);
+  const title = document.createElement("h2").setAttribute("class", "survey-card-text");
+  div2.appendChild(title);
+  const description = document.createElement("span").setAttribute("class", "survey-card-text1");
+  div2.appendChild(description);
+  
+  parent.appendChild(card);
 
-  const description = document.createElement("p");
-  description.textContent = box.description;
+  // levelName = data["Images"][0];
+  // const url = await getLevelUrl(levelName);
+  // image.setAttribute("src", url)
 
-  textBox.appendChild(image);
+  // title.textContent = box.title;
 
-  if (status == 'new') {
-    const addButton = document.createElement("button");
-    addButton.classList.add("button");
-    addButton.style.backgroundColor = "rgb(65, 239, 65)";
-    addButton.style.color = "white";
-    addButton.textContent = "Add to Current";
-    addButton.setAttribute('data-value', id);
-    addButton.addEventListener("click", addToCurrent);
-    textBox.appendChild(addButton);
-  } else {
-    const openButton = document.createElement("button");
-    openButton.classList.add("button");
-    openButton.style.backgroundColor = "rgb(65, 239, 65)";
-    openButton.style.color = "white";
-    openButton.textContent = "Open";
-    openButton.setAttribute('data-value', JSON.stringify([id, status]));
-    textBox.appendChild(openButton);
+  // description.textContent = box.description;
 
-    if (status == 'completed') {
-      openButton.addEventListener("click", openSurveyPage);
-    }
-    if (status == 'current') {
-      openButton.addEventListener("click", openSurveyPage);
+  // textBox.appendChild(image);
 
-      const removeButton = document.createElement("button");
-      removeButton.classList.add("button");
-      removeButton.style.backgroundColor = "rgb(241, 16, 16)";
-      removeButton.style.color = "white";
-      removeButton.textContent = "Remove";
-      removeButton.setAttribute('data-value', id);
-      removeButton.addEventListener("click", removeFromCurrent);
-      // Add the elements to the text box
-      textBox.appendChild(removeButton);
-    }
-  }
-  textBox.appendChild(title);
-  textBox.appendChild(description);
+  // if (status == 'new') {
+  //   const addButton = document.createElement("button");
+  //   addButton.classList.add("button");
+  //   addButton.style.backgroundColor = "rgb(65, 239, 65)";
+  //   addButton.style.color = "white";
+  //   addButton.textContent = "Add to Current";
+  //   addButton.setAttribute('data-value', id);
+  //   addButton.addEventListener("click", addToCurrent);
+  //   textBox.appendChild(addButton);
+  // } else {
+  //   const openButton = document.createElement("button");
+  //   openButton.classList.add("button");
+  //   openButton.style.backgroundColor = "rgb(65, 239, 65)";
+  //   openButton.style.color = "white";
+  //   openButton.textContent = "Open";
+  //   openButton.setAttribute('data-value', JSON.stringify([id, status]));
+  //   textBox.appendChild(openButton);
 
-  // Add the text box to the parent element
-  parent.appendChild(textBox);
+  //   if (status == 'completed') {
+  //     openButton.addEventListener("click", openSurveyPage);
+  //   }
+  //   if (status == 'current') {
+  //     openButton.addEventListener("click", openSurveyPage);
+
+  //     const removeButton = document.createElement("button");
+  //     removeButton.classList.add("button");
+  //     removeButton.style.backgroundColor = "rgb(241, 16, 16)";
+  //     removeButton.style.color = "white";
+  //     removeButton.textContent = "Remove";
+  //     removeButton.setAttribute('data-value', id);
+  //     removeButton.addEventListener("click", removeFromCurrent);
+  //     // Add the elements to the text box
+  //     textBox.appendChild(removeButton);
+  //   }
+  // }
+  // textBox.appendChild(title);
+  // textBox.appendChild(description);
+
+  // // Add the text box to the parent element
+  // parent.appendChild(textBox);
 };
 
 function addToCurrent(event) {

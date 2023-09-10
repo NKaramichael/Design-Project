@@ -26,9 +26,9 @@ UserFirestore.doc("initializer").set({});
 //   document.getElementById('signupForm').addEventListener('submit', submitSignUp);
 // }
 
-function login() {
-  document.getElementById('loginForm').addEventListener('submit', submitLogin);
-}
+// function login() {
+//   document.getElementById('loginForm').addEventListener('submit', submitLogin);
+// }
 
 // Listen to if form button submitChangePassword and change them in the database
 function changePassword() {
@@ -92,9 +92,7 @@ function submitChangePassword(e) {
 
 }
 
-function submitLogin(e) {
-  e.preventDefault();
-
+function login() {
   //get the values put into the form using getElementval and store in var's.
   var email = getElementVal('email');
   var password = getElementVal('password');
@@ -123,7 +121,6 @@ function submitLogin(e) {
 //The main signup method
 function signUp() {
   // e.preventDefault();
-  alert("meow!");
 
   //get the values put into the form using getElementval and store in var's.
   var email = getElementVal('email');
@@ -194,7 +191,7 @@ const sendToDash = (email, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.href = ("../2-ResearcherPages/currentResearcherBoard.html");
+    window.location.href = ("../New UI/researcher-dashboard.html");
   }
   else {
     const email = document.getElementById('email').value;
@@ -203,7 +200,7 @@ const sendToDash = (email, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.href = ("../3-UserPages/currentUserBoard.html");
+    window.location.href = ("../New UI/user-dashboard.html");
   }
 
 };
@@ -245,7 +242,7 @@ const saveMessages = (email, password, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.href = ("../2-ResearcherPages/currentResearcherBoard.html");
+    window.location.href = ("../New UI/researcher-dashboard.html");
   }
   else {
     const email = document.getElementById('email').value;
@@ -254,7 +251,7 @@ const saveMessages = (email, password, role) => {
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('password', password);
     sessionStorage.setItem('role', role);
-    window.location.href = ("../3-UserPages/currentUserBoard.html");
+    window.location.href = ("../New UI/user-dashboard.html");
   }
 
 };
