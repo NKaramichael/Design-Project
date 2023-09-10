@@ -22,9 +22,9 @@ var UserFirestore = db.collection('Users');
 var ResearcherFirestore = db.collection('Researchers');
 UserFirestore.doc("initializer").set({});
 //listen to if the signup button is pressed or login button, redirect to respective methods
-function signUp() {
-  document.getElementById('signupForm').addEventListener('submit', submitSignUp);
-}
+// function signUp() {
+//   document.getElementById('signupForm').addEventListener('submit', submitSignUp);
+// }
 
 function login() {
   document.getElementById('loginForm').addEventListener('submit', submitLogin);
@@ -121,8 +121,9 @@ function submitLogin(e) {
 }
 
 //The main signup method
-function submitSignUp(e) {
-  e.preventDefault();
+function signUp() {
+  // e.preventDefault();
+  alert("meow!");
 
   //get the values put into the form using getElementval and store in var's.
   var email = getElementVal('email');

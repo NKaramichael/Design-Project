@@ -1,5 +1,5 @@
-// Work in prgress to hamdle user generated conted eg images
-//configuration for connecting to firebase database
+// Work in prgress to handle user generated conted eg images
+// configuration for connecting to firebase database
 const firebaseConfig = {
   apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
   authDomain: "pcgevaluation-49d75.firebaseapp.com",
