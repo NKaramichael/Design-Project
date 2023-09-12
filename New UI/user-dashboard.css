@@ -74,16 +74,14 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
-}
-.user-dashboard-new-button:hover {
-  color: black;
-  background-color: #ffffff;
-}
-.user-dashboard-text05 {
   font-size: 18px;
   align-self: flex-start;
   font-style: normal;
   font-weight: 600;
+}
+.user-dashboard-new-button:hover {
+  color: black;
+  background-color: #ffffff;
 }
 .user-dashboard-profile-button {
   top: 564px;
@@ -103,16 +101,14 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
-}
-.user-dashboard-profile-button:hover {
-  color: black;
-  background-color: #ffffff;
-}
-.user-dashboard-text06 {
   font-size: 18px;
   align-self: flex-start;
   font-style: normal;
   font-weight: 600;
+}
+.user-dashboard-profile-button:hover {
+  color: black;
+  background-color: #ffffff;
 }
 .user-dashboard-change-password-button {
   top: 625px;
@@ -132,16 +128,14 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
-}
-.user-dashboard-change-password-button:hover {
-  color: black;
-  background-color: #ffffff;
-}
-.user-dashboard-text07 {
   font-size: 18px;
   align-self: flex-start;
   font-style: normal;
   font-weight: 600;
+}
+.user-dashboard-change-password-button:hover {
+  color: black;
+  background-color: #ffffff;
 }
 .user-dashboard-logout-button {
   top: 691px;
@@ -161,20 +155,18 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
-}
-.user-dashboard-logout-button:hover {
-  color: black;
-  background-color: #ffffff;
-}
-.user-dashboard-text08 {
   font-size: 18px;
   align-self: flex-start;
   font-style: normal;
   font-weight: 600;
 }
+.user-dashboard-logout-button:hover {
+  color: black;
+  background-color: #ffffff;
+};
 .user-dashboard-current-button {
-  top: 350px;
-  left: 107px;
+  top: 691px;
+  left: 109px;
   color: white;
   cursor: pointer;
   display: flex;
@@ -190,16 +182,14 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
-}
-.user-dashboard-current-button:hover {
-  color: black;
-  background-color: #ffffff;
-}
-.user-dashboard-text09 {
   font-size: 18px;
   align-self: flex-start;
   font-style: normal;
   font-weight: 600;
+}
+.user-dashboard-current-button:hover {
+  color: black;
+  background-color: #ffffff;
 }
 .user-dashboard-completed-button {
   top: 417px;
@@ -219,22 +209,21 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
-}
-.user-dashboard-completed-button:hover {
-  color: black;
-  background-color: #ffffff;
-}
-.user-dashboard-text10 {
   font-size: 18px;
   align-self: flex-start;
   font-style: normal;
   font-weight: 600;
 }
+.user-dashboard-completed-button:hover {
+  color: black;
+  background-color: #ffffff;
+}
 .user-dashboard-container3 {
   top: 48px;
   right: 39px;
   width: 784px;
-  border: 2px dashed rgba(120, 120, 120, 0.4);
+  /* TODO remove brder once resized */
+  border: 2px solid rgba(120, 120, 120, 0.4);
   height: 938px;
   display: flex;
   position: absolute;

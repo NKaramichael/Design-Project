@@ -1,46 +1,57 @@
 .survey-card-container {
-    width: 100%;
-    height: 987px;
-    display: flex;
-    position: relative;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-  }
+  width: 100%;
+  height: 987px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.survey-card-gallery-card {
+  width: 700px;
+  height: 408px;
+  display: flex;
+  max-width: var(--dl-size-size-maxwidth);
+  align-self: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+.survey-card-image {
+  /* Set a fixed size for the image */
+  width: 10px !important; /* Adjust this to your desired width */
+  height: 10px !important; /* Adjust this to your desired height */
+  object-fit: cover;
+  /* Add max-width to prevent image overflow */
+  max-width: 10px !important; /* Adjust this if needed */
+  max-height: 10px !important; /* Adjust this if needed */
+  margin-bottom: 20px;
+}
+
+.survey-card-text {
+  align-self: flex-start;
+  margin-top: var(--dl-space-space-halfunit);
+  font-weight: 600;
+  margin-bottom: var(--dl-space-space-halfunit);
+}
+
+.survey-card-text1 {
+  color: var(--dl-color-gray-500);
+  align-self: flex-start;
+}
+
+@media (max-width: 767px) {
   .survey-card-gallery-card {
-    width: 700px;
-    height: 408px;
-    display: flex;
-    max-width: var(--dl-size-size-maxwidth);
-    align-self: center;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
-    background-color: #ffffff;
   }
+}
+
+@media (max-width: 479px) {
   .survey-card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    /* Adjust the height for smaller screens */
+    height: 10rem;
   }
-  .survey-card-text {
-    align-self: flex-start;
-    margin-top: var(--dl-space-space-halfunit);
-    font-weight: 600;
-    margin-bottom: var(--dl-space-space-halfunit);
-  }
-  .survey-card-text1 {
-    color: var(--dl-color-gray-500);
-    align-self: flex-start;
-  }
-  @media(max-width: 767px) {
-    .survey-card-gallery-card {
-      flex-direction: column;
-    }
-  }
-  @media(max-width: 479px) {
-    .survey-card-image {
-      height: 10rem;
-    }
-  }
-  
+}
