@@ -82,37 +82,32 @@
             <br />
           </h1>
         </div>
-        <div class="researcher-dashboard-create-button">
-          <span class="researcher-dashboard-text08">Create</span>
-        </div>
-        <div class="researcher-dashboard-profile-button">
-          <span class="researcher-dashboard-text09">Profile</span>
-        </div>
-        <div class="researcher-dashboard-overall-button">
-          <span class="researcher-dashboard-text10">Overall</span>
-        </div>
-        <div class="researcher-dashboard-specific-button">
-          <span class="researcher-dashboard-text11">Specific</span>
-        </div>
-        <div class="researcher-dashboard-change-password-button">
-          <span class="researcher-dashboard-text12">Change Password</span>
-        </div>
-        <a href="log-in.html" class="researcher-dashboard-navlink1">
-          <div class="researcher-dashboard-logout-button">
-            <span class="researcher-dashboard-text13">Logout</span>
-          </div>
-        </a>
-        <div class="researcher-dashboard-current-button">
-          <span class="researcher-dashboard-text14">Current</span>
-        </div>
-        <div class="researcher-dashboard-closed-button">
-          <span class="researcher-dashboard-text15">
-            <span>Closed</span>
-            <br />
-          </span>
-        </div>
-        <div class="researcher-dashboard-container3"></div>
+
+        <button class="researcher-dashboard-create-button">Create</button>
+        <button class="researcher-dashboard-current-button">Current</button>
+        <button class="researcher-dashboard-closed-button">Closed</button>
+
+        <button class="researcher-dashboard-overall-button">Overall</button>
+        <button class="researcher-dashboard-specific-button">Specific</button>
+
+        <button class="researcher-dashboard-profile-button" onclick="profile()">Profile</button>
+        <button class="researcher-dashboard-change-password-button" onclick="settings()">Change Password</button>
+        <button class="researcher-dashboard-logout-button" onclick="logout()">Logout</button>
+
+        <div id='container' class="researcher-dashboard-container3"></div>
       </div>
     </div>
   </body>
+
+  <script>
+    function logout() {
+      window.location.href = "log-in.html"
+    }
+    function settings() {
+      window.location.href = "settings.html"
+    }
+    function profile() {
+      window.location.href = "profile.html"
+    }
+  </script>
 </html>

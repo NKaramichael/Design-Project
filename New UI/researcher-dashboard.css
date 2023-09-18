@@ -68,20 +68,25 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
-  align-items: flex-end;
+  transition: 0.15s;
+  align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
   border-radius: 56px;
   padding-right: var(--dl-space-space-twounits);
   flex-direction: column;
   padding-bottom: var(--dl-space-space-unit);
-  justify-content: center;
+  justify-content: flex-end;
   background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
 }
 .researcher-dashboard-create-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .researcher-dashboard-text08 {
   font-size: 18px;
@@ -97,7 +102,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -107,10 +112,15 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
 }
 .researcher-dashboard-profile-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .researcher-dashboard-text09 {
   font-size: 18px;
@@ -126,7 +136,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -136,10 +146,15 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
 }
 .researcher-dashboard-overall-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .researcher-dashboard-text10 {
   font-size: 18px;
@@ -155,7 +170,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -165,10 +180,15 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
 }
 .researcher-dashboard-specific-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .researcher-dashboard-text11 {
   font-size: 18px;
@@ -177,14 +197,14 @@
   font-weight: 600;
 }
 .researcher-dashboard-change-password-button {
-  top: 799px;
+  top: 798px;
   left: 55px;
   color: white;
   cursor: pointer;
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -194,10 +214,15 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
 }
 .researcher-dashboard-change-password-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .researcher-dashboard-text12 {
   font-size: 18px;
@@ -210,13 +235,13 @@
 }
 .researcher-dashboard-logout-button {
   left: 109px;
+  bottom: 10px;
   color: white;
-  bottom: 108px;
   cursor: pointer;
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -225,12 +250,16 @@
   flex-direction: column;
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
-  text-decoration: none;
   background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
 }
 .researcher-dashboard-logout-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .researcher-dashboard-text13 {
   font-size: 18px;
@@ -246,20 +275,25 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
-  align-items: flex-end;
+  transition: 0.15s;
+  align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
   border-radius: 56px;
   padding-right: var(--dl-space-space-twounits);
   flex-direction: column;
   padding-bottom: var(--dl-space-space-unit);
-  justify-content: center;
+  justify-content: flex-end;
   background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
 }
 .researcher-dashboard-current-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .researcher-dashboard-text14 {
   font-size: 18px;
@@ -275,7 +309,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -285,10 +319,15 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
 }
 .researcher-dashboard-closed-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .researcher-dashboard-text15 {
   font-size: 18px;
@@ -297,16 +336,18 @@
   font-weight: 600;
 }
 .researcher-dashboard-container3 {
-  top: 48px;
-  right: 39px;
-  width: 784px;
-  border: 2px dashed rgba(120, 120, 120, 0.4);
+  top: 10px;
+  right: 10px;
+  width: 1500px;
+  /* TODO remove brder once resized */
+  border: 2px solid rgba(120, 120, 120, 0.4);
   height: 938px;
   display: flex;
   position: absolute;
-  align-self: stretch;
-  align-items: flex-start;
+  /* align-self: stretch;
+  align-items: flex-start; */
   flex-direction: column;
+  overflow: auto;
 }
 @media(max-width: 991px) {
   .researcher-dashboard-logo {
