@@ -26,14 +26,35 @@ var QuizFirestore = db.collection('Quizzes');
 var QuestionFirestore = db.collection('Questions');
 
 function displayCurrentQuizzes() {
+  // Need to clear container for when pages are switched between
+  container = document.getElementById("container");
+  // Remove all child elements from the container
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+
   displayQuizzes("current");
 };
 
 function displayCompletedQuizzes() {
+  // Need to clear container for when pages are switched between
+  container = document.getElementById("container");
+  // Remove all child elements from the container
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+
   displayQuizzes("completed");
 };
 
 function displayNewQuizzes() {
+  // Need to clear container for when pages are switched between
+  container = document.getElementById("container");
+  // Remove all child elements from the container
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  
   displayQuizzes("new");
 };
 
@@ -141,32 +162,47 @@ async function createQuizBlock(data, status, id) {
 
   // Get a reference to the container element
   // Get the parent element to which the text boxes will be added
+
+  // Create a new link element
+  // var link = document.createElement("link");
+  // link.rel = "stylesheet";
+  // link.type = "text/css";
+  // link.href = "../New UI/user-dashboard.css"; // Specify the path to your CSS file
+
+  // Append the link element to the document's head
+  // document.head.appendChild(link);
+
+
   const parent = document.getElementById("container");
 
   const card = document.createElement("div");
-  
+
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
-  link.setAttribute("href", "/components/survey-card.css");
+  link.setAttribute("href", "../New UI/components/survey-card.css");
   parent.appendChild(link);
-  
+
   const div1 = document.createElement("div")
-  div1.setAttribute("class","survey-card-container");
+  div1.setAttribute("class", "survey-card-container");
   card.appendChild(div1);
+
   const div2 = document.createElement("div");
   div2.setAttribute("class", "survey-card-gallery-card testimonal");
+
   div1.appendChild(div2);
+
+  // add desc, image, title to card element
+  const title = document.createElement("h2");
+  title.setAttribute("class", "survey-card-text");
+  div2.appendChild(title);
 
   const image = document.createElement("img");
   image.setAttribute("class", "survey-card-image");
   div2.appendChild(image);
-  const title = document.createElement("h2");
-  title.setAttribute("class", "survey-card-text");
-  div2.appendChild(title);
+
   const description = document.createElement("span");
   description.setAttribute("class", "survey-card-text1");
   div2.appendChild(description);
-  
 
   levelName = data["Images"][0];
   const url = await getLevelUrl(levelName);
@@ -174,38 +210,38 @@ async function createQuizBlock(data, status, id) {
 
   title.textContent = data['Title']
   description.textContent = data['Description']
-  
+
   if (status == 'new') {
     const addButton = document.createElement("button");
-    addButton.setAttribute("class", "user-dashboard-button");
+    addButton.setAttribute("class", "card-button");
     addButton.textContent = "Add to Current";
     addButton.setAttribute('data-value', id);
     addButton.addEventListener("click", addToCurrent);
     div2.appendChild(addButton);
   } else {
-      const openButton = document.createElement("button");
-      openButton.setAttribute("class", "user-dashboard-button");
-      openButton.textContent = "Open";
-      openButton.setAttribute('data-value', JSON.stringify([id, status]));
-      div2.appendChild(openButton);
-    
-      if (status == 'completed') {
-          openButton.addEventListener("click", openSurveyPage);
-        }
-        if (status == 'current') {
-            openButton.addEventListener("click", openSurveyPage);
-        
-            const removeButton = document.createElement("button");
-            removeButton.setAttribute("class", "user-dashboard-button");
-            removeButton.textContent = "Remove";
-            removeButton.setAttribute('data-value', id);
-            removeButton.addEventListener("click", removeFromCurrent);
-            // Add the elements to the text box
-            div2.appendChild(removeButton);
-          }
-        }
+    const openButton = document.createElement("button");
+    openButton.setAttribute("class", "card-button");
+    openButton.textContent = "Open";
+    openButton.setAttribute('data-value', JSON.stringify([id, status]));
+    div2.appendChild(openButton);
 
-        parent.appendChild(card);
+    if (status == 'completed') {
+      openButton.addEventListener("click", openSurveyPage);
+    }
+    if (status == 'current') {
+      openButton.addEventListener("click", openSurveyPage);
+
+      const removeButton = document.createElement("button");
+      removeButton.setAttribute("class", "user-dashboard-button");
+      removeButton.textContent = "Remove";
+      removeButton.setAttribute('data-value', id);
+      removeButton.addEventListener("click", removeFromCurrent);
+      // Add the elements to the text box
+      div2.appendChild(removeButton);
+    }
+  }
+
+  parent.appendChild(card);
 };
 
 function addToCurrent(event) {

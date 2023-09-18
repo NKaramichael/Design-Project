@@ -64,7 +64,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -82,6 +82,7 @@
 .user-dashboard-new-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .user-dashboard-profile-button {
   top: 564px;
@@ -91,7 +92,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -109,6 +110,8 @@
 .user-dashboard-profile-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
+  
 }
 .user-dashboard-change-password-button {
   top: 625px;
@@ -118,7 +121,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -132,10 +135,12 @@
   align-self: flex-start;
   font-style: normal;
   font-weight: 600;
+  
 }
 .user-dashboard-change-password-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .user-dashboard-logout-button {
   top: 691px;
@@ -145,7 +150,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -163,16 +168,17 @@
 .user-dashboard-logout-button:hover {
   color: black;
   background-color: #ffffff;
-};
+  border: 2px solid rgba(120, 120, 120, 0.4);
+}
 .user-dashboard-current-button {
-  top: 691px;
+  top: 350px;
   left: 109px;
   color: white;
   cursor: pointer;
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -190,6 +196,7 @@
 .user-dashboard-current-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .user-dashboard-completed-button {
   top: 417px;
@@ -199,7 +206,7 @@
   display: flex;
   position: absolute;
   align-self: center;
-  transition: 0.3s;
+  transition: 0.15s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
@@ -217,19 +224,21 @@
 .user-dashboard-completed-button:hover {
   color: black;
   background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 .user-dashboard-container3 {
-  top: 48px;
-  right: 39px;
-  width: 784px;
+  top: 10px;
+  right: 10px;
+  width: 1500px;
   /* TODO remove brder once resized */
   border: 2px solid rgba(120, 120, 120, 0.4);
   height: 938px;
   display: flex;
   position: absolute;
-  align-self: stretch;
-  align-items: flex-start;
+  /* align-self: stretch;
+  align-items: flex-start; */
   flex-direction: column;
+  overflow: auto;
 }
 @media(max-width: 991px) {
   .user-dashboard-logo {
