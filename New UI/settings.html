@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Profile - Active Online Software Page</title>
+
+    <!------------------------------ USES PROFILE.CSS FOR STYLING ------------------------->
+
+    <title>Settings - Active Online Software Page</title>
     <meta property="og:title" content="Profile - Active Online Software Page" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
@@ -139,13 +142,12 @@
           </form> -->
 
           <!-- Creating the form with fields - Email, Password, Role -->
-        <form class="profile-form" action="" id="loginForm">
-          <p class="profile-text6" for="email">Email:</p>
-          <label style="color: white" id="email" name="email" ></label>
-          <p class="profile-text7" for="password">Password:</p>
-          <label style="color: white" id="password" name="password" ></label>
-         
-          <button type="button" id="AccountBtn" class="profile-continue-button" onclick="account()">View Account Details</button>
+        <form class="profile-form" action="" id="Form">
+          <p class="profile-text7" for="password">New Password:</p>
+          <!-- <label style="color: white" id="password" name="password" ></label> -->
+          <textarea placeholder="Pickles123!" class="textarea" id="password" name="password" required></textarea>
+
+          <button type="submit" id="loginBtn" class="profile-continue-button" onclick="changePassword()">Change Password</button>
 
       </form>
         </section>

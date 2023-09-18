@@ -80,11 +80,13 @@ function submitChangePassword(e) {
       alert("Password Successfully Changed!");
       if (sessionStorage.getItem('role') == "Researcher") {
         sessionStorage.setItem('password', newPassword);
-        window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
+        // window.location.replace("../2-ResearcherPages/currentResearcherBoard.html");
+        history.back();
       }
       else {
         sessionStorage.setItem('password', newPassword);
-        window.location.replace("../3-UserPages/currentUserBoard.html");
+        // window.location.replace("../3-UserPages/currentUserBoard.html");
+        history.back();
       }
     });
   });

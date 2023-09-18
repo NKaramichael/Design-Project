@@ -136,6 +136,7 @@
   padding-bottom: var(--dl-space-space-unit);
   text-decoration: none;
   background-color: #000000;
+  color: #ffffff;
 }
 .profile-home-button:hover {
   background-color: #5228F5;

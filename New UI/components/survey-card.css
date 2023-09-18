@@ -47,7 +47,7 @@
 .card-button {
   color: white;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.15s;
   padding-top: var(--dl-space-space-unit);
   border-radius: 56px;
   padding-bottom: var(--dl-space-space-unit); 
@@ -57,8 +57,9 @@
   font-weight: 600;
 }
 .card-button:hover {
-  color: white;
-  background-color: #5228F5;
+  color: black;
+  background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
 }
 
 @media (max-width: 1500px) {
