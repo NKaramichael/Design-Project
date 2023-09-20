@@ -1,74 +1,1002 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Survey-Creation - Active Online Software Page</title>
-    <meta
-      property="og:title"
-      content="Survey-Creation - Active Online Software Page"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8" />
-    <meta property="twitter:card" content="summary_large_image" />
 
-    <style data-tag="reset-style-sheet">
-      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
-    </style>
-    <style data-tag="default-style-sheet">
-      html {
-        font-family: Inter;
-        font-size: 16px;
-      }
+<head>
+  <title>Survey-Creation - Active Online Software Page</title>
+  <meta property="og:title" content="Survey-Creation - Active Online Software Page" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta property="twitter:card" content="summary_large_image" />
 
-      body {
-        font-weight: 400;
-        font-style:normal;
-        text-decoration: none;
-        text-transform: none;
-        letter-spacing: normal;
-        line-height: 1.15;
-        color: var(--dl-color-gray-black);
-        background-color: var(--dl-color-gray-white);
+  <style data-tag="reset-style-sheet">
+    html {
+      line-height: 1.15;
+    }
 
-      }
-    </style>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
-      data-tag="font"
-    />
-    <style>
-       body::-webkit-scrollbar {
-         width: 0.5em;
-         z-index: 100;
-         background-color:transparent;
-       }
+    body {
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-width: 0;
+      border-style: solid;
+    }
+
+    p,
+    li,
+    ul,
+    pre,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    figure,
+    blockquote,
+    figcaption {
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      background-color: transparent;
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    button,
+    select {
+      text-transform: none;
+    }
+
+    button,
+    [type="button"],
+    [type="reset"],
+    [type="submit"] {
+      -webkit-appearance: button;
+    }
+
+    button::-moz-focus-inner,
+    [type="button"]::-moz-focus-inner,
+    [type="reset"]::-moz-focus-inner,
+    [type="submit"]::-moz-focus-inner {
+      border-style: none;
+      padding: 0;
+    }
+
+    button:-moz-focus,
+    [type="button"]:-moz-focus,
+    [type="reset"]:-moz-focus,
+    [type="submit"]:-moz-focus {
+      outline: 1px dotted ButtonText;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    input {
+      padding: 2px 4px;
+    }
+
+    img {
+      display: block;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+  </style>
+  <style data-tag="default-style-sheet">
+    html {
+      font-family: Inter;
+      font-size: 16px;
+    }
+
+    body {
+      font-weight: 400;
+      font-style: normal;
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: normal;
+      line-height: 1.15;
+      color: var(--dl-color-gray-black);
+      background-color: var(--dl-color-gray-white);
+
+    }
+
+    /* Style for the image */
+    .header-image {
+      width: 25%;
+      height: 15%;
+      object-fit: cover;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      box-shadow: 3px 3px #000000;
+      text-shadow: 3px 3px #000000;
+      -webkit-text-stroke: 0;
+    }
+
+    .header-h2 {
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    /* This class is used to style the description of the header image */
+    .header p {
+      font-size: 16px;
+      color: #666;
+    }
+
+    /* Style for the text boxes */
+    .scroll-box {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      width: 40%;
+      height: 300px;
+      overflow-y: scroll;
+    }
+
+    /* This class is used to style the container that holds the buttons */
+    .BtnContainer {
+
+      justify-content: center;
+      align-items: center;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    /* This class is used to style the buttons on the page */
+    .button {
+      /* font-family: 'Press Start 2P', cursive; */
+      padding: 10px 20px;
+      background-color: #FE4CF4;
+      border: 2px solid black;
+      border-radius: 5px;
+      margin: 0 10px;
+      font-size: 18px;
+      cursor: pointer;
+
+    }
+
+    /* This class is used to style the cog icon in the header */
+    .settings-button {
+      color: #ffffff;
+      list-style-type: none;
+      position: absolute;
+      padding-right: 2%;
+      font-size: 30px;
+      right: 0;
+
+    }
+
+    /* This class is used to style the dropdown menu that appears when the cog icon is clicked */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      color: #ffffff;
+      font-size: 30px;
+      top: 10%;
+      right: 10%;
+      z-index: 1;
+      background-color: #440068;
+      box-shadow: 3px 3px #000;
+    }
+
+    .settings-button:hover .dropdown-menu {
+      color: #fff;
+      display: inline-block;
+      background-size: cover;
+      font-size: 30px;
+      padding: 10px;
+    }
+
+    /* This class is used to style the background of the page */
+    .blocky-background {
+      background: url('../Resources/BountifulAlienatedFugu.gif');
+      background-size: cover;
+      background-repeat: repeat;
+      height: 100%;
+      width: 100%;
+    }
+
+    a {
+      color: #ffffff;
+      height: 20px;
+      width: 20px;
+      font-size: 40px;
+    }
+
+    .aList {
+      color: #ffffff;
+      height: 20px;
+      width: 20px;
+      font-size: 30px;
+    }
+
+    ul {
+      list-style-type: none;
+      line-height: 1.5;
+      font-size: 20px;
+    }
+
+    img#preview {
+      display: block;
+      margin: 0 auto;
+      box-shadow: 3px 3px #000000;
+      text-shadow: 3px 3px #000000;
+      -webkit-text-stroke: 0;
+    }
+
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      position: relative;
+      background-color: white;
+      padding: 20px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .image-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .popup img {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .popup img.selected {
+      border-color: blue;
+    }
+
+    #submitButton {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+
+    #backButton {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+    }
 
 
-      body::-webkit-scrollbar-thumb {
-         background-color:white;
-         box-shadow:0 -100vh 0 100vh #5128f5;//magic
-       }
-    </style>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <div>
-      <link href="./survey-creation.css" rel="stylesheet" />
+    .back-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #FE4CF4;
+      color: #ffffff;
+      border: 2px solid #000;
+      border-radius: 40px;
+      padding: 1rem 1rem;
+      font-size: 2rem;
+      margin: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 2px 2px #000;
+      width: 100px;
+      max-width: 80%;
+      -webkit-text-stroke: 0;
+    }
 
-      <div class="survey-creation-container">
-        <div class="survey-creation-change-password-button">
-          <span class="survey-creation-text">Submit</span>
+    .back-button:hover {
+      background: none;
+      color: #fff;
+      border: 2px solid #ffffff;
+      box-shadow: none;
+      -webkit-text-stroke: 0;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .question h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .question:not(#scaleQuestion),
+    .question:not(#radioABCQuestion),
+    .question:not(#radioABQuestion),
+    .question:not(#radioYNQuestion),
+    .question:not(#checkABCQuestion),
+    .question:not(#checkABQuestion) {
+      display: none;
+    }
+
+    .preview-image {
+      max-width: 200px;
+      max-height: 200px;
+      margin: 10px;
+    }
+
+    .filter-bar {
+      background-color: #f2f2f2;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-bar label {
+      font-weight: bold;
+    }
+
+    .filter-bar select {
+      padding: 5px;
+    }
+
+    .filter-bar button {
+      padding: 5px 10px;
+    }
+
+    #loading-screen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+  </style>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    data-tag="font" />
+  <style>
+    body::-webkit-scrollbar {
+      width: 0.5em;
+      z-index: 100;
+      background-color: transparent;
+    }
+
+
+    body::-webkit-scrollbar-thumb {
+      background-color: white;
+      box-shadow: 0 -100vh 0 100vh #5128f5;
+    }
+  </style>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div>
+    <link href="./survey-creation.css" rel="stylesheet" />
+
+    <div class="survey-creation-container">
+
+      <h1 class="survey-creation-text1">Create A Survey</h1>
+      <form class="survey-creation-form">
+        <!-- <p class="survey-creation-text2">Survey Title</p>
+        <textarea placeholder="Name your survey" class="textarea"></textarea>
+        <p class="survey-creation-text3">Survey Description</p>
+        <textarea placeholder="Description for users" class="textarea"></textarea> -->
+
+        <div id="loading-screen">
+          <div class="loading-spinner"></div>
+          <h1>Submitting Quiz ...</h1>
         </div>
-        <h1 class="survey-creation-text1">Create A Survey</h1>
-        <form class="survey-creation-form">
-          <p class="survey-creation-text2">Survey Title</p>
-          <textarea placeholder="Name your survey" class="textarea"></textarea>
-          <p class="survey-creation-text3">Survey Description</p>
-          <textarea
-            placeholder="Description for users"
-            class="textarea"
-          ></textarea>
-          <p class="survey-creation-text4">
+
+        <div style="text-align: center; align-items: center; margin-bottom: 10px;" id="mainDiv">
+          <button class="survey-creation-change-password-button" type="button" onclick="displayImages()">Select image
+            from database</button>
+          <div id="imagePopup" class="popup">
+            <div class="popup-content">
+              <div id="filterBar" class="filter-bar">
+                <label for="modelSelect">Model:</label>
+                <select id="modelSelect">
+                  <option value="all">All</option>
+                  <option value="nWFC">Normal WFC</option>
+                  <option value="hWFC">Hierarchical WFC</option>
+                </select>
+                <label for="domainSelect">Domain:</label>
+                <select id="domainSelect">
+                  <option value="all">All</option>
+                  <option value="Maze">Maze</option>
+                  <option value="Minecraft">Minecraft</option>
+                  <option value="RL2d">RogueLike 2D</option>
+                  <option value="RL3D">RogueLike 3D</option>
+                </select>
+                <button id="filterButton" type="button" onclick="displayImages()">Apply Filter</button>
+              </div>
+              <div id="imageContainer" class="image-container"></div>
+              <button id="backButton" type="button" onclick="closePopup()">Back</button>
+              <button id="submitButton" type="button" onclick="submitImage()">Submit</button>
+            </div>
+          </div>
+      </form>
+      <form>
+        <input style="color: #ffffff;" type="file" id="fileInput" multiple>
+        <input style="margin-bottom: 10px;" type="button" value="Upload" onclick="handleUpload()"><br>
+
+        <!-- Image Letter Display -->
+        <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label0">Image A</h3>
+        <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label1">Image B</h3>
+        <h3 style="display: none; float:center; padding: 0rem 2rem;" id="label2">Image C</h3>
+        <br>
+
+        <!-- Dropdown for model Type -->
+        <select style="display: none;" id="model0">
+          <option value="none">-- Select a model type --</option>
+          <option value="nWFC">Normal WFC</option>
+          <option value="hWFC">Hierarchical WFC</option>
+        </select>
+        <select style="display: none;" id="model1">
+          <option value="none">-- Select a model type --</option>
+          <option value="nWFC">Normal WFC</option>
+          <option value="hWFC">Hierarchical WFC</option>
+        </select>
+        <select style="display: none;" id="model2">
+          <option value="none">-- Select a model type --</option>
+          <option value="nWFC">Normal WFC</option>
+          <option value="hWFC">Hierarchical WFC</option>
+        </select> <br>
+
+        <!-- Dropdown for domain type -->
+        <select style="display: none;" id="domain0">
+          <option value="none">-- Select a domain/system for the level --</option>
+          <option value="Maze">Maze</option>
+          <option value="Minecraft">Minecraft</option>
+          <option value="RL2d">RogueLike 2D</option>
+          <option value="RL3D">RogueLike 3D</option>
+        </select>
+        <select style="display: none;" id="domain1">
+          <option value="none">-- Select a domain/system for the level --</option>
+          <option value="Maze">Maze</option>
+          <option value="Minecraft">Minecraft</option>
+          <option value="RL2d">RogueLike 2D</option>
+          <option value="RL3D">RogueLike 3D</option>
+        </select>
+        <select style="display: none;" id="domain2">
+          <option value="none">-- Select a domain/system for the level --</option>
+          <option value="Maze">Maze</option>
+          <option value="Minecraft">Minecraft</option>
+          <option value="RL2d">RogueLike 2D</option>
+          <option value="RL3D">RogueLike 3D</option>
+        </select>
+
+      </form>
+
+      <div id="imagePreviewArea"></div>
+
+      <header p>Heading</header p>
+      <textarea id="heading" rows="1" cols="50"></textarea>
+
+      <header p>Description</header p>
+      <textarea id="description" rows="3" cols="50"></textarea>
+
+      <div style="margin-bottom: 10px;">
+        <h3>Question Type:</h3>
+        <select id="questionType">
+          <option value="none">-- Select a type of question to add --</option>
+          <option value="scaleQuestion">Scale from 1 to 10</option>
+          <option value="radioABCQuestion">Radio Type : A-B-C</option>
+          <option value="radioABQuestion">Radio Type : A-B</option>
+          <option value="radioYNQuestion">Radio Type : Yes No</option>
+          <option value="checkABCQuestion">Checkbox Type : A-B-C</option>
+          <option value="checkABQuestion">Checkbox Type : A-B</option>
+        </select>
+      </div>
+
+      <!-- Section to add placeholder questions within a scroll-box -->
+      <div class="question" id="scaleQuestion">
+        <h3>Write Your Question Here:</h3>
+        <input type="text" name="scaleInput" id="scaleInput"><br>
+        <h3>Scale Question Preview:</h3>
+        <input type="range" min="1" max="10" step="1" id="scaleSlider">
+        <output for="scaleSlider" id="scaleOutput"></output>
+
+        <!-- Button to create Question -->
+        <div class="BtnContainer" id="createQuestionButton">
+          <button type="button" class="button" onclick="createScaleQuestion()">Create Question</button>
+        </div>
+      </div>
+
+      <div class="question" id="radioABCQuestion">
+        <h3>Write Your Question Here:</h3>
+        <input type="text" name="radioABCInput" id="radioABCInput"><br>
+        <h3>Multiple Choice Preview:</h3>
+        <ul class="options">
+          <li>
+            <input class="option-input" type="radio" name="q1" id="q1a" value="a">
+            <label for="q1a">A</label>
+          </li>
+          <li>
+            <input class="option-input" type="radio" name="q1" id="q1b" value="b">
+            <label for="q1b">B</label>
+          </li>
+          <li>
+            <input class="option-input" type="radio" name="q1" id="q1c" value="c">
+            <label for="q1c">C</label>
+          </li>
+        </ul>
+
+        <!-- Button to create Question -->
+        <div class="BtnContainer" id="createQuestionButton">
+          <button type="button" class="button" onclick="createRadioABCQuestion()">Create Question</button>
+        </div>
+      </div>
+
+      <div class="question" id="radioABQuestion">
+        <h3>Write Your Question Here:</h3>
+        <input type="text" name="radioABInput" id="radioABInput"><br>
+        <h3>Multiple Choice Preview:</h3>
+        <ul class="options">
+          <li>
+            <input class="option-input" type="radio" name="q1" id="q1a" value="a">
+            <label for="q1a">A</label>
+          </li>
+          <li>
+            <input class="option-input" type="radio" name="q1" id="q1b" value="b">
+            <label for="q1b">B</label>
+          </li>
+        </ul>
+
+        <!-- Button to create Question -->
+        <div class="BtnContainer" id="createQuestionButton">
+          <button type="button" class="button" onclick="createRadioABQuestion()">Create Question</button>
+        </div>
+      </div>
+
+      <div class="question" id="radioYNQuestion">
+        <h3>Write Your Question Here:</h3>
+        <input type="text" name="radioYNInput" id="radioYNInput"><br>
+        <h3>Multiple Choice Preview:</h3>
+        <ul class="options">
+          <li>
+            <input class="option-input" type="radio" name="q1" id="q1a" value="a">
+            <label for="q1a">Yes</label>
+          </li>
+          <li>
+            <input class="option-input" type="radio" name="q1" id="q1b" value="b">
+            <label for="q1b">No</label>
+          </li>
+        </ul>
+
+        <!-- Button to create Question -->
+        <div class="BtnContainer" id="createQuestionButton">
+          <button type="button" class="button" onclick="createRadioYNQuestion()">Create Question</button>
+        </div>
+      </div>
+
+      <div class="question" id="checkABCQuestion">
+        <h3>Write Your Question Here:</h3>
+        <input type="text" name="checkABCInput" id="checkABCInput"><br>
+        <h3>Checkbox Question Preview:</h3>
+        <ul class="options">
+          <li>
+            <input class="option-input" type="checkbox" id="checkboxOption1" value="option1">
+            <label for="checkboxOption1">A</label>
+          </li>
+          <li>
+            <input class="option-input" type="checkbox" id="checkboxOption2" value="option2">
+            <label for="checkboxOption2">B</label>
+          </li>
+          <li>
+            <input class="option-input" type="checkbox" id="checkboxOption3" value="option3">
+            <label for="checkboxOption3">C</label>
+          </li>
+        </ul>
+
+        <!-- Button to create Question -->
+        <div class="BtnContainer" id="createQuestionButton">
+          <button type="button" class="button" onclick="createCheckABCQuestion()">Create Question</button>
+        </div>
+      </div>
+
+      <div class="question" id="checkABQuestion">
+        <h3>Write Your Question Here:</h3>
+        <input type="text" name="checkABInput" id="checkABInput"><br>
+        <h3>Checkbox Question Preview:</h3>
+        <ul class="options">
+          <li>
+            <input class="option-input" type="checkbox" id="checkboxOption1" value="option1">
+            <label for="checkboxOption1">A</label>
+          </li>
+          <li>
+            <input class="option-input" type="checkbox" id="checkboxOption2" value="option2">
+            <label for="checkboxOption2">B</label>
+          </li>
+        </ul>
+
+        <!-- Button to create Question -->
+        <div class="BtnContainer" id="createQuestionButton">
+          <button type="button" class="button" onclick="createCheckABQuestion()">Create Question</button>
+        </div>
+      </div>
+
+      <!-- Container -->
+      <div id="container" style="margin: 0 auto; margin-bottom: 20px; width: fit-content; min-height: fit-content;">
+      </div>
+
+      <form id="submitQuizForm">
+          <button style="top: 0; right: 0;" class="button" onclick="submitQuiz()">Submit</button>
+      </form>
+
+      <ul style="display: none" id="questionList"></ul>
+
+      <!-- Navigation Panel -->
+      <ul id="nav-panel"
+        style="width: fit-content; align-items: center; background-color: #161940; position: absolute; top: 5%; right: 5%;">
+      </ul>
+
+      <script>
+        const scale = document.getElementById("scaleInput");
+        const radioABC = document.getElementById("radioABCInput");
+        const radioAB = document.getElementById("radioABInput");
+        const radioYN = document.getElementById("radioYNInput");
+        const checkABC = document.getElementById("checkABCInput");
+        const checkAB = document.getElementById("checkABInput");
+
+        function createScaleQuestion() {
+          const type = "scale";
+          const inputText = scale.value;
+          scale.value = "";
+          if (inputText != "") {
+            createQuestion(type, inputText);
+          } else {
+            alert("Please enter a valid question.");
+          }
+        }
+        function createRadioABCQuestion() {
+          const type = "radioABC";
+          const inputText = radioABC.value;
+          radioABC.value = "";
+          if (inputText != "") {
+            createQuestion(type, inputText);
+          } else {
+            alert("Please enter a valid question.");
+          }
+        }
+        function createRadioABQuestion() {
+          const type = "radioAB";
+          const inputText = radioAB.value;
+          radioAB.value = "";
+          if (inputText != "") {
+            createQuestion(type, inputText);
+          } else {
+            alert("Please enter a valid question.");
+          }
+        }
+        function createRadioYNQuestion() {
+          const type = "radioYN";
+          const inputText = radioYN.value;
+          radioYN.value = "";
+          if (inputText != "") {
+            createQuestion(type, inputText);
+          } else {
+            alert("Please enter a valid question.");
+          }
+        }
+        function createCheckABCQuestion() {
+          const type = "checkABC";
+          const inputText = checkABC.value;
+          checkABC.value = "";
+          if (inputText != "") {
+            createQuestion(type, inputText);
+          } else {
+            alert("Please enter a valid question.");
+          }
+        }
+        function createCheckABQuestion() {
+          const type = "checkAB";
+          const inputText = checkAB.value;
+          checkAB.value = "";
+          if (inputText != "") {
+            createQuestion(type, inputText);
+          } else {
+            alert("Please enter a valid question.");
+          }
+        }
+
+        function greyOutImage(image) {
+          image.style.filter = "grayscale(100%)";
+        }
+
+        function displayImages() {
+          const modelSelect = document.getElementById('modelSelect');
+          const domainSelect = document.getElementById('domainSelect');
+          const modelValue = modelSelect.value;
+          const domainValue = domainSelect.value;
+          const imagePopup = document.getElementById('imagePopup');
+          const imageContainer = document.getElementById('imageContainer');
+          const filterBar = document.getElementById('filterBar');
+          imageContainer.innerHTML = '';
+
+          // Retrieve and display images based on the filter values
+          const storageRef = firebase.storage().ref().child('Level/images');
+          storageRef.listAll().then(function (result) {
+            result.items.forEach(function (imageRef) {
+              imageRef.getMetadata().then(function (metadata) {
+                // Check if the filter values are "all" or if the image matches the filter values
+                if ((modelValue === 'all' && domainValue === 'all') ||
+                  (metadata && metadata.customMetadata &&
+                    (metadata.customMetadata.model === modelValue || modelValue === 'all') &&
+                    (metadata.customMetadata.domain === domainValue || domainValue === 'all'))) {
+                  imageRef.getDownloadURL().then(function (url) {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.addEventListener('click', function () {
+                      img.classList.toggle('selected');
+                    });
+                    imageContainer.appendChild(img);
+                  }).catch(function (error) {
+                    console.log(error);
+                  });
+                }
+              }).catch(function (error) {
+                console.log(error);
+              });
+            });
+          }).catch(function (error) {
+            console.log(error);
+          });
+
+          // Show the popup
+          imagePopup.style.display = 'flex';
+        }
+
+        function closePopup() {
+          const imagePopup = document.getElementById('imagePopup');
+          imagePopup.style.display = 'none';
+        }
+
+        function submitImage() {
+          const selectedImages = document.querySelectorAll('.selected');
+          const form = document.querySelector('form');
+          const selectedImageInput = document.createElement('input');
+          selectedImageInput.type = 'hidden';
+          selectedImageInput.name = 'selected-image';
+          form.appendChild(selectedImageInput);
+
+          // Store the selected image URLs in an array
+          var selectedImageUrls = [];
+          selectedImages.forEach(function (img) {
+            selectedImageUrls.push(img.src);
+          });
+
+          if (selectedImageUrls.length > 3) {
+            alert("Please select up to 3 images only!");
+            return;
+          }
+
+          // Submit the form (you can customize this according to your needs)
+          if (selectedImageUrls.length == 0) {
+            alert("You have not selected any images!");
+          } else {
+            // var dataToSend = "Hello, World!"; // The data you want to send
+            var url = "../2-ResearcherPages/evaluation2.html?";
+            for (let i = 0; i < selectedImageUrls.length; i++) {
+              const imgUrl = selectedImageUrls[i];
+
+              if (i == 0) {
+                url += "img" + i + "=" + encodeURIComponent(imgUrl);
+              } else {
+                url += "&img" + i + "=" + encodeURIComponent(imgUrl);
+              }
+            }
+
+            window.location.href = url;
+          }
+        }
+
+      </script>
+
+      <!-- Script for Navigation Panel -->
+      <script>
+        // Define an array of questions
+        var questions = [];
+
+        function createQuestion(type, questionText) {
+
+          var details = questionText + " |";
+          switch (type) {
+            case "scale": details += ' Scale from 1 to 10';
+              break;
+            case "radioABC": details += ' Radio Type : A-B-C';
+              break;
+            case "radioAB": details += ' Radio Type : A-B';
+              break;
+            case "radioYN": details += ' Radio Type : Yes No';
+              break;
+            case "checkABC": details += ' Checkbox Type : A-B-C';
+              break;
+            case "checkAB": details += ' Checkbox Type : A-B';
+              break;
+          }
+
+          const size = questions.length;
+          list = { id: size + 1, text: 'Question ' + (size + 1), content: details };
+          questions.push(list);
+
+          var newQuestion = document.createElement('li');
+          newQuestion.textContent = list.content;
+          var questionList = document.getElementById('questionList');
+          questionList.appendChild(newQuestion);
+
+          // Get references to the navigation panel and container elements
+          const navPanel = document.getElementById('nav-panel');
+          const container = document.getElementById('container');
+
+          // Clear the navPanel
+          while (navPanel.firstChild) {
+            navPanel.removeChild(navPanel.firstChild);
+          }
+
+          // Generate the HTML for the navigation panel dynamically
+          questions.forEach(question => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#';
+            a.dataset.questionId = question.id;
+            a.textContent = question.text;
+            li.appendChild(a);
+            navPanel.appendChild(li);
+          });
+
+          // Add event listeners to the navigation panel elements
+          navPanel.addEventListener('click', event => {
+            if (event.target.matches('[data-question-id]')) {
+              event.preventDefault();
+              const questionId = event.target.dataset.questionId;
+              const question = questions.find(q => q.id === parseInt(questionId));
+              container.innerHTML = "";
+              container.innerHTML = question.content;
+              container.style.border = "10px solid #000000";
+              container.style.borderRadius = " 50px";
+              container.style.backgroundColor = "#000000";
+              container.style.color = "#FFFFFF";
+            }
+          });
+        }
+      </script>
+
+      <!-- Code to display the image selected from the users files -->
+      <script>
+        function handleUpload() {
+          const files = document.getElementById('fileInput').files;
+          const imagePreviewArea = document.getElementById('imagePreviewArea');
+
+          // Break statement to make sure no more than 3 files are selected
+          if (files.length > 3) {
+            alert("Please Select 3 Files or Less");
+            return 0;
+          }
+
+          // Clear previous display
+          imagePreviewArea.innerHTML = '';
+
+          // Hide the various dropdowns so they are reset when the user re-uploads images
+          for (let i = 0; i < 3; i++) {
+            // Hide the labels
+            var selectLabel = 'label';
+            selectLabel += i;
+            const selectL = document.getElementById(selectLabel);
+            selectL.style.display = 'none';
+
+            // Hide the model dropdown
+            var selectName = 'model';
+            selectName += i;
+            const select = document.getElementById(selectName);
+            select.style.display = 'none';
+
+            // Hide the domain dropdown
+            var selectDomain = 'domain';
+            selectDomain += i;
+            const selectD = document.getElementById(selectDomain);
+            selectD.style.display = 'none';
+          }
+
+          // Iterate through each file
+          for (let i = 0; i < files.length; i++) {
+
+            const file = files[i];
+            const fileReader = new FileReader();
+
+            // Read file as data URL
+            fileReader.onload = function (e) {
+              const imageUrl = e.target.result;
+
+              // Display image preview
+              const img = document.createElement('img');
+              img.src = imageUrl;
+              img.classList.add('preview-image');
+              imagePreviewArea.appendChild(img);
+            };
+
+            // Read file as data URL
+            fileReader.readAsDataURL(file);
+
+            // Make the correct Image Label Appear
+            var selectLabel = 'label';
+            selectLabel += i;
+            const selectL = document.getElementById(selectLabel);
+            selectL.style.display = "inline-block";
+
+            // Display the model type dropdown
+            var selectName = 'model';
+            selectName += i;
+            const select = document.getElementById(selectName);
+            select.style.display = "";
+
+            // Display the model domain dropdown
+            var selectDomain = 'domain';
+            selectDomain += i;
+            const selectD = document.getElementById(selectDomain);
+            selectD.style.display = "";
+          }
+        }
+
+        const questionTypeSelect = document.getElementById('questionType');
+        const scaleQuestion = document.getElementById('scaleQuestion');
+        const radioABCQuestion = document.getElementById('radioABCQuestion');
+        const radioABQuestion = document.getElementById('radioABQuestion');
+        const radioYNQuestion = document.getElementById('radioYNQuestion');
+        const checkABCQuestion = document.getElementById('checkABCQuestion');
+        const checkABQuestion = document.getElementById('checkABQuestion');
+
+        questionTypeSelect.addEventListener('change', function () {
+          const selectedType = questionTypeSelect.value;
+
+          scaleQuestion.style.display = (selectedType === 'scaleQuestion') ? 'block' : 'none';
+          radioABCQuestion.style.display = (selectedType === 'radioABCQuestion') ? 'block' : 'none';
+          radioABQuestion.style.display = (selectedType === 'radioABQuestion') ? 'block' : 'none';
+          radioYNQuestion.style.display = (selectedType === 'radioYNQuestion') ? 'block' : 'none';
+          checkABCQuestion.style.display = (selectedType === 'checkABCQuestion') ? 'block' : 'none';
+          checkABQuestion.style.display = (selectedType === 'checkABQuestion') ? 'block' : 'none';
+
+          const container = document.getElementById("container");
+          container.innerHTML = '';
+          container.style.border = "";
+        });
+
+      </script>
+
+      <!-- <p class="survey-creation-text4">
             <span>Question Type</span>
             <br />
           </p>
@@ -76,9 +1004,17 @@
             <option value="Option 1">Option 1</option>
             <option value="Option 2">Option 2</option>
             <option value="Option 3">Option 3</option>
-          </select>
-        </form>
-      </div>
+          </select> -->
+
+      <!-- <button class="survey-creation-change-password-button">Submit</button> -->
+
+      </form>
     </div>
-  </body>
+  </div>
+</body>
+
+<!-- import firebase into evaluation.html and call on firebase-submitQuiz.js to handle requests -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script type="text/javascript" src="../4-JavaScript/firebase-submitQuiz.js"></script>
+
 </html>

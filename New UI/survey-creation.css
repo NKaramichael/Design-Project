@@ -10,9 +10,9 @@
   background-color: #161940;
 }
 .survey-creation-change-password-button {
-  left: 526px;
   color: white;
-  bottom: 77px;
+  top: 10%;
+  left: 43%;
   cursor: pointer;
   display: flex;
   position: absolute;
@@ -49,10 +49,8 @@
   line-height: 80px;
 }
 .survey-creation-form {
-  top: 185px;
-  left: 193px;
-  width: 803px;
-  height: 393px;
+  width: 100%;
+  height: 100%;
   display: flex;
   position: absolute;
   align-items: center;
