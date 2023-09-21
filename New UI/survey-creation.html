@@ -498,17 +498,19 @@
           <option value="RL2d">RogueLike 2D</option>
           <option value="RL3D">RogueLike 3D</option>
         </select>
-
+        
       </form>
-
+      
       <div id="imagePreviewArea"></div>
-
+      <form id="presetQuestions" rows="1" cols="50"></form>
+      
       <header p>Heading</header p>
       <textarea id="heading" rows="1" cols="50"></textarea>
 
       <header p>Description</header p>
       <textarea id="description" rows="3" cols="50"></textarea>
-
+      
+      
       <div style="margin-bottom: 10px;">
         <h3>Question Type:</h3>
         <select id="questionType">
@@ -521,7 +523,7 @@
           <option value="checkABQuestion">Checkbox Type : A-B</option>
         </select>
       </div>
-
+      
       <!-- Section to add placeholder questions within a scroll-box -->
       <div class="question" id="scaleQuestion">
         <h3>Write Your Question Here:</h3>
@@ -529,7 +531,7 @@
         <h3>Scale Question Preview:</h3>
         <input type="range" min="1" max="10" step="1" id="scaleSlider">
         <output for="scaleSlider" id="scaleOutput"></output>
-
+        
         <!-- Button to create Question -->
         <div class="BtnContainer" id="createQuestionButton">
           <button type="button" class="button" onclick="createScaleQuestion()">Create Question</button>
@@ -560,7 +562,7 @@
           <button type="button" class="button" onclick="createRadioABCQuestion()">Create Question</button>
         </div>
       </div>
-
+      
       <div class="question" id="radioABQuestion">
         <h3>Write Your Question Here:</h3>
         <input type="text" name="radioABInput" id="radioABInput"><br>
@@ -575,7 +577,7 @@
             <label for="q1b">B</label>
           </li>
         </ul>
-
+        
         <!-- Button to create Question -->
         <div class="BtnContainer" id="createQuestionButton">
           <button type="button" class="button" onclick="createRadioABQuestion()">Create Question</button>
@@ -596,7 +598,7 @@
             <label for="q1b">No</label>
           </li>
         </ul>
-
+        
         <!-- Button to create Question -->
         <div class="BtnContainer" id="createQuestionButton">
           <button type="button" class="button" onclick="createRadioYNQuestion()">Create Question</button>
@@ -648,15 +650,15 @@
           <button type="button" class="button" onclick="createCheckABQuestion()">Create Question</button>
         </div>
       </div>
-
+      
       <!-- Container -->
       <div id="container" style="margin: 0 auto; margin-bottom: 20px; width: fit-content; min-height: fit-content;">
       </div>
 
       <form id="submitQuizForm">
           <button style="top: 0; right: 0;" class="button" onclick="submitQuiz()">Submit</button>
-      </form>
-
+        </form>
+        
       <ul style="display: none" id="questionList"></ul>
 
       <!-- Navigation Panel -->
@@ -832,7 +834,7 @@
         var questions = [];
 
         function createQuestion(type, questionText) {
-
+          
           var details = questionText + " |";
           switch (type) {
             case "scale": details += ' Scale from 1 to 10';

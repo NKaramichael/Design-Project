@@ -62,8 +62,6 @@ function displayNewQuizzes() {
 function displayQuizzes(status) {
   // var email = sessionStorage.getItem('email');
   var email = 'meow10@catmail.com';
-  Ref = UserFirestore.doc(email);
-
   if (status != 'new') {
     Ref.get()
       .then((doc) => {
@@ -144,35 +142,8 @@ async function getLevelUrl(levelName) {
   return url;
 };
 
-async function createQuizBlock(data, status, id) {
-  // <div>
-  //   <link href="./survey-card.css" rel="stylesheet" />
-  //   <div class="survey-card-container">
-  //     <div class="survey-card-gallery-card testimonal">
-  //       <img
-  //         alt="image"
-  //         src="https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDEyfHxmb3Jlc3R8ZW58MHx8fHwxNjI2MjUxMjg4&amp;ixlib=rb-1.2.1&amp;w=1500"
-  //         class="survey-card-image"
-  //       />
-  //       <h2 class="survey-card-text">Project Title</h2>
-  //       <span class="survey-card-text1">Lorem ipsum dolor sit amet</span>
-  //     </div>
-  //   </div>
-  // </div>
-
-  // Get a reference to the container element
+async function createQuizBlock(data, status, id) {  
   // Get the parent element to which the text boxes will be added
-
-  // Create a new link element
-  // var link = document.createElement("link");
-  // link.rel = "stylesheet";
-  // link.type = "text/css";
-  // link.href = "../New UI/user-dashboard.css"; // Specify the path to your CSS file
-
-  // Append the link element to the document's head
-  // document.head.appendChild(link);
-
-
   const parent = document.getElementById("container");
 
   const card = document.createElement("div");

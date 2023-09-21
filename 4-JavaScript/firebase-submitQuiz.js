@@ -13,6 +13,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var collectionRef = db.collection("Questions");
+var metaRef = db.collection("Metadata");
+
+
+// not sure where to call this (onload)
+loadSetQuestions();
 
 function submitQuiz() {
     document.getElementById('submitQuizForm').addEventListener('submit', submit);
@@ -249,6 +254,42 @@ async function uploadImage(file, domain, model, imageNum) {
     }
 }
 
+function loadSetQuestions() {
+    // reference to question metadata
+    ref = metaRef.doc("QuizData");
 
+    // get parent cointainer
+    const parent = document.getElementById("presetQuestions");
+
+    ref.get().then((doc) => {
+        if (doc.exists) {
+            const questionList = doc.data()["Questions"];
+            // loop through array and get info for each quiz to display
+            questionList.forEach((question) => {
+                const questionText = question["QuestionText"];
+                const questionType = question["QuestionType"];
+
+                const input = document.createElement("input");
+                input.setAttribute("id", questionText);
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("data-value", questionType);
+
+                const label = document.createElement("label");
+                label.setAttribute("for", questionText);
+                label.setAttribute("data-value", questionType);
+                label.setAttribute("innerHTML", questionText);
+
+                parent.appendChild(input);
+                parent.appendChild(label);
+            });
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+
+}
 
 
