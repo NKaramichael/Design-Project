@@ -15,13 +15,9 @@ var db = firebase.firestore();
 var collectionRef = db.collection("Questions");
 var metaRef = db.collection("Metadata");
 
-
-// not sure where to call this (onload)
-loadSetQuestions();
-
-function submitQuiz() {
-    document.getElementById('submitQuizForm').addEventListener('submit', submit);
-}
+// function submitQuiz() {
+//     document.getElementById('submitQuizForm').addEventListener('submit', submit);
+// }
 
 function change(num) {
     let out = '';
@@ -44,16 +40,17 @@ function change(num) {
 var loadingScreen = document.getElementById('loading-screen');
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
-async function submit(e) {
-    e.preventDefault();
-
+async function submit() {
+    //--------------- Deprecated ----------------------//
     // Checking that user has uploaded at least one image
-    const files = document.getElementById('fileInput').files;
+    // const files = document.getElementById('fileInput').files;
 
-    if (files.length == 0) {
-        alert("Please upload at least 1 image");
-        return;
-    }
+    //--------------- Deprecated ----------------------//
+    // Commented out because the user no longer NEEDS to upload an image to create a quiz
+    // if (files.length == 0) {
+    //     alert("Please upload at least 1 image");
+    //     return;
+    // }
 
     // Checking that heading and description are filled in
     const heading = document.getElementById('heading').value;
@@ -75,63 +72,66 @@ async function submit(e) {
         return;
     }
 
-    process = true;
+    // process = true;
     errorOutput = "Address the following issues: \n";
-    var imageArr = [];
 
+    //--------------- Deprecated ----------------------//
+    //var imageArr = [];
     // Submit Images(Levels) & metadata to levels table in database
-    for (let i = 0; i < files.length; i++) {
-        const details = new Map();
+    // for (let i = 0; i < files.length; i++) {
+    //     const details = new Map();
 
-        // Fetching the selected value from model dropdown
-        var selectModel = 'model';
-        selectModel += i;
-        const selectM = document.getElementById(selectModel);
-        const valueM = selectM.value;
+    //     // Fetching the selected value from model dropdown
+    //     var selectModel = 'model';
+    //     selectModel += i;
+    //     const selectM = document.getElementById(selectModel);
+    //     const valueM = selectM.value;
 
-        if (valueM === 'none') {
-            errorOutput += "Please select a valid model type for image " + change(i) + "\n";
-            process = false;
-        } else {
-            details.set("model", valueM);
-        }
+    //     if (valueM === 'none') {
+    //         errorOutput += "Please select a valid model type for image " + change(i) + "\n";
+    //         process = false;
+    //     } else {
+    //         details.set("model", valueM);
+    //     }
 
-        // Fetching the selected value from domain dropdown
-        var selectDomain = 'domain';
-        selectDomain += i;
-        const selectD = document.getElementById(selectDomain);
-        const valueD = selectD.value;
+    //     // Fetching the selected value from domain dropdown
+    //     var selectDomain = 'domain';
+    //     selectDomain += i;
+    //     const selectD = document.getElementById(selectDomain);
+    //     const valueD = selectD.value;
 
-        if (valueD === 'none') {
-            errorOutput += "Please select a valid domain type for image " + change(i) + "\n";
-            process = false;
-        } else {
-            details.set("domain", valueD);
-        }
+    //     if (valueD === 'none') {
+    //         errorOutput += "Please select a valid domain type for image " + change(i) + "\n";
+    //         process = false;
+    //     } else {
+    //         details.set("domain", valueD);
+    //     }
 
-        imageArr.push(details);
-    }
+    //     imageArr.push(details);
+    // }
 
-    if (process == false) {
-        alert(errorOutput);
-        return;
-    }
+    // if (process == false) {
+    //     alert(errorOutput);
+    //     return;
+    // }
 
     // Submit Questions & details to questions table in database
-    var questionList = document.getElementById('questionList');
+    var questionList = document.getElementById('currentQuestionList');
     var questions = questionList.getElementsByTagName('li');
 
-    if (questions.length == 0) {
-        alert("Cannot create quiz with no questions!");
-        return;
-    }
+    //------------------ Depracated --------------------//
+    // if (questions.length == 0) {
+    //     alert("Cannot create quiz with no questions!");
+    //     return;
+    // }
 
     var mainDiv = document.getElementById('mainDiv');
     mainDiv.style.display = 'none';
     document.getElementById('mainHeading').style.display = 'none';
     loadingScreen.style.display = 'flex';
 
-    await uploadImages(files, imageArr);
+    //------------------ Depracated --------------------//
+    // await uploadImages(files, imageArr);
 
     var refArr = [];
     // Iterate through the items
@@ -254,32 +254,61 @@ async function uploadImage(file, domain, model, imageNum) {
     }
 }
 
-function loadSetQuestions() {
+function toggleDefualtQuestion(element){
+    // Find the checkbox element within the label
+    const checkbox = element.querySelector('input[type="checkbox"]');
+    const currentForm = document.getElementById("currentQuestionList");
+
+    if (checkbox) {
+        if (checkbox.checked) {
+            const label = document.createElement("label");
+            label.setAttribute("id", element.id);
+            label.setAttribute("data-value", element.getAttribute("data-value"));
+            label.textContent = element.textContent;
+            // label.setAttribute("onchange", "toggleDefualtQuestion(this)");
+
+            currentForm.appendChild(label);
+        } else {
+            const labelElement = currentForm.querySelector(`label[id="${element.id}"]`);
+            if (labelElement) {
+                labelElement.remove();
+            } else {
+                console.log("Warning: Label was never added to current");
+            }
+        }
+    } else {
+        console.log("Checkbox not found");
+    }
+}
+
+function loadDefaultQuestions() {
     // reference to question metadata
     ref = metaRef.doc("QuizData");
 
     // get parent cointainer
-    const parent = document.getElementById("presetQuestions");
+    const parent = document.getElementById("defaultQuestionList");
 
     ref.get().then((doc) => {
         if (doc.exists) {
             const questionList = doc.data()["Questions"];
             // loop through array and get info for each quiz to display
+            let index = 0;
             questionList.forEach((question) => {
                 const questionText = question["QuestionText"];
                 const questionType = question["QuestionType"];
-
-                const input = document.createElement("input");
-                input.setAttribute("id", questionText);
-                input.setAttribute("type", "checkbox");
-                input.setAttribute("data-value", questionType);
-
+                
                 const label = document.createElement("label");
-                label.setAttribute("for", questionText);
+                label.setAttribute("id", index++);
                 label.setAttribute("data-value", questionType);
-                label.setAttribute("innerHTML", questionText);
+                label.textContent = questionText;
+                label.setAttribute("onchange", "toggleDefualtQuestion(this)");
+                
+                const input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.style.marginRight = "5px";
+                
+                label.insertBefore(input, label.firstChild);
 
-                parent.appendChild(input);
                 parent.appendChild(label);
             });
         } else {

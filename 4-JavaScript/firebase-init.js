@@ -34,6 +34,7 @@ UserFirestore.doc("initializer").set({});
 function changePassword() {
   document.getElementById('Form').addEventListener('submit', submitChangePassword);
 }
+
 // Submits changed password to the database and replaces the current password
 function submitChangePassword(e) {
   e.preventDefault();

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>new-Survey - Active Online Software Page</title>
+  <meta property="og:title" content="new-Survey - Active Online Software Page" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta property="twitter:card" content="summary_large_image" />
+
+  <style data-tag="reset-style-sheet">
+    html {
+      line-height: 1.15;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-width: 0;
+      border-style: solid;
+    }
+
+    p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      background-color: transparent;
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    button,
+    select {
+      text-transform: none;
+    }
+
+    button,
+    [type="button"],
+    [type="reset"],
+    [type="submit"] {
+      -webkit-appearance: button;
+    }
+
+    button::-moz-focus-inner,
+    [type="button"]::-moz-focus-inner,
+    [type="reset"]::-moz-focus-inner,
+    [type="submit"]::-moz-focus-inner {
+      border-style: none;
+      padding: 0;
+    }
+
+    button:-moz-focus,
+    [type="button"]:-moz-focus,
+    [type="reset"]:-moz-focus,
+    [type="submit"]:-moz-focus {
+      outline: 1px dotted ButtonText;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    input {
+      padding: 2px 4px;
+    }
+
+    img {
+      display: block;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+  </style>
+  <style data-tag="default-style-sheet">
+    html {
+      font-family: Inter;
+      font-size: 16px;
+    }
+
+    body {
+      font-weight: 400;
+      font-style: normal;
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: normal;
+      line-height: 1.15;
+      color: var(--dl-color-gray-black);
+      background-color: var(--dl-color-gray-white);
+
+    }
+  </style>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    data-tag="font" />
+  <style>
+    body::-webkit-scrollbar {
+      width: 0.5em;
+      z-index: 100;
+      background-color: transparent;
+    }
+
+
+    body::-webkit-scrollbar-thumb {
+      background-color: white;
+      box-shadow: 0 -100vh 0 100vh #5128f5; 
+    }
+  </style>
+  <style>
+    [data-thq="thq-dropdown"]:hover>[data-thq="thq-dropdown-list"] {
+      display: flex;
+    }
+
+    [data-thq="thq-dropdown"]:hover>div [data-thq="thq-dropdown-arrow"] {
+      transform: rotate(90deg);
+    }
+  </style>
+</head>
+
+<body>
+  <link rel="stylesheet" href="./style.css" />
+  <div>
+    <link href="./new-survey.css" rel="stylesheet" />
+
+    <!-- Container for header section container -->
+    <div class="new-survey-container">
+      <h1 class="new-survey-title">Survey Creation Page</h1>
+      <a href="log-in.html" class="new-survey-navlink">
+        <!-- Submit survey button -->
+          <button class="new-survey-logout-button" onclick="submit()" >Submit survey</button>
+      </a>
+
+      <!-- Survey details section/container -->
+      <div class="new-survey-container1">
+        <div class="new-survey-container2">
+          <h2 class="new-survey-text01">Heading</h2>
+          <textarea placeholder="placeholder" id="heading" name="heading"
+            class="new-survey-textarea textarea"></textarea>
+          <h2 class="new-survey-description">
+            <span>Description</span>
+            <br />
+          </h2>
+          <textarea placeholder="placeholder" id="description" name="description"
+            class="new-survey-textarea1 textarea"></textarea>
+        </div>
+
+        <!-- Questions section/container -->
+        <div class="new-survey-container3">
+          <h2 class="new-survey-ql-heading">
+            Add at least one default question to your survey
+          </h2>
+          <form name="defaultQuestionList" id="defaultQuestionList" class="default-question-form"></form>
+
+          <!-- Create own question section -->
+          <h2 class="new-survey-cq-heading">
+            Create any custom questions for your survey
+          </h2>
+
+          <!-- Drop down to select question type -->
+          <select id="questionType">
+            <option value="none">Select a type of question to add</option>
+            <option value="scaleQuestion">Scale from 1 to 10</option>
+            <option value="radioABCQuestion">Radio Type : A-B-C</option>
+            <option value="radioABQuestion">Radio Type : A-B</option>
+            <option value="radioYNQuestion">Radio Type : Yes No</option>
+            <option value="checkABCQuestion">Checkbox Type : A-B-C</option>
+            <option value="checkABQuestion">Checkbox Type : A-B</option>
+          </select>
+
+          <!-- Custom question text area -->
+          <!-- DIFFERENT FROM OLD, we now only have 1 ID for this section, whereas before we had individual id's for each question type -->
+          <textarea placeholder="Enter your custom question" name="customQuestion" id="customQuestion"  
+            class="new-survey-textarea2 textarea"></textarea>
+
+          <!-- Add question button -->
+          <a class="new-survey-navlink1">
+            <div id="addQuestionButton" class="new-survey-add-qbutton">
+              <span class="new-survey-text08">Add Question</span>
+            </div>
+          </a>
+
+          <!-- Question list section, this should display all questions selected and all custom questions -->
+          <h1 class="new-survey-ql-heading1">Your current question list</h1>
+          <form id="currentQuestionList" name="currentQuestionList" class="new-survey-form1"></form>
+        </div>
+
+        <!-- Images section/container -->
+        <div class="new-survey-container4">
+          <h2 class="new-survey-ql-heading2">
+            Select the number of Images and domain type
+          </h2>
+          <input type="numberOfImages" placeholder="Enter number of images" id="numberOfImages"
+            class="new-survey-textinput input" />
+
+            <select id="domain2">
+              <option value="none">Select a domain</option>
+              <option value="Maze">Maze</option>
+              <option value="Minecraft">Minecraft</option>
+              <option value="RL2d">RogueLike 2D</option>
+              <option value="RL3D">RogueLike 3D</option>
+            </select>
+
+          <h2 class="new-survey-ql-heading3">
+            Select the model type for the images
+          </h2>
+          <form id="modelTypeForm" name="modelTypeForm" class="new-survey-form2"></form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call onload functions -->
+  <script>
+    window.onload = function() {
+        // Call functions from submitQuiz
+        loadDefaultQuestions();
+    };
+</script>
+
+</body>
+
+<!-- import firebase into evaluation.html and call on firebase-submitQuiz.js to handle requests -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script type="text/javascript" src="../4-JavaScript/firebase-submitQuiz.js"></script>
+
+</html>
