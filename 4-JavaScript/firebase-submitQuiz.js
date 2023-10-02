@@ -321,4 +321,67 @@ function loadDefaultQuestions() {
 
 }
 
+function loadModelList() {
+    // reference to question metadata
+    ref = metaRef.doc("PCG");
 
+    // get parent cointainer
+    const parent = document.getElementById("modelTypeForm");
+
+    ref.get().then((doc) => {
+        if (doc.exists) {
+            const modelList = doc.data()["Models"];
+            // loop through array and get info for each quiz to display
+            let index = 0;
+            modelList.forEach((model) => {
+
+                const label = document.createElement("label");
+                label.setAttribute("id", index++);
+                label.setAttribute("data-value", model);
+                label.textContent = model;
+                label.setAttribute("onchange", "toggleModel(this)");
+                
+                const input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.style.marginRight = "5px";
+                
+                label.insertBefore(input, label.firstChild);
+
+                parent.appendChild(label);
+            });
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+
+}
+
+// function togglemodel(element){
+//     // Find the checkbox element within the label
+//     const checkbox = element.querySelector('input[type="checkbox"]');
+//     const currentForm = document.getElementById("currentQuestionList");
+
+//     if (checkbox) {
+//         if (checkbox.checked) {
+//             const label = document.createElement("label");
+//             label.setAttribute("id", element.id);
+//             label.setAttribute("data-value", element.getAttribute("data-value"));
+//             label.textContent = element.textContent;
+//             // label.setAttribute("onchange", "toggleDefualtQuestion(this)");
+
+//             currentForm.appendChild(label);
+//         } else {
+//             const labelElement = currentForm.querySelector(`label[id="${element.id}"]`);
+//             if (labelElement) {
+//                 labelElement.remove();
+//             } else {
+//                 console.log("Warning: Label was never added to current");
+//             }
+//         }
+//     } else {
+//         console.log("Checkbox not found");
+//     }
+// }
