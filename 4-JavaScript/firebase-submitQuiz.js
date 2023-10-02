@@ -14,6 +14,11 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var collectionRef = db.collection("Questions");
 var metaRef = db.collection("Metadata");
+var levelRef = db.collection("Levels");
+
+var imagePool = [];
+var imagePoolLinks = [];
+const pickedImages = new Set();
 
 // function submitQuiz() {
 //     document.getElementById('submitQuizForm').addEventListener('submit', submit);
@@ -263,7 +268,7 @@ function setIndeces(navBar) {
             children[i].style.borderLeft = "2px solid #ffffff";
         } else {
             children[i].style.borderLeft = "none";
-        }
+        } 
     }
 }
 
@@ -306,23 +311,64 @@ function toggleDefualtQuestion(element){
 
 function setPreviewBlank() {
     const questionTextForm = document.getElementById("questionPreview");
+    const imageContainer = document.getElementById("imageContainer");
     
+    // clear text
     let questionText = "";
     questionTextForm.textContent = questionText;
     
     // TODO: set all question preview elements to default state
 
-
+    // Loop through and remove all child nodes
+    while (imageContainer.firstChild) {
+        imageContainer.removeChild(imageContainer.firstChild);
+    };
 }
 
-
-
+// on click method for the navigation buttons at the bottom of the page
 function selectQuestion(button) {
     const questionTextForm = document.getElementById("questionPreview");
     const defaultQuestionList = document.getElementById("defaultQuestionList");
+    const imageContainer = document.getElementById("imageContainer");
 
-    let questionText = defaultQuestionList.querySelector(`label[id="${button.id}"]`).textContent;
+    let question = defaultQuestionList.querySelector(`label[id="${button.id}"]`);
+    let questionText = question.textContent;
+    isMulti = question.getAttribute("multi-Image");
+
+    // set question text
     questionTextForm.textContent = questionText;
+
+    if (imagePool.length != 0 ){
+        // Loop through and remove all child nodes
+        while (imageContainer.firstChild) {
+            imageContainer.removeChild(imageContainer.firstChild);
+        }
+        let numImages = 1;
+        const min = 2;
+        const max = 6;
+    
+        //  set random number of images for multi question
+        if (isMulti == "true") {
+            numImages = Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    
+        // get random images from pool and add to container
+        for (let i = 0; i < numImages; i++) {
+            url = pickRandomImage();
+            
+            // Create the image element
+            const image = document.createElement("img");
+            image.classList.add("img-fluid");
+            image.style.maxWidth = "300px";
+            image.style.maxHeight = "300px";
+            image.style.boxShadow = "2px 2px #000";
+            image.setAttribute("src", url);
+            image.style.marginRight = "15px";
+
+            imageContainer.appendChild(image);
+        }
+    }
+
 }
 
 function loadDefaultQuestions() {
@@ -340,10 +386,12 @@ function loadDefaultQuestions() {
             questionList.forEach((question) => {
                 const questionText = question["QuestionText"];
                 const questionType = question["QuestionType"];
+                const multiImage = question["multi-Image"];
                 
                 const label = document.createElement("label");
                 label.setAttribute("id", index++);
                 label.setAttribute("data-value", questionType);
+                label.setAttribute("multi-Image", multiImage);
                 label.textContent = questionText;
                 label.setAttribute("onchange", "toggleDefualtQuestion(this)");
                 
@@ -365,6 +413,7 @@ function loadDefaultQuestions() {
 
 }
 
+// Load the list of models from the database into the field
 function loadModelList() {
     // reference to question metadata
     ref = metaRef.doc("PCG");
@@ -403,53 +452,101 @@ function loadModelList() {
 
 }
 
-// function togglemodel(element){
-//     // Find the checkbox element within the label
-//     const checkbox = element.querySelector('input[type="checkbox"]');
-//     const currentForm = document.getElementById("currentQuestionList");
+// On change method for select model check boxes, when models are updated, update and pull images according to what the user selects
+function toggleModel(element){
+    
+    const numImagesField = document.getElementById("numberOfImages"); // variable for number of images field
+    const domainField = document.getElementById("domain2"); // variable for domain selected field
+    
+    // Check that valid numImages have been specified and domain is selected
+    if (numImagesField.getAttribute("data-value") == "true" && domainField.value != "none") {
+        numImages = numImagesField.value; 
+        const modelForm = document.getElementById("modelTypeForm");
+        let modelsToFetch = [];
 
-//     if (checkbox) {
-//         if (checkbox.checked) {
-//             const label = document.createElement("label");
-//             label.setAttribute("id", element.id);
-//             label.setAttribute("data-value", element.getAttribute("data-value"));
-//             label.textContent = element.textContent;
-//             // label.setAttribute("onchange", "toggleDefualtQuestion(this)");
+        // add data-value of each model type to an array named modelsToFetch
+        const children = modelForm.children;
+        for (let i = 0; i < children.length; i++) {
+            const checkbox = children[i].querySelector('input[type="checkbox"]');
+            if (checkbox.checked) {
+                modelsToFetch.push(children[i].getAttribute("data-value"));
+            }
+        }
 
-//             currentForm.appendChild(label);
-//         } else {
-//             const labelElement = currentForm.querySelector(`label[id="${element.id}"]`);
-//             if (labelElement) {
-//                 labelElement.remove();
-//             } else {
-//                 console.log("Warning: Label was never added to current");
-//             }
-//         }
-//     } else {
-//         console.log("Checkbox not found");
-//     }
-// }
+        // Get limit of images for each model type (take total images they want and divide it by number of models they want)
+        const limit = Math.ceil(numImages/modelsToFetch.length);
 
+        imagePool = [];
+        imagePoolLinks = [];
+        
+        // Get "limit" amount of images associated with each model, store them and their metadata in imagepool
+        for (let i = 0; i < modelsToFetch.length; i++) {
+            levelRef
+            .where("model", "==", modelsToFetch[i]) //compound query to find the images of domain and model specified
+            .where("domain", "==", domainField.value)
+            .limit(limit) // limit documents fetched
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    imagePool.push(doc.id); //stores the id's to each image
+                    imagePoolLinks.push(doc.data()["imageUrl"]); //stores the links for each image to be displayed
+                });
+            })
+            .catch((error) => {
+                console.error('Error getting documents: ', error);
+            });
+        }
+    }
+    console.log(imagePool);
+}
+
+// Function to ensure number of images requested is valid, turned red if invalid integer
 function validateNumImages() {
-    console.log("meow");
     const numImagesField = document.getElementById("numberOfImages");
     let input = numImagesField.value;
     let min = 6;
     let max = 100;
 
-    if (isPositiveInteger(input) && min <= input && input <= max) {
-        numImagesField.style.color = "black";
-        numImagesField.setAttribute("data-value", "true");
+    if (!input == "") {
+        if (isPositiveInteger(input) && min <= input && input <= max) {
+            numImagesField.style.backgroundColor = "white";
+            numImagesField.setAttribute("data-value", "true");
+        } else {
+            numImagesField.style.backgroundColor = "#feb5b1";
+            numImagesField.setAttribute("data-value", "false");
+        }
     } else {
-        numImagesField.style.color = "red";
-        numImagesField.setAttribute("data-value", "false");
+            numImagesField.style.backgroundColor = "white";
+            numImagesField.setAttribute("data-value", "false");
     }
-
 }
 
+// Sub Function for validateNumImages to make sure no negative numbers of Images can be requested for a survey
 function isPositiveInteger(str) {
     // Use a regular expression to check if the string is a positive integer 
     // The regular expression checks for one or more digits at the beginning of the string
     const regex = /^[1-9]\d*$/;
     return (regex.test(str));
   }
+
+// Function to pick a random image from the pool
+function pickRandomImage() {
+  // Check if all items have been picked
+  if (pickedImages.size === imagePool.length) {
+    // Reset the Set
+    pickedImages.clear();
+  }
+
+  let randomIndex;
+
+  do {
+    // Generate a random index within the range of available items
+    randomIndex = Math.floor(Math.random() * imagePool.length);
+    randomItem = imagePoolLinks[randomIndex];
+  } while (pickedImages.has(randomIndex));
+
+  // Mark the item as picked
+  pickedImages.add(randomIndex);
+
+  return randomItem;
+}
