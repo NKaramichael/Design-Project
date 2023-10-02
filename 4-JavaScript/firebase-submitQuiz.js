@@ -254,31 +254,75 @@ async function uploadImage(file, domain, model, imageNum) {
     }
 }
 
+function setIndeces(navBar) {
+    const children = navBar.children;
+    for (let i = 0; i < children.length; i++) {
+        children[i].textContent = i;
+        
+        if (i == 0) {
+            children[i].style.borderLeft = "2px solid #ffffff";
+        } else {
+            children[i].style.borderLeft = "none";
+        }
+    }
+}
+
 function toggleDefualtQuestion(element){
     // Find the checkbox element within the label
     const checkbox = element.querySelector('input[type="checkbox"]');
-    const currentForm = document.getElementById("currentQuestionList");
+    const navBar = document.getElementById("navBar");
 
     if (checkbox) {
         if (checkbox.checked) {
-            const label = document.createElement("label");
-            label.setAttribute("id", element.id);
-            label.setAttribute("data-value", element.getAttribute("data-value"));
-            label.textContent = element.textContent;
-            // label.setAttribute("onchange", "toggleDefualtQuestion(this)");
+            const button = document.createElement("button");
 
-            currentForm.appendChild(label);
+            button.setAttribute("class", "navBar-button");
+            button.setAttribute("id", element.id);
+            button.setAttribute("data-value", element.getAttribute("data-value"));
+            button.setAttribute("onclick", "selectQuestion(this)");
+            
+            navBar.appendChild(button);
+            setIndeces(navBar);
+            selectQuestion(navBar.querySelector(`button[id="${element.id}"]`))
         } else {
-            const labelElement = currentForm.querySelector(`label[id="${element.id}"]`);
-            if (labelElement) {
-                labelElement.remove();
+            const buttonElement = navBar.querySelector(`button[id="${element.id}"]`);
+            if (buttonElement) {
+                buttonElement.remove();
+                setIndeces(navBar);
+                if (element.id - 1 >= 0) {
+                    selectQuestion(navBar.querySelector(`button[id="${element.id-1}"]`));
+                } else {
+                    setPreviewBlank();
+                }
+
             } else {
-                console.log("Warning: Label was never added to current");
+                console.log("Warning: button was never added to current");
             }
         }
     } else {
         console.log("Checkbox not found");
     }
+}
+
+function setPreviewBlank() {
+    const questionTextForm = document.getElementById("questionPreview");
+    
+    let questionText = "";
+    questionTextForm.textContent = questionText;
+    
+    // TODO: set all question preview elements to default state
+
+
+}
+
+
+
+function selectQuestion(button) {
+    const questionTextForm = document.getElementById("questionPreview");
+    const defaultQuestionList = document.getElementById("defaultQuestionList");
+
+    let questionText = defaultQuestionList.querySelector(`label[id="${button.id}"]`).textContent;
+    questionTextForm.textContent = questionText;
 }
 
 function loadDefaultQuestions() {
@@ -385,3 +429,27 @@ function loadModelList() {
 //         console.log("Checkbox not found");
 //     }
 // }
+
+function validateNumImages() {
+    console.log("meow");
+    const numImagesField = document.getElementById("numberOfImages");
+    let input = numImagesField.value;
+    let min = 6;
+    let max = 100;
+
+    if (isPositiveInteger(input) && min <= input && input <= max) {
+        numImagesField.style.color = "black";
+        numImagesField.setAttribute("data-value", "true");
+    } else {
+        numImagesField.style.color = "red";
+        numImagesField.setAttribute("data-value", "false");
+    }
+
+}
+
+function isPositiveInteger(str) {
+    // Use a regular expression to check if the string is a positive integer 
+    // The regular expression checks for one or more digits at the beginning of the string
+    const regex = /^[1-9]\d*$/;
+    return (regex.test(str));
+  }

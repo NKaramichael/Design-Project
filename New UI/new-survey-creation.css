@@ -46,6 +46,24 @@
   color: black;
   background-color: #ffffff;
 }
+
+.navBar-button {
+  width: 50px; /* Fixed width for the buttons */
+  height: 51px;
+  border: 2px solid #ffffff;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  transition: 0.3s;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.navBar-button:hover {
+  color: black;
+  background-color: var(--dl-color-primary-700);
+}
+
 .new-survey-creation-text {
   color: rgb(0, 0, 0);
   font-size: 18px;
@@ -532,11 +550,10 @@ label {
   flex: 0 0 auto;
   width: 598px;
   height: 51px;
+  flex-direction: row;
   display: flex;
-  align-items: flex-start;
-  border-color: #ffffff;
-  border-style: solid;
-  border-width: 2px;
+  align-items: center;
+  justify-content: center;
 }
 @media(max-width: 767px) {
   .new-survey-creation-logout-button {
