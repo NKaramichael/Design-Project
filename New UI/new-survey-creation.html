@@ -66,10 +66,10 @@
 
       <div class="new-survey-creation-container">
         <h1 class="new-survey-creation-title">Survey Creation Page</h1>
-        <a href="log-in.html" class="new-survey-creation-navlink">
+        <a class="new-survey-creation-navlink">
           
           <!-- SUBMIT QUIZ BUTTON -->
-            <button class="new-survey-creation-logout-button">Submit Quiz</button>
+            <button id="submitButton" class="new-survey-creation-logout-button" onclick="submit()">Submit Quiz</button>
         </a>
 
         <!-- Heading and decsription Section/Container -->
@@ -77,20 +77,20 @@
           <div class="new-survey-creation-container2">
             <h2 class="new-survey-creation-text01">Heading</h2>
             <textarea
-              placeholder="placeholder"
               id="heading"
               name="heading"
               class="new-survey-creation-textarea textarea"
+              onchange="validateHeading()"
             ></textarea>
             <h2 class="new-survey-creation-description">
               <span>Description</span>
               <br />
             </h2>
             <textarea
-              placeholder="placeholder"
               id="description"
               name="description"
               class="new-survey-creation-textarea1 textarea"
+              onchange="validateDescription()"
             ></textarea>
           </div>
 
@@ -122,7 +122,7 @@
             />
 
             <!-- dropdown for domain type -->
-           <select id="domain2">
+           <select style="margin-bottom: 8px;" id="domain2">
               <option value="none">Select a domain</option>
               <option value="Maze">Maze</option>
               <option value="Minecraft">Minecraft</option>
@@ -149,7 +149,7 @@
           <span id="questionPreview" class="new-survey-creation-text11">
             Question preview placeholder
           </span>
-          <div class="new-survey-creation-container7"></div>
+          <div id="answerFieldContainer" class="new-survey-creation-container7"></div>
         </div>
         <div id="navBar" class="new-survey-creation-container8"></div>
       </div>

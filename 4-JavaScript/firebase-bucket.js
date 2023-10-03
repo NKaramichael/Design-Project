@@ -1,5 +1,4 @@
-// Work in prgress to handle user generated conted eg images
-// configuration for connecting to firebase database
+// It is the bucket. It does the bucket
 const firebaseConfig = {
   apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
   authDomain: "pcgevaluation-49d75.firebaseapp.com",
@@ -100,7 +99,9 @@ function displayQuizzes(status) {
       .then((doc) => {
         if (doc.exists) {
           const usedQuizRefs = doc.data()['completedQuizzes'].concat(doc.data()['currentQuizzes']);
-          QuizFirestore.get()
+          QuizFirestore
+          .where("Status", "==", true)
+          .get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                 if (doc.exists && !usedQuizRefs.includes(doc.id)) {
