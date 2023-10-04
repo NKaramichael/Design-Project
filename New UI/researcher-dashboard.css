@@ -42,7 +42,7 @@
   text-decoration: none;
 }
 .researcher-dashboard-text {
-  top: 207px;
+  top: 180px;
   left: 41px;
   width: 272px;
   position: absolute;
@@ -61,7 +61,7 @@
   align-self: flex-start;
 }
 .researcher-dashboard-create-button {
-  top: 256px;
+  top: 229px;
   left: 111px;
   color: white;
   cursor: pointer;
@@ -268,7 +268,7 @@
   font-weight: 600;
 }
 .researcher-dashboard-current-button {
-  top: 324px;
+  top: 292px;
   left: 107px;
   color: white;
   cursor: pointer;
@@ -302,7 +302,7 @@
   font-weight: 600;
 }
 .researcher-dashboard-closed-button {
-  top: 391px;
+  top: 354px;
   left: 109px;
   color: white;
   cursor: pointer;
@@ -325,6 +325,34 @@
   font-weight: 600;
 }
 .researcher-dashboard-closed-button:hover {
+  color: black;
+  background-color: #ffffff;
+  border: 2px solid rgba(120, 120, 120, 0.4);
+}
+.researcher-dashboard-upload-button {
+  top: 417px;
+  left: 80px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  align-self: center;
+  transition: 0.15s;
+  align-items: center;
+  padding-top: var(--dl-space-space-unit);
+  padding-left: var(--dl-space-space-twounits);
+  border-radius: 56px;
+  padding-right: var(--dl-space-space-twounits);
+  flex-direction: column;
+  padding-bottom: var(--dl-space-space-unit);
+  justify-content: flex-end;
+  background-color: #161940;
+  font-size: 18px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 600;
+}
+.researcher-dashboard-upload-button:hover {
   color: black;
   background-color: #ffffff;
   border: 2px solid rgba(120, 120, 120, 0.4);
