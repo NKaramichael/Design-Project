@@ -283,11 +283,13 @@
 }
 .researcher-dashboard-container3 {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   align-self: auto;
   align-items: center;
   flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
 }
 .researcher-dashboard-image {
   width: 200px;

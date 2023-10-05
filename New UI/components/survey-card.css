@@ -1,5 +1,5 @@
 .survey-card-container {
-  width: 100%;
+  width: min-content;
   height: 560px;
   display: flex;
   position: relative;
@@ -9,7 +9,7 @@
 }
 
 .survey-card-gallery-card {
-  width: 1300px;
+  width: max-content;
   height: 500px;
   display: flex;
   max-width: var(--dl-size-size-maxwidth);
