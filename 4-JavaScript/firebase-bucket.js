@@ -47,7 +47,7 @@ function displayCompletedQuizzes() {
 };
 
 function displayNewQuizzes() {
-  // Need to clear container for when pages are switched between
+  // clear container for when pages are switched between
   container = document.getElementById("container");
   // Remove all child elements from the container
   while (container.firstChild) {
@@ -59,8 +59,8 @@ function displayNewQuizzes() {
 
 // Fetching and display the user's quizzes
 function displayQuizzes(status) {
-  // var email = sessionStorage.getItem('email');
-  var email = 'meow10@catmail.com';
+  var email = sessionStorage.getItem('email');
+  // var email = 'meow10@catmail.com';
 
   const Ref = UserFirestore.doc(email);
   if (status != 'new') {
@@ -145,6 +145,7 @@ async function getLevelUrl(levelName) {
   return url;
 };
 
+// Function to create each survey item popup
 async function createQuizBlock(data, status, id) {  
   // Get the parent element to which the text boxes will be added
   const parent = document.getElementById("container");
@@ -218,9 +219,10 @@ async function createQuizBlock(data, status, id) {
   parent.appendChild(card);
 };
 
+// function to add a survey to a users current page on "add to current" click
 function addToCurrent(event) {
   const button = event.target;
-  button.innerHTML = '<i class="fas fa-check"></i>';
+  button.innerHTML = '<i class="fas fa-check"></i>'; // change text to a tick
   button.disabled = true;
   const name = button.getAttribute("data-value");
   var email = sessionStorage.getItem('email');
@@ -230,6 +232,7 @@ function addToCurrent(event) {
   });
 };
 
+// function to remove a survey from a users current page on "remove" click
 function removeFromCurrent(event) {
   const button = event.target;
   button.innerHTML = '<i class="fas fa-check"></i>';
@@ -242,6 +245,7 @@ function removeFromCurrent(event) {
   });
 };
 
+// function that opens a particular survey on "open" click
 function openSurveyPage(event) {
   const button = event.target;
   const dataValue = JSON.parse(button.getAttribute("data-value"));
