@@ -100,6 +100,18 @@ function submit() {
 
     if (!errorFlag) return;
 
+    const submitButton = document.getElementById("submitButton");
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<img style="height: auto; max-height: 40px;" class="loading-icon" src="../Resources/loading.png" alt="Loading Spinner" id="spinner">';
+
+    // Disable all the elements
+    headingField.disabled = true;
+    descriptionField.disabled = true;
+    numImagesField.disabled = true;
+    domainField.disabled = true;
+    modelField.disabled = true;
+    defaultQuestionList.disabled = true;
+
     var data = {
         Description: desc,
         Title: heading,

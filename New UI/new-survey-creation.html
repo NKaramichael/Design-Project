@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <title>newSurveyCreation - Active Online Software Page</title>
     <meta
       property="og:title"
@@ -60,6 +57,20 @@
         [data-thq="thq-dropdown"]:hover > div [data-thq="thq-dropdown-arrow"] {
           transform: rotate(90deg);
         }
+
+        @keyframes rotate {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .loading-icon {
+          display: inline-block;
+          animation: rotate 1s linear infinite;
+        }
     </style>
   </head>
   <body>
@@ -68,95 +79,112 @@
       <link href="./new-survey-creation.css" rel="stylesheet" />
 
       <div class="new-survey-creation-container">
-        <h1 class="new-survey-creation-title">Survey Creation Page</h1>
-        <a class="new-survey-creation-navlink">
-          
-          <!-- SUBMIT QUIZ BUTTON -->
-            <button id="submitButton" class="new-survey-creation-logout-button" onclick="submit()">Submit Quiz</button>
-        </a>
-
-        <!-- Heading and decsription Section/Container -->
-        <div class="new-survey-creation-container1">
-          <div class="new-survey-creation-container2">
-            <h2 class="new-survey-creation-text01">Heading</h2>
-            <textarea
-              id="heading"
-              name="heading"
-              class="new-survey-creation-textarea textarea"
-              onchange="validateHeading()"
-            ></textarea>
-            <h2 class="new-survey-creation-description">
-              <span>Description</span>
-              <br />
-            </h2>
-            <textarea
-              id="description"
-              name="description"
-              class="new-survey-creation-textarea1 textarea"
-              onchange="validateDescription()"
-            ></textarea>
+        <div class="new-survey-creation-top-container">
+          <div class="new-survey-creation-left"></div>
+          <div class="new-survey-creation-mid">
+            <h1 class="new-survey-creation-title">Survey Creation Page</h1>
           </div>
+          <div class="new-survey-creation-right">
+              
+              <!-- BUTTON FOR SUBMITTING SURVEY -->
+              <button id="submitButton" class="new-survey-creation-submit-button" onclick="submit()">Submit Survey</button>
 
-          <!-- Questions Section/Container -->
-          <div class="new-survey-creation-container3">
-            <h2 class="new-survey-creation-ql-heading">
-              Add at least one default question to your survey
-            </h2>
-            <form
-              name="defaultQuestionList"
-              id="defaultQuestionList"
-              class="default-question-form"
-            ></form>
-            
-          </div>
-
-          <!-- Images section/container -->
-          <div class="new-survey-creation-container4">
-            <h2 class="new-survey-creation-ql-heading1">
-              Select the number of Images and domain type
-            </h2>
-            <input
-              type="numberOfImages"
-              placeholder="Enter number of images"
-              id="numberOfImages"
-              class="new-survey-creation-textinput input"
-              data-value="false"
-              onchange="validateNumImages()"
-            />
-
-            <!-- dropdown for domain type -->
-           <select style="margin-bottom: 8px;" id="domain2">
-              <option value="none">Select a domain</option>
-              <option value="Maze">Maze</option>
-              <option value="Minecraft">Minecraft</option>
-              <option value="RL2d">RogueLike 2D</option>
-              <option value="RL3D">RogueLike 3D</option>
-            </select>
-            <h2 class="new-survey-creation-ql-heading2">
-              Select the model type for the images
-            </h2>
-            <form
-              id="modelTypeForm"
-              name="modelTypeForm"
-              class="new-survey-creation-form1"
-            ></form>
           </div>
         </div>
+        <div class="new-survey-creation-middle-container">
+          <div class="new-survey-creation-left-white">
+            <div class="new-survey-creation-heading-and-desc">
+              <h2 class="new-survey-creation-text01">Heading</h2>
+              <textarea
+                id="heading"
+                name="heading"
+                class="new-survey-creation-textarea textarea"
+                onchange="validateHeading()"
+              ></textarea>
+              <h2 class="new-survey-creation-description">
+                <span>Description</span>
+                <br />
+              </h2>
+              <textarea
+                id="description"
+                name="description"
+                class="new-survey-creation-textarea1 textarea"
+                onchange="validateDescription()"
+              ></textarea>
+            </div>
+          </div>
+          <div class="new-survey-creation-mid-white">
+            <div class="new-survey-creation-questions">
+              <h2 class="new-survey-creation-ql-heading">
+                Add at least one default question to your survey
+              </h2>
 
-        <!-- SECTION FOR THE QUESTION PREVIEW -->
-        <div id="preview" class="new-survey-creation-container5">
+              <!-- FORM TO HOLD QUESTION LIST -->
+              <form
+                id="defaultQuestionList"
+                name="defaultQuestionList"
+                class="new-survey-creation-form"
+              ></form>
+              
+            </div>
+            <span id="questionPreview" class="new-survey-creation-text07">
+              Question preview goes here
+            </span>
+          </div>
+          <div class="new-survey-creation-right-white">
+            <div class="new-survey-creation-images">
+              <h2 class="new-survey-creation-di-heading">
+                Select the number of Images and domain type
+              </h2>
+              <input
+                type="numberOfImages"
+                placeholder="Enter number of images"
+                id="numberOfImages"
+                class="new-survey-creation-textinput input"
+                data-value="false"
+                onchange="validateNumImages()"
+              />
+              
+              <!-- dropdown for domain type -->
+              <select class="new-survey-creation-dropdown" style="margin-bottom: 16px;" id="domain2">
+                <option value="none">Select a domain</option>
+                <option value="Maze">Maze</option>
+                <option value="Minecraft">Minecraft</option>
+                <option value="RL2d">RogueLike 2D</option>
+                <option value="RL3D">RogueLike 3D</option>
+              </select>
 
-          <!-- container that stores the images to be displayed -->
-          <div id="imageContainer" class="new-survey-creation-container6"></div>
-          
-          <span id="questionPreview" class="new-survey-creation-text11">
-            Question preview placeholder
-          </span>
-          <div id="answerFieldContainer" class="new-survey-creation-container7"></div>
+              <h2 class="new-survey-creation-mheading">
+                Select the model type for the images
+              </h2>
+              <form
+                id="modelTypeForm"
+                name="modelTypeForm"
+                class="new-survey-creation-form1"
+              ></form>
+            </div>
+          </div>
         </div>
-        <div id="navBar" class="new-survey-creation-container8"></div>
+        <div id="preview" class="new-survey-creation-bottom-container">
+
+          <!-- HOLDS THE PREVIEWED IMAGES -->
+          <div
+            id="imageContainer"
+            class="new-survey-creation-img-preview"
+          ></div>
+
+          <!-- HOLDS THE PREVIEW USER QUESTIONS -->
+          <div
+            id="answerFieldContainer"
+            class="new-survey-creation-quest-preview"
+          ></div>
+        </div>
+
+        <!-- NAVIGATION BAR TO CHANGE Questions -->
+        <div id="navBar" class="new-survey-creation-nav"></div>
       </div>
     </div>
+
     <!-- Call onload functions -->
     <script>
       window.onload = function() {
@@ -166,10 +194,9 @@
       };
     </script>
 
-  </body>
-
-    <!-- import firebase into evaluation.html and call on firebase-submitQuiz.js to handle requests -->
+    <!-- import firebase into new-survey-creation.html and call on firebase-submitQuiz.js to handle requests -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
   <script type="text/javascript" src="../4-JavaScript/firebase-submitQuiz.js"></script>
-
+  </body>
+  
 </html>
