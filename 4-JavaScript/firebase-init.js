@@ -209,7 +209,7 @@ const sendToDash = (email, role) => {
 };
 
 //add user credentials to firebase database
-const saveMessages = (email, password, role) => {
+async function saveMessages(email, password, role) {
   var newContactForm = contactFormDB.push();
 
   newContactForm.set({
@@ -219,25 +219,15 @@ const saveMessages = (email, password, role) => {
   });
   
   if (role == 'User') {
-    UserFirestore.doc(email).set({
+    await UserFirestore.doc(email).set({
       completedQuizzes: [],currentQuizzes: [] });
   }
   else if (role == 'Researcher') {
-    ResearcherFirestore.doc(email).set({
+    await ResearcherFirestore.doc(email).set({
       mySurveys: [] });
   };
 
-  // create user/researcher document copy in firestore
-  if (role == 'User') {
-    UserFirestore.doc(email).set({
-      completedQuizzes: [],currentQuizzes: [] });
-  }
-  else if (role == 'Researcher') {
-    ResearcherFirestore.doc(email).set({
-      mySurveys: [] });
-  };
-
-  //Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
+  // Redirecting visitor to their specific GUI dashboard based on "Researcher" or "User".
   if (role == "Researcher") {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value
