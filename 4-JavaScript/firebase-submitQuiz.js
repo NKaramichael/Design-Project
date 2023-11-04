@@ -137,7 +137,7 @@ function getCheckedFromContainer(container) {
     labels = container.children;
     for (let i = 0; i < labels.length; i++) {
         checkbox = labels[i].querySelector("input[type=checkbox]");
-        if (checkbox.checked) { checked.push(labels[i].id) }
+        if (checkbox.checked) { checked.push(Number(labels[i].id)) }
     }
     return checked;
 }
