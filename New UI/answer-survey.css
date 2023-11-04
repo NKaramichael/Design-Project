@@ -127,16 +127,29 @@
 .answer-survey-nav {
   flex: 0 0 auto;
   width: 598px;
-  border: 2px dashed rgba(120, 120, 120, 0.4);
   height: 51px;
+  flex-direction: row;
   display: flex;
   align-self: center;
   margin-top: var(--dl-space-space-twounits);
   align-items: center;
-  border-color: #ffffff;
-  border-style: solid;
-  border-width: 2px;
-  justify-content: flex-start;
+  justify-content: center;
+}
+.navBar-button {
+  width: 50px; /* Fixed width for the buttons */
+  height: 51px;
+  border: 2px solid #ffffff;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  transition: 0.3s;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.navBar-button:hover {
+  color: black;
+  background-color: var(--dl-color-primary-700);
 }
 .answer-survey-bottom-button-container {
   flex: 0 0 auto;

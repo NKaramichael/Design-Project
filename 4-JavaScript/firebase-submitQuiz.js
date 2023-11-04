@@ -230,7 +230,7 @@ function selectQuestion(button) {
     let question = defaultQuestionList.querySelector(`label[id="${button.id}"]`);
     let questionText = question.textContent;
     let questionType = question.getAttribute("data-value");
-    let isMulti = question.getAttribute("multi-Image");
+    let isMulti = question.getAttribute("multiImage");
     let numImages = 0;
 
     // SET QUESTION TEXT
@@ -387,12 +387,12 @@ function loadDefaultQuestions() {
             questionList.forEach((question) => {
                 const questionText = question["QuestionText"];
                 const questionType = question["QuestionType"];
-                const multiImage = question["multi-Image"];
+                const multiImage = question["multiImage"];
 
                 const label = document.createElement("label");
                 label.setAttribute("id", index++);
                 label.setAttribute("data-value", questionType);
-                label.setAttribute("multi-Image", multiImage);
+                label.setAttribute("multiImage", multiImage);
                 label.textContent = questionText;
                 label.setAttribute("onchange", "toggleDefualtQuestion(this)");
 
