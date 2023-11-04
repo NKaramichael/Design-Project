@@ -66,25 +66,20 @@ const firebaseConfig = {
     headerContainer.innerHTML = heading;
   };
 
-  async function displayHeading(heading) {
+  async function displayDescription(description) {
     // Get a reference to the parent container element
-    const headerContainer = document.getElementById("surveyHeading");
+    const headerContainer = document.getElementById("imageContainer");
 
-    headerContainer.innerHTML = heading;
+    headerContainer.innerHTML = description;
   };
 
   function openSurvey() {
     // Get the quizId from the URL query parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('quizId');
+    const quizID = urlParams.get('quizId');
     const status = urlParams.get('status');
-  
-    if (status == 'completed') {
-      submitButton = document.getElementById('submitButton')
-      submitButton.disabled = true;
-    }
-  
-    quizRef = QuizFirestore.doc(name)
+    
+    quizRef = QuizFirestore.doc(quizID)
     quizRef.get()
       .then((doc) => {
         if (doc.exists) {

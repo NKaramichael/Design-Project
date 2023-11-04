@@ -46,7 +46,7 @@
 
       body::-webkit-scrollbar-thumb {
          background-color:white;
-         box-shadow:0 -100vh 0 100vh #5128f5;//magic
+         box-shadow:0 -100vh 0 100vh #5128f5;
        }
     </style>
     <style>
@@ -74,9 +74,7 @@
           </div>
           <div class="answer-survey-right">
             <a href="log-in.html" class="answer-survey-navlink">
-              <div class="answer-survey-submit-button">
-                <span class="answer-survey-text">Submit Response</span>
-              </div>
+              <button class="answer-survey-submit-button">Submit Response</button>
             </a>
           </div>
         </div>
@@ -91,20 +89,28 @@
         <div class="answer-survey-bottom-button-container">
           <div class="answer-survey-left1">
             <a href="log-in.html" class="answer-survey-navlink1">
-              <div id="prevBtn" class="answer-survey-previous-button">
-                <span class="answer-survey-text1">Previous Question</span>
-              </div>
+              <button id="prevBtn" class="answer-survey-previous-button">Previous Question</button>
             </a>
           </div>
           <div class="answer-survey-right1">
             <a href="log-in.html" class="answer-survey-navlink2">
-              <div id="nextBtn" class="answer-survey-next-button">
-                <span class="answer-survey-text2">Next Question</span>
-              </div>
+              <button id="nextBtn" class="answer-survey-next-button">Start Survey</button>
             </a>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Call onload functions -->
+    <script>
+    window.onload = function() {
+        // Call functions from submitQuiz
+        openSurvey();
+    };
+    </script>
+
+      <!-- import firebase into new-survey-creation.html and call on firebase-submitQuiz.js to handle requests -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script type="text/javascript" src="../4-JavaScript/firebase-userQuiz.js"></script>
   </body>
 </html>

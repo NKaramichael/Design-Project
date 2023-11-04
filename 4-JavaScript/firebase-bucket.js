@@ -178,7 +178,7 @@ async function createQuizBlock(data, status, id) {
   description.setAttribute("class", "survey-card-text1");
   div2.appendChild(description);
 
-  levelName = data["Images"][0];
+  levelName = data["Levels"][0];
   const url = await getLevelUrl(levelName);
   image.setAttribute("src", url)
 
@@ -251,7 +251,7 @@ function openSurveyPage(event) {
   const name = dataValue[0];
   const status = dataValue[1];
   // Create the URL with query parameter
-  const url = `surveyView.html?quizId=${name}&status=${status}`;
+  const url = `answer-survey.html?quizId=${name}&status=${status}`;
 
   // Redirect to the other HTML page
   window.location.href = url;
