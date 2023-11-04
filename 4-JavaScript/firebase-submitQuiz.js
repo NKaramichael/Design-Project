@@ -120,7 +120,7 @@ function submit() {
         Domain: domain,
         Models: models,
         Questions: questions,
-        Images: imagePool
+        Levels: imagePool
     };
 
     QuizRef.add(data)
@@ -153,8 +153,6 @@ function validateDescription() {
     const description = document.getElementById("description");
     description.style.backgroundColor = "white";
 }
-
-
 
 function setIndeces(navBar) {
     const children = navBar.children;
@@ -456,7 +454,7 @@ function loadModelList() {
 }
 
 // On change method for select model check boxes, when models are updated, update and pull images according to what the user selects
-function toggleModel() {
+async function toggleModel() {
 
     const numImagesField = document.getElementById("numberOfImages"); // variable for number of images field
     const domainField = document.getElementById("domain2"); // variable for domain selected field
@@ -484,20 +482,33 @@ function toggleModel() {
 
         // Get "limit" amount of images associated with each model, store them and their metadata in imagepool
         for (let i = 0; i < modelsToFetch.length; i++) {
-            levelRef
+            var modelImages = []
+            var modelImageLinks = []
+
+            await levelRef
                 .where("model", "==", modelsToFetch[i]) //compound query to find the images of domain and model specified
                 .where("domain", "==", domainField.value)
-                .limit(limit) // limit documents fetched
                 .get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
-                        imagePool.push(doc.id); //stores the id's to each image
-                        imagePoolLinks.push(doc.data()["imageUrl"]); //stores the links for each image to be displayed
+                        modelImages.push(doc.id); //stores the id's to each image
+                        modelImageLinks.push(doc.data()["imageUrl"]); //stores the links for each image to be displayed
                     });
                 })
                 .catch((error) => {
                     console.error('Error getting documents: ', error);
                 });
+            
+            var counter = 0;
+            while (counter < limit && modelImages.length > 0) {
+                const randomIndex = Math.floor(Math.random() * modelImages.length);
+                imagePool.push(modelImages[randomIndex]);
+                imagePoolLinks.push(modelImageLinks[randomIndex]);
+                modelImages.splice(randomIndex, 1);
+                modelImageLinks.splice(randomIndex, 1);
+                counter++;
+            }
+
         }
     }
     console.log(imagePool);

@@ -257,92 +257,6 @@ function openSurveyPage(event) {
   window.location.href = url;
 };
 
-function openSurvey() {
-  // Get the quizId from the URL query parameters
-  const urlParams = new URLSearchParams(window.location.search);
-  const name = urlParams.get('quizId');
-  const status = urlParams.get('status');
-
-  if (status == 'completed') {
-    submitButton = document.getElementById('submitButton')
-    submitButton.disabled = true;
-  }
-
-  quizRef = QuizFirestore.doc(name)
-  quizRef.get()
-    .then((doc) => {
-      if (doc.exists) {
-        // display the quiz block
-        displayHeader(doc.data());
-        displayImages(doc.data());
-        navPanel(doc.data());
-      } else {
-        // The document doesn't exist
-        console.log("No such document!");
-      }
-    })
-    .catch((error) => {
-      // An error occurred while retrieving the document
-      console.log("Error getting document:", error);
-    });
-
-};
-
-async function displayImages(data) {
-  // Get a reference to the parent container element
-  const parentContainer = document.getElementById('imageContainer');
-
-  // Create the outer row element
-  const rowElement = document.createElement("div");
-  rowElement.classList.add("row", "justify-content-center", "align-items-center");
-
-  // Define an async function to be used inside the forEach loop
-  const loadImage = async (levelName) => {
-    // Create the column element
-    const col = document.createElement("div");
-    col.classList.add("col");
-
-    // Create the image element
-    const image = document.createElement("img");
-    image.classList.add("img-fluid");
-    image.style.maxWidth = "300px";
-    image.style.maxHeight = "300px";
-    image.style.boxShadow = "2px 2px #000";
-
-    const url = await getLevelUrl(levelName);
-    image.setAttribute("src", url)
-
-    col.appendChild(image);
-    rowElement.appendChild(col);
-  };
-
-  // Iterate over the image names and load them asynchronously
-  for (const levelName of data['Images']) {
-    await loadImage(levelName);
-  }
-
-  parentContainer.appendChild(rowElement);
-};
-
-async function displayHeader(data) {
-  // Get a reference to the parent container element
-  const headerContainer = document.getElementById("headerContainer");
-
-  // Create the header elements
-  const titleHeader = document.createElement("header");
-  titleHeader.textContent = data['Title'];
-  titleHeader.classList.add("header");
-
-  const descriptionHeader = document.createElement("header");
-  descriptionHeader.textContent = data['Description'];
-  descriptionHeader.classList.add("header");
-
-  // Append the header elements to the header container
-  headerContainer.appendChild(titleHeader);
-  headerContainer.appendChild(descriptionHeader);
-
-};
-
 function createQuestion(type, questionText) {
   var details = questionText + " |";
   switch (type) {
@@ -404,140 +318,141 @@ function createQuestion(type, questionText) {
   });
 };
 
-async function navPanel(docData) {
-  try {
-    const questions = [];
+// async function navPanel(docData) {
+//   try {
+//     const questions = [];
 
-    const questionNames = docData.Questions;
-    const navPanel = document.getElementById('nav-panel');
-    const container = document.getElementById('container');
+//     const questionNames = docData.Questions;
+//     const navPanel = document.getElementById('nav-panel');
+//     const container = document.getElementById('container');
 
-    await QuestionFirestore.where(firebase.firestore.FieldPath.documentId(), 'in', questionNames).get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((questionDoc) => {
-          const questionData = questionDoc.data();
-          const questionText = questionData.Description;
-          const questionType = questionData.Type;
-          const size = questions.length;
-          const list = { id: questionDoc.id, text: 'Question ' + (size + 1), content: questionText, type: questionType };
-          questions.push(list);
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = '#';
-          a.dataset.questionId = questionDoc.id;
-          a.textContent = list.text;
-          li.appendChild(a);
-          navPanel.appendChild(li);
-        });
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
+//     await QuestionFirestore.where(firebase.firestore.FieldPath.documentId(), 'in', questionNames).get()
+//       .then((querySnapshot) => {
+//         querySnapshot.forEach((questionDoc) => {
+//           const questionData = questionDoc.data();
+//           const questionText = questionData.Description;
+//           const questionType = questionData.Type;
+//           const size = questions.length;
+//           const list = { id: questionDoc.id, text: 'Question ' + (size + 1), content: questionText, type: questionType };
+//           questions.push(list);
+//           const li = document.createElement('li');
+//           const a = document.createElement('a');
+//           a.href = '#';
+//           a.dataset.questionId = questionDoc.id;
+//           a.textContent = list.text;
+//           li.appendChild(a);
+//           navPanel.appendChild(li);
+//         });
+//       })
+//       .catch((error) => {
+//         console.log("Error getting documents: ", error);
+//       });
 
-    navPanel.addEventListener('click', (event) => {
-      if (event.target.matches('[data-question-id]')) {
-        event.preventDefault();
-        const questionId = event.target.dataset.questionId;
-        const question = questions.find((q) => q.id === questionId);
-        container.innerHTML = generateQuestionContent(question.content, question.type);
-      }
-    });
-  } catch (error) {
-    console.log("Error fetching question documents:", error);
-  }
-};
+//     navPanel.addEventListener('click', (event) => {
+//       if (event.target.matches('[data-question-id]')) {
+//         event.preventDefault();
+//         const questionId = event.target.dataset.questionId;
+//         const question = questions.find((q) => q.id === questionId);
+//         container.innerHTML = generateQuestionContent(question.content, question.type);
+//       }
+//     });
+//   } catch (error) {
+//     console.log("Error fetching question documents:", error);
+//   }
+// };
 
-function generateQuestionContent(description, type) {
-  let questionContent = '';
+// function generateQuestionContent(description, type) {
+//   let questionContent = '';
 
-  if (type === 'Scale from 1 to 10') {
-    questionContent = `
-      <label for="scaleSlider">${description} <br> Rate from 1 to 10:</label>
-      <input type="range" min="1" max="10" step="1" id="scaleSlider">
-      <output for="scaleSlider" id="scaleOutput"></output>
-    `;
-  } else if (type === 'Radio Type : A-B') {
-    questionContent = `
-      <label for="radioAB">${description} <br> Choose A or B:</label>
-      <input type="radio" id="radioA" name="radioAB" value="A">
-      <label for="radioA">A</label>
-      <input type="radio" id="radioB" name="radioAB" value="B">
-      <label for="radioB">B</label>
-    `;
-  } else if (type === 'Checkbox Type : A-B-C') {
-    questionContent = `
-      <label for="checkboxABC">${description} <br> Choose one or more:</label>
-      <input type="checkbox" id="checkboxA" name="checkboxABC" value="A">
-      <label for="checkboxA">A</label>
-      <input type="checkbox" id="checkboxB" name="checkboxABC" value="B">
-      <label for="checkboxB">B</label>
-      <input type="checkbox" id="checkboxC" name="checkboxABC" value="C">
-      <label for="checkboxC">C</label>
-    `;
-  } else if (type === 'Radio Type : A-B-C') {
-    questionContent = `
-      <label for="radioABC">${description} <br> Choose A, B, or C:</label>
-      <input type="radio" id="radioA" name="radioABC" value="A">
-      <label for="radioA">A</label>
-      <input type="radio" id="radio
-      <input type="radio" id="radioB" name="radioABC" value="B">
-      <label for="radioB">B</label>
-      <input type="radio" id="radioC" name="radioABC" value="C">
-      <label for="radioC">C</label>
-    `;
-  } else if (type === 'Checkbox Type : A-B') {
-    questionContent = `
-      <label for="checkboxAB">${description} <br> Choose one or more:</label>
-      <input type="checkbox" id="checkboxA" name="checkboxAB" value="A">
-      <label for="checkboxA">A</label>
-      <input type="checkbox" id="checkboxB" name="checkboxAB" value="B">
-      <label for="checkboxB">B</label>
-    `;
-  } else if (type === 'Radio Type : Yes No') {
-    questionContent = `
-      <label for="radioYesNo">${description} <br> Choose Yes or No:</label>
-      <input type="radio" id="radioYes" name="radioYesNo" value="Yes">
-      <label for="radioYes">Yes</label>
-      <input type="radio" id="radioNo" name="radioYesNo" value="No">
-      <label for="radioNo">No</label>
-    `;
-  }
+//   if (type === 'Scale from 1 to 10') {
+//     questionContent = `
+//       <label for="scaleSlider">${description} <br> Rate from 1 to 10:</label>
+//       <input type="range" min="1" max="10" step="1" id="scaleSlider">
+//       <output for="scaleSlider" id="scaleOutput"></output>
+//     `;
+//   } else if (type === 'Radio Type : A-B') {
+//     questionContent = `
+//       <label for="radioAB">${description} <br> Choose A or B:</label>
+//       <input type="radio" id="radioA" name="radioAB" value="A">
+//       <label for="radioA">A</label>
+//       <input type="radio" id="radioB" name="radioAB" value="B">
+//       <label for="radioB">B</label>
+//     `;
+//   } else if (type === 'Checkbox Type : A-B-C') {
+//     questionContent = `
+//       <label for="checkboxABC">${description} <br> Choose one or more:</label>
+//       <input type="checkbox" id="checkboxA" name="checkboxABC" value="A">
+//       <label for="checkboxA">A</label>
+//       <input type="checkbox" id="checkboxB" name="checkboxABC" value="B">
+//       <label for="checkboxB">B</label>
+//       <input type="checkbox" id="checkboxC" name="checkboxABC" value="C">
+//       <label for="checkboxC">C</label>
+//     `;
+//   } else if (type === 'Radio Type : A-B-C') {
+//     questionContent = `
+//       <label for="radioABC">${description} <br> Choose A, B, or C:</label>
+//       <input type="radio" id="radioA" name="radioABC" value="A">
+//       <label for="radioA">A</label>
+//       <input type="radio" id="radio
+//       <input type="radio" id="radioB" name="radioABC" value="B">
+//       <label for="radioB">B</label>
+//       <input type="radio" id="radioC" name="radioABC" value="C">
+//       <label for="radioC">C</label>
+//     `;
+//   } else if (type === 'Checkbox Type : A-B') {
+//     questionContent = `
+//       <label for="checkboxAB">${description} <br> Choose one or more:</label>
+//       <input type="checkbox" id="checkboxA" name="checkboxAB" value="A">
+//       <label for="checkboxA">A</label>
+//       <input type="checkbox" id="checkboxB" name="checkboxAB" value="B">
+//       <label for="checkboxB">B</label>
+//     `;
+//   } else if (type === 'Radio Type : Yes No') {
+//     questionContent = `
+//       <label for="radioYesNo">${description} <br> Choose Yes or No:</label>
+//       <input type="radio" id="radioYes" name="radioYesNo" value="Yes">
+//       <label for="radioYes">Yes</label>
+//       <input type="radio" id="radioNo" name="radioYesNo" value="No">
+//       <label for="radioNo">No</label>
+//     `;
+//   }
 
-  return questionContent;
-};
+//   return questionContent;
+// };
 
 // Handle filter button click event
-function handleFilter() {
 
-  const levelsCollection = firebase.firestore().collection("Levels");
+// function handleFilter() {
 
-  // Retrieve the selected filter model
-  const filterModel = document.getElementById("modelSelect").value;
+//   const levelsCollection = firebase.firestore().collection("Levels");
 
-  // Clear previous result
-  const imageContainer = document.getElementById("imageContainer");
-  imageContainer.innerHTML = "";
-  console.log("HI")
-  // Perform Firestore query
-  levelsCollection.where("model", "==", filterModel)
-    .get()
-    .then((querySnapshot) => {
-      // Process the query results
-      querySnapshot.forEach((doc) => {
-        // Get the imageUrl from the document
-        const data = doc.data();
-        const imageUrl = data.imageUrl;
+//   // Retrieve the selected filter model
+//   const filterModel = document.getElementById("modelSelect").value;
 
-        // Display the image in the UI
-        const img = document.createElement("img");
-        img.src = imageUrl;
-        imageContainer.appendChild(img);
-      });
-    })
-    .catch((error) => {
-      console.error("Error retrieving filtered documents: ", error);
-    });
-};
+//   // Clear previous result
+//   const imageContainer = document.getElementById("imageContainer");
+//   imageContainer.innerHTML = "";
+//   console.log("HI")
+//   // Perform Firestore query
+//   levelsCollection.where("model", "==", filterModel)
+//     .get()
+//     .then((querySnapshot) => {
+//       // Process the query results
+//       querySnapshot.forEach((doc) => {
+//         // Get the imageUrl from the document
+//         const data = doc.data();
+//         const imageUrl = data.imageUrl;
+
+//         // Display the image in the UI
+//         const img = document.createElement("img");
+//         img.src = imageUrl;
+//         imageContainer.appendChild(img);
+//       });
+//     })
+//     .catch((error) => {
+//       console.error("Error retrieving filtered documents: ", error);
+//     });
+// };
 
 function fetchQuizzesByResearcher() {
   const email = sessionStorage.getItem('email');
@@ -599,17 +514,5 @@ async function displayQuiz(data, id) {
   console.log(data)
 };
 
-async function submit() {
-  const email = sessionStorage.getItem("email");
 
-  // Get the quizId from the URL query parameters
-  const urlParams = new URLSearchParams(window.location.search);
-  const quizId = urlParams.get('quizId');
 
-  await UserFirestore.doc(email).update({
-    currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),
-    completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
-  });
-
-  window.location.href = "./completedUserBoard.html"
-};
