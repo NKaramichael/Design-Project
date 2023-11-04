@@ -59,8 +59,7 @@ function displayNewQuizzes() {
 
 // Fetching and display the user's quizzes
 function displayQuizzes(status) {
-  // var email = sessionStorage.getItem('email');
-  var email = 'meow10@catmail.com';
+  var email = sessionStorage.getItem('email');
 
   const Ref = UserFirestore.doc(email);
   if (status != 'new') {
