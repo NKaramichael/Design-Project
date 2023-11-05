@@ -147,66 +147,32 @@
           <header class="statistics-header">
             <h1 class="statistics-heading">Statistics</h1>
           </header>
-          <div
+          <select
             data-thq="thq-dropdown"
             class="statistics-thq-dropdown list-item"
+            id="dropdown"
           >
-            <div
-              data-thq="thq-dropdown-toggle"
-              class="statistics-dropdown-toggle"
-            >
-              <span class="statistics-text4">Menu Item</span>
-              <div
-                data-thq="thq-dropdown-arrow"
-                class="statistics-dropdown-arrow"
-              >
-                <svg viewBox="0 0 1024 1024" class="statistics-icon2">
-                  <path d="M426 726v-428l214 214z"></path>
-                </svg>
-              </div>
-            </div>
-            <ul data-thq="thq-dropdown-list" class="statistics-dropdown-list">
-              <li data-thq="thq-dropdown" class="statistics-dropdown list-item">
-                <div
-                  data-thq="thq-dropdown-toggle"
-                  class="statistics-dropdown-toggle1"
-                >
-                  <span class="statistics-text5">Sub-menu Item</span>
-                </div>
-              </li>
-              <li
-                data-thq="thq-dropdown"
-                class="statistics-dropdown1 list-item"
-              >
-                <div
-                  data-thq="thq-dropdown-toggle"
-                  class="statistics-dropdown-toggle2"
-                >
-                  <span class="statistics-text6">Sub-menu Item</span>
-                </div>
-              </li>
-              <li
-                data-thq="thq-dropdown"
-                class="statistics-dropdown2 list-item"
-              >
-                <div
-                  data-thq="thq-dropdown-toggle"
-                  class="statistics-dropdown-toggle3"
-                >
-                  <span class="statistics-text7">Sub-menu Item</span>
-                </div>
-              </li>
-            </ul>
-          </div>
+            <option style="font-style: normal;" value="overall">Overall</option>
+          </select>
+
           <div class="statistics-container3">
-            <div class="statistics-container4"></div>
-            <div class="statistics-container5"></div>
-          </div>
-          <div class="statistics-continue-button">
-            <span class="statistics-text8">View Account Details</span>
+            <div id="imageList" class="statistics-container4"></div>
+            <div id="statList" class="statistics-container5"></div>
           </div>
         </section>
       </div>
     </div>
   </body>
+
+  <script>
+    window.onload = function() {
+        // Call functions from statistics.js
+        loadQuestionList();
+    };
+  </script>
+
+  <!-- import firebase into upload-levels.html and call on firebase-statistics.js to handle requests -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+  <script type="text/javascript" src="../4-JavaScript/firebase-statistics.js"></script>
+
 </html>

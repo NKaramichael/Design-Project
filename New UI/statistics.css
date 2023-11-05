@@ -180,6 +180,9 @@
   position: relative;
   margin-top: var(--dl-space-space-unit);
   border-radius: var(--dl-radius-radius-radius2);
+  width: fit-content;
+  height: 4vh;
+  text-align: center;
 }
 .statistics-dropdown-toggle {
   fill: #595959;
