@@ -19,62 +19,37 @@ var researcherRef = db.collection('Researchers');
 var questionRef = db.collection('Questions');
 
 var currentQuestion;
+const errorRedHex = "#fdd6d3";
 
 // QUIZ DATA
 var researcher;
 var questionList = [];
 
-async function displayImages(data) {
-    // Get a reference to the parent container element
-    const parentContainer = document.getElementById('imageContainer');
-
-// Create the outer row element
-const rowElement = document.createElement("div");
-rowElement.classList.add("row", "justify-content-center", "align-items-center");
-
-// Define an async function to be used inside the forEach loop
-const loadImage = async (levelName) => {
-    // Create the column element
-    const col = document.createElement("div");
-    col.classList.add("col");
-
-    // Create the image element
-    const image = document.createElement("img");
-    image.classList.add("img-fluid");
-    image.style.maxWidth = "300px";
-    image.style.maxHeight = "300px";
-    image.style.boxShadow = "2px 2px #000";
-
-    const url = await getLevelUrl(levelName);
-    image.setAttribute("src", url)
-
-    col.appendChild(image);
-    rowElement.appendChild(col);
-};
-
-// Iterate over the image names and load them asynchronously
-for (const levelName of data['Images']) {
-    await loadImage(levelName);
-}
-
-parentContainer.appendChild(rowElement);
-};
-
+// Sets the Heading/Title
 async function displayHeading(heading) {
     // Get a reference to the parent container element
     const headerContainer = document.getElementById("surveyHeading");
     headerContainer.innerHTML = heading;
 };
 
+// Sets the description [uses image container]
 async function displayDescription(description) {
     // Get a reference to the parent container element
     const imageContainer = document.getElementById("imageContainer");
     imageContainer.innerHTML = description;
 };
 
+//  onClick of prev button
 function previousQuestion() {
     const prevButton = document.getElementById("prevBtn");
     const nextButton = document.getElementById("nextBtn");
+    const submitButton = document.getElementById("submitBtn");
+    const answerFieldContainer = document.getElementById("answerFieldContainer");
+    
+    submitButton.style.display = "none";
+
+    // save answer to current question before updating containers
+    saveAnswer(answerFieldContainer);
     
     currentQuestion--;
     if (currentQuestion == 0) {
@@ -85,73 +60,97 @@ function previousQuestion() {
     changeQuestion();
 }
 
+// onClick of next button
 function nextQuestion() {
     const prevButton = document.getElementById("prevBtn");
     const nextButton = document.getElementById("nextBtn");
+    const submitButton = document.getElementById("submitBtn");
+    const answerFieldContainer = document.getElementById("answerFieldContainer");
 
     if (nextButton.innerHTML === "Start Survey") {
         fillNavbar();
         nextButton.innerHTML = "Next Question"
         currentQuestion = 0;
     } else {
+        // save answer to current question before updating containers
+        saveAnswer(answerFieldContainer);
         currentQuestion++;
     }
     if (currentQuestion == questionList.length - 1) {
         nextButton.style.display = "none";
+        submitButton.style.display = "block";
+    } else {
+        submitButton.style.display = "none";
     }
     if (currentQuestion > 0) {
         prevButton.style.display = "block";
     }
+
     changeQuestion(); 
 }
 
+// Onload function - sets heading and description and calls loadQuestionList() 
 async function openSurvey() {
-// Get the quizId from the URL query parameters
-const urlParams = new URLSearchParams(window.location.search);
-const quizID = urlParams.get('quizId');
+    // Get the quizId from the URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const quizID = urlParams.get('quizId');
 
-const prevButton = document.getElementById("prevBtn");
-const nextButton = document.getElementById("nextBtn");
+    const prevButton = document.getElementById("prevBtn");
+    const nextButton = document.getElementById("nextBtn");
+    const submitButton = document.getElementById("submitBtn");
 
-prevButton.style.display = "none"; // hide previous button in survey "main page"
+    prevButton.style.display = "none"; // hide previous button in survey "main page"
+    nextButton.style.display = "none";
+    submitButton.style.display = "none";
 
-prevButton.onclick = previousQuestion;
-nextButton.onclick = nextQuestion;
+    prevButton.onclick = previousQuestion;
+    nextButton.onclick = nextQuestion;
+    submitButton.onclick = submit;
 
-quizDoc = quizRef.doc(quizID)
-await quizDoc.get()
-    .then((doc) => {
-    if (doc.exists) {
-        displayHeading(doc.data()["Title"]);
-        displayDescription(doc.data()["Description"]);
-        loadQuestionList(doc.data()["Questions"], doc.data()["Levels"]);
-        console.log(questionList);
-    } else {
-        // The document doesn't exist
-        console.log("No such document!");
-    }
-    })
-    .catch((error) => {
-    // An error occurred while retrieving the document
-    console.log("Error getting document:", error);
-    });
-};
+    quizDoc = quizRef.doc(quizID)
+    await quizDoc.get()
+        .then((doc) => {
+        if (doc.exists) {
+            displayHeading(doc.data()["Title"]);
+            displayDescription(doc.data()["Description"]);
+            loadQuestionList(doc.data()["Questions"], doc.data()["Levels"]);
+        } else {
+            // The document doesn't exist
+            console.log("No such document!");
+        }
+        })
+        .catch((error) => {
+        // An error occurred while retrieving the document
+        console.log("Error getting document:", error);
+        });
 
+        nextButton.style.display = "block";
+}
+
+// Submit onclick()
 async function submit() {
-const email = sessionStorage.getItem("email");
+    const email = sessionStorage.getItem("email");
 
-// Get the quizId from the URL query parameters
-const urlParams = new URLSearchParams(window.location.search);
-const quizId = urlParams.get('quizId');
+    // Get the quizId from the URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const quizId = urlParams.get('quizId');
 
-await userRef.doc(email).update({
-    currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),
-    completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
-});
+    
+    // check responses ar valid
+    const valid = validateResponses();
+    
+    if (valid) {
+        // set quiz to completed
+        // await userRef.doc(email).update({
+        //     currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),
+        //     completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
+        // });
 
-window.location.href = "./completedUserBoard.html"
+        window.location.href = "./completedUserBoard.html"
+    }
 };
 
+// Loads all the question data from database and store in global array 
 async function loadQuestionList(questions, levels) {
     // reference to question metadata
     ref = metaRef.doc("QuizData");
@@ -162,13 +161,14 @@ async function loadQuestionList(questions, levels) {
             // loop through array and get info for each quiz to display
             
             allQuestions.forEach((question, index) => {
-                if (index in questions) {
+                if (questions.includes(index)) {
                     questionList.push(
                         new Map([
                         ["questionID", index],
                         ["questionText", question["QuestionText"]],
                         ["questionType", question["QuestionType"]],
-                        ["multiImage", question["multiImage"]]
+                        ["multiImage", question["multiImage"]],
+                        ["response", []]
                         ])
                     );
                 }
@@ -243,12 +243,14 @@ function pickRandomImage(imagePool, pickedImages) {
     return randomIndex;
 }
 
+// Removes all children from container
 function clearContainer(container) {
     while (container.firstChild) {
         container.removeChild(container.firstChild);
       }
 }
 
+// updates the imageConatiner on navigate
 function updateImageContainer(imageContainer) {
     questionList[currentQuestion].get("levels").forEach((level, index) => {
         // Create a container for each image and label
@@ -286,7 +288,10 @@ function updateImageContainer(imageContainer) {
     });
 }
 
+// Updates the anwerFieldContainer on navigate
 function updateAnswerContainer(answerFieldContainer) {
+    // get the previously saved answer
+    const response = questionList[currentQuestion].get("response");
     const questionType = questionList[currentQuestion].get("questionType");
     if (questionType == "scale") { // Display a scale for a singular image question
         //  If scale we know question is single image
@@ -298,6 +303,8 @@ function updateAnswerContainer(answerFieldContainer) {
         scale.setAttribute("data-value", questionType);
         scale.addEventListener("input", function () { setScaleNumber(this) });
         scale.value = "5";
+        // set the saved value if exists
+        if (response.length != 0) {scale.value = String(response[0])};
         scale.type = "range";
         scale.min = "0";
         scale.max = "10";
@@ -332,6 +339,8 @@ function updateAnswerContainer(answerFieldContainer) {
             const input = document.createElement("input");
             input.setAttribute("type", questionType);
             input.style.marginRight = "5px";
+            // set the saved value if exists
+            if (response.includes(index)) {input.checked = true};
 
             label.insertBefore(input, label.firstChild);
 
@@ -340,6 +349,7 @@ function updateAnswerContainer(answerFieldContainer) {
     }
 }
 
+// Calls all funcitons to update containers on navigate
 function changeQuestion() {
     const questionContainer = document.getElementById("surveyHeading");
     const imageContainer = document.getElementById("imageContainer");
@@ -355,23 +365,31 @@ function changeQuestion() {
     updateAnswerContainer(answerFieldContainer);
 }
 
+// Calls changeQuestion and sets button visibility
 function changeQuestionFromNavBar(button) {
     const prevButton = document.getElementById("prevBtn");
     const nextButton = document.getElementById("nextBtn");
-
+    const submitButton = document.getElementById("submitBtn");
+    // save answer to current question before updating containers
+    saveAnswer(answerFieldContainer);
+    
     currentQuestion = button.id;
     prevButton.style.display = "block";
     nextButton.style.display = "block";
     if (currentQuestion == 0) {
         prevButton.style.display = "none";
     }
-    if (currentQuestion == questionList.length){
-        nextButton.style.display = "block";
+    if (currentQuestion == questionList.length - 1){
+        nextButton.style.display = "none";
+        submitButton.style.display = "block";
+    } else {
+        submitButton.style.display = "none";
     }
 
     changeQuestion();
 }
 
+// fills the navbar with buttons on start survey
 function fillNavbar() {
     navBar = document.getElementById("navBar");
 
@@ -383,18 +401,21 @@ function fillNavbar() {
         button.setAttribute("id", index);
         button.setAttribute("onclick", "changeQuestionFromNavBar(this)");
         button.innerHTML = index;
+        if (index == 0) {button.style.borderLeft = "2px solid #ffffff"}
+        else {button.style.borderLeft = "none"}
     
         navBar.appendChild(button);
         }
     )
 }
 
+// Sets scale label to match selected value
 function setScaleNumber(element) {
     const label = element.labels[0];
     label.textContent = element.value;
 }
 
-// This function ensures that only 1 radio button can br pressed at a time, ignores if its a checkbox
+// This function ensures that only 1 radio button can be pressed at a time, ignores if its a checkbox
 function answerToggle(element) {
     const parent = element.parentNode;
     if (element.getAttribute("data-value") == "radio") {
@@ -406,4 +427,46 @@ function answerToggle(element) {
             }
         }
     }
+}
+
+// save the question answer to the question Map
+function saveAnswer(answerFieldContainer) {
+    const questionType = questionList[currentQuestion].get("questionType");
+    if (answerFieldContainer.hasChildNodes()) {
+        if (questionType == "scale") {
+            const score = Number(answerFieldContainer.firstChild.firstChild.value);
+            questionList[currentQuestion].set("response", [score]);
+
+        } else {
+            var response = [];
+
+            const children = answerFieldContainer.children;
+            for (let i = 0; i < children.length; ++i) {
+                if (children[i].firstChild.checked) { response.push(i) }
+            }
+            questionList[currentQuestion].set("response", response);
+
+            if (questionType == "radio" && response.length > 0){
+                navBar = document.getElementById("navBar");
+                navBar.children[currentQuestion].style.backgroundColor = "var(--dl-color-primary-700)";
+            }
+        }
+    }
+}
+
+// validate responses on submit
+function validateResponses() {
+    navBar = document.getElementById("navBar");
+
+    var valid = true;
+    questionList.forEach((question, index) => {
+        const questionType = question.get("questionType");
+        const response = question.get("response");
+        if (questionType != "checkbox" && response.length === 0) {
+            navBar.children[index].style.backgroundColor = errorRedHex;
+            valid = false;
+        }
+    });
+
+    return valid;
 }

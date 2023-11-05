@@ -111,6 +111,7 @@
   margin-bottom: var(--dl-space-space-twounits);
   flex-direction: row;
   justify-content: center;
+  color: #ffffff;
 }
 .answer-survey-quest-preview {
   flex: 0 0 auto;
