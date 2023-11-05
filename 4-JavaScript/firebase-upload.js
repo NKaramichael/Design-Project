@@ -124,13 +124,17 @@ async function uploadImages(domain, model) {
     // Upload images to Firebase Storage and Firestore
     for (let i = 0; i < selectedFiles.length; i++) {
         const file = selectedFiles[i];
-        await uploadImage(file, domain, model, i);
+        await uploadImage(file, domain, model);
     }
 }
 
-async function uploadImage(file, domain, model, imageNum) {
+async function uploadImage(file, domain, model) {
     try {
-        var storageRef = storage.ref().child('Level/images/' + file.name);
+        // Generate a unique name for the file
+        const uniqueFileName = Date.now() + '_' + Math.random().toString(36).substring(2);
+
+        // Reference to the storage location with the unique file name
+        const storageRef = storage.ref().child('Level/images/' + uniqueFileName);
 
         // Create the metadata object with custom metadata fields
         var metadata = {
@@ -155,7 +159,6 @@ async function uploadImage(file, domain, model, imageNum) {
             appeared: []
         });
 
-        // const ref = 'ref' + imageNum;
         // sessionStorage.setItem(ref, docRef.id);
         console.log('Image URL and metadata saved in Firestore! Ref:', docRef.id);
     } catch (error) {
