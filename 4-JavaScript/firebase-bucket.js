@@ -515,4 +515,38 @@ async function displayQuiz(data, id) {
 };
 
 
-
+async function displayImages(data) {
+      // Get a reference to the parent container element
+      const parentContainer = document.getElementById('imageContainer');
+  
+  // Create the outer row element
+  const rowElement = document.createElement("div");
+  rowElement.classList.add("row", "justify-content-center", "align-items-center");
+  
+  // Define an async function to be used inside the forEach loop
+  const loadImage = async (levelName) => {
+      // Create the column element
+      const col = document.createElement("div");
+      col.classList.add("col");
+  
+      // Create the image element
+      const image = document.createElement("img");
+      image.classList.add("img-fluid");
+      image.style.maxWidth = "300px";
+      image.style.maxHeight = "300px";
+      image.style.boxShadow = "2px 2px #000";
+  
+      const url = await getLevelUrl(levelName);
+      image.setAttribute("src", url)
+  
+      col.appendChild(image);
+      rowElement.appendChild(col);
+  };
+  
+  // Iterate over the image names and load them asynchronously
+  for (const levelName of data['Images']) {
+      await loadImage(levelName);
+  }
+  
+  parentContainer.appendChild(rowElement);
+  };
