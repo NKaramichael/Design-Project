@@ -79,8 +79,28 @@ function displayQuizzes(status) {
 
                             // Iterate through the quizzes and call createQuizBlock for each one
                             quizzes.forEach((quiz, index) => {
-                                createQuizBlock(quiz, "current", index); 
+                                createQuizBlock(quiz, "current", index);
                             });
+
+                            if (quizzes.length == 0) {
+                                // Create an empty div to add space above the text
+                                const spaceDiv = document.createElement("div");
+                                spaceDiv.style.height = "50vh";
+
+
+                                const email = sessionStorage.getItem("email");
+                                const parent = document.getElementById("container");
+                                const title = document.createElement("h1");
+                                title.setAttribute("style", "color: white;");
+                                title.textContent = `Oops! No surveys made yet`;
+                                parent.appendChild(spaceDiv);
+                                parent.appendChild(title);
+
+                                const helpText = document.createElement("h3");
+                                helpText.setAttribute("style", "color: white; font-weight: normal;");
+                                helpText.textContent = `Be sure to create a survey using the panel on your dashboard`;
+                                parent.appendChild(helpText);
+                            }
                         })
                         .catch((error) => {
                             console.error("Error fetching quiz data:", error);
@@ -165,17 +185,17 @@ async function createQuizBlock(data, status, id) {
 async function getLevelUrl(levelName) {
     const levelRef = LevelFirestore.doc(levelName);
     let url = '';
-  
+
     try {
-      const doc = await levelRef.get();
-      if (doc.exists) {
-        url = doc.data()['imageUrl'];
-      } else {
-        console.log("No such document!");
-      }
+        const doc = await levelRef.get();
+        if (doc.exists) {
+            url = doc.data()['imageUrl'];
+        } else {
+            console.log("No such document!");
+        }
     } catch (error) {
-      console.log("Error getting document");
+        console.log("Error getting document");
     }
-  
+
     return url;
-  };
+};

@@ -239,31 +239,46 @@ closeButton.addEventListener('click', function() {
       <section class="home-statistics">
         <div class="home-container1">
           <div class="active-users-active-users metrics">
-            <span class="active-users-text"><span>3</span></span>
+            <span class="active-users-text"><span id = "userCount">-</span></span>
             <span class="active-users-text1">
-              <span>— Active users</span>
+              <span>— Users</span>
             </span>
           </div>
           <div class="active-users-active-users metrics">
-            <span class="active-users-text"><span>115</span></span>
+            <span class="active-users-text"><span id = "researcherCount">-</span></span>
+            <span class="active-users-text1">
+              <span>— Researchers</span>
+            </span>
+          </div>
+          <div class="active-users-active-users metrics">
+            <span class="active-users-text"><span id = "levelCount">-</span></span>
+            <span class="active-users-text1"><span>— PCG Levels Evaluated</span></span>
+          </div>
+          <div class="active-users-active-users metrics">
+            <span class="active-users-text"><span id = "quizCount">-</span></span>
             <span class="active-users-text1">
               <span>— Surveys Created</span>
-            </span>
-          </div>
-          <div class="active-users-active-users metrics">
-            <span class="active-users-text"><span>1.3k</span></span>
-            <span class="active-users-text1"><span>— PCG Levels</span></span>
-          </div>
-          <div class="active-users-active-users metrics">
-            <span class="active-users-text"><span>7</span></span>
-            <span class="active-users-text1">
-              <span>— Levels Gained</span>
             </span>
           </div>
         </div>
       </section>
     </div>
   </div>
+
+  <!-- Fetch statistics in footer on load of home page -->
+  <script type="text/javascript">
+    window.onload = function () {
+        displayUsers();
+        displayResearchers();
+        displayPCGLevels();
+        displaySurveysCreated();
+    };
+  </script>
+
+  <!-- import firebase into homepage and call on firebase-homepagestats.js to handle image requests -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+  <script type="text/javascript" src="../4-JavaScript/firebase-homePageStats.js"></script>
+
 </body>
 
 </html>
