@@ -126,6 +126,7 @@ function submit() {
 
     const currentResearcher = researcherRef.doc(researcher); 
 
+    // Once the data is added to the quiz collection, get a reference to its name and add it to the researchers collection under the researchers name
     QuizRef.add(data)
         .then((quizDocRef) => {
 
