@@ -34,17 +34,18 @@ function loadQuestionList() {
         if (doc.exists) {
             const questionList = doc.data()["Questions"];
             
-            // Loop through each question in the question list
-            for (let i = 0; i < questionList.length; i++){
-                const question = questionList[i];
+            // Loop through each question key in the question list
+            for (const questionText in questionList) {
+                if (questionList.hasOwnProperty(questionText)) {
+                    const option = document.createElement("option");
+                    option.setAttribute("value", questionText);
+                    option.style.fontFamily = "Inter";
+                    option.innerHTML = questionText;
+                    option.style.fontStyle = "normal";
+                    option.style.textAlign = "center";
 
-                const option = document.createElement("option");
-                option.setAttribute("value", i);
-                option.style.fontFamily = "Inter";
-                option.innerHTML = question["QuestionText"];
-                option.style.fontStyle = "normal";
-
-                parent.appendChild(option);
+                    parent.appendChild(option);
+                }
             }
         } else {
             // doc.data() will be undefined in this case
