@@ -1,3 +1,19 @@
+.user-dashboard-button {
+  /* Your existing styles for the button */
+  background-color: initial;
+  color: initial;
+  /* Add any other styles you need */
+
+  /* Hover styles */
+  transition: background-color 0.3s; /* Add a smooth transition effect */
+}
+
+.user-dashboard-button:hover {
+  background-color: #FF0000; /* Change the background color on hover to your desired color */
+  color: #FFFFFF; /* Change the text color on hover, if needed */
+}
+
+
 .user-dashboard-container {
   width: 100%;
   display: flex;

@@ -162,6 +162,7 @@ async function createQuizBlock(data, status, id) {
 
   const div2 = document.createElement("div");
   div2.setAttribute("class", "survey-card-gallery-card testimonal");
+  div2.style.paddingBottom = "6rem";
 
   div1.appendChild(div2);
 
@@ -209,6 +210,8 @@ async function createQuizBlock(data, status, id) {
       removeButton.setAttribute("class", "user-dashboard-button");
       removeButton.textContent = "Remove";
       removeButton.setAttribute('data-value', id);
+      removeButton.style.marginTop = "1rem"
+      removeButton.style.marginBottom = "1rem"
       removeButton.addEventListener("click", removeFromCurrent);
       // Add the elements to the text box
       div2.appendChild(removeButton);
