@@ -157,13 +157,21 @@
           <img alt="pastedImage" src="public/external/pastedimage-9fg8-1100h.png"
             class="researcher-dashboard-pasted-image" />
         </div>
+
         <h1 class="researcher-dashboard-options">Survey Options</h1>
 
-        <button class="researcher-dashboard-create-button" onclick="createSurvey()">Create</button>
-
-        <button class="researcher-dashboard-current-button">Current</button>
+        <a href="upload-levels.html">
+          <button class="researcher-dashboard-closed-button">Upload</button>
+        </a>
+        
+        <a href="new-survey-creation.html">
+          <button class="researcher-dashboard-create-button">Create</button>
+        </a>
+       
+        <button class="researcher-dashboard-current-button" onclick="displayCurrentQuizzes()" >Current</button>
 
         <button class="researcher-dashboard-closed-button">Closed</button>
+
         <br />
         <h1 class="researcher-dashboard-statistics">
           <span>Statistics</span>
@@ -179,10 +187,15 @@
           <br />
         </h1>
 
-        <button class="researcher-dashboard-profile-button" onclick="profile()">Profile</button>
+        <a href="profile.html">
+            <button class="researcher-dashboard-profile-button">Profile</button>
+        </a>
+        
 
-        <button class="researcher-dashboard-change-password-button" onclick="settings()">Change Password</button>
-
+        <a href="settings.html">
+          <button class="researcher-dashboard-change-password-button">Change Password</button>
+        </a>
+        
         <a href="log-in.html" class="researcher-dashboard-navlink">
           <button class="researcher-dashboard-logout-button">Logout</button>
         </a>
@@ -193,17 +206,9 @@
     </div>
   </div>
 
-  <script>
-    function createSurvey() {
-      window.location.href = "new-survey-creation.html";
-    }
-    function profile() {
-      window.location.href = "profile.html";
-    }
-    function settings() {
-      window.location.href = "settings.html";
-    }
-  </script>
+  <!-- import firebase into Researcher Dashboard.html and call on ResearcherDashboardLogic logic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+  <script type="text/javascript" src="../4-JavaScript/firebase-researcherDashboardLogic.js"></script>
 </body>
 
 </html>

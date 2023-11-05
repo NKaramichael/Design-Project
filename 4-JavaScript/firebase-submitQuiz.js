@@ -15,6 +15,7 @@ var db = firebase.firestore();
 var QuizRef = db.collection("Quizzes");
 var metaRef = db.collection("Metadata");
 var levelRef = db.collection("Levels");
+var researcherRef = db.collection("Researchers");
 
 var imagePool = [];
 var imagePoolLinks = [];
@@ -66,7 +67,7 @@ function submit() {
     const heading = headingField.value;
     const desc = descriptionField.value;
     const domain = domainField.value;
-    const questions = getCheckedFromContainer(defaultQuestionList); 
+    const questions = getCheckedFromContainer(defaultQuestionList);
     const models = getCheckedFromContainer(modelField);
     const researcher = sessionStorage.getItem('email');
 
@@ -123,13 +124,25 @@ function submit() {
         Levels: imagePool
     };
 
+    const currentResearcher = researcherRef.doc(researcher); 
+
     QuizRef.add(data)
-    .then((docRef) => {
-        window.location.href = "../New UI/researcher-dashboard.html";
-    })
-    .catch((error) => {
-        console.error("Error adding document: ", error);
-    });
+        .then((quizDocRef) => {
+
+            const quizName = quizDocRef.id;
+            
+            // Update the mySurveys field with the reference to the new quiz
+            return currentResearcher.update({
+                mySurveys: firebase.firestore.FieldValue.arrayUnion(quizName)
+            });
+        })
+        .then(() => {
+            window.location.href = "../New UI/researcher-dashboard.html";
+        })
+        .catch((error) => {
+            console.error("Error adding document to Quizzes or updating Researcher Collection: ", error);
+        });
+
 }
 
 function getCheckedFromContainer(container) {
@@ -498,7 +511,7 @@ async function toggleModel() {
                 .catch((error) => {
                     console.error('Error getting documents: ', error);
                 });
-            
+
             var counter = 0;
             while (counter < limit && modelImages.length > 0) {
                 const randomIndex = Math.floor(Math.random() * modelImages.length);
