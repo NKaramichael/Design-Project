@@ -60,7 +60,7 @@ function submit() {
     const headingField = document.getElementById('heading');
     const descriptionField = document.getElementById('description');
     const numImagesField = document.getElementById("numberOfImages");
-    const domainField = document.getElementById("domain2");
+    const domainField = document.getElementById("domainForm");
     const modelField = document.getElementById("modelTypeForm");
     const defaultQuestionList = document.getElementById("defaultQuestionList");
 
@@ -427,6 +427,34 @@ function loadDefaultQuestions() {
 
 }
 
+function loadDomainList() {
+    // reference to question metadata
+    ref = metaRef.doc("PCG");
+
+    // get parent cointainer
+    const parent = document.getElementById("domainForm");
+    parent.setAttribute("onchange", "toggleModel()");
+    
+    ref.get().then((doc) => {
+        if (doc.exists) {
+            const domainList = doc.data()["Domains"];
+            // loop through array and get info for each quiz to display
+            domainList.forEach((domain) => {
+                console.log(domain);
+                const option = document.createElement("option");
+                option.setAttribute("value", domain);
+                option.textContent = domain;
+
+                parent.appendChild(option);
+            });
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+}
 // Load the list of models from the database into the field
 function loadModelList() {
     // reference to question metadata
@@ -468,10 +496,71 @@ function loadModelList() {
 
 // On change method for select model check boxes, when models are updated, update and pull images according to what the user selects
 async function toggleModel() {
+    const numImagesField = document.getElementById("numberOfImages"); // variable for number of images field
+    const domainField = document.getElementById("domainForm"); // variable for domain selected field
+    validateNumImages();
+    
+    // Check that valid numImages have been specified and domain is selected
+    if (numImagesField.getAttribute("data-value") == "true"  && domainField.value != "none") {
+        const numImages = numImagesField.value;
+        const modelForm = document.getElementById("modelTypeForm");
+        let modelsToFetch = [];
+
+        // add data-value of each model type to an array named modelsToFetch
+        const children = modelForm.children;
+        for (let i = 0; i < children.length; i++) {
+            const checkbox = children[i].querySelector('input[type="checkbox"]');
+            if (checkbox.checked) {
+                modelsToFetch.push(children[i].getAttribute("data-value"));
+            }
+        }
+
+        // Get limit of images for each model type (take total images they want and divide it by number of models they want)
+        const limit = Math.ceil(numImages / modelsToFetch.length);
+
+        imagePool = [];
+        imagePoolLinks = [];
+
+        // Get "limit" amount of images associated with each model, store them and their metadata in imagepool
+        for (let i = 0; i < modelsToFetch.length; i++) {
+            var modelImages = []
+            var modelImageLinks = []
+
+            await levelRef
+                .where("model", "==", modelsToFetch[i]) //compound query to find the images of domain and model specified
+                .where("domain", "==", domainField.value)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        modelImages.push(doc.id); //stores the id's to each image
+                        modelImageLinks.push(doc.data()["imageUrl"]); //stores the links for each image to be displayed
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error getting documents: ', error);
+                });
+
+            var counter = 0;
+            while (counter < limit && modelImages.length > 0) {
+                const randomIndex = Math.floor(Math.random() * modelImages.length);
+                imagePool.push(modelImages[randomIndex]);
+                imagePoolLinks.push(modelImageLinks[randomIndex]);
+                modelImages.splice(randomIndex, 1);
+                modelImageLinks.splice(randomIndex, 1);
+                counter++;
+            }
+
+        }
+    }
+    console.log(imagePool);
+}
+
+async function toggleDomain() {
 
     const numImagesField = document.getElementById("numberOfImages"); // variable for number of images field
-    const domainField = document.getElementById("domain2"); // variable for domain selected field
+    const domainField = document.getElementById("domainForm"); // variable for domain selected field
 
+    validateNumImages();
     // Check that valid numImages have been specified and domain is selected
     if (numImagesField.getAttribute("data-value") == "true" && domainField.value != "none") {
         numImages = numImagesField.value;
@@ -538,7 +627,6 @@ function validateNumImages() {
         if (isPositiveInteger(input) && min <= input && input <= max) {
             numImagesField.style.backgroundColor = "white";
             numImagesField.setAttribute("data-value", "true");
-            toggleModel();
         } else {
             numImagesField.style.backgroundColor = errorRedHex;
             numImagesField.setAttribute("data-value", "false");

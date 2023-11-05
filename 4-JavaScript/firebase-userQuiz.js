@@ -146,6 +146,7 @@ async function submit() {
         //     completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
         // });
 
+        submitScores()
         window.location.href = "./completedUserBoard.html"
     }
 };

@@ -142,17 +142,17 @@ async function uploadImage(file, domain, model, imageNum) {
 
         // Upload the image file to Firebase Storage with metadata
         await storageRef.put(file, metadata);
-        console.log('Image uploaded successfully!');
 
         // Get the download URL of the uploaded image
         var url = await storageRef.getDownloadURL();
-        console.log('Image URL:', url);
 
         // Save the image URL and metadata in Cloud Firestore
         var docRef = await firestore.collection('Levels').add({
             imageUrl: url,
             domain: domain,
-            model: model
+            model: model,
+            sum: [],
+            appeared: []
         });
 
         // const ref = 'ref' + imageNum;
@@ -163,34 +163,52 @@ async function uploadImage(file, domain, model, imageNum) {
     }
 }
 
+function loadDomainList() {
+    // reference to question metadata
+    ref = metaRef.doc("PCG");
+
+    // get parent cointainer
+    const parent = document.getElementById("domainDropdown");
+
+    ref.get().then((doc) => {
+        if (doc.exists) {
+            const domainList = doc.data()["Domains"];
+            // loop through array and get info for each quiz to display
+            domainList.forEach((domain) => {
+                const option = document.createElement("option");
+                option.setAttribute("value", domain);
+                option.innerHTML = domain;
+                option.style.fontStyle = "normal";
+
+                parent.appendChild(option);
+            });
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+}
 // Load the list of models from the database into the field
 function loadModelList() {
     // reference to question metadata
     ref = metaRef.doc("PCG");
 
     // get parent cointainer
-    const parent = document.getElementById("modelTypeForm");
+    const parent = document.getElementById("modelDropdown");;
 
     ref.get().then((doc) => {
         if (doc.exists) {
             const modelList = doc.data()["Models"];
             // loop through array and get info for each quiz to display
-            let index = 0;
             modelList.forEach((model) => {
+                const option = document.createElement("option");
+                option.setAttribute("value", model);
+                option.innerHTML = model;
+                option.style.fontStyle = "normal";
 
-                const label = document.createElement("label");
-                label.setAttribute("id", index++);
-                label.setAttribute("data-value", model);
-                label.textContent = model;
-                label.setAttribute("onchange", "toggleModel()");
-
-                const input = document.createElement("input");
-                input.setAttribute("type", "checkbox");
-                input.style.marginRight = "5px";
-
-                label.insertBefore(input, label.firstChild);
-
-                parent.appendChild(label);
+                parent.appendChild(option);
             });
         } else {
             // doc.data() will be undefined in this case

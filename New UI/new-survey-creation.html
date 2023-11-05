@@ -146,12 +146,8 @@
               />
               
               <!-- dropdown for domain type -->
-              <select class="new-survey-creation-dropdown" style="margin-bottom: 16px;" id="domain2">
+              <select class="new-survey-creation-dropdown" style="margin-bottom: 16px;" id="domainForm">
                 <option value="none">Select a domain</option>
-                <option value="Maze">Maze</option>
-                <option value="Minecraft">Minecraft</option>
-                <option value="RL2d">RogueLike 2D</option>
-                <option value="RL3D">RogueLike 3D</option>
               </select>
 
               <h2 class="new-survey-creation-mheading">
@@ -191,6 +187,7 @@
           // Call functions from submitQuiz
           loadDefaultQuestions();
           loadModelList();
+          loadDomainList();
       };
     </script>
 

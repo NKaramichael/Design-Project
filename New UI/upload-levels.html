@@ -186,16 +186,10 @@
           <div id="dropdownContainer" style="display: none;" class="upload-levels-container05">
             <select style="margin-right: 10px;" class="upload-levels-thq-dropdown1 list-item" id="modelDropdown">
               <option style="font-style: normal;" value="none">Select a Model</option>
-              <option style="font-style: normal;" value="Maze">nWFC</option>
-              <option style="font-style: normal;" value="Minecraft">hWFC</option>
             </select>
             
             <select class="upload-levels-thq-dropdown1 list-item" id="domainDropdown">
               <option style="font-style: normal;" value="none">Select a Domain</option>
-              <option style="font-style: normal;" value="Maze">Maze</option>
-              <option style="font-style: normal;" value="Minecraft">Minecraft</option>
-              <option style="font-style: normal;" value="RL2d">RogueLike 2D</option>
-              <option style="font-style: normal;" value="RL3D">RogueLike 3D</option>
             </select>
           </div>
           
@@ -279,6 +273,14 @@
       </div>
     </div>
   </body>
+
+  <script>
+    window.onload = function() {
+        // Call functions from submitQuiz
+        loadModelList();
+        loadDomainList();
+    };
+  </script>
 
   <!-- import firebase into upload-levels.html and call on firebase-upload.js to handle requests -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
