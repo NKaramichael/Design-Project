@@ -161,12 +161,12 @@
         </div>
 
         <h1 class="researcher-dashboard-options">Survey Options</h1>
-        
+
         <a href="new-survey-creation.html">
           <button class="researcher-dashboard-create-button">Create</button>
         </a>
-       
-        <button class="researcher-dashboard-current-button" onclick="displayCurrentQuizzes()" >Current</button>
+
+        <button class="researcher-dashboard-current-button" onclick="displayCurrentQuizzes()">Current</button>
 
         <button class="researcher-dashboard-closed-button">Closed</button>
 
@@ -179,7 +179,7 @@
         <a href="upload-levels.html">
           <button class="researcher-dashboard-closed-button">Upload</button>
         </a>
-        
+
         <br />
         <h1 class="researcher-dashboard-statistics">
           <span>Statistics</span>
@@ -196,23 +196,49 @@
         </h1>
 
         <a href="profile.html">
-            <button class="researcher-dashboard-profile-button">Profile</button>
+          <button class="researcher-dashboard-profile-button">Profile</button>
         </a>
-        
+
 
         <a href="settings.html">
           <button class="researcher-dashboard-change-password-button">Change Password</button>
         </a>
-        
+
         <a href="log-in.html" class="researcher-dashboard-navlink">
           <button class="researcher-dashboard-logout-button">Logout</button>
         </a>
       </div>
-      
+
       <div id="container" class="researcher-dashboard-container3">
       </div>
     </div>
   </div>
+
+  <!-- Onload Welcome -->
+  <script type="text/javascript">
+    window.onload = function () {
+
+      // Create an empty div to add space above the text
+      const spaceDiv = document.createElement("div");
+      spaceDiv.style.height = "50vh"; 
+      
+
+      const email = sessionStorage.getItem("email");
+      const parent = document.getElementById("container");
+      const title = document.createElement("h1");
+      title.setAttribute("style", "color: white;");
+      title.textContent = `Welcome to your dashboard, ${email.split('@')[0]}!`;
+      parent.appendChild(spaceDiv);
+      parent.appendChild(title);
+
+      const helpText = document.createElement("h3");
+      helpText.setAttribute("style", "color: white; font-weight: normal;");
+      helpText.textContent = `use the researcher panel to get started`;
+      parent.appendChild(helpText);
+
+    };
+  </script>
+
 
   <!-- import firebase into Researcher Dashboard.html and call on ResearcherDashboardLogic logic -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>

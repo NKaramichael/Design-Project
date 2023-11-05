@@ -52,121 +52,130 @@ function displayClosedQuizzes() {
 // Fetching and display the user's quizzes
 function displayQuizzes(status) {
 
-    var email = sessionStorage.getItem('email');
-    const Ref = UserFirestore.doc(email);
+    var researcherEmail = sessionStorage.getItem('email');
 
-    if (status == "current"){
-        Ref.get()
-        .then((doc) => {
-            if (doc.exists) {
-                const quizRefs = doc.data()[status + 'Quizzes'];
-                // loop through array and get info for each quiz to display
-                quizRefs.forEach((name) => {
-                    const ref = QuizFirestore.doc(name);
-                    ref.get()
-                        .then((doc) => {
-                            if (doc.exists) {
-                                // display the quiz block
-                                createQuizBlock(doc.data(), status, doc.id);
-                            } else {
-                                // The document doesn't exist
-                                console.log("No such document!");
-                            }
+    if (status == "current") {
+        // 1. Retrieve the researcher's document to get their mySurveys field
+        ResearcherFirestore.doc(researcherEmail).get()
+            .then((researcherSnapshot) => {
+                if (researcherSnapshot.exists) {
+                    const researcherData = researcherSnapshot.data();
+                    const mySurveys = researcherData.mySurveys || [];
+
+                    // 2. Fetch quiz information for each quiz in mySurveys
+                    const quizPromises = mySurveys.map((quizName) => {
+                        return QuizFirestore.doc(quizName).get();
+                    });
+
+                    // 3. Process the fetched quiz data
+                    Promise.all(quizPromises)
+                        .then((quizSnapshots) => {
+                            const quizzes = quizSnapshots
+                                .filter((quizSnapshot) => quizSnapshot.exists)
+                                .map((quizSnapshot) => quizSnapshot.data());
+
+                            // Now, 'quizzes' contains the quiz information for the researcher
+                            console.log(quizzes);
+
+                            // Iterate through the quizzes and call createQuizBlock for each one
+                            quizzes.forEach((quiz, index) => {
+                                createQuizBlock(quiz, "current", index); 
+                            });
                         })
                         .catch((error) => {
-                            // An error occurred while retrieving the document
-                            console.log("Error getting document:", error);
+                            console.error("Error fetching quiz data:", error);
                         });
-                });
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        })
-        .catch((error) => {
-            console.log("Error getting document:", error);
-        });
+                } else {
+                    console.error("Researcher document not found.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching researcher data:", error);
+            });
     }
 
     // Need to implement status = closed
-    else if (status == "closed"){
+    else if (status == "closed") {
 
     }
-   
+
 
 };
 
-
 // Function to create each survey item popup
-async function createQuizBlock(data, status, id) {  
+async function createQuizBlock(data, status, id) {
     // Get the parent element to which the text boxes will be added
     const parent = document.getElementById("container");
-  
+
     const card = document.createElement("div");
-  
+
     const link = document.createElement("link");
     link.setAttribute("rel", "stylesheet");
     link.setAttribute("href", "../New UI/components/survey-card.css");
     parent.appendChild(link);
-  
+
     const div1 = document.createElement("div")
     div1.setAttribute("class", "survey-card-container");
     card.appendChild(div1);
-  
+
     const div2 = document.createElement("div");
     div2.setAttribute("class", "survey-card-gallery-card testimonal");
-  
+
     div1.appendChild(div2);
-  
+
     // add desc, image, title to card element
     const title = document.createElement("h2");
     title.setAttribute("class", "survey-card-text");
     div2.appendChild(title);
-  
+
     const image = document.createElement("img");
     image.setAttribute("class", "survey-card-image");
     div2.appendChild(image);
-  
+
     const description = document.createElement("span");
     description.setAttribute("class", "survey-card-text1");
     div2.appendChild(description);
-  
+
     levelName = data["Levels"][0];
     const url = await getLevelUrl(levelName);
     image.setAttribute("src", url)
-  
+
     title.textContent = data['Title']
     description.textContent = data['Description']
-  
+
     if (status == 'new') {
-      const addButton = document.createElement("button");
-      addButton.setAttribute("class", "card-button");
-      addButton.textContent = "Add to Current";
-      addButton.setAttribute('data-value', id);
-      addButton.addEventListener("click", addToCurrent);
-      div2.appendChild(addButton);
+        const addButton = document.createElement("button");
+        addButton.setAttribute("class", "card-button");
+        addButton.textContent = "Add to Current";
+        addButton.setAttribute('data-value', id);
+        addButton.addEventListener("click", addToCurrent);
+        div2.appendChild(addButton);
     } else {
-      const openButton = document.createElement("button");
-      openButton.setAttribute("class", "card-button");
-      openButton.textContent = "Open";
-      openButton.setAttribute('data-value', JSON.stringify([id, status]));
-      div2.appendChild(openButton);
+        const closeButton = document.createElement("button");
+        closeButton.setAttribute("class", "card-button");
+        closeButton.textContent = "Close";
+        closeButton.setAttribute('data-value', JSON.stringify([id, status]));
+        div2.appendChild(closeButton);
+
+    }
+
+    parent.appendChild(card);
+};
+
+async function getLevelUrl(levelName) {
+    const levelRef = LevelFirestore.doc(levelName);
+    let url = '';
   
-      if (status == 'completed') {
-        openButton.addEventListener("click", openSurveyPage);
+    try {
+      const doc = await levelRef.get();
+      if (doc.exists) {
+        url = doc.data()['imageUrl'];
+      } else {
+        console.log("No such document!");
       }
-      if (status == 'current') {
-        openButton.addEventListener("click", openSurveyPage);
-  
-        const removeButton = document.createElement("button");
-        removeButton.setAttribute("class", "user-dashboard-button");
-        removeButton.textContent = "Remove";
-        removeButton.setAttribute('data-value', id);
-        removeButton.addEventListener("click", removeFromCurrent);
-        // Add the elements to the text box
-        div2.appendChild(removeButton);
-      }
+    } catch (error) {
+      console.log("Error getting document");
     }
   
-    parent.appendChild(card);
+    return url;
   };

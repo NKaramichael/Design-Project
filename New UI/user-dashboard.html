@@ -171,9 +171,13 @@
           <br />
         </h1>
 
-        <button class="user-dashboard-profile-button" onclick="profile()">Profile</button>
+        <a href="profile.html">
+          <button class="user-dashboard-profile-button">Profile</button>
+        </a>
 
-        <button class="user-dashboard-change-password-button" onclick="settings()">Change Password</button>
+        <a href="settings.html">
+          <button class="user-dashboard-change-password-button" onclick="settings()">Change Password</button>
+        </a>
 
         <a href="log-in.html" class="user-dashboard-navlink">
           <button class="user-dashboard-logout-button">Logout</button>
@@ -184,13 +188,29 @@
     </div>
   </div>
 
-  <script>
-    function profile() {
-      window.location.href = "profile.html"
-    }
-    function settings() {
-      window.location.href = "settings.html"
-    }
+  <!-- Onload Welcome -->
+  <script type="text/javascript">
+    window.onload = function () {
+
+      // Create an empty div to add space above the text
+      const spaceDiv = document.createElement("div");
+      spaceDiv.style.height = "50vh";
+
+
+      const email = sessionStorage.getItem("email");
+      const parent = document.getElementById("container");
+      const title = document.createElement("h1");
+      title.setAttribute("style", "color: white;");
+      title.textContent = `Welcome to your dashboard, ${email.split('@')[0]}!`;
+      parent.appendChild(spaceDiv);
+      parent.appendChild(title);
+
+      const helpText = document.createElement("h3");
+      helpText.setAttribute("style", "color: white; font-weight: normal;");
+      helpText.textContent = `use the user panel to get started`;
+      parent.appendChild(helpText);
+
+    };
   </script>
 
   <!-- import firebase into currentUserBoard.html and call on firebase-bucket.js to handle image requests -->
