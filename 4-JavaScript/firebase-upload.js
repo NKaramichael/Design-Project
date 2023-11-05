@@ -220,5 +220,4 @@ function loadModelList() {
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
-
 }

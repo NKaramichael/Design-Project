@@ -45,17 +45,6 @@ var loadingScreen = document.getElementById('loading-screen');
 
 // Function to submit the quiz to the quiz database, the questions to the question database and the images to the level database
 function submit() {
-    //--------------- Deprecated ----------------------//
-    // Checking that user has uploaded at least one image
-    // const files = document.getElementById('fileInput').files;
-
-    //--------------- Deprecated ----------------------//
-    // Commented out because the user no longer NEEDS to upload an image to create a quiz
-    // if (files.length == 0) {
-    //     alert("Please upload at least 1 image");
-    //     return;
-    // }
-
     // Checking that heading and description are filled in
     const headingField = document.getElementById('heading');
     const descriptionField = document.getElementById('description');
@@ -151,7 +140,7 @@ function getCheckedFromContainer(container) {
     labels = container.children;
     for (let i = 0; i < labels.length; i++) {
         checkbox = labels[i].querySelector("input[type=checkbox]");
-        if (checkbox.checked) { checked.push(Number(labels[i].id)) }
+        if (checkbox.checked) { checked.push(labels[i].id) }
     }
     return checked;
 }
@@ -356,6 +345,7 @@ function selectQuestion(button) {
 
                 const input = document.createElement("input");
                 input.setAttribute("type", questionType);
+                console.log(questionType);
                 input.style.marginRight = "5px";
 
                 label.insertBefore(input, label.firstChild);
@@ -397,14 +387,12 @@ function loadDefaultQuestions() {
         if (doc.exists) {
             const questionList = doc.data()["Questions"];
             // loop through array and get info for each quiz to display
-            let index = 0;
-            questionList.forEach((question) => {
-                const questionText = question["QuestionText"];
+            for (const [questionText, question] of Object.entries(questionList)) {
                 const questionType = question["QuestionType"];
                 const multiImage = question["multiImage"];
 
                 const label = document.createElement("label");
-                label.setAttribute("id", index++);
+                label.setAttribute("id", questionText);
                 label.setAttribute("data-value", questionType);
                 label.setAttribute("multiImage", multiImage);
                 label.textContent = questionText;
@@ -417,7 +405,7 @@ function loadDefaultQuestions() {
                 label.insertBefore(input, label.firstChild);
 
                 parent.appendChild(label);
-            });
+            }
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -435,7 +423,7 @@ function loadDomainList() {
     // get parent cointainer
     const parent = document.getElementById("domainForm");
     parent.setAttribute("onchange", "toggleModel()");
-    
+
     ref.get().then((doc) => {
         if (doc.exists) {
             const domainList = doc.data()["Domains"];

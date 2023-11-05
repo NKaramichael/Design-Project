@@ -355,6 +355,9 @@ function changeQuestion() {
     const questionContainer = document.getElementById("surveyHeading");
     const imageContainer = document.getElementById("imageContainer");
     const answerFieldContainer = document.getElementById("answerFieldContainer");
+    const navBar = document.getElementById("navBar");
+
+    navBar.children[currentQuestion].style.backgroundColor = "var(--dl-color-primary-300)";
 
     clearContainer(imageContainer);
     clearContainer(answerFieldContainer);
@@ -432,7 +435,11 @@ function answerToggle(element) {
 
 // save the question answer to the question Map
 function saveAnswer(answerFieldContainer) {
+    navBar = document.getElementById("navBar");
+    navBar.children[currentQuestion].style.backgroundColor = "#161940";
+
     const questionType = questionList[currentQuestion].get("questionType");
+
     if (answerFieldContainer.hasChildNodes()) {
         if (questionType == "scale") {
             const score = Number(answerFieldContainer.firstChild.firstChild.value);
@@ -446,11 +453,6 @@ function saveAnswer(answerFieldContainer) {
                 if (children[i].firstChild.checked) { response.push(i) }
             }
             questionList[currentQuestion].set("response", response);
-
-            if (questionType == "radio" && response.length > 0){
-                navBar = document.getElementById("navBar");
-                navBar.children[currentQuestion].style.backgroundColor = "var(--dl-color-primary-700)";
-            }
         }
     }
 }

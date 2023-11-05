@@ -75,7 +75,7 @@
   background-color: var(--dl-color-primary-700);
 }
 .answer-survey-submit-button:hover {
-  color: rgb(255, 255, 255);
+  color: black;
   background-color: #ffffff;
 }
 .answer-survey-text {
@@ -149,8 +149,7 @@
   position: relative;
 }
 .navBar-button:hover {
-  color: black;
-  background-color: var(--dl-color-primary-700);
+  color: var(--dl-color-primary-700);
 }
 .answer-survey-bottom-button-container {
   flex: 0 0 auto;
