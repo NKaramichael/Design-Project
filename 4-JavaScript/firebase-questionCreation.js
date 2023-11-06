@@ -54,15 +54,15 @@ function addQuestion(){
     }
 
     const questionText = document.getElementById("questionText");
+    const questionTextVal = questionText.value.trim();
 
-    if (questionText.value == ""){
+    if (questionTextVal == ""){
         questionText.style.backgroundColor = errorColor;
         valid = false;
     } else {
-        if (questionText.value.contains(".") && questionText.value.indexOf(".") != questionText.value.length - 1){
+        if (questionTextVal.indexOf(".") !== -1){
             questionText.style.backgroundColor = errorColor;
             valid = false;
-            alert("Please ensure that if your question contains a full-stop, it is placed at the end of the question. (Note: This is a requirement of firebase mapping structures)");
         } else {
             questionText.style.backgroundColor = "white";
         }
@@ -94,16 +94,15 @@ function addQuestion(){
     };
 
     // Update the "Questions" map in the Firestore document
-    // ref.update({
-    // [`Questions.${questionText.value}`]: questionMeta,
-    // })
-    // .then(() => {
-    //     console.log("New question added successfully!");
-    // })
-    // .catch((error) => {
-    //     console.error("Error adding new question: ", error);
-    // });
-
+    ref.update({
+    [`Questions.${questionTextVal}`]: questionMeta,
+    })
+    .then(() => {
+        console.log("New question added successfully!");
+    })
+    .catch((error) => {
+        console.error("Error adding new question: ", error);
+    });
 }
 
 // Load the list of Questions from the database into the field
