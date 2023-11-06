@@ -84,3 +84,51 @@ function displaySurveysCreated() {
         console.error("Error fetching Quiz data:", error);
     });
 };
+
+// ----------- Everything from this point on is for when the researcher button is clicked on the homepage---------//
+// onload for the researchers page
+function displayResearchersPage() {
+    const researcherEmailPrefixes = []; // Initialize an array to store email prefixes
+
+    // Get all documents in the "Researchers" collection
+    ResearcherFirestore.get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const email = doc.id; // Use the document ID (email) as the unique identifier
+                const emailParts = email.split('@'); // Split the email at the "@" symbol
+                if (emailParts.length === 2) {
+                    const emailPrefix = emailParts[0]; // Get the part before "@"
+                    researcherEmailPrefixes.push(emailPrefix);
+                }
+            });
+
+            // Now you have an array of email prefixes
+
+            // Get the <ul> element by its ID
+            const researcherList = document.getElementById("researcherList");
+
+            // Iterate through the email prefixes and add them as list items
+            researcherEmailPrefixes.forEach((emailPrefix) => {
+                const listItem = document.createElement("li"); // Create a new list item
+                listItem.textContent = emailPrefix; // Set the text content of the list item
+                listItem.classList.add("researcher-list-item"); // Apply a class for styling
+                researcherList.appendChild(listItem); // Add the list item to the <ul>
+            });
+
+            
+        })
+        .catch((error) => {
+            console.error("Error getting researchers:", error);
+        });
+          
+}
+
+
+
+
+
+
+
+
+
+
