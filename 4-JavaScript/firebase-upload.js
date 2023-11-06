@@ -78,6 +78,77 @@ var storage = firebase.storage();
 // Get a reference to the Firebase Firestore database
 var firestore = firebase.firestore();
 
+function addMeta(){
+    // Get the modal and buttons
+    const modal = document.getElementById('popupModal');
+    const submitButton = document.getElementById('submitMeta');
+
+    modal.style.display = 'block';
+
+    // Close the modal when the close button is clicked
+    // closeButton.addEventListener('click', function() {
+    // modal.style.display = 'none';
+    // });
+
+    // Close the modal when the submit button is clicked and a value is entered
+    // submitButton.addEventListener('click', function() {
+    // const inputValue = document.getElementById('inputValue').value;
+    // if (inputValue) {
+    //     modal.style.display = 'none';
+    // }
+    // });
+
+    // Close the modal if the user clicks outside the modal
+    window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+    });
+}
+
+function submitMetaData(){
+    const modelRadio = document.getElementById("modelRadio");
+    const domainRadio = document.getElementById("domainRadio");
+    const inputField = document.getElementById("inputField");
+    const newMeta = inputField.value.trim();
+    const modal = document.getElementById('popupModal');
+
+    // reference to question metadata
+    ref = metaRef.doc("PCG");
+
+    if (newMeta == ""){
+        return;
+    }
+
+    if (modelRadio.checked){
+        // Update the array field using arrayUnion
+        ref.update({
+            Models: firebase.firestore.FieldValue.arrayUnion(newMeta)
+        })
+        .then(() => {
+        })
+        .catch((error) => {
+        console.error("Error adding element to the array:", error);
+        });
+    } else if (domainRadio.checked){
+        // Update the array field using arrayUnion
+        ref.update({
+            Domains: firebase.firestore.FieldValue.arrayUnion(newMeta)
+        })
+        .then(() => {
+        })
+        .catch((error) => {
+        console.error("Error adding element to the array:", error);
+        });
+    } else {
+        return;
+    }
+
+    loadDomainList();
+    loadModelList();
+    modal.style.display = "none";
+}
+
 // On click for upload images button
 async function upload(){
     const modelDropdown = document.getElementById("modelDropdown");
@@ -110,6 +181,7 @@ async function upload(){
     domainDropdown.disabled = true;
     selectButton.disabled = true;
     document.getElementById("dashButton").disabled = true;
+    document.getElementById("openPopupButton").disabled = true;
 
     // Change button text to the loading icon
     uploadButton.innerHTML = '<img style="height: auto; max-height: 40px;" class="loading-icon" src="../Resources/loading.png" alt="Loading Spinner" id="spinner">';
@@ -174,6 +246,13 @@ function loadDomainList() {
 
     // get parent cointainer
     const parent = document.getElementById("domainDropdown");
+    const children = parent.children;
+
+    while (children.length > 1) {
+        // Check if there are more than one child elements
+        const lastChild = children[children.length - 1];
+        parent.removeChild(lastChild); // Remove the last child
+    }
 
     ref.get().then((doc) => {
         if (doc.exists) {
@@ -201,7 +280,14 @@ function loadModelList() {
     ref = metaRef.doc("PCG");
 
     // get parent cointainer
-    const parent = document.getElementById("modelDropdown");;
+    const parent = document.getElementById("modelDropdown");
+    const children = parent.children;
+
+    while (children.length > 1) {
+        // Check if there are more than one child elements
+        const lastChild = children[children.length - 1];
+        parent.removeChild(lastChild); // Remove the last child
+    }
 
     ref.get().then((doc) => {
         if (doc.exists) {

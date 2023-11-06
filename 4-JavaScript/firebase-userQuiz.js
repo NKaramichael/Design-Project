@@ -142,13 +142,6 @@ async function openSurvey() {
 
 // Submit onclick()
 async function submit() {
-    const submitButton = document.getElementById("submitBtn");
-    submitButton.disabled = true;
-    submitButton.innerHTML = '<img style="height: auto; max-height: 40px;" class="loading-icon" src="../Resources/loading.png" alt="Loading Spinner" id="spinner">';
-
-    Array.from(document.getElementById("navBar").children).forEach((child) => { child.disabled = true;});
-    document.getElementById("prevBtn").disabled = true;
-
     const email = sessionStorage.getItem("email");
     const answerFieldContainer = document.getElementById("answerFieldContainer");
 
@@ -161,6 +154,13 @@ async function submit() {
     const valid = validateResponses();
     
     if (valid) {
+        // Disables buttons and spins if the survey is to be submitted
+        const submitButton = document.getElementById("submitBtn");
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<img style="height: auto; max-height: 40px;" class="loading-icon" src="../Resources/loading.png" alt="Loading Spinner" id="spinner">';
+        Array.from(document.getElementById("navBar").children).forEach((child) => { child.disabled = true;});
+        document.getElementById("prevBtn").disabled = true;
+
         // set quiz to completed
         // await userRef.doc(email).update({
         //     currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),

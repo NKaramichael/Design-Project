@@ -1,0 +1,100 @@
+.pop-up-container {
+    width: min-content;
+    height: auto;
+    display: flex;
+    align-items: center;
+    padding-top: 2rem;
+    padding-left: 3rem;
+    border-radius: 30px;
+    padding-right: 3rem;
+    flex-direction: column;
+    padding-bottom: 2rem;
+    justify-content: center;
+    background-color: var(--dl-color-template-blue-bg);
+    position: relative;
+    top: 35vh;
+    left: 40vw;
+  }
+  .pop-up-container1 {
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .pop-up-domain-container {
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin-right: var(--dl-space-space-threeunits);
+    justify-content: center;
+  }
+  .pop-up-radiobutton {
+    margin-right: var(--dl-space-space-halfunit);
+  }
+  .pop-up-text {
+    color: #ffffff;
+    font-size: 24px;
+    margin-right: 0px;
+  }
+  .pop-up-model-container {
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pop-up-radiobutton1 {
+    margin-right: var(--dl-space-space-halfunit);
+  }
+  .pop-up-text1 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-right: 0px;
+  }
+  .pop-up-textarea {
+    margin-top: 1rem;
+  }
+  .pop-up-submit-meta-button {
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    margin-top: 2rem;
+    transition: 0.3s;
+    align-items: center;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: 56px;
+    padding-right: var(--dl-space-space-twounits);
+    flex-direction: column;
+    padding-bottom: var(--dl-space-space-unit);
+    justify-content: flex-end;
+    background-color: #0198fd;
+  }
+  .pop-up-submit-meta-button:hover {
+    color: black;
+    background-color: #ffffff;
+  }
+  .pop-up-text2 {
+    font-size: 18px;
+    align-self: flex-start;
+    font-style: normal;
+    font-weight: 600;
+  }
+  @media(max-width: 767px) {
+    .pop-up-submit-meta-button {
+      margin-top: var(--dl-space-space-twounits);
+    }
+  }
+  @media(max-width: 479px) {
+    .pop-up-submit-meta-button {
+      width: 100%;
+    }
+  }
+  
