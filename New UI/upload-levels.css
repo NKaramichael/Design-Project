@@ -132,6 +132,7 @@
   flex-direction: column;
   padding-bottom: var(--dl-space-space-unit);
   background-color: #000000;
+  font-weight: bold;
 }
 .upload-levels-home-button:hover {
   background-color: #5228F5;
