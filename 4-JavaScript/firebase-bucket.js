@@ -27,8 +27,8 @@ var QuizFirestore = db.collection('Quizzes');
 var QuestionFirestore = db.collection('Questions');
 
 function showModelFilter(){
-  const modelButton = document.getElementById('modelButton');
-  modelButton.style.backgroundColor = "green";
+  // const modelButton = document.getElementById('modelButton');
+  // modelButton.style.backgroundColor = "green";
   
 };
 

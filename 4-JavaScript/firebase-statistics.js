@@ -27,7 +27,6 @@ var storage = firebase.storage();
 // Global Statistic variables
 var questionWeights = {};
 var overallScores = {};
-
 const surveys = {};
 
 // Load the list of Questions from the database into the field
@@ -36,7 +35,7 @@ async function loadQuestionList() {
     ref = metaRef.doc("QuizData");
 
     // get parent cointainer
-    const parent = document.getElementById("dropdown");;
+    const parent = document.getElementById("questionDropdown");;
 
     // Fetch the questions array
     await ref.get().then((doc) => {
@@ -54,9 +53,6 @@ async function loadQuestionList() {
                     option.style.textAlign = "center";
 
                     parent.appendChild(option);
-                    questionMap.set(questionText, {});
-                    questionWeights.set(questionText, question["Weight"]);
-                    questionTextArray.push(questionText);
                 }
             }
         } else {
@@ -66,15 +62,15 @@ async function loadQuestionList() {
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
-    console.log(questionWeights);
 }
 
 // Loads survey list
 async function loadSurveyList() {
-    const email = sessionStorage.getItem('email');
+    // const email = sessionStorage.getItem('email');
+    const email = 'gr@t.com';
 
     // get parent cointainer
-    const parent = document.getElementById("dropdown");
+    const parent = document.getElementById("surveyDropdown");
 
     // Create a query to fetch quizzes with the specified researcher email
     const query = quizRef.where('Researcher', '==', email);
@@ -108,7 +104,7 @@ async function loadSurveyList() {
         console.error('Error getting quizzes:', error);
     });
 
-
+    await loadQuestionList();
 }
 
 async function updateScoreTable() {
