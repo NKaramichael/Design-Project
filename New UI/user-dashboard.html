@@ -159,7 +159,14 @@
           </a>
           <img alt="pastedImage" src="public/external/pastedimage-9fg8-1100h.png" class="user-dashboard-pasted-image" />
         </div>
-        <h1 class="user-dashboard-options">Survey Options</h1>
+
+        <h1 id="applyFiltersHeading" class="user-dashboard-options">Apply Filters</h1><br/>
+
+        <button id="modelButton" class="user-dashboard-create-button" onclick="showModelFilter()">Model</button>
+
+        <button id="domainButton" class="user-dashboard-current-button" onclick="showDomainFilter()">Domain</button>
+
+        <h1 class="user-dashboard-options">Survey Options</h1><br/>
 
         <button class="user-dashboard-create-button" onclick="displayNewQuizzes()">New</button>
 
@@ -184,7 +191,28 @@
           <button class="user-dashboard-logout-button">Logout</button>
         </a>
       </div>
+
+      <!-- CONTAINER FOR NEW SURVEY CARDS -->
       <div id="container" class="user-dashboard-container3">
+
+      <div style="position: absolute;top: 2rem;right: 2rem; display: flex; flex-direction: column; justify-content: center;">
+        <select
+          data-thq="thq-dropdown"
+          class="filter-dropdown"
+          id="ModelDropdown"
+          style="margin-bottom: 1rem;"
+        >
+          <option style="font-style: normal;" value="none">Model Filter</option>
+        </select>
+        <select
+          data-thq="thq-dropdown"
+          class="filter-dropdown"
+          id="DomainDropdown"
+          style="margin-bottom: 1rem;"
+        >
+          <option style="font-style: normal;" value="none">Domain Filter</option>
+        </select>
+      </div>
       </div>
     </div>
   </div>

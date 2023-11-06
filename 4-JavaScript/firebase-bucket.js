@@ -16,6 +16,8 @@ var storage = firebase.storage();
 // Create a storage reference from our storage service
 var storageRef = storage.ref();
 
+var defaultButtonColor = '#161940';
+
 //firestore references
 const db = firebase.firestore();
 var UserFirestore = db.collection('Users');
@@ -23,6 +25,16 @@ var ResearcherFirestore = db.collection('Researchers');
 var LevelFirestore = db.collection('Levels');
 var QuizFirestore = db.collection('Quizzes');
 var QuestionFirestore = db.collection('Questions');
+
+function showModelFilter(){
+  const modelButton = document.getElementById('modelButton');
+  modelButton.style.backgroundColor = "green";
+  
+};
+
+function showDomainFilter(){
+
+};
 
 function displayCurrentQuizzes() {
   // Need to clear container for when pages are switched between

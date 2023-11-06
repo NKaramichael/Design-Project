@@ -12,7 +12,19 @@
   background-color: #FF0000; /* Change the background color on hover to your desired color */
   color: #FFFFFF; /* Change the text color on hover, if needed */
 }
-
+.filter-dropdown {
+  font-family: Inter;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin-top: var(--dl-space-space-unit);
+  border-radius: var(--dl-radius-radius-radius2);
+  width: fit-content;
+  height: 4vh;
+  text-align: center;
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
 
 .user-dashboard-container {
   width: 100%;

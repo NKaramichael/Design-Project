@@ -143,12 +143,13 @@
           <header class="statistics-header">
             <h1 class="statistics-heading">Statistics</h1>
           </header>
-          <select
-            data-thq="thq-dropdown"
-            class="statistics-thq-dropdown list-item"
-            id="dropdown"
-          >
-          </select>
+          <div style="display: flex;justify-content: center;flex-direction: column;">
+            <select data-thq="thq-dropdown" class="statistics-thq-dropdown list-item" id="surveyDropdown">
+            </select>
+
+            <select data-thq="thq-dropdown" class="statistics-thq-dropdown list-item" id="questionDropdown">
+            </select>
+          </div>
 
           <div class="statistics-container3">
             <div id="imageList" class="statistics-container4"></div>
