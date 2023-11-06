@@ -198,6 +198,23 @@ async function uploadImages(domain, model) {
         const file = selectedFiles[i];
         await uploadImage(file, domain, model);
     }
+
+    // // Define an array to store all upload promises
+    // const uploadPromises = [];
+
+    // for (let i = 0; i < selectedFiles.length; i++) {
+    //     const file = selectedFiles[i];
+    //     const promise = uploadImage(file, domain, model);
+    //     uploadPromises.push(promise);
+    // }
+
+    // try {
+    //     // Use Promise.all to upload all images in parallel
+    //     await Promise.all(uploadPromises);
+    //     console.log('All images uploaded and saved in Firestore.');
+    // } catch (error) {
+    //     console.log('Error uploading images:', error);
+    // }
 }
 
 async function uploadImage(file, domain, model) {
