@@ -109,11 +109,11 @@ async function openSurvey() {
 
     quizDoc = quizRef.doc(quizID)
     await quizDoc.get()
-        .then((doc) => {
+        .then(async (doc) => {
         if (doc.exists) {
             displayHeading(doc.data()["Title"]);
             displayDescription(doc.data()["Description"]);
-            loadQuestionList(doc.data()["Questions"], doc.data()["Levels"]);
+            await loadQuestionList(doc.data()["Questions"], doc.data()["Levels"]);
         } else {
             // The document doesn't exist
             console.log("No such document!");
@@ -124,11 +124,7 @@ async function openSurvey() {
         console.log("Error getting document:", error);
         });
 
-        console.log(questionList);
-        setTimeout(function () {
-            nextButton.style.display = "block";
-          }, 3000);
-        
+        nextButton.style.display = "block";
 }
 
 // Submit onclick()
