@@ -1,5 +1,5 @@
-// This script allows researchers to upload images to the database. It also displays the images in a container for the
-// researcher to preview.
+// Logic for the stats page
+// 
 const firebaseConfig = {
     apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
     authDomain: "pcgevaluation-49d75.firebaseapp.com",
@@ -11,18 +11,26 @@ const firebaseConfig = {
   };
 
 //initialise firebase
+// Initialise firebase
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const metaRef = db.collection("Metadata");
-  
+var db = firebase.firestore();
+var quizRef = db.collection("Quizzes");
+var metaRef = db.collection("Metadata");
+var levelRef = db.collection("Levels");
+var userRef = db.collection('Users');
+var researcherRef = db.collection('Researchers');
+var questionRef = db.collection('Questions');
+
 // Get a reference to the Firebase Storage service
 var storage = firebase.storage();
 
-// Get a reference to the Firebase Firestore database
-var firestore = firebase.firestore();
+// Gloabal Statistic variables
+var questionMap = new Map();
+var questionWeights = new Map();
+var questionTextArray = [];
 
 // Load the list of Questions from the database into the field
-function loadQuestionList() {
+async function loadQuestionList() {
     // reference to question metadata
     ref = metaRef.doc("QuizData");
 
@@ -30,12 +38,12 @@ function loadQuestionList() {
     const parent = document.getElementById("dropdown");;
 
     // Fetch the questions array
-    ref.get().then((doc) => {
+    await ref.get().then((doc) => {
         if (doc.exists) {
             const questionList = doc.data()["Questions"];
             
             // Loop through each question key in the question list
-            for (const questionText in questionList) {
+            for (const [questionText, question] of Object.entries(questionList)) {
                 if (questionList.hasOwnProperty(questionText)) {
                     const option = document.createElement("option");
                     option.setAttribute("value", questionText);
@@ -45,6 +53,9 @@ function loadQuestionList() {
                     option.style.textAlign = "center";
 
                     parent.appendChild(option);
+                    questionMap.set(questionText, []);
+                    questionWeights.set(questionText, question["Weight"]);
+                    questionTextArray.push(questionText);
                 }
             }
         } else {
@@ -54,13 +65,38 @@ function loadQuestionList() {
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
+    console.log(questionWeights);
+}
+
+async function updateScoreTable() {
 
 }
 
-function updateScoreTable(question) {
+async function updateMetaTable() {
 
 }
 
-function updateMetaTable(question) {
-    
+// precompute/fetch all stats onload
+async function computeStatistics() {
+    await levelRef.get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // get the appeared and score arrays
+            const appearedArray = doc.appeared;
+            const scoreArray = doc.score;
+
+            var score = new Map();
+            for (const question of scoreArray) {
+                score = Map(question);
+            }
+            for (const question of appearedArray) {
+                score;
+            }
+
+            
+        });
+    })
+    .catch((error) => {
+        console.error('Error getting documents: ', error);
+    });
 }

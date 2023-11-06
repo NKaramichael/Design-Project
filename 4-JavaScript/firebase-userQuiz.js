@@ -500,25 +500,18 @@ async function submitScores() {
                 if (doc.exists) {
                 const data = doc.data();
                 const questionReference = question.get("questionText");
-                // APPEARED ARRAY UPDATE
-                // step 1: Check if the array contains a map for this question yet
-                const appearedArray = data.appeared || [];
-                const existingAppearedMap = appearedArray.find(item => item[questionReference] !== undefined);
 
-                // Step 2: Increment the value if it exists or add the key with a value of 1
-                if (existingAppearedMap) {
-                    existingAppearedMap[questionReference] += 1;
+                // APPEARED MAP UPDATE
+                // step 1: Check if the Map contains a key for this question yet and update or add the key-value pair
+                const appearedMap = data.appeared;
+                if (appearedMap.has(questionReference)) {
+                    appearedMap.set(questionReference, appearedMap.get(questionReference) + 1);
                 } else {
-                    appearedArray.push({ [questionReference]: 1 });
+                    appearedMap.set(questionReference, 1);
                 }
 
-                // SCORE ARRAY UPDATE
-                // step 1: Check if the array contains a map for this question yet
-                const scoreArray = data.score || [];
-                const existingScoreMap = scoreArray.find(item => item[question.get("questionText")] !== undefined);
-
-                // Step 2: Increment the value by score if it exists or add the key with a value of this user's score
-
+                // SCORE MAP UPDATE
+                const scoreMap = data.score;
                 // get the score depending on questionType
                 var score = 0;
                 if (question.get("questionType") == "scale") {
@@ -528,15 +521,16 @@ async function submitScores() {
                         score = 1;
                     }
                 }
-
-                if (existingScoreMap) {
-                    existingScoreMap[questionReference] += score;
+                
+                // step 1: Check if the Map contains a key for this question yet and update or add the key-value pair
+                if (scoreMap.has(questionReference)) {
+                    scoreMap.set(questionReference, scoreMap.get(questionReference) + score);
                 } else {
-                    scoreArray.push({ [questionReference]: score });
+                    scoreMap.set(questionReference, score);
                 }
 
                 // Step 4: Update the Firestore document
-                ref.update({ appeared: appearedArray, score: scoreArray })
+                ref.update({ appeared: appearedMap, score: scoreMap })
                 .then(() => {
                     console.log("Arrays updated successfully.");
                   })

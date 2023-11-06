@@ -155,8 +155,8 @@ async function uploadImage(file, domain, model) {
             imageUrl: url,
             domain: domain,
             model: model,
-            score: [],
-            appeared: []
+            score: {},
+            appeared: {}
         });
 
         // sessionStorage.setItem(ref, docRef.id);
