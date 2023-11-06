@@ -550,13 +550,15 @@ function pickRandomImage() {
 async function fetchImages(){
     const numImagesField = document.getElementById("numberOfImages"); // variable for number of images field
     const domainField = document.getElementById("domainForm"); // variable for domain selected field
-    
+    const modelForm = document.getElementById("modelTypeForm");
+
+    disableContainerCheckboxes(modelForm);
+
     // Check that valid numImages have been specified and domain is selected
     if (numImagesField.getAttribute("data-value") == "true"  && domainField.value != "none") {
         const numImages = numImagesField.value;
-        const modelForm = document.getElementById("modelTypeForm");
+        
         let modelsToFetch = [];
-
         // add data-value of each model type to an array named modelsToFetch
         const children = modelForm.children;
         for (let i = 0; i < children.length; i++) {
@@ -605,5 +607,18 @@ async function fetchImages(){
 
         }
     }
+    enableContainerCheckboxes(modelForm);
     console.log(imagePool);
 }
+
+function disableContainerCheckboxes(parent) {
+    for (const child of parent.children) {
+        child.firstChild.disabled = true;
+    }
+}
+
+function enableContainerCheckboxes(parent) {
+    for (const child of parent.children) {
+        child.firstChild.disabled = false;
+    }
+} 
