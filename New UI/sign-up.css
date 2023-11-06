@@ -2,13 +2,13 @@
   width: 100%;
   display: flex;
   overflow: auto;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   overflow-x: hidden;
   flex-direction: column;
 }
 .sign-up-hero {
-  width: 100%;
-  height: 1000px;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   padding-top: var(--dl-space-space-oneandhalfunits);
@@ -202,7 +202,7 @@
   margin-top: 16px;
   text-align: center;
   line-height: 30px;
-  padding-top: var(--dl-space-space-threeunits);
+  padding-top: var(--dl-space-space-oneandhalfunits);
 }
 .sign-up-text07 {
   color: rgb(238, 233, 254);
@@ -213,16 +213,15 @@
   line-height: 30px;
 }
 .sign-up-radiobutton {
-  left: 394px;
-  bottom: 19px;
-  position: absolute;
+  margin-top: 1.5rem;
+  position: relative;
 }
 .sign-up-get-started {
   color: white;
   cursor: pointer;
   display: flex;
   align-self: center;
-  margin-top: 40px;
+  margin-top: 0.5rem;
   transition: 0.3s;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
@@ -233,6 +232,7 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #0198fd;
+  font-weight: bold;
 }
 .sign-up-get-started:hover {
   color: black;
