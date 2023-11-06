@@ -355,7 +355,6 @@ function selectQuestion(button) {
 
                 const input = document.createElement("input");
                 input.setAttribute("type", questionType);
-                console.log(questionType);
                 input.style.marginRight = "5px";
 
                 label.insertBefore(input, label.firstChild);
@@ -432,14 +431,14 @@ function loadDomainList() {
 
     // get parent cointainer
     const parent = document.getElementById("domainForm");
-    parent.setAttribute("onchange", "toggleModel()");
+    parent.setAttribute("onchange", "updateImagePool()");
 
     ref.get().then((doc) => {
         if (doc.exists) {
             const domainList = doc.data()["Domains"];
+
             // loop through array and get info for each quiz to display
             domainList.forEach((domain) => {
-                console.log(domain);
                 const option = document.createElement("option");
                 option.setAttribute("value", domain);
                 option.textContent = domain;
@@ -473,7 +472,7 @@ function loadModelList() {
                 label.setAttribute("id", index++);
                 label.setAttribute("data-value", model);
                 label.textContent = model;
-                label.setAttribute("onchange", "toggleModel()");
+                label.setAttribute("onchange", "updateImagePool()");
 
                 const input = document.createElement("input");
                 input.setAttribute("type", "checkbox");
@@ -493,11 +492,60 @@ function loadModelList() {
 
 }
 
-// On change method for select model check boxes, when models are updated, update and pull images according to what the user selects
-async function toggleModel() {
+// Function to ensure number of images requested is valid, turned red if invalid integer
+function updateImagePool() {
+    const numImagesField = document.getElementById("numberOfImages");
+    let input = numImagesField.value;
+    let min = 6;
+    let max = 100;
+
+    if (!input == "") {
+        if (isPositiveInteger(input) && min <= input && input <= max) {
+            numImagesField.style.backgroundColor = "white";
+            numImagesField.setAttribute("data-value", "true");
+            fetchImages();
+        } else {
+            numImagesField.style.backgroundColor = errorRedHex;
+            numImagesField.setAttribute("data-value", "false");
+        }
+    } else {
+        numImagesField.style.backgroundColor = "white";
+        numImagesField.setAttribute("data-value", "false");
+    }
+}
+
+// Sub Function for validateNumImages to make sure no negative numbers of Images can be requested for a survey
+function isPositiveInteger(str) {
+    // Use a regular expression to check if the string is a positive integer 
+    // The regular expression checks for one or more digits at the beginning of the string
+    const regex = /^[1-9]\d*$/;
+    return (regex.test(str));
+}
+
+// Function to pick a random image from the pool
+function pickRandomImage() {
+    // Check if all items have been picked
+    if (pickedImages.size === imagePool.length) {
+        // Reset the Set
+        pickedImages.clear();
+    }
+
+    let randomIndex;
+
+    do {
+        // Generate a random index within the range of available items
+        randomIndex = Math.floor(Math.random() * imagePool.length);
+    } while (pickedImages.has(randomIndex));
+
+    // Mark the item as picked
+    pickedImages.add(randomIndex);
+
+    return randomIndex;
+}
+
+async function fetchImages(){
     const numImagesField = document.getElementById("numberOfImages"); // variable for number of images field
     const domainField = document.getElementById("domainForm"); // variable for domain selected field
-    validateNumImages();
     
     // Check that valid numImages have been specified and domain is selected
     if (numImagesField.getAttribute("data-value") == "true"  && domainField.value != "none") {
@@ -554,117 +602,4 @@ async function toggleModel() {
         }
     }
     console.log(imagePool);
-}
-
-async function toggleDomain() {
-
-    const numImagesField = document.getElementById("numberOfImages"); // variable for number of images field
-    const domainField = document.getElementById("domainForm"); // variable for domain selected field
-
-    validateNumImages();
-    // Check that valid numImages have been specified and domain is selected
-    if (numImagesField.getAttribute("data-value") == "true" && domainField.value != "none") {
-        numImages = numImagesField.value;
-        const modelForm = document.getElementById("modelTypeForm");
-        let modelsToFetch = [];
-
-        // add data-value of each model type to an array named modelsToFetch
-        const children = modelForm.children;
-        for (let i = 0; i < children.length; i++) {
-            const checkbox = children[i].querySelector('input[type="checkbox"]');
-            if (checkbox.checked) {
-                modelsToFetch.push(children[i].getAttribute("data-value"));
-            }
-        }
-
-        // Get limit of images for each model type (take total images they want and divide it by number of models they want)
-        const limit = Math.ceil(numImages / modelsToFetch.length);
-        const researcher = sessionStorage.getItem("email");
-
-        imagePool = [];
-        imagePoolLinks = [];
-
-        // Get "limit" amount of images associated with each model, store them and their metadata in imagepool
-        for (let i = 0; i < modelsToFetch.length; i++) {
-            var modelImages = []
-            var modelImageLinks = []
-
-            await levelRef
-                .where("email", "==", researcher)
-                .where("model", "==", modelsToFetch[i]) //compound query to find the images of domain and model specified
-                .where("domain", "==", domainField.value)
-                .get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        modelImages.push(doc.id); //stores the id's to each image
-                        modelImageLinks.push(doc.data()["imageUrl"]); //stores the links for each image to be displayed
-                    });
-                })
-                .catch((error) => {
-                    console.error('Error getting documents: ', error);
-                });
-
-            var counter = 0;
-            while (counter < limit && modelImages.length > 0) {
-                const randomIndex = Math.floor(Math.random() * modelImages.length);
-                imagePool.push(modelImages[randomIndex]);
-                imagePoolLinks.push(modelImageLinks[randomIndex]);
-                modelImages.splice(randomIndex, 1);
-                modelImageLinks.splice(randomIndex, 1);
-                counter++;
-            }
-
-        }
-    }
-    console.log(imagePool);
-}
-
-// Function to ensure number of images requested is valid, turned red if invalid integer
-function validateNumImages() {
-    const numImagesField = document.getElementById("numberOfImages");
-    let input = numImagesField.value;
-    let min = 6;
-    let max = 100;
-
-    if (!input == "") {
-        if (isPositiveInteger(input) && min <= input && input <= max) {
-            numImagesField.style.backgroundColor = "white";
-            numImagesField.setAttribute("data-value", "true");
-        } else {
-            numImagesField.style.backgroundColor = errorRedHex;
-            numImagesField.setAttribute("data-value", "false");
-        }
-    } else {
-        numImagesField.style.backgroundColor = "white";
-        numImagesField.setAttribute("data-value", "false");
-    }
-}
-
-// Sub Function for validateNumImages to make sure no negative numbers of Images can be requested for a survey
-function isPositiveInteger(str) {
-    // Use a regular expression to check if the string is a positive integer 
-    // The regular expression checks for one or more digits at the beginning of the string
-    const regex = /^[1-9]\d*$/;
-    return (regex.test(str));
-}
-
-// Function to pick a random image from the pool
-function pickRandomImage() {
-    // Check if all items have been picked
-    if (pickedImages.size === imagePool.length) {
-        // Reset the Set
-        pickedImages.clear();
-    }
-
-    let randomIndex;
-
-    do {
-        // Generate a random index within the range of available items
-        randomIndex = Math.floor(Math.random() * imagePool.length);
-    } while (pickedImages.has(randomIndex));
-
-    // Mark the item as picked
-    pickedImages.add(randomIndex);
-
-    return randomIndex;
 }
