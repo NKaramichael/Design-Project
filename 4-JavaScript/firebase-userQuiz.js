@@ -124,19 +124,24 @@ async function openSurvey() {
         console.log("Error getting document:", error);
         });
 
-        nextButton.style.display = "block";
+        console.log(questionList);
+        setTimeout(function () {
+            nextButton.style.display = "block";
+          }, 3000);
+        
 }
 
 // Submit onclick()
 async function submit() {
     const email = sessionStorage.getItem("email");
+    const answerFieldContainer = document.getElementById("answerFieldContainer");
 
     // Get the quizId from the URL query parameters
     const urlParams = new URLSearchParams(window.location.search);
     const quizId = urlParams.get('quizId');
 
-    
     // check responses ar valid
+    saveAnswer(answerFieldContainer);
     const valid = validateResponses();
     
     if (valid) {
@@ -146,8 +151,8 @@ async function submit() {
         //     completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
         // });
 
-        submitScores()
-        window.location.href = "./completedUserBoard.html"
+        await submitScores();
+        // window.location.href = "./completedUserBoard.html";
     }
 };
 
@@ -160,21 +165,19 @@ async function loadQuestionList(questions, levels) {
         if (doc.exists) {
             const allQuestions = doc.data()["Questions"];
             // loop through array and get info for each quiz to display
-            
-            allQuestions.forEach((question, index) => {
-                if (questions.includes(index)) {
+            for (const [questionText, question] of Object.entries(allQuestions)) {
+                if (questions.includes(questionText)) {
                     questionList.push(
                         new Map([
-                        ["questionID", index],
-                        ["questionText", question["QuestionText"]],
+                        ["questionText", questionText],
                         ["questionType", question["QuestionType"]],
                         ["multiImage", question["multiImage"]],
                         ["response", []]
                         ])
                     );
                 }
-            });
-        } else {
+            }
+            } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
@@ -472,4 +475,79 @@ function validateResponses() {
     });
 
     return valid;
+}
+
+// Submits the scorers to the database
+async function submitScores() {
+    // for each question loop through levels and update scores
+    for (const question of questionList) {
+        // get an array of selected levels for non scale questions to check for containment during the query
+        selected = [];
+        if (question.get("questionType") != "scale") {
+            for(const response of question.get("response")){
+                selected.push(question.get("levels")[response]);
+            }
+        }
+
+        // for each level in the question
+        for(const level of question.get("levels")) {
+            const ref = levelRef.doc(level);
+            await ref.get()
+            .then((doc) => {
+                if (doc.exists) {
+                const data = doc.data();
+                const questionReference = question.get("questionText");
+                // APPEARED ARRAY UPDATE
+                // step 1: Check if the array contains a map for this question yet
+                const appearedArray = data.appeared || [];
+                const existingAppearedMap = appearedArray.find(item => item[questionReference] !== undefined);
+
+                // Step 2: Increment the value if it exists or add the key with a value of 1
+                if (existingAppearedMap) {
+                    existingAppearedMap[questionReference] += 1;
+                } else {
+                    appearedArray.push({ [questionReference]: 1 });
+                }
+
+                // SCORE ARRAY UPDATE
+                // step 1: Check if the array contains a map for this question yet
+                const scoreArray = data.score || [];
+                const existingScoreMap = scoreArray.find(item => item[question.get("questionText")] !== undefined);
+
+                // Step 2: Increment the value by score if it exists or add the key with a value of this user's score
+
+                // get the score depending on questionType
+                var score = 0;
+                if (question.get("questionType") == "scale") {
+                    score = question.get("response")[0]/10;
+                } else {
+                    if (selected.includes(level)) {
+                        score = 1;
+                    }
+                }
+
+                if (existingScoreMap) {
+                    existingScoreMap[questionReference] += score;
+                } else {
+                    scoreArray.push({ [questionReference]: score });
+                }
+
+                // Step 4: Update the Firestore document
+                ref.update({ appeared: appearedArray, score: scoreArray })
+                .then(() => {
+                    console.log("Arrays updated successfully.");
+                  })
+                  .catch((error) => {
+                    console.error("Error updating arrays:", error);
+                  });
+            
+                } else {
+                console.log("Document does not exist.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error getting document:", error);
+            });
+        }
+    }
 }

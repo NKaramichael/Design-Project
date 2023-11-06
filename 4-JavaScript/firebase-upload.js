@@ -155,7 +155,7 @@ async function uploadImage(file, domain, model) {
             imageUrl: url,
             domain: domain,
             model: model,
-            sum: [],
+            score: [],
             appeared: []
         });
 
