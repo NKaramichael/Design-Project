@@ -150,7 +150,7 @@
         window.location.href = "sign-up.html";
       }
     </script>
-    
+
     <!-- End of added stuff -->
     <script type="text/javascript" src="https://unpkg.com/dangerous-html/dist/default/lib.umd.js"></script>
     <link href="./index.css" rel="stylesheet" />
@@ -179,10 +179,17 @@
                 <a href="index.html" class="home-navlink">
                   <img alt="pastedImage" src="public/logo-removebg-preview-200h.png" class="home-logo1" />
                 </a>
-                <div class="home-links1">
-                  <span class="Link">Researchers</span>
-                  <span class="Link">How it works</span>
-                </div>
+
+                <!-- Button to see all researchers -->
+                <a href="displayResearchers.html">
+                  <button class="Link" style="padding-left: 2rem;">Researchers</button>
+                </a>
+
+                <!-- button to display how things work -->
+                <a href="howItWorks.html">
+                  <button class="Link" style="padding-left: 0rem;"> How it works</button>
+                </a>
+                
               </div>
               <div class="home-right">
                 <a href="log-in.html" class="home-sign-in Link">Log in</a>
@@ -239,23 +246,23 @@ closeButton.addEventListener('click', function() {
       <section class="home-statistics">
         <div class="home-container1">
           <div class="active-users-active-users metrics">
-            <span class="active-users-text"><span id = "userCount">-</span></span>
+            <span class="active-users-text"><span id="userCount">-</span></span>
             <span class="active-users-text1">
               <span>— Users</span>
             </span>
           </div>
           <div class="active-users-active-users metrics">
-            <span class="active-users-text"><span id = "researcherCount">-</span></span>
+            <span class="active-users-text"><span id="researcherCount">-</span></span>
             <span class="active-users-text1">
               <span>— Researchers</span>
             </span>
           </div>
           <div class="active-users-active-users metrics">
-            <span class="active-users-text"><span id = "levelCount">-</span></span>
+            <span class="active-users-text"><span id="levelCount">-</span></span>
             <span class="active-users-text1"><span>— PCG Levels Evaluated</span></span>
           </div>
           <div class="active-users-active-users metrics">
-            <span class="active-users-text"><span id = "quizCount">-</span></span>
+            <span class="active-users-text"><span id="quizCount">-</span></span>
             <span class="active-users-text1">
               <span>— Surveys Created</span>
             </span>
@@ -268,10 +275,10 @@ closeButton.addEventListener('click', function() {
   <!-- Fetch statistics in footer on load of home page -->
   <script type="text/javascript">
     window.onload = function () {
-        displayUsers();
-        displayResearchers();
-        displayPCGLevels();
-        displaySurveysCreated();
+      displayUsers();
+      displayResearchers();
+      displayPCGLevels();
+      displaySurveysCreated();
     };
   </script>
 
