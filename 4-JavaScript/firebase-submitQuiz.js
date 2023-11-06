@@ -61,6 +61,8 @@ function submit() {
     const domainField = document.getElementById("domainForm");
     const modelField = document.getElementById("modelTypeForm");
     const defaultQuestionList = document.getElementById("defaultQuestionList");
+    const navBar = document.getElementById("navBar");
+    const questionTextForm = document.getElementById("questionPreview");
 
     const heading = headingField.value;
     const desc = descriptionField.value;
@@ -97,7 +99,14 @@ function submit() {
     }
     if (imagePool.length == 0) errorFlag = false;
     // check that weights are all filled
-
+    for (const [key, weight] of weights.entries()) {
+        if (isNaN(parseFloat(weight))){
+            const navButton = navBar.querySelector(`button[id="${key}"]`);
+            navButton.style.backgroundColor = errorColor;
+            questionTextForm.textContent = "Please set numerical weights for all questions";
+            valid = false;
+        }  
+    }
 
     if (!errorFlag) return;
 
@@ -249,6 +258,8 @@ function selectQuestion(button) {
     const defaultQuestionList = document.getElementById("defaultQuestionList");
     const imageContainer = document.getElementById("imageContainer");
     const answerFieldContainer = document.getElementById("answerFieldContainer");
+    // conatiner for weight
+
 
     let question = defaultQuestionList.querySelector(`label[id="${button.id}"]`);
     let questionText = question.textContent;
@@ -256,8 +267,14 @@ function selectQuestion(button) {
     let isMulti = question.getAttribute("MultiImage");
     let numImages = 0;
 
+    // save weight before updating text content
+    setWeight(conatiuber);
+
     // SET QUESTION TEXT
     questionTextForm.textContent = questionText;
+
+    // autofill weight container
+    fillWeightContainer(container);
 
     // DISPLAY IMAGES
     if (imagePool.length != 0) {
