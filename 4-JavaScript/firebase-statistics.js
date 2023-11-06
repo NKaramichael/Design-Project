@@ -24,11 +24,9 @@ var questionRef = db.collection('Questions');
 // Get a reference to the Firebase Storage service
 var storage = firebase.storage();
 
-// Gloabal Statistic variables
-var questionMap = new Map();
-var questionWeights = new Map();
-var overallScores = new Map();
-var questionTextArray = [];
+// Global Statistic variables
+var questionWeights = {};
+var overallScores = {};
 
 const surveys = {};
 
@@ -56,7 +54,7 @@ async function loadQuestionList() {
                     option.style.textAlign = "center";
 
                     parent.appendChild(option);
-                    questionMap.set(questionText, new Map());
+                    questionMap.set(questionText, {});
                     questionWeights.set(questionText, question["Weight"]);
                     questionTextArray.push(questionText);
                 }
@@ -92,6 +90,7 @@ async function loadSurveyList() {
             mappedData["Levels"] = quizData["Levels"];
             mappedData["Questions"] = quizData["Questions"];
             mappedData["Status"] = quizData["Status"];
+            mappedData["Weights"] = quizData["Weights"];
 
             surveys[quizData["Title"]] = mappedData;
 
@@ -151,4 +150,9 @@ async function computeGlobalStatistics() {
     .catch((error) => {
         console.error('Error getting documents: ', error);
     });
+}
+
+
+async function computeStatistics() {
+
 }

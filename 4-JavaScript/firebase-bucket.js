@@ -119,7 +119,6 @@ async function displayQuizzes(status) {
   // Rest of the code remains the same
 
   // if there are no surveys to display, tell the user to add some
-  console.log(surveyExists);
   if (!surveyExists) {
     // Create an empty div to add space above the text
     const spaceDiv = document.createElement("div");
