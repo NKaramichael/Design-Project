@@ -221,6 +221,7 @@
   padding-bottom: var(--dl-space-space-unit);
   justify-content: flex-end;
   background-color: #0198fd;
+  font-weight: bold;
 }
 .log-in-continue-button:hover {
   color: black;

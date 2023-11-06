@@ -24,6 +24,19 @@ const errorRedHex = "#fdd6d3";
 // QUIZ DATA
 var researcher;
 var questionList = [];
+const imageDiv = document.getElementById("imageContainer");
+
+// Restyles the image container if there are too many images in the container
+function checkOverflow() {
+    if (imageDiv.scrollWidth > imageDiv.clientWidth) {
+        imageDiv.style.justifyContent = 'flex-start'; // Content overflows, align left
+    } else {
+        imageDiv.style.justifyContent = 'center'; // Content fits, center it
+    }
+}
+
+// Add an event listener to check for overflow on window resize
+window.addEventListener('resize', checkOverflow);
 
 // Sets the Heading/Title
 async function displayHeading(heading) {
@@ -258,7 +271,7 @@ function clearContainer(container) {
 }
 
 // updates the imageConatiner on navigate
-function updateImageContainer(imageContainer) {
+async function updateImageContainer(imageContainer) {
     questionList[currentQuestion].get("levels").forEach((level, index) => {
         // Create a container for each image and label
         const imageAndLabelContainer = document.createElement("div");
@@ -357,7 +370,7 @@ function updateAnswerContainer(answerFieldContainer) {
 }
 
 // Calls all funcitons to update containers on navigate
-function changeQuestion() {
+async function changeQuestion() {
     const questionContainer = document.getElementById("surveyHeading");
     const imageContainer = document.getElementById("imageContainer");
     const answerFieldContainer = document.getElementById("answerFieldContainer");
@@ -370,9 +383,12 @@ function changeQuestion() {
     // set Question Text
     questionContainer.innerHTML = questionList[currentQuestion].get("questionText");
     // Update Image Container
-    updateImageContainer(imageContainer);
+    await updateImageContainer(imageContainer);
     // Update Answer Container
     updateAnswerContainer(answerFieldContainer);
+
+    // Checks if Image Container overflows and adjusts it to fit the images adequetely
+    checkOverflow();
 }
 
 // Calls changeQuestion and sets button visibility

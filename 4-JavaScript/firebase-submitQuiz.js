@@ -1,4 +1,4 @@
-
+// THIS JAVASCRIPT IS FOR WHEN RESEARCHERS ARE CREATING THEIR SURVEYS
 const firebaseConfig = {
     apiKey: "AIzaSyDPhBs6YrLXQspg8krTemU6WdlArx4lNQ4",
     authDomain: "pcgevaluation-49d75.firebaseapp.com",
