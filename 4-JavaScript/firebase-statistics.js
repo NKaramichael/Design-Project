@@ -120,8 +120,8 @@ async function updateMetaTable() {
 
 }
 
-// precompute/fetch all stats onload
-async function computeStatistics() {
+// INCOMPLETE precompute/fetch all stats onload
+async function computeGlobalStatistics() {
     await levelRef.get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

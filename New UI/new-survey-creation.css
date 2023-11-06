@@ -580,8 +580,7 @@
   position: relative;
 }
 .navBar-button:hover {
-  color: black;
-  background-color: var(--dl-color-primary-700);
+  color: var(--dl-color-primary-700);
 }
 @media(max-width: 767px) {
   .new-survey-creation-submit-button {

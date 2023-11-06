@@ -20,7 +20,7 @@ var researcherRef = db.collection("Researchers");
 var imagePool = [];
 var imagePoolLinks = [];
 const pickedImages = new Set();
-var weights = new Map();
+var weights = {};
 const errorRedHex = "#fdd6d3";
 
 // Restyles the image container if there are too many images in the container
@@ -99,12 +99,16 @@ function submit() {
     }
     if (imagePool.length == 0) errorFlag = false;
     // check that weights are all filled
-    for (const [key, weight] of weights.entries()) {
+    for (key in weights) {
+        const weight = weights[key];
         if (isNaN(parseFloat(weight))){
-            const navButton = navBar.querySelector(`button[id="${key}"]`);
-            navButton.style.backgroundColor = errorColor;
+            const navButton = navBar.querySelector(`button[data-id="${key}"]`);
+            if (navButton) {
+                navButton.style.backgroundColor = errorRedHex;
+            }
             questionTextForm.textContent = "Please set numerical weights for all questions";
-            valid = false;
+            questionTextForm.style.color = errorRedHex;
+            errorFlag = false;
         }  
     }
 
@@ -131,7 +135,7 @@ function submit() {
         Models: models,
         Questions: questions,
         Levels: imagePool,
-        Weights: weights
+        Weights: weights || {}
     };
 
     const currentResearcher = researcherRef.doc(researcher); 
@@ -206,6 +210,7 @@ function toggleDefualtQuestion(element) {
 
             button.setAttribute("class", "navBar-button");
             button.setAttribute("id", element.id);
+            button.setAttribute("data-id", element.id);
             button.setAttribute("data-value", element.getAttribute("data-value"));
             button.setAttribute("onclick", "selectQuestion(this)");
 
@@ -213,10 +218,10 @@ function toggleDefualtQuestion(element) {
             setIndeces(navBar);
             selectQuestion(navBar.querySelector(`button[id="${element.id}"]`))
 
+            weights[questionText] = "";
         } else {
             // Delete the weight entry
-            delete weights[key]
-
+            delete weights[questionText];
             const buttonElement = navBar.querySelector(`button[id="${element.id}"]`);
             if (buttonElement) {
                 buttonElement.remove();
@@ -258,7 +263,7 @@ function selectQuestion(button) {
     const defaultQuestionList = document.getElementById("defaultQuestionList");
     const imageContainer = document.getElementById("imageContainer");
     const answerFieldContainer = document.getElementById("answerFieldContainer");
-    // conatiner for weight
+    const weightInput = document.getElementById("weightInput");
 
 
     let question = defaultQuestionList.querySelector(`label[id="${button.id}"]`);
@@ -267,14 +272,17 @@ function selectQuestion(button) {
     let isMulti = question.getAttribute("MultiImage");
     let numImages = 0;
 
+    button.style.backgroundColor = "transparent";
+
     // save weight before updating text content
-    setWeight(conatiuber);
+    setWeight(weightInput);
 
     // SET QUESTION TEXT
+    questionTextForm.style.color = "white";
     questionTextForm.textContent = questionText;
 
     // autofill weight container
-    fillWeightContainer(container);
+    fillWeightContainer(weightInput);
 
     // DISPLAY IMAGES
     if (imagePool.length != 0) {
@@ -652,14 +660,16 @@ function setWeight(container) {
     questionText = questionTextForm.textContent;
 
     // do checks here maybe or later?
-    weights.set(questionText, container.value);
+    if (questionText == "") return;
+
+    weights[questionText] = container.value;
 }
 
 function fillWeightContainer(container) {
     const questionTextForm = document.getElementById("questionPreview");
     questionText = questionTextForm.textContent;
 
-    if (weights.has(questionText)) {
-        container.value = weights.get(questionText);
+    if (questionText in weights) {
+        container.value = weights[questionText];
     }
 }

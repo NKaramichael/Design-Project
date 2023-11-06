@@ -208,11 +208,9 @@
           <div
             style="/*! margin-top: 2rem; */display: flex;flex-direction: row;/*! justify-content: flex-end; */width: 100%;">
             <div style="display: flex;flex-direction: row;justify-content: end;width: 60%;overflow-x: auto;"><span id="questionPreview"
-                class="new-survey-creation-text07">
-                Question preview goes here
-              </span></div>
+                class="new-survey-creation-text07"></span></div>
             <div style="width: 40%;justify-content: flex-start;display: flex;flex-direction: row;padding-left: 1rem;">
-              <input type="text" id="weightInput" placeholder="Enter a weight" class="question-creation-textinput input"
+              <input type="text" id="weightInput" onchange="setWeight(this)" placeholder="Enter a weight" class="question-creation-textinput input"
                 style="width: 40%;height: min-content;margin-top: 2rem;padding: 0.5rem; text-align: center;">
             </div>
           </div>
