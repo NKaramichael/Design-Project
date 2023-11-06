@@ -139,6 +139,7 @@ async function openSurvey() {
         });
 
         nextButton.style.display = "block";
+        console.log(questionList);
 }
 
 // Submit onclick()
@@ -164,6 +165,8 @@ async function submit() {
         //     completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
         // });
 
+        await saveResponse();
+        await submitGlobalScores();
         // window.location.href = "./completedUserBoard.html";
     }
 };
@@ -585,14 +588,69 @@ async function submitGlobalScores() {
 async function saveResponse() {
      // for each question loop through levels and update scores
      for (const question of questionList) {
-        // get an array of selected levels for non scale questions to check for containment during the query
-        selected = [];
-        if (question.get("questionType") != "scale") {
-            for(const response of question.get("response")){
-                selected.push(question.get("levels")[response]);
-            }
-        }
+         const questionText = question.get("questionText");
 
-        
+         // get an array of selected levels for non scale questions to check for containment during the query
+         selected = [];
+         if (question.get("questionType") != "scale") {
+             for(const response of question.get("response")){
+                 selected.push(question.get("levels")[response]);
+                }
+            }
+            
+        // for each level in the question
+        for(const level of question.get("levels")) {
+            // Check for a respomnse and updateit if it exists, otherwise create one
+            await responsesRef.get()
+            .where("Question", "==", questionText)
+            .where("Level", "==", level)
+            .get()
+            .then((querySnapshot) => {
+                if (!querySnapshot.empty) {
+                    // Document exists, update its values
+                    const doc = querySnapshot.docs[0]; // Should only be one matching document
+                    
+                    // Define the values to increment based on score
+                    var scoreValue = 0;
+                    if (question.get("questionType") == "scale") {
+                        scoreValue = question.get("response")[0]/10;
+                    } else {
+                        if (selected.includes(level)) {
+                            scoreValue = 1;
+                        }
+                    }
+
+                    const incrementValues = {
+                        score: scoreValue, // Increment the "score" field by 1
+                        appeared: 1 // Increment the "appeared" field by 1
+                    };
+
+                    // Create an object to hold the update
+                    const updateData = {};
+
+                    for (const key in incrementValues) {
+                        if (incrementValues.hasOwnProperty(key)) {
+                            updateData[key] = firebase.firestore.FieldValue.increment(incrementValues[key]);
+                        }
+                    }
+
+                    return doc.ref.update(updateData);
+                } else {
+                    // Document does not exist, create a new document
+                    return responsesRef.add({
+                        Question: questionText,
+                        Level: level,
+                        score: scoreValue,
+                        appeared: 1
+                    });
+                }
+            })
+            .then(() => {
+                console.log("Document updated or created successfully");
+            })
+            .catch((error) => {
+                console.error("Error updating or creating document: ", error);
+            });
+        }
      }
 }
