@@ -10,7 +10,7 @@
 }
 .display-researchers-hero {
   width: 100%;
-  height: 1000px;
+  height: 100vh;
   display: flex;
   align-items: center;
   padding-top: var(--dl-space-space-oneandhalfunits);
@@ -170,6 +170,8 @@
   color: rgb(255, 255, 255);
   font-size: 48px;
   align-self: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
 }
 .display-researchers-container4 {
   flex: 0 0 auto;
@@ -181,6 +183,7 @@
   align-items: flex-start;
   flex-direction: column;
 }
+
 @media(max-width: 991px) {
   .display-researchers-hero {
     padding-left: var(--dl-space-space-oneandhalfunits);
