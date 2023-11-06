@@ -10,7 +10,7 @@
     flex-direction: column;
     padding-bottom: 2rem;
     justify-content: center;
-    background-color: var(--dl-color-template-blue-bg);
+    background-color: var(--dl-color-popup);
     position: relative;
     top: 35vh;
     left: 40vw;

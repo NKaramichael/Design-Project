@@ -85,19 +85,6 @@ function addMeta(){
 
     modal.style.display = 'block';
 
-    // Close the modal when the close button is clicked
-    // closeButton.addEventListener('click', function() {
-    // modal.style.display = 'none';
-    // });
-
-    // Close the modal when the submit button is clicked and a value is entered
-    // submitButton.addEventListener('click', function() {
-    // const inputValue = document.getElementById('inputValue').value;
-    // if (inputValue) {
-    //     modal.style.display = 'none';
-    // }
-    // });
-
     // Close the modal if the user clicks outside the modal
     window.addEventListener('click', function(event) {
     if (event.target === modal) {
@@ -193,13 +180,30 @@ async function upload(){
 
 // THESE FUNCTIONS ARE FOR UPLOADING IMAGES TO THE DATABASE
 async function uploadImages(domain, model) {
+    const popupModal = document.getElementById("popupModal");
+    popupModal.style.display = "block";
+    const popupBubble = document.getElementById("popupBubble");
+    const children = popupBubble.children;
+
+    while (children.length > 0) {
+        // Check if there are more than one child elements
+        const lastChild = children[children.length - 1];
+        popupBubble.removeChild(lastChild); // Remove the last child
+    }
+
+    const newText = document.createElement("span");
+    newText.className = "pop-up-text";
+    
+    popupBubble.appendChild(newText);
+
     // Upload images to Firebase Storage and Firestore
     for (let i = 0; i < selectedFiles.length; i++) {
+        newText.innerHTML = (selectedFiles.length - i) + " files remaining";
         const file = selectedFiles[i];
         await uploadImage(file, domain, model);
     }
 
-    // // Define an array to store all upload promises
+    // Define an array to store all upload promises
     // const uploadPromises = [];
 
     // for (let i = 0; i < selectedFiles.length; i++) {
