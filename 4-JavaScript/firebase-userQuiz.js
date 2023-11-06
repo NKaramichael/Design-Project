@@ -10,6 +10,7 @@ const firebaseConfig = {
   
 // Initialise firebase
 firebase.initializeApp(firebaseConfig);
+
 const db = firebase.firestore();
 const quizRef = db.collection("Quizzes");
 const metaRef = db.collection("Metadata");
@@ -166,8 +167,8 @@ async function submit() {
         // });
 
         await saveResponse();
-        await submitGlobalScores();
-        // window.location.href = "./completedUserBoard.html";
+        // await submitGlobalScores();
+        window.location.href = "./user-dashboard.html";
     }
 };
 
@@ -585,7 +586,11 @@ async function submitGlobalScores() {
     }
 }
 
+// Store the responses in the database (not associated with user)
 async function saveResponse() {
+    // Use a batch to group multiple write operations together and execute them as a single atomic transaction
+    const batch = db.batch(); 
+
      // for each question loop through levels and update scores
      for (const question of questionList) {
          const questionText = question.get("questionText");
@@ -600,57 +605,52 @@ async function saveResponse() {
             
         // for each level in the question
         for(const level of question.get("levels")) {
-            // Check for a respomnse and updateit if it exists, otherwise create one
-            await responsesRef.get()
-            .where("Question", "==", questionText)
-            .where("Level", "==", level)
-            .get()
-            .then((querySnapshot) => {
-                if (!querySnapshot.empty) {
-                    // Document exists, update its values
-                    const doc = querySnapshot.docs[0]; // Should only be one matching document
-                    
-                    // Define the values to increment based on score
-                    var scoreValue = 0;
-                    if (question.get("questionType") == "scale") {
-                        scoreValue = question.get("response")[0]/10;
-                    } else {
-                        if (selected.includes(level)) {
-                            scoreValue = 1;
-                        }
-                    }
-
-                    const incrementValues = {
-                        score: scoreValue, // Increment the "score" field by 1
-                        appeared: 1 // Increment the "appeared" field by 1
-                    };
-
-                    // Create an object to hold the update
-                    const updateData = {};
-
-                    for (const key in incrementValues) {
-                        if (incrementValues.hasOwnProperty(key)) {
-                            updateData[key] = firebase.firestore.FieldValue.increment(incrementValues[key]);
-                        }
-                    }
-
-                    return doc.ref.update(updateData);
-                } else {
-                    // Document does not exist, create a new document
-                    return responsesRef.add({
-                        Question: questionText,
-                        Level: level,
-                        score: scoreValue,
-                        appeared: 1
-                    });
+            // Define the values to increment based on score
+            var scoreValue = 0;
+            if (question.get("questionType") == "scale") {
+                scoreValue = question.get("response")[0]/10;
+            } else {
+                if (selected.includes(level)) {
+                    scoreValue = 1;
                 }
-            })
-            .then(() => {
-                console.log("Document updated or created successfully");
-            })
-            .catch((error) => {
-                console.error("Error updating or creating document: ", error);
-            });
+            }
+
+            // Define the document reference for the current document
+            const docRef = responsesRef
+                .where("Question", "==", questionText)
+                .where("Level", "==", level)
+                .limit(1); // Limit to 1, as there should be only one matching document
+
+            
+            // Check for a response and update it if it exists, otherwise create one
+            const querySnapshot = await docRef.get();
+            if (!querySnapshot.empty) {
+                // Document exists, update its values
+                const doc = querySnapshot.docs[0]; // Should only be one matching document
+
+                // Add the update operation to the batch
+                batch.update(doc.ref, {
+                    score: firebase.firestore.FieldValue.increment(scoreValue),
+                    appeared: firebase.firestore.FieldValue.increment(1)
+                });
+            } else {
+                // Document does not exist, add the create operation to the batch
+                batch.set(responsesRef.doc(), {
+                    Question: questionText,
+                    Level: level,
+                    score: scoreValue,
+                    appeared: 1
+                });
+            }
         }
      }
+
+     // Commit the batch
+    await batch.commit()
+    .then(() => {
+        console.log("Batched write successful");
+    })
+    .catch((error) => {
+        console.error("Error performing batched write: ", error);
+    });
 }

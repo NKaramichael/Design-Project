@@ -152,7 +152,6 @@ async function computeGlobalStatistics() {
     });
 }
 
-
 async function computeStatistics() {
 
 }
