@@ -127,20 +127,24 @@ function submit() {
     // Once the data is added to the quiz collection, get a reference to its name and add it to the researchers collection under the researchers name
     QuizRef.add(data)
         .then((quizDocRef) => {
-
             const quizName = quizDocRef.id;
             
-            // Update the mySurveys field with the reference to the new quiz
-            return currentResearcher.update({
-                mySurveys: firebase.firestore.FieldValue.arrayUnion(quizName)
+            // Create a subcollection "Responses" under the newly created document
+            return quizDocRef.collection("Responses").add({
+                // You can add initial data to the "Responses" subcollection here if needed
+            }).then(() => {
+                // Update the mySurveys field with the reference to the new quiz
+                return currentResearcher.update({
+                    mySurveys: firebase.firestore.FieldValue.arrayUnion(quizName)
+                });
             });
         })
         .then(() => {
             window.location.href = "../New UI/researcher-dashboard.html";
         })
-        .catch((error) => {
-            console.error("Error adding document to Quizzes or updating Researcher Collection: ", error);
-        });
+    .catch((error) => {
+        console.error("Error adding document to Quizzes or updating Researcher Collection: ", error);
+    });
 
 }
 
@@ -453,6 +457,7 @@ function loadDomainList() {
         console.log("Error getting document:", error);
     });
 }
+
 // Load the list of models from the database into the field
 function loadModelList() {
     // reference to question metadata
@@ -465,11 +470,10 @@ function loadModelList() {
         if (doc.exists) {
             const modelList = doc.data()["Models"];
             // loop through array and get info for each quiz to display
-            let index = 0;
             modelList.forEach((model) => {
 
                 const label = document.createElement("label");
-                label.setAttribute("id", index++);
+                label.setAttribute("id", model);
                 label.setAttribute("data-value", model);
                 label.textContent = model;
                 label.setAttribute("onchange", "updateImagePool()");

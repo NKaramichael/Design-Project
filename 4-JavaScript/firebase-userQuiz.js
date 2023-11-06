@@ -10,20 +10,22 @@ const firebaseConfig = {
   
 // Initialise firebase
 firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
-var quizRef = db.collection("Quizzes");
-var metaRef = db.collection("Metadata");
-var levelRef = db.collection("Levels");
-var userRef = db.collection('Users');
-var researcherRef = db.collection('Researchers');
-var questionRef = db.collection('Questions');
+const db = firebase.firestore();
+const quizRef = db.collection("Quizzes");
+const metaRef = db.collection("Metadata");
+const levelRef = db.collection("Levels");
+const userRef = db.collection('Users');
+const researcherRef = db.collection('Researchers');
+const questionRef = db.collection('Questions');
 
 var currentQuestion;
 const errorRedHex = "#fdd6d3";
 
 // QUIZ DATA
-var researcher;
+const urlParams = new URLSearchParams(window.location.search);
+const quizID = urlParams.get('quizId');
 var questionList = [];
+const responsesRef = quizRef.doc(quizID).collection("Responses");
 const imageDiv = document.getElementById("imageContainer");
 
 // Restyles the image container if there are too many images in the container
@@ -105,8 +107,7 @@ function nextQuestion() {
 // Onload function - sets heading and description and calls loadQuestionList() 
 async function openSurvey() {
     // Get the quizId from the URL query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const quizID = urlParams.get('quizId');
+    
 
     const prevButton = document.getElementById("prevBtn");
     const nextButton = document.getElementById("nextBtn");
@@ -138,6 +139,7 @@ async function openSurvey() {
         });
 
         nextButton.style.display = "block";
+        console.log(questionList);
 }
 
 // Submit onclick()
@@ -152,10 +154,6 @@ async function submit() {
     const email = sessionStorage.getItem("email");
     const answerFieldContainer = document.getElementById("answerFieldContainer");
 
-    // Get the quizId from the URL query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const quizId = urlParams.get('quizId');
-
     // check responses ar valid
     saveAnswer(answerFieldContainer);
     const valid = validateResponses();
@@ -167,7 +165,6 @@ async function submit() {
         //     completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
         // });
 
-        await submitScores();
         // window.location.href = "./completedUserBoard.html";
     }
 };
@@ -205,41 +202,62 @@ async function loadQuestionList(questions, levels) {
     
     for (const question of questionList) {
         if (levels.length !== 0) {
-          numImages = 1;
-          const min = 2;
-          const max = 6;
-    
-          if (question.get("multiImage") === true) {
-            numImages = Math.floor(Math.random() * (max - min + 1)) + min;
-          }
-    
-          questionLevels = [];
-          questionLevelUrls = [];
-    
-          for (let i = 0; i < numImages; i++) {
-            const imageIndex = pickRandomImage(levels, pickedImages);
-            questionLevels.push(levels[imageIndex]);
-    
-            const ref = levelRef.doc(levels[imageIndex]);
-    
-            try {
-                await ref.get().then((doc) => {
-                    if (doc.exists) {
-                        questionLevelUrls.push(doc.data()["imageUrl"]);
-                    } else {
-                        // doc.data() will be undefined in this case
-                        console.log("No such document!");
-                }
-                });
-            } catch (error) {
-              console.log("Error getting document:", error);
+            numImages = 1;
+            const min = 2;
+            const max = 6;
+        
+            if (question.get("multiImage") === true) {
+                numImages = Math.floor(Math.random() * (max - min + 1)) + min;
             }
-          }
-    
-          question.set("levels", questionLevels);
-          question.set("levelUrls", questionLevelUrls);
+        
+            const questionLevels = [];
+            const levelPromises = [];
+
+            for (let i = 0; i < numImages; i++) {
+                const imageIndex = pickRandomImage(levels, pickedImages);
+                questionLevels.push(levels[imageIndex]);
+
+                const ref = levelRef.doc(levels[imageIndex]);
+                const levelPromise = ref.get().then((doc) => {
+                    if (doc.exists) {
+                        return doc.data()["imageUrl"];
+                    } else {
+                        console.log("No such document!");
+                        return null; // Return a placeholder value if the document doesn't exist
+                    }
+                });
+
+                levelPromises.push(levelPromise);
+            }
+
+            try {
+                const questionLevelUrls = await Promise.all(levelPromises);
+
+                // Now you have fetched all the level URLs and stored them in levelResults.
+                // Next, reorder the arrays based on the original order of questionLevels.
+                const indexMapping = questionLevels.map((_, index) => index);
+
+                const reorderedLevelUrls = reorderArrayBasedOnIndexes(questionLevelUrls, indexMapping);
+
+                question.set("levels", questionLevels);
+                question.set("levelUrls", reorderedLevelUrls);
+            } catch (error) {
+                console.log("Error getting documents:", error);
+            }
+
         }
       }
+}
+
+function reorderArrayBasedOnIndexes(array, indexMapping) {
+    const reorderedArray = new Array(array.length);
+
+    for (const [index, item] of array.entries()) {
+        const targetIndex = indexMapping[index];
+        reorderedArray[targetIndex] = item;
+    }
+
+    return reorderedArray;
 }
 
 // Function to pick a random image from the pool
@@ -497,7 +515,7 @@ function validateResponses() {
 }
 
 // Submits the scorers to the database
-async function submitScores() {
+async function submitGlobalScores() {
     // for each question loop through levels and update scores
     for (const question of questionList) {
         // get an array of selected levels for non scale questions to check for containment during the query
@@ -563,4 +581,19 @@ async function submitScores() {
             });
         }
     }
+}
+
+async function saveResponse() {
+     // for each question loop through levels and update scores
+     for (const question of questionList) {
+        // get an array of selected levels for non scale questions to check for containment during the query
+        selected = [];
+        if (question.get("questionType") != "scale") {
+            for(const response of question.get("response")){
+                selected.push(question.get("levels")[response]);
+            }
+        }
+
+
+     }
 }
