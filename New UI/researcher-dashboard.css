@@ -172,7 +172,7 @@
   padding-top: var(--dl-space-space-unit);
   padding-left: var(--dl-space-space-twounits);
   border-radius: 56px;
-  margin-bottom: var(--dl-space-space-unit);
+  margin-bottom: var(--dl-space-space-halfunit);
   padding-right: var(--dl-space-space-twounits);
   flex-direction: column;
   padding-bottom: var(--dl-space-space-unit);

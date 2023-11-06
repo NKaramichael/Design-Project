@@ -23,6 +23,15 @@ const pickedImages = new Set();
 
 const errorRedHex = "#fdd6d3";
 
+// Restyles the image container if there are too many images in the container
+function checkOverflow(imageDiv) {
+    if (imageDiv.scrollWidth > imageDiv.clientWidth) {
+        imageDiv.style.justifyContent = 'flex-start'; // Content overflows, align left
+    } else {
+        imageDiv.style.justifyContent = 'center'; // Content fits, center it
+    }
+}
+
 function change(num) {
     let out = '';
     switch (num) {
@@ -239,7 +248,6 @@ function selectQuestion(button) {
     // SET QUESTION TEXT
     questionTextForm.textContent = questionText;
 
-
     // DISPLAY IMAGES
     if (imagePool.length != 0) {
         numImages = 1;
@@ -293,6 +301,8 @@ function selectQuestion(button) {
 
             // Append the container to the imageContainer
             imageContainer.appendChild(imageAndLabelContainer); // display image and label on-screen
+
+            checkOverflow(imageContainer)
         }
     }
 
