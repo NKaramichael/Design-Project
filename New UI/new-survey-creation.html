@@ -169,10 +169,10 @@
       <div class="new-survey-creation-top-container">
         <div class="new-survey-creation-left">
           <!-- Header Back Button -->
-        <a href = "researcher-dashboard.html">
-          <button class="new-survey-creation-submit-button" style="align-self: flex-start;">Back</button>
-        </a>
-      </div>
+          <a href="researcher-dashboard.html">
+            <button class="new-survey-creation-submit-button" style="align-self: flex-start;">Back</button>
+          </a>
+        </div>
         <div class="new-survey-creation-mid">
           <h1 class="new-survey-creation-title">Survey Creation Page</h1>
         </div>
@@ -205,9 +205,17 @@
             <form id="defaultQuestionList" name="defaultQuestionList" class="new-survey-creation-form"></form>
 
           </div>
-          <span id="questionPreview" class="new-survey-creation-text07">
-            Question preview goes here
-          </span>
+          <div
+            style="/*! margin-top: 2rem; */display: flex;flex-direction: row;/*! justify-content: flex-end; */width: 100%;">
+            <div style="display: flex;flex-direction: row;justify-content: end;width: 60%;overflow-x: auto;"><span id="questionPreview"
+                class="new-survey-creation-text07">
+                Question preview goes here
+              </span></div>
+            <div style="width: 40%;justify-content: flex-start;display: flex;flex-direction: row;padding-left: 1rem;">
+              <input type="text" id="weightInput" placeholder="Enter a weight" class="question-creation-textinput input"
+                style="width: 40%;height: min-content;margin-top: 2rem;padding: 0.5rem; text-align: center;">
+            </div>
+          </div>
         </div>
         <div class="new-survey-creation-right-white">
           <div class="new-survey-creation-images">
