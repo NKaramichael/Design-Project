@@ -179,6 +179,7 @@ async function loadQuestionList(questions, levels) {
             const allQuestions = doc.data()["Questions"];
             // loop through array and get info for each quiz to display
             for (const [questionText, question] of Object.entries(allQuestions)) {
+                console.log(question);
                 if (questions.includes(questionText)) {
                     questionList.push(
                         new Map([
