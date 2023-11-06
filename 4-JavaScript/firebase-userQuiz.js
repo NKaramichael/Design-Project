@@ -519,15 +519,15 @@ async function submitScores() {
 
                 // APPEARED MAP UPDATE
                 // step 1: Check if the Map contains a key for this question yet and update or add the key-value pair
-                const appearedMap = data.appeared;
-                if (appearedMap.has(questionReference)) {
-                    appearedMap.set(questionReference, appearedMap.get(questionReference) + 1);
+                const appearedMap = data.appeared || {};
+                if (appearedMap.hasOwnProperty(questionReference)) {
+                    appearedMap[questionReference] = appearedMap[questionReference] + 1;
                 } else {
-                    appearedMap.set(questionReference, 1);
+                    appearedMap[questionReference] = 1;
                 }
 
                 // SCORE MAP UPDATE
-                const scoreMap = data.score;
+                const scoreMap = data.score || {};
                 // get the score depending on questionType
                 var score = 0;
                 if (question.get("questionType") == "scale") {
@@ -539,10 +539,10 @@ async function submitScores() {
                 }
                 
                 // step 1: Check if the Map contains a key for this question yet and update or add the key-value pair
-                if (scoreMap.has(questionReference)) {
-                    scoreMap.set(questionReference, scoreMap.get(questionReference) + score);
+                if (scoreMap.hasOwnProperty(questionReference)) {
+                    scoreMap[questionReference] = scoreMap[questionReference] + score;
                 } else {
-                    scoreMap.set(questionReference, score);
+                    scoreMap[questionReference] = score;
                 }
 
                 // Step 4: Update the Firestore document
