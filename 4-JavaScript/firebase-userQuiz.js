@@ -184,7 +184,7 @@ async function loadQuestionList(questions, levels) {
                         new Map([
                         ["questionText", questionText],
                         ["questionType", question["QuestionType"]],
-                        ["multiImage", question["multiImage"]],
+                        ["MultiImage", question["MultiImage"]],
                         ["response", []]
                         ])
                     );
@@ -206,7 +206,7 @@ async function loadQuestionList(questions, levels) {
             const min = 2;
             const max = 6;
         
-            if (question.get("multiImage") === true) {
+            if (question.get("MultiImage") === true) {
                 numImages = Math.floor(Math.random() * (max - min + 1)) + min;
             }
         
@@ -308,7 +308,7 @@ async function updateImageContainer(imageContainer) {
         // Append the image and label to the container
         imageAndLabelContainer.appendChild(image);
         
-        if (questionList[currentQuestion].get("multiImage") === true) { 
+        if (questionList[currentQuestion].get("MultiImage") === true) { 
             const label = document.createElement("span");
             label.textContent = String.fromCharCode(65 + index); // 'A', 'B', 'C', ...
 
