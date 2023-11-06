@@ -53,78 +53,93 @@ function displayNewQuizzes() {
   while (container.firstChild) {
     container.removeChild(container.firstChild);
   }
-  
+
   displayQuizzes("new");
 };
 
 // Fetching and display the user's quizzes
-function displayQuizzes(status) {
+async function displayQuizzes(status) {
   var email = sessionStorage.getItem('email');
+  let surveyExists = false;
 
   const Ref = UserFirestore.doc(email);
-  if (status != 'new') {
-    Ref.get()
-      .then((doc) => {
-        if (doc.exists) {
-          const quizRefs = doc.data()[status + 'Quizzes'];
-          // loop through array and get info for each quiz to display
-          quizRefs.forEach((name) => {
-            const ref = QuizFirestore.doc(name);
-            ref.get()
-              .then((doc) => {
-                if (doc.exists) {
-                  // display the quiz block
-                  createQuizBlock(doc.data(), status, doc.id);
-                } else {
-                  // The document doesn't exist
-                  console.log("No such document!");
-                }
-              })
-              .catch((error) => {
-                // An error occurred while retrieving the document
-                console.log("Error getting document:", error);
-              });
-          });
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
-  } else {
-    Ref.get()
-      .then((doc) => {
-        if (doc.exists) {
-          const usedQuizRefs = doc.data()['completedQuizzes'].concat(doc.data()['currentQuizzes']);
-          QuizFirestore
-          .where("Status", "==", true)
-          .get()
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                if (doc.exists && !usedQuizRefs.includes(doc.id)) {
-                  // display the quiz block
-                  createQuizBlock(doc.data(), status, doc.id);
-                } else {
-                  // The document doesn't exist or is already used
-                  console.log("No such document!");
-                }
-              });
-            })
-            .catch((error) => {
-              console.log("Error getting documents: ", error);
-            });
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
+
+  try {
+    if (status != 'new') {
+      const doc = await Ref.get();
+
+      if (doc.exists) {
+        
+        const quizRefs = doc.data()[status + 'Quizzes'];
+
+        // Create an array of promises to fetch quiz data
+        const quizPromises = quizRefs.map(async (name) => {
+          const ref = QuizFirestore.doc(name);
+          const quizDoc = await ref.get();
+          if (quizDoc.exists) {
+            // display the quiz block
+            surveyExists = true;
+            createQuizBlock(quizDoc.data(), status, quizDoc.id);
+          } else {
+            // The document doesn't exist
+            console.log("No such document!");
+          }
+        });
+
+        await Promise.all(quizPromises);
+      } else {
+        console.log("No such document!");
+      }
+    } else {
+      const doc = await Ref.get();
+
+      if (doc.exists) {
+        
+        const usedQuizRefs = doc.data()['completedQuizzes'].concat(doc.data()['currentQuizzes']);
+        const querySnapshot = await QuizFirestore.where("Status", "==", true).get();
+
+        querySnapshot.forEach((doc) => {
+          if (doc.exists && !usedQuizRefs.includes(doc.id)) {
+            // display the quiz block
+            surveyExists = true;
+            createQuizBlock(doc.data(), status, doc.id);
+          } else {
+            // The document doesn't exist or is already used
+            console.log("No such document!");
+          }
+        });
+      } else {
+        console.log("No such document!");
+      }
+    }
+  } catch (error) {
+    console.log("Error: ", error);
   }
-};
+
+  // Rest of the code remains the same
+
+  // if there are no surveys to display, tell the user to add some
+  console.log(surveyExists);
+  if (!surveyExists) {
+    // Create an empty div to add space above the text
+    const spaceDiv = document.createElement("div");
+    spaceDiv.style.height = "50vh";
+
+    const email = sessionStorage.getItem("email");
+    const parent = document.getElementById("container");
+    const title = document.createElement("h1");
+    title.setAttribute("style", "color: white;");
+    title.textContent = `Oops! No surveys to see here...`;
+    parent.appendChild(spaceDiv);
+    parent.appendChild(title);
+
+    const helpText = document.createElement("h3");
+    helpText.setAttribute("style", "color: white; font-weight: normal;");
+    helpText.textContent = `Be sure to use the user panel to start and complete surveys`;
+    parent.appendChild(helpText);
+  }
+}
+
 
 async function getLevelUrl(levelName) {
   const levelRef = LevelFirestore.doc(levelName);
@@ -145,7 +160,7 @@ async function getLevelUrl(levelName) {
 };
 
 // Function to create each survey item popup
-async function createQuizBlock(data, status, id) {  
+async function createQuizBlock(data, status, id) {
   // Get the parent element to which the text boxes will be added
   const parent = document.getElementById("container");
 
@@ -519,37 +534,37 @@ async function displayQuiz(data, id) {
 
 
 async function displayImages(data) {
-      // Get a reference to the parent container element
-      const parentContainer = document.getElementById('imageContainer');
-  
+  // Get a reference to the parent container element
+  const parentContainer = document.getElementById('imageContainer');
+
   // Create the outer row element
   const rowElement = document.createElement("div");
   rowElement.classList.add("row", "justify-content-center", "align-items-center");
-  
+
   // Define an async function to be used inside the forEach loop
   const loadImage = async (levelName) => {
-      // Create the column element
-      const col = document.createElement("div");
-      col.classList.add("col");
-  
-      // Create the image element
-      const image = document.createElement("img");
-      image.classList.add("img-fluid");
-      image.style.maxWidth = "300px";
-      image.style.maxHeight = "300px";
-      image.style.boxShadow = "2px 2px #000";
-  
-      const url = await getLevelUrl(levelName);
-      image.setAttribute("src", url)
-  
-      col.appendChild(image);
-      rowElement.appendChild(col);
+    // Create the column element
+    const col = document.createElement("div");
+    col.classList.add("col");
+
+    // Create the image element
+    const image = document.createElement("img");
+    image.classList.add("img-fluid");
+    image.style.maxWidth = "300px";
+    image.style.maxHeight = "300px";
+    image.style.boxShadow = "2px 2px #000";
+
+    const url = await getLevelUrl(levelName);
+    image.setAttribute("src", url)
+
+    col.appendChild(image);
+    rowElement.appendChild(col);
   };
-  
+
   // Iterate over the image names and load them asynchronously
   for (const levelName of data['Images']) {
-      await loadImage(levelName);
+    await loadImage(levelName);
   }
-  
+
   parentContainer.appendChild(rowElement);
-  };
+};
