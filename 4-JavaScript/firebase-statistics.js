@@ -56,3 +56,11 @@ function loadQuestionList() {
     });
 
 }
+
+function updateScoreTable(question) {
+
+}
+
+function updateMetaTable(question) {
+    
+}
