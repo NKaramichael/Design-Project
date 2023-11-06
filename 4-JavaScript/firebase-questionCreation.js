@@ -44,15 +44,6 @@ function addQuestion(){
         selectedType.style.backgroundColor = "white";
     }
 
-    const weightInput = document.getElementById("weightInput");
-
-    if (weightInput.value == "" || Number(weightInput.value) < 0 || Number(weightInput.value) > 1){
-        weightInput.style.backgroundColor = errorColor;
-        valid = false;
-    } else {
-        weightInput.style.backgroundColor = "white";
-    }
-
     const questionText = document.getElementById("questionText");
     const questionTextVal = questionText.value.trim();
 
@@ -89,8 +80,7 @@ function addQuestion(){
     // New question data
     const questionMeta = {
         "QuestionType": dropdown.value,
-        "MultiImage": multiImage,
-        "Weight": Number(weightInput.value)
+        "MultiImage": multiImage
     };
 
     // Update the "Questions" map in the Firestore document

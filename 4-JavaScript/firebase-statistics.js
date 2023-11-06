@@ -30,6 +30,8 @@ var questionWeights = new Map();
 var overallScores = new Map();
 var questionTextArray = [];
 
+const surveys = {};
+
 // Load the list of Questions from the database into the field
 async function loadQuestionList() {
     // reference to question metadata
@@ -67,6 +69,47 @@ async function loadQuestionList() {
         console.log("Error getting document:", error);
     });
     console.log(questionWeights);
+}
+
+// Loads survey list
+async function loadSurveyList() {
+    const email = sessionStorage.getItem('email');
+
+    // get parent cointainer
+    const parent = document.getElementById("dropdown");
+
+    // Create a query to fetch quizzes with the specified researcher email
+    const query = quizRef.where('Researcher', '==', email);
+
+    // Execute the query
+    query.get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // Access the data of each matching document
+            const quizData = doc.data();
+            const mappedData = {};
+
+            mappedData["Levels"] = quizData["Levels"];
+            mappedData["Questions"] = quizData["Questions"];
+            mappedData["Status"] = quizData["Status"];
+
+            surveys[quizData["Title"]] = mappedData;
+
+            const option = document.createElement("option");
+            option.setAttribute("value", quizData["Title"]);
+            option.style.fontFamily = "Inter";
+            option.innerHTML = quizData["Title"];
+            option.style.fontStyle = "normal";
+            option.style.textAlign = "center";
+
+            parent.appendChild(option);
+        });
+    })
+    .catch((error) => {
+        console.error('Error getting quizzes:', error);
+    });
+
+
 }
 
 async function updateScoreTable() {
