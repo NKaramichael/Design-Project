@@ -599,6 +599,31 @@
   color: black;
   background-color: #ffffff;
 }
+.upload-levels-addMeta {
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-self: center;
+  /* margin-top: 10px;
+  margin-bottom: 30px; */
+  margin-left: var(--dl-space-space-unit);
+  transition: 0.3s;
+  align-items: center;
+  padding-top: var(--dl-space-space-unit);
+  padding-left: var(--dl-space-space-unit);
+  border-radius: 56px;
+  padding-right: var(--dl-space-space-unit);
+  flex-direction: column;
+  padding-bottom: var(--dl-space-space-unit);
+  justify-content: flex-end;
+  background-color: #0198fd;
+  font-size: 12px;
+}
+.upload-levels-addMeta:hover {
+  color: black;
+  background-color: #ffffff;
+}
 .upload-levels-text21 {
   font-size: 18px;
   align-self: flex-start;

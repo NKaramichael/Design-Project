@@ -71,6 +71,45 @@
           display: inline-block;
           animation: rotate 1s linear infinite;
         }
+
+        /* Style for the modal background */
+        .modal {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent background */
+        }
+
+        /* Style for the modal content */
+        .modal-content {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #fff;
+          padding: 20px;
+          border: 1px solid #333;
+          border-radius: 5px;
+        }
+
+        /* Close button in the modal */
+        .close {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 20px;
+          cursor: pointer;
+        }
+
+        /* Style for the input and submit button */
+        input[type="text"], button {
+          display: block;
+          margin: 10px 0;
+        }
+
     </style>
   </head>
   <body>
@@ -172,7 +211,7 @@
             <br />
           </p>
           <div class="upload-levels-container03">
-            <header class="upload-levels-header"></header>
+            <!-- <header class="upload-levels-header"></header> -->
             
             <!-- BUTTON FOR SELECTING IMAGES -->
             <button id="inputFileButton" class="upload-levels-get-started">Select Images</button>
@@ -191,11 +230,56 @@
             <select class="upload-levels-thq-dropdown1 list-item" id="domainDropdown">
               <option style="font-style: normal;" value="none">Select a Domain</option>
             </select>
+
+            <button id="openPopupButton" class="upload-levels-addMeta" onclick="addMeta()">Add new model or domain</button>
           </div>
           
           <!-- BUTTON FOR UPLOADING IMAGES -->
           <button style="display: none;" id="uploadImagesButton" class="upload-levels-get-started1" onclick="upload()">Upload Images</button>
-          
+
+          <!-- The pop-up modal -->
+          <!-- <div >
+            <div class="modal-content">
+              <span class="close" id="closePopupButton">&times;</span>
+              <h2>Enter a value:</h2>
+              <input type="text" id="inputValue">
+              <button id="submitValue">Submit</button>
+            </div>
+          </div> -->
+
+          <div style="display: none;" id="popupModal" class="modal">
+            <link href="./components/pop-up.css" rel="stylesheet" />
+            <div class="pop-up-container">
+              <div class="pop-up-container1">
+                <div id="domainContainer" class="pop-up-domain-container">
+                  <input
+                    type="radio"
+                    name="radio"
+                    id="domainRadio"
+                    class="pop-up-radiobutton"
+                  />
+                  <span class="pop-up-text"><span>Domain</span></span>
+                </div>
+                <div id="modelContainer" class="pop-up-model-container">
+                  <input
+                    type="radio"
+                    name="radio"
+                    id="modelRadio"
+                    class="pop-up-radiobutton1"
+                  />
+                  <span class="pop-up-text1"><span>Model</span></span>
+                </div>
+              </div>
+              <textarea
+                id="inputField"
+                placeholder="Enter domain or model"
+                class="pop-up-textarea textarea"
+              ></textarea>
+
+              <button id="submitMeta" onclick="submitMetaData()" class="pop-up-submit-meta-button">Submit</button>
+            </div>
+          </div>
+
         </section>
         <div class="upload-levels-steps">
           <div class="upload-levels-container06">
