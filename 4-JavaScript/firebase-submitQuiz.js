@@ -20,7 +20,7 @@ var researcherRef = db.collection("Researchers");
 var imagePool = [];
 var imagePoolLinks = [];
 const pickedImages = new Set();
-
+var weights = new Map();
 const errorRedHex = "#fdd6d3";
 
 // Restyles the image container if there are too many images in the container
@@ -96,6 +96,8 @@ function submit() {
         errorFlag = false;
     }
     if (imagePool.length == 0) errorFlag = false;
+    // check that weights are all filled
+
 
     if (!errorFlag) return;
 
@@ -119,7 +121,8 @@ function submit() {
         Domain: domain,
         Models: models,
         Questions: questions,
-        Levels: imagePool
+        Levels: imagePool,
+        Weights: weights
     };
 
     const currentResearcher = researcherRef.doc(researcher); 
@@ -200,7 +203,11 @@ function toggleDefualtQuestion(element) {
             navBar.appendChild(button);
             setIndeces(navBar);
             selectQuestion(navBar.querySelector(`button[id="${element.id}"]`))
+
         } else {
+            // Delete the weight entry
+            delete weights[key]
+
             const buttonElement = navBar.querySelector(`button[id="${element.id}"]`);
             if (buttonElement) {
                 buttonElement.remove();
@@ -621,4 +628,21 @@ function enableContainerCheckboxes(parent) {
     for (const child of parent.children) {
         child.firstChild.disabled = false;
     }
-} 
+}
+
+function setWeight(container) {
+    const questionTextForm = document.getElementById("questionPreview");
+    questionText = questionTextForm.textContent;
+
+    // do checks here maybe or later?
+    weights.set(questionText, container.value);
+}
+
+function fillWeightContainer(container) {
+    const questionTextForm = document.getElementById("questionPreview");
+    questionText = questionTextForm.textContent;
+
+    if (weights.has(questionText)) {
+        container.value = weights.get(questionText);
+    }
+}
