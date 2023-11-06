@@ -144,6 +144,7 @@ async function uploadImage(file, domain, model) {
             }
         };
 
+        const email = sessionStorage.getItem("email");
         // Upload the image file to Firebase Storage with metadata
         await storageRef.put(file, metadata);
 
@@ -152,6 +153,7 @@ async function uploadImage(file, domain, model) {
 
         // Save the image URL and metadata in Cloud Firestore
         var docRef = await firestore.collection('Levels').add({
+            researcher: email,
             imageUrl: url,
             domain: domain,
             model: model,

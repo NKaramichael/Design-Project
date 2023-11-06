@@ -27,6 +27,7 @@ var storage = firebase.storage();
 // Gloabal Statistic variables
 var questionMap = new Map();
 var questionWeights = new Map();
+var overallScores = new Map();
 var questionTextArray = [];
 
 // Load the list of Questions from the database into the field
@@ -53,7 +54,7 @@ async function loadQuestionList() {
                     option.style.textAlign = "center";
 
                     parent.appendChild(option);
-                    questionMap.set(questionText, []);
+                    questionMap.set(questionText, new Map());
                     questionWeights.set(questionText, question["Weight"]);
                     questionTextArray.push(questionText);
                 }
@@ -82,17 +83,25 @@ async function computeStatistics() {
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             // get the appeared and score arrays
-            const appearedArray = doc.appeared;
-            const scoreArray = doc.score;
+            const level = doc.id;
+            const researcher = doc.researcher;
+            const appearedMap = doc.appeared;
+            const scoreMap = doc.score;
 
-            var score = new Map();
-            for (const question of scoreArray) {
-                score = Map(question);
+            // Set the score
+            const score = new Map();
+            for (const [questionText, value] of Object.entries(scoreMap)) {
+                score.set(questionText, value);
             }
-            for (const question of appearedArray) {
-                score;
+            for (const [questionText, value] of Object.entries(appearedMap)) {
+                if (score.has(questionText)) {
+                    score.set(questionText, score.get(questionText)/value);
+                } else {
+                    console.log("Warning: Level appeared but was never scored");
+                }
             }
 
+            // Sort the values into the global maps
             
         });
     })

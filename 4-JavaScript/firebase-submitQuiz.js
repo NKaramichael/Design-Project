@@ -506,6 +506,7 @@ async function toggleModel() {
 
         // Get limit of images for each model type (take total images they want and divide it by number of models they want)
         const limit = Math.ceil(numImages / modelsToFetch.length);
+        const researcher = sessionStorage.getItem("email");
 
         imagePool = [];
         imagePoolLinks = [];
@@ -516,6 +517,7 @@ async function toggleModel() {
             var modelImageLinks = []
 
             await levelRef
+                .where("researcher", "==", researcher)
                 .where("model", "==", modelsToFetch[i]) //compound query to find the images of domain and model specified
                 .where("domain", "==", domainField.value)
                 .get()
@@ -567,6 +569,7 @@ async function toggleDomain() {
 
         // Get limit of images for each model type (take total images they want and divide it by number of models they want)
         const limit = Math.ceil(numImages / modelsToFetch.length);
+        const researcher = sessionStorage.getItem("email");
 
         imagePool = [];
         imagePoolLinks = [];
@@ -577,6 +580,7 @@ async function toggleDomain() {
             var modelImageLinks = []
 
             await levelRef
+                .where("email", "==", researcher)
                 .where("model", "==", modelsToFetch[i]) //compound query to find the images of domain and model specified
                 .where("domain", "==", domainField.value)
                 .get()
