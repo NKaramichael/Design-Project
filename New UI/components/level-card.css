@@ -34,6 +34,7 @@
     padding-left: var(--dl-space-space-unit);
     flex-direction: column;
     justify-content: center;
+    margin-left: 2rem;
   }
   .level-card-score-div {
     flex: 0 0 auto;
