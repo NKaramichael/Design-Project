@@ -4,7 +4,6 @@
   display: flex;
   align-self: flex-start;
   align-items: flex-start;
-  margin-bottom: 25%;
   flex-direction: row;
   justify-content: flex-start;
 }
