@@ -224,11 +224,11 @@ async function createQuizBlock(data, status, id) {
     openButton.setAttribute("class", "card-button");
     openButton.textContent = "Open";
     openButton.setAttribute('data-value', JSON.stringify([id, status]));
-    div2.appendChild(openButton);
 
-    if (status == 'completed') {
-      openButton.addEventListener("click", openSurveyPage);
+    if (status == 'current') {
+      div2.appendChild(openButton);
     }
+   
     if (status == 'current') {
       openButton.addEventListener("click", openSurveyPage);
 
