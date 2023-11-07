@@ -69,14 +69,27 @@ async function updateScoreTable() {
     clearContainer(imageList);
 
     if (levelsToDisplay) {
+        updateMetaTable(levelsToDisplay);
         imageList.innerHTML = "";
+
+        // Create an array to store the level keys and their corresponding values
+        const levelKeysAndValues = [];
+
+        // Populate the array with level keys and values
+        for (const level in levelsToDisplay) {
+            const levelValue = scores[Title][question][level];
+            levelKeysAndValues.push({ level, value: levelValue });
+        }
+
+        // Sort the array based on the 'value' property in descending order
+        levelKeysAndValues.sort((a, b) => b.value - a.value);
 
         // Fetch the content of level-card.html once
         fetch("https://nkaramichael.github.io/Design-Project/New%20UI/components/level-card.html")
         .then((response) => response.text())
         .then((html) => {
             // loop through the levels
-            for (const level in levelsToDisplay) {
+            for (const { level, score } of levelKeysAndValues) {
                 if (levelsToDisplay.hasOwnProperty(level)) {
                     // Create a new DOM element with the fetched content
                     const template = document.createElement('template');
@@ -109,11 +122,24 @@ async function updateScoreTable() {
         });
     } else {
         imageList.innerHTML = "No data to display :(";
+        const modelStats = document.getElementById("modelStats");
+        const domainStats = document.getElementById("domainStats");
+        clearContainer(modelStats);
+        clearContainer(domainStats);
     }
 }
 
 // Update the meta table
 function updateMetaTable() {
+    const modelStats = document.getElementById("modelStats");
+    const domainStats = document.getElementById("domainStats");
+    const imageList = document.getElementById("imageList");
+
+    // clear containers
+    clearContainer(modelStats);
+    clearContainer(domainStats);
+
+    
 
 }
 
@@ -276,8 +302,9 @@ async function computeStatistics() {
             .catch((error) => {
                 console.error("Error getting documents: ", error);
             });
-        }        
+        }
     }
+
 
     computeOverall();
 }
