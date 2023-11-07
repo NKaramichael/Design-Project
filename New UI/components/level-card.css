@@ -19,8 +19,8 @@
     justify-content: flex-end;
   }
   .level-card-image {
-    width: 290px;
-    height: 301px;
+    width: fit-content;
+    height: fit-content;
     align-self: center;
     object-fit: cover;
   }
