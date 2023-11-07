@@ -31,7 +31,10 @@ var surveys = {};
 var levelInfo = {};
 
 // Colour declarations
-
+const colourRed = 'red';
+const colourOrange = 'orange';
+const colourYellow = 'yellow';
+const colourGreen  = 'green';
 // Removes all children from container
 function clearContainer(container) {
     while (container.firstChild) {
@@ -109,9 +112,20 @@ async function updateScoreTable() {
                     domainValue.innerText = levelInfo[level]["domain"];
                     const score = 100*Number(scores[Title][question][level]);
                     scoreValue.innerText = score;
-                    let colour;
+
+                    // set colour based on score
+                    let colour = 'white';
                     if (score < 25) {
+                        colour = colourRed;
+                    } else if (score >= 25 && score < 50) {
+                        colour = colourOrange;
+                    } else if (score >= 50 && score < 75) {
+                        colour = colourYellow;
+                    } else {
+                        colour = colourGreen;
                     }
+                    scoreValue.style.color = colour;
+
                     // Set a unique id for the level-card element
                     const uniqueId = level;
                     template.content.querySelector('.level-card-parent-div').id = uniqueId;
