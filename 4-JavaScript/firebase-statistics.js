@@ -149,17 +149,59 @@ async function updateScoreTable() {
 }
 
 // Update the meta table
-function updateMetaTable() {
-    const modelStats = document.getElementById("modelStats");
-    const domainStats = document.getElementById("domainStats");
-    const imageList = document.getElementById("imageList");
+function updateMetaTable(levelsToDisplay) {
+    const modelStatsContainer = document.getElementById("modelStats");
+    const domainStatsContainer = document.getElementById("domainStats");
 
     // clear containers
-    clearContainer(modelStats);
-    clearContainer(domainStats);
+    clearContainer(modelStatsContainer);
+    clearContainer(domainStatsContainer);
 
+    const { modelScores, domainScores } = calculateMetaScores(levelsToDisplay);
+    
     
 
+}
+
+function calculateMetaScores(levelsToDisplay) {
+    const question = document.getElementById("questionDropdown").value;
+    const Title = document.getElementById("surveyDropdown").value;
+
+    let modelScores = {};
+    let domainScores = {};
+    let modelDenom = {};
+    let domainDenom = {};
+
+    for (level of levelsToDisplay) {
+        const model = levelInfo[level]["model"];
+        const domain = levelInfo[level]["domain"];
+        const score = scores[Title][question][level];
+
+        // Increment model score
+        modelScores[model] = (modelScores[model] || 0) + score;
+
+        // Increment model denominator
+        modelDenom[model] = (modelDenom[model] || 0) + 1;
+
+        // Increment domain score
+        domainScores[domain] = (domainScores[domain] || 0) + score;
+
+        // Increment domain denominator
+        domainDenom[domain] = (domainDenom[domain] || 0) + 1;
+    }
+
+    for (const model in modelScores) {
+        modelScores[model] /= modelDenom[model];
+    }
+    
+    for (const domain in domainScores) {
+        domainScores[domain] /= domainDenom[domain];
+    }
+
+    return {
+        modelScores,
+        domainScores
+    };
 }
 
 // Loads survey list
