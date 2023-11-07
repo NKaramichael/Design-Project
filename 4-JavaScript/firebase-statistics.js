@@ -25,16 +25,18 @@ var questionRef = db.collection('Questions');
 var storage = firebase.storage();
 
 // Global Statistic variables
-var scores = {};
-var overallScores = {};
-var surveys = {};
-var levelInfo = {};
+const scores = {};
+const overallScores = {};
+const surveys = {};
+const levelInfo = {};
+const averageScores = {};
 
 // Colour declarations
 const colourRed = 'red';
 const colourOrange = 'orange';
 const colourYellow = 'yellow';
 const colourGreen  = 'green';
+
 // Removes all children from container
 function clearContainer(container) {
     while (container.firstChild) {
@@ -64,14 +66,21 @@ function loadQuestionList(surveyDropdown) {
 }
 
 // Update the score table on change of dropdown
-async function updateScoreTable() {
+function updateScoreTable() {
     const question = document.getElementById("questionDropdown").value;
     const Title = document.getElementById("surveyDropdown").value;
+
+    
     const imageList = document.getElementById("imageList");
     const levelsToDisplay = scores[Title] && scores[Title][question];
-
+    
     // clear the container
     clearContainer(imageList);
+    
+    if (question == "Overall") {
+        displayOverall();
+        return;
+    }
 
     if (levelsToDisplay) {
         updateMetaTable(levelsToDisplay);
@@ -148,6 +157,30 @@ async function updateScoreTable() {
     }
 }
 
+function displayOverall() {
+    const Title = document.getElementById("surveyDropdown").value;
+    const imageList = document.getElementById("imageList");
+
+    const averages = averageScores["Title"]; 
+    // Sort the array based on the 'value' property in descending order
+    const dataArray = Object.entries(averages);
+
+    // Sort the array based on the values (in ascending order)
+    dataArray.sort((a, b) => a[1] - b[1]);
+
+    // Extract the sorted keys into an array
+    const levels = dataArray.map((entry) => entry[0]);
+
+    for (level of levels) {
+        imageList.innerHTML = "";
+        
+        
+
+
+    }
+
+}
+
 // Update the meta table
 function updateMetaTable(levelsToDisplay) {
     const modelStatsContainer = document.getElementById("modelStats");
@@ -165,6 +198,7 @@ function updateMetaTable(levelsToDisplay) {
     fillMetaScores(domainStatsContainer, domainScores);
 }
 
+// filles a meta container with average meta scores
 function fillMetaScores(container, scores) {
     for (const name in scores) {
         const div = document.createElement("div");
@@ -197,6 +231,7 @@ function fillMetaScores(container, scores) {
     }
 }
 
+// calculates the metascores for valid levels
 function calculateMetaScores(levelsToDisplay) {
     const question = document.getElementById("questionDropdown").value;
     const Title = document.getElementById("surveyDropdown").value;
@@ -288,6 +323,7 @@ async function loadSurveyList() {
     loadQuestionList(parent);
 }
 
+// fetches all level info from quizTable and adds it to map
 async function fetchLevelInfo() {
     levelSet = new Set();
     for (const Title in surveys) {
@@ -338,39 +374,7 @@ async function fetchLevelInfo() {
         });
 }
 
-// INCOMPLETE precompute/fetch all stats onload
-async function computeGlobalStatistics() {
-    await levelRef.get()
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // get the appeared and score arrays
-            const level = doc.id;
-            const researcher = doc.researcher;
-            const appearedMap = doc.appeared;
-            const scoreMap = doc.score;
-
-            // Set the score
-            const score = new Map();
-            for (const [questionText, value] of Object.entries(scoreMap)) {
-                score.set(questionText, value);
-            }
-            for (const [questionText, value] of Object.entries(appearedMap)) {
-                if (score.has(questionText)) {
-                    score.set(questionText, score.get(questionText)/value);
-                } else {
-                    console.log("Warning: Level appeared but was never scored");
-                }
-            }
-
-            // Sort the values into the global maps
-            
-        });
-    })
-    .catch((error) => {
-        console.error('Error getting documents: ', error);
-    });
-}
-
+// computes the statistics for all levels*quesiton*surveys
 async function computeStatistics() {
     for (const Title in surveys) {
         if (surveys.hasOwnProperty(Title)) {
@@ -404,5 +408,30 @@ async function computeStatistics() {
     computeOverall();
 }
 
+// computes overall statistics for survey
 function computeOverall() {
+    // Loop through the surveys
+    for (const title in surveys) {
+        averageScores[title] = {}; // Initialize the map for this survey
+
+        for (const question in surveys[title]) {
+            for (const level in surveys[title][question]) {
+            const score = surveys[title][question][level];
+
+                // Initialize the average score for the level if it doesn't exist
+                if (!averageScores[title][level]) {
+                    averageScores[title][level] = { total: 0, count: 0 };
+                }
+
+                // Update the total and count for the level
+                averageScores[title][level].total += score;
+                averageScores[title][level].count++;
+            }
+        }
+
+        // Calculate the final averages for this survey
+        for (const level in averageScores[title]) {
+            averageScores[title][level] = averageScores[title][level].total / averageScores[title][level].count;
+        }
+    }
 }
