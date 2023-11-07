@@ -20,8 +20,8 @@
     justify-content: flex-end;
   }
   .level-card-image {
-    width: fit-content;
-    height: fit-content;
+    width: auto;
+    height: 30vh;
     align-self: center;
     object-fit: cover;
   }
@@ -41,7 +41,7 @@
     display: flex;
     align-self: flex-start;
     align-items: flex-start;
-    margin-bottom: 5%;
+    margin-bottom: 25%;
     flex-direction: row;
     justify-content: flex-start;
   }
@@ -58,7 +58,7 @@
     height: auto;
     display: flex;
     align-items: flex-start;
-    margin-bottom: 5%;
+    margin-bottom: 25%;
     flex-direction: row;
   }
   .level-card-text2 {
