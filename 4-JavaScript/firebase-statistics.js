@@ -177,7 +177,7 @@ function fillMetaScores(container, scores) {
         div.appendChild(value);
 
         key.innerHTML = name + ": ";
-        const score = 100*scores[name];
+        const score = Math.round(100*scores[name]);
         value.innerHTML = score;
 
         // set colour based on score
