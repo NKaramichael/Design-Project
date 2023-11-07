@@ -6,6 +6,7 @@
     align-items: center;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 1rem;
   }
   .level-card-image-area-div {
     flex: 0 0 auto;
