@@ -27,7 +27,8 @@ var storage = firebase.storage();
 // Global Statistic variables
 var scores = {};
 var overallScores = {};
-const surveys = {};
+var surveys = {};
+var levelInfo = {};
 
 // Removes all children from container
 function clearContainer(container) {
@@ -53,6 +54,67 @@ function loadQuestionList(surveyDropdown) {
 
         parent.appendChild(option);
     }
+
+    updateScoreTable();
+}
+
+// Update the score table on change of dropdown
+async function updateScoreTable() {
+    const question = document.getElementById("questionDropdown").value;
+    const Title = document.getElementById("surveyDropdown").value;
+    const imageList = document.getElementById("imageList");
+    const levelsToDisplay = scores[Title] && scores[Title][question];
+
+    // clear the container
+    clearContainer(imageList);
+
+    if (levelsToDisplay) {
+        imageList.innerHTML = "";
+
+        // Fetch the content of level-card.html once
+        fetch("https://nkaramichael.github.io/Design-Project/New%20UI/components/level-card.html")
+        .then((response) => response.text())
+        .then((html) => {
+            // loop through the levels
+            for (const level in levelsToDisplay) {
+                if (levelsToDisplay.hasOwnProperty(level)) {
+                    // Create a new DOM element with the fetched content
+                    const template = document.createElement('template');
+                    template.innerHTML = html;
+
+                    // Modify the content inside the element for this iteration
+                    const levelImage = template.content.querySelector('.level-card-image');
+                    const scoreValue = template.content.querySelector('#scoreValue');
+                    const domainValue = template.content.querySelector('#domainValue');
+                    const modelValue = template.content.querySelector('#modelValue');
+
+                    // Set values for the elements by looking up the maps
+                    levelImage.src = levelInfo[level]["imageUrl"];
+                    modelValue.innerText = levelInfo[level]["model"];
+                    domainValue.innerText = levelInfo[level]["domain"];
+                    scoreValue.innerText = scores[Title][question][level];
+                    
+                    // Set a unique id for the level-card element
+                    const uniqueId = level;
+                    template.content.querySelector('.level-card-parent-div').id = uniqueId;
+
+                    // Add the modified element to your container
+                    imageList.appendChild(template.content);
+                }
+            }
+            
+        })
+        .catch((error) => {
+            console.error("Error loading content:", error);
+        });
+    } else {
+        imageList.innerHTML = "No data to display :(";
+    }
+}
+
+// Update the meta table
+function updateMetaTable() {
+
 }
 
 // Loads survey list
@@ -97,15 +159,62 @@ async function loadSurveyList() {
         console.error('Error getting quizzes:', error);
     });
 
+    // compute the statistics
+    await computeStatistics();
+    // fetch level urls
+    await fetchLevelInfo();
+
     loadQuestionList(parent);
 }
 
-async function updateScoreTable() {
+async function fetchLevelInfo() {
+    levelSet = new Set();
+    for (const Title in surveys) {
+        if (surveys.hasOwnProperty(Title)) {
+            // add levels to the set
+            surveys[Title]["Levels"].forEach((item) => {
+                levelSet.add(item);
+              });
+        }
+    }
 
-}
+    //  Split the IDs into smaller arrays
+    const idChunks = [];
+    const chunkSize = 10;
+    const ids = Array.from(levelSet);
+    for (let i = 0; i < ids.length; i += chunkSize) {
+        idChunks.push(ids.slice(i, i + chunkSize));
+    }
+    
+    const fetchPromises = Array.from(levelSet).map(docID => {
+        const docRef = levelRef.doc(docID);
+        return docRef.get()
+            .then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    const imageUrl = data["imageUrl"];
+                    const domain = data["domain"];
+                    const model = data["model"];
 
-async function updateMetaTable() {
-
+                    levelInfo[docID] = {};
+                    levelInfo[docID]["imageUrl"] = imageUrl;
+                    levelInfo[docID]["domain"] = domain;
+                    levelInfo[docID]["model"] = model;
+                }
+            })
+            .catch(error => {
+                console.error(`Error fetching document ${docID}: `, error);
+            });
+    });
+    
+    await Promise.all(fetchPromises)
+        .then(() => {
+            // levelUrls now contains document IDs and their corresponding URLs
+            console.log(levelInfo);
+        })
+        .catch(error => {
+            console.error("Error fetching documents: ", error);
+        });
 }
 
 // INCOMPLETE precompute/fetch all stats onload
@@ -147,7 +256,6 @@ async function computeStatistics() {
 
             const surveyMap = surveys[Title];
             const ResponseRef = surveyMap["ResponseRef"];
-
             // fetch all Responses
             await ResponseRef.get()
             .then((querySnapshot) => {
@@ -158,7 +266,8 @@ async function computeStatistics() {
                         const question = data["Question"];
                         const score = data["score"] / data["appeared"];
                         // Assign to the nested map
-                        scores[Title] = scores[Title] || {}; // Initialize the survey if it doesn't exist
+                         // Initialize the survey if it doesn't exist
+                        scores[Title] = scores[Title] || {}; 
                         scores[Title][question] = scores[Title][question] || {}; // Initialize the question if it doesn't exist
                         scores[Title][question][level] = score;// set the score
                     }
@@ -174,5 +283,4 @@ async function computeStatistics() {
 }
 
 function computeOverall() {
-
 }
