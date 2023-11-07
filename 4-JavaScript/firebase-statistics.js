@@ -25,43 +25,34 @@ var questionRef = db.collection('Questions');
 var storage = firebase.storage();
 
 // Global Statistic variables
-var questionWeights = {};
+var scores = {};
 var overallScores = {};
 const surveys = {};
 
+// Removes all children from container
+function clearContainer(container) {
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
+}
+
 // Load the list of Questions from the database into the field
-async function loadQuestionList() {
-    // reference to question metadata
-    ref = metaRef.doc("QuizData");
+function loadQuestionList(surveyDropdown) {
+    surveyTitle = surveyDropdown.value;
 
-    // get parent cointainer
-    const parent = document.getElementById("questionDropdown");;
+    const parent = document.getElementById("questionDropdown");
+    clearContainer(parent);
 
-    // Fetch the questions array
-    await ref.get().then((doc) => {
-        if (doc.exists) {
-            const questionList = doc.data()["Questions"];
-            
-            // Loop through each question key in the question list
-            for (const [questionText, question] of Object.entries(questionList)) {
-                if (questionList.hasOwnProperty(questionText)) {
-                    const option = document.createElement("option");
-                    option.setAttribute("value", questionText);
-                    option.style.fontFamily = "Inter";
-                    option.innerHTML = questionText;
-                    option.style.fontStyle = "normal";
-                    option.style.textAlign = "center";
+    for (const questionText of surveys[surveyTitle]["Questions"]) {
+        const option = document.createElement("option");
+        option.setAttribute("value", questionText);
+        option.style.fontFamily = "Inter";
+        option.innerHTML = questionText;
+        option.style.fontStyle = "normal";
+        option.style.textAlign = "center";
 
-                    parent.appendChild(option);
-                }
-            }
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    }).catch((error) => {
-        console.log("Error getting document:", error);
-    });
+        parent.appendChild(option);
+    }
 }
 
 // Loads survey list
@@ -76,7 +67,7 @@ async function loadSurveyList() {
     const query = quizRef.where('Researcher', '==', email);
 
     // Execute the query
-    query.get()
+    await query.get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             // Access the data of each matching document
@@ -87,6 +78,8 @@ async function loadSurveyList() {
             mappedData["Questions"] = quizData["Questions"];
             mappedData["Status"] = quizData["Status"];
             mappedData["Weights"] = quizData["Weights"];
+            mappedData["id"] = doc.id;
+            mappedData["ResponseRef"] = doc.ref.collection("Responses");
 
             surveys[quizData["Title"]] = mappedData;
 
@@ -104,7 +97,7 @@ async function loadSurveyList() {
         console.error('Error getting quizzes:', error);
     });
 
-    await loadQuestionList();
+    loadQuestionList(parent);
 }
 
 async function updateScoreTable() {
@@ -149,5 +142,37 @@ async function computeGlobalStatistics() {
 }
 
 async function computeStatistics() {
+    for (const Title in surveys) {
+        if (surveys.hasOwnProperty(Title)) {
+
+            const surveyMap = surveys[Title];
+            const ResponseRef = surveyMap["ResponseRef"];
+
+            // fetch all Responses
+            await ResponseRef.get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if ("Level" in data && "Question" in data && "score" in data && "appeared" in data) {
+                        const level = data["Level"];
+                        const question = data["Question"];
+                        const score = data["score"] / data["appeared"];
+                        // Assign to the nested map
+                        scores[Title] = scores[Title] || {}; // Initialize the survey if it doesn't exist
+                        scores[Title][question] = scores[Title][question] || {}; // Initialize the question if it doesn't exist
+                        scores[Title][question][level] = score;// set the score
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error("Error getting documents: ", error);
+            });
+        }        
+    }
+
+    computeOverall();
+}
+
+function computeOverall() {
 
 }

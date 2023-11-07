@@ -145,7 +145,7 @@
           </header>
           <div style="display: flex;justify-content: center;flex-direction: column; align-items: center;">
             
-            <select data-thq="thq-dropdown" class="statistics-thq-dropdown list-item" id="surveyDropdown">
+            <select data-thq="thq-dropdown" class="statistics-thq-dropdown list-item" id="surveyDropdown" onchange="loadQuestionList(this)">
             </select>
 
             <select data-thq="thq-dropdown" class="statistics-thq-dropdown list-item" id="questionDropdown">
@@ -162,10 +162,10 @@
   </body>
 
   <script>
-    window.onload = function() {
+    window.onload = async function() {
         // Call functions from statistics.js
-        loadSurveyList();
-        // computeStatistics();
+        await loadSurveyList();
+        await computeStatistics();
     };
   </script>
 
