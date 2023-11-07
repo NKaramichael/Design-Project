@@ -30,6 +30,8 @@ var overallScores = {};
 var surveys = {};
 var levelInfo = {};
 
+// Colour declarations
+
 // Removes all children from container
 function clearContainer(container) {
     while (container.firstChild) {
@@ -105,8 +107,11 @@ async function updateScoreTable() {
                     levelImage.src = levelInfo[level]["imageUrl"];
                     modelValue.innerText = levelInfo[level]["model"];
                     domainValue.innerText = levelInfo[level]["domain"];
-                    scoreValue.innerText = scores[Title][question][level];
-                    
+                    const score = 100*Number(scores[Title][question][level]);
+                    scoreValue.innerText = score;
+                    let colour;
+                    if (score < 25) {
+                    }
                     // Set a unique id for the level-card element
                     const uniqueId = level;
                     template.content.querySelector('.level-card-parent-div').id = uniqueId;
