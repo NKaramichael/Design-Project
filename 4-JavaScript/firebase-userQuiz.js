@@ -161,10 +161,10 @@ async function submit() {
         document.getElementById("prevBtn").disabled = true;
 
         // set quiz to completed
-        // await userRef.doc(email).update({
-        //     currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizId),
-        //     completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizId)
-        // });
+        await userRef.doc(email).update({
+            currentQuizzes: firebase.firestore.FieldValue.arrayRemove(quizID),
+            completedQuizzes: firebase.firestore.FieldValue.arrayUnion(quizID)
+        });
 
         await saveResponse();
         window.location.href = "./user-dashboard.html";

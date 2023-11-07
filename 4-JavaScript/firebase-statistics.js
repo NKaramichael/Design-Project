@@ -203,10 +203,15 @@ function fillMetaScores(container, scores) {
     for (const name in scores) {
         const div = document.createElement("div");
         div.classList.add("level-card-div");
+        div.style.padding = "1rem";
         const key = document.createElement("span");
         key.classList.add("level-card-text");
+        key.style.fontSize = "18px";
+        key.style.fontWeight = "400";
         const value = document.createElement("span");
         value.classList.add("level-card-text");
+        value.style.fontSize = "18px";
+        value.style.fontWeight = "400";
         div.appendChild(key);
         div.appendChild(value);
 
