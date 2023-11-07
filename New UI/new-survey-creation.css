@@ -535,7 +535,7 @@
   overflow-x: auto;
   align-items: center;
   border-color: #ffffff;
-  border-style: dashed;
+  border-style: solid;
   border-width: 2px;
   margin-bottom: var(--dl-space-space-unit);
   flex-direction: row;
@@ -549,9 +549,9 @@
   padding-bottom: 10px;
   display: flex;
   align-items: center;
-  border-color: #ffffff;
+  /* border-color: #ffffff;
   border-style: dashed;
-  border-width: 2px;
+  border-width: 2px; */
   flex-direction: row;
   justify-content: center;
 }
