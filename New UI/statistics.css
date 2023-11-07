@@ -1,3 +1,16 @@
+.level-card-div {
+  flex: 0 0 auto;
+  height: auto;
+  display: flex;
+  align-self: flex-start;
+  align-items: flex-start;
+  margin-bottom: 25%;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.level-card-text {
+  font-size: 20px;
+}
 .statistics-container {
   width: 100%;
   display: flex;

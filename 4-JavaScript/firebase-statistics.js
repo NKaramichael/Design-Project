@@ -157,10 +157,44 @@ function updateMetaTable(levelsToDisplay) {
     clearContainer(modelStatsContainer);
     clearContainer(domainStatsContainer);
 
+    // compute scores
     const { modelScores, domainScores } = calculateMetaScores(levelsToDisplay);
     
-    
+    // fill containers with scores
+    fillMetaScores(modelStatsContainer, modelScores);
+    fillMetaScores(domainStatsContainer, domainScores);
+}
 
+function fillMetaScores(container, scores) {
+    for (const name in scores) {
+        const div = document.createElement("div");
+        div.classList.add("level-card-div");
+        const key = document.createElement("span");
+        key.classList.add("level-card-text");
+        const value = document.createElement("span");
+        value.classList.add("level-card-text");
+        div.appendChild(key);
+        div.appendChild(value);
+
+        key.innerHTML = name + ": ";
+        const score = 100*scores[name];
+        value.innerHTML = score;
+
+        // set colour based on score
+        let colour = 'white';
+        if (score < 25) {
+            colour = colourRed;
+        } else if (score >= 25 && score < 50) {
+            colour = colourOrange;
+        } else if (score >= 50 && score < 75) {
+            colour = colourYellow;
+        } else {
+            colour = colourGreen;
+        }
+        value.style.color = colour;
+
+        container.appendChild(div);
+    }
 }
 
 function calculateMetaScores(levelsToDisplay) {
@@ -172,7 +206,7 @@ function calculateMetaScores(levelsToDisplay) {
     let modelDenom = {};
     let domainDenom = {};
 
-    for (level of levelsToDisplay) {
+    for (const level in levelsToDisplay) {
         const model = levelInfo[level]["model"];
         const domain = levelInfo[level]["domain"];
         const score = scores[Title][question][level];
