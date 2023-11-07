@@ -322,11 +322,14 @@ async function updateImageContainer(imageContainer) {
             label.style.marginTop = "15px"; // Add spacing between image and label
 
             imageAndLabelContainer.appendChild(label);
+            checkOverflow();
         }
 
         // Append the container to the imageContainer
         imageContainer.appendChild(imageAndLabelContainer); // display image and label on-screen
+        checkOverflow();
     });
+    checkOverflow();
 }
 
 // Updates the anwerFieldContainer on navigate

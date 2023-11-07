@@ -353,10 +353,11 @@
 .statistics-container4 {
   flex: 0 0 auto;
   width: 45%;
-  border: 2px dashed rgba(120, 120, 120, 0.4);
+  border: 2px solid rgba(255, 255, 255, 1);
   height: 100%;
   display: flex;
   padding: var(--dl-space-space-unit);
+  padding-left: var(--dl-space-space-twounits);
   overflow-y: auto;
   align-items: flex-start;
   flex-direction: column;
@@ -364,7 +365,7 @@
 .statistics-container5 {
   flex: 0 0 auto;
   width: 35%;
-  border: 2px dashed rgba(120, 120, 120, 0.4);
+  border: 2px solid rgba(255, 255, 255, 1);
   height: 100%;
   display: flex;
   padding: var(--dl-space-space-unit);
