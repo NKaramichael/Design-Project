@@ -58,9 +58,11 @@ function loadQuestionList(surveyDropdown) {
     surveyTitle = surveyDropdown.value;
     const parent = document.getElementById("questionDropdown");
     clearContainer(parent);
+    parent.disabled = true;
 
-    if (surveyTitle == "none") {
+    if (surveyTitle == "none" && surveyDropdown.querySelector('option[data-special="true"]')) {
         parent.style.display = "none";
+        return;
     } else {
         parent.style.display = "flex";
 
@@ -98,6 +100,8 @@ function loadQuestionList(surveyDropdown) {
     option.style.textAlign = "center";
 
     parent.appendChild(option);
+
+    parent.disabled = false;
 }
 
 // Update the score table on change of dropdown
@@ -211,7 +215,6 @@ function displayOverall() {
 
     // Extract the sorted keys into an array
     const levels = dataArray.map((entry) => entry[0]);
-
     metaOverall(levels);
 
     imageList.innerHTML = "";
@@ -386,7 +389,7 @@ function calculateOverallMeta(levels) {
     let modelDenom = {};
     let domainDenom = {};
 
-    for (const level in levels) {
+    for (const level of levels) {
         const model = levelInfo[level]["model"];
         const domain = levelInfo[level]["domain"];
         const score = averageScores[Title][level];
@@ -425,9 +428,14 @@ async function loadSurveyList() {
 
     // get parent cointainer
     const parent = document.getElementById("surveyDropdown");
+    // disable while load
+    parent.disabled = true;
 
     // Create a query to fetch quizzes with the specified researcher email
     const query = quizRef.where('Researcher', '==', email);
+
+    const selectSurveyOption = document.getElementById('selectSurveyOption');
+    selectSurveyOption.setAttribute("data-special", true);
 
     // Execute the query
     await query.get()
@@ -463,6 +471,9 @@ async function loadSurveyList() {
     await computeStatistics();
     // fetch level urls
     await fetchLevelInfo();
+
+    // enable afater loading complete
+    parent.disabled = false;
 
     loadQuestionList(parent);
 }
