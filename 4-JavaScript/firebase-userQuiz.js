@@ -546,9 +546,9 @@ async function saveResponse() {
                 if (selected.includes(level)) {
                     scoreValue = 1;
                     // mulitply the score for radios by number of images it comepetes with
-                    if (question.get("questionType") == "radio") {
-                        scoreValue *= question.get("levels").length - 1;
-                    }
+                    // if (question.get("questionType") == "radio") {
+                    //     scoreValue *= question.get("levels").length - 1;
+                    // }
                 }
             }
 
