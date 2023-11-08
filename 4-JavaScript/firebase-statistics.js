@@ -210,8 +210,8 @@ function displayOverall() {
     // Sort the array based on the 'value' property in descending order
     const dataArray = Object.entries(averages);
 
-    // Sort the array based on the values (in ascending order)
-    dataArray.sort((a, b) => a[1] - b[1]);
+    // Sort the array based on the values (in descending order)
+    dataArray.sort((a, b) => b[1] - a[1]);
 
     // Extract the sorted keys into an array
     const levels = dataArray.map((entry) => entry[0]);
