@@ -423,8 +423,7 @@ function calculateOverallMeta(levels) {
 
 // Loads survey list
 async function loadSurveyList() {
-    // const email = sessionStorage.getItem('email');
-    const email = 'gr@t.com';
+    const email = sessionStorage.getItem('email');
 
     // get parent cointainer
     const parent = document.getElementById("surveyDropdown");
