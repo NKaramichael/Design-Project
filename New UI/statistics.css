@@ -361,6 +361,7 @@
   overflow-y: auto;
   align-items: flex-start;
   flex-direction: column;
+  color: #ffffff;
 }
 .statistics-container5 {
   flex: 0 0 auto;
