@@ -39,6 +39,13 @@ const colourOrange = 'orange';
 const colourYellow = 'yellow';
 const colourGreen  = 'green';
 
+// Placeholder option for survey dropdown
+var removedPlaceholder = false;
+
+// Add an event listener to check for overflow on window resize
+window.addEventListener('resize', resize);
+function resize() {if (removedPlaceholder) document.getElementById("hero").style.height = '100vh';}
+
 // Removes all children from container
 function clearContainer(container) {
     while (container.firstChild) {
@@ -51,6 +58,22 @@ function loadQuestionList(surveyDropdown) {
     surveyTitle = surveyDropdown.value;
     const parent = document.getElementById("questionDropdown");
     clearContainer(parent);
+
+    if (surveyTitle == "none") {
+        parent.style.display = "none";
+    } else {
+        parent.style.display = "flex";
+
+        const children = surveyDropdown.children;
+
+        if (!removedPlaceholder) {
+            removedPlaceholder = true;
+            surveyDropdown.removeChild(children[0]);
+        }
+        
+        document.getElementById("bottomContainer").style.display = "flex";
+        document.getElementById("stepsContainer").style.display = "none";
+    }
 
     for (const questionText of surveys[surveyTitle]["Questions"]) {
         const option = document.createElement("option");

@@ -65,7 +65,7 @@
       <link href="./statistics.css" rel="stylesheet" />
 
       <div class="statistics-container">
-        <section class="statistics-hero">
+        <section id="hero" class="statistics-hero">
           <div class="statistics-menu">
             <div id="mobile-menu" class="statistics-mobile-navigation">
               <img
@@ -146,13 +146,14 @@
           <div style="display: flex;justify-content: center;flex-direction: column; align-items: center;">
             
             <select data-thq="thq-dropdown" class="statistics-thq-dropdown list-item" id="surveyDropdown" onchange="loadQuestionList(this)">
+              <option style="font-style: normal;" value="none">Select survey</option>
             </select>
 
-            <select data-thq="thq-dropdown" class="statistics-thq-dropdown list-item" id="questionDropdown" onchange="updateScoreTable()">
+            <select style="display: none;" data-thq="thq-dropdown" class="statistics-thq-dropdown list-item" id="questionDropdown" onchange="updateScoreTable()">
             </select>
           </div>
 
-          <div class="statistics-container3">
+          <div style="display: none;" id="bottomContainer" class="statistics-container3">
             <div id="imageList" class="statistics-container4"></div>
             <div id="statList" class="statistics-container5">
               <div style="color: white; font-size: 22px;" class="statistics-container6"> Model Statistics
@@ -164,6 +165,89 @@
             </div>
           </div>
         </section>
+
+        <link href="./upload-levels.css" rel="stylesheet" />
+        <div id="stepsContainer" class="upload-levels-steps">
+          
+          <div class="upload-levels-container06">
+            <span class="upload-levels-text22">
+              <span>.</span>
+              <br />
+            </span>
+            <h1 class="upload-levels-text25">The Process</h1>
+          </div>
+          <div class="upload-levels-container07">
+            <div class="upload-levels-step">
+              <div class="upload-levels-container08">
+                <div class="upload-levels-line"></div>
+                <div class="upload-levels-container09"><span>1</span></div>
+                <div class="upload-levels-line1"></div>
+              </div>
+              <div class="upload-levels-container10">
+                <h1 class="upload-levels-text27">Upload Images</h1>
+                <span class="upload-levels-text28">
+                  <span>
+                    From your dashboard, upload images with associated
+                    metadata to use in your surveys
+                  </span>
+                  <br />
+                </span>
+              </div>
+            </div>
+            <div class="upload-levels-step1">
+              <div class="upload-levels-container11">
+                <div class="upload-levels-line2"></div>
+                <div class="upload-levels-container12"><span>2</span></div>
+                <div class="upload-levels-line3"></div>
+              </div>
+              <div class="upload-levels-container13">
+                <h1 class="upload-levels-text32">Add Questions</h1>
+                <span class="upload-levels-text33">
+                  <span>
+                    From your dashboard, add questions to the global question
+                    database to use them in your surveys
+                  </span>
+                  <br />
+                </span>
+              </div>
+            </div>
+            <div class="upload-levels-step2">
+              <div class="upload-levels-container14">
+                <div class="upload-levels-line4"></div>
+                <div class="upload-levels-container15"><span>3</span></div>
+                <div class="upload-levels-line5"></div>
+              </div>
+              <div class="upload-levels-container16">
+                <h1 class="upload-levels-text37">Create Surveys</h1>
+                <span class="upload-levels-text38">
+                  <span>
+                    Use the survey creation page to create surveys in a way
+                    you feel would be useful to assess your PCG levels
+                  </span>
+                  <br />
+                </span>
+              </div>
+            </div>
+            <div class="upload-levels-step3">
+              <div class="upload-levels-container17">
+                <div class="upload-levels-line6"></div>
+                <div class="upload-levels-container18"><span>4</span></div>
+                <div class="upload-levels-line7"></div>
+              </div>
+              <div class="upload-levels-container19">
+                <h1 class="upload-levels-text42">View Analytics</h1>
+                <span class="upload-levels-text43">
+                  <span>
+                    In this page, you can use the dropdowns to view different 
+                    statistics for each of your surveys, filtered by the
+                    questions you would like to focus on.
+                  </span>
+                  <br />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
