@@ -519,76 +519,7 @@ function validateResponses() {
     return valid;
 }
 
-// Submits the scorers to the database
-// async function submitGlobalScores() {
-//     // for each question loop through levels and update scores
-//     for (const question of questionList) {
-//         // get an array of selected levels for non scale questions to check for containment during the query
-//         selected = [];
-//         if (question.get("questionType") != "scale") {
-//             for(const response of question.get("response")){
-//                 selected.push(question.get("levels")[response]);
-//             }
-//         }
-
-//         // for each level in the question
-//         for(const level of question.get("levels")) {
-//             const ref = levelRef.doc(level);
-//             await ref.get()
-//             .then((doc) => {
-//                 if (doc.exists) {
-//                 const data = doc.data();
-//                 const questionReference = question.get("questionText");
-
-//                 // APPEARED MAP UPDATE
-//                 // step 1: Check if the Map contains a key for this question yet and update or add the key-value pair
-//                 const appearedMap = data.appeared || {};
-//                 if (appearedMap.hasOwnProperty(questionReference)) {
-//                     appearedMap[questionReference] = appearedMap[questionReference] + 1;
-//                 } else {
-//                     appearedMap[questionReference] = 1;
-//                 }
-
-//                 // SCORE MAP UPDATE
-//                 const scoreMap = data.score || {};
-//                 // get the score depending on questionType
-//                 var score = 0;
-//                 if (question.get("questionType") == "scale") {
-//                     score = question.get("response")[0]/10;
-//                 } else {
-//                     if (selected.includes(level)) {
-//                         score = 1;
-//                     }
-//                 }
-                
-//                 // step 1: Check if the Map contains a key for this question yet and update or add the key-value pair
-//                 if (scoreMap.hasOwnProperty(questionReference)) {
-//                     scoreMap[questionReference] = scoreMap[questionReference] + score;
-//                 } else {
-//                     scoreMap[questionReference] = score;
-//                 }
-
-//                 // Step 4: Update the Firestore document
-//                 ref.update({ appeared: appearedMap, score: scoreMap })
-//                 .then(() => {
-//                     console.log("Arrays updated successfully.");
-//                   })
-//                   .catch((error) => {
-//                     console.error("Error updating arrays:", error);
-//                   });
-            
-//                 } else {
-//                 console.log("Document does not exist.");
-//                 }
-//             })
-//             .catch((error) => {
-//                 console.error("Error getting document:", error);
-//             });
-//         }
-//     }
-// }
-
-// Store the responses in the database (not associated with user)
+// Store the responses in the database (not associated with user: added into a sum)
 async function saveResponse() {
     // Use a batch to group multiple write operations together and execute them as a single atomic transaction
     const batch = db.batch(); 
@@ -600,10 +531,10 @@ async function saveResponse() {
          // get an array of selected levels for non scale questions to check for containment during the query
          selected = [];
          if (question.get("questionType") != "scale") {
-             for(const response of question.get("response")){
-                 selected.push(question.get("levels")[response]);
-                }
+            for(const response of question.get("response")){
+                selected.push(question.get("levels")[response]);
             }
+        }  
             
         // for each level in the question
         for(const level of question.get("levels")) {
@@ -614,6 +545,10 @@ async function saveResponse() {
             } else {
                 if (selected.includes(level)) {
                     scoreValue = 1;
+                    // mulitply the score for radios by number of images it comepetes with
+                    if (question.get("questionType") == "radio") {
+                        scoreValue *= question.get("levels").length - 1;
+                    }
                 }
             }
 
