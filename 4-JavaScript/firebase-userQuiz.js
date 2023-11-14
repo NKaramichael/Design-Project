@@ -585,9 +585,9 @@ async function saveResponse() {
      // Commit the batch
     await batch.commit()
     .then(() => {
-        console.log("Batched write successful");
+        alert("Batched write successful");
     })
     .catch((error) => {
-        console.error("Error performing batched write: ", error);
+        alert("Error performing batched write: ", error);
     });
 }
