@@ -567,8 +567,8 @@ async function saveResponse() {
 
                 // Add the update operation to the batch
                 batch.update(doc.ref, {
-                    score: db.FieldValue.increment(scoreValue),
-                    appeared: db.FieldValue.increment(1)
+                    score: firebase.firestore.FieldValue.increment(scoreValue),
+                    appeared: firebase.firestore.FieldValue.increment(1)
                 });
             } else {
                 // Document does not exist, add the create operation to the batch
