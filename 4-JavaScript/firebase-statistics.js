@@ -159,7 +159,7 @@ function updateScoreTable() {
                     levelImage.src = levelInfo[level]["imageUrl"];
                     modelValue.innerText = levelInfo[level]["model"];
                     domainValue.innerText = levelInfo[level]["domain"];
-                    const score = 100*Number(scores[Title][question][level]);
+                    const score = 100*Math.round(Number(scores[Title][question][level]));
                     scoreValue.innerText = score;
 
                     // set colour based on score
