@@ -159,7 +159,7 @@ function updateScoreTable() {
                     levelImage.src = levelInfo[level]["imageUrl"];
                     modelValue.innerText = levelInfo[level]["model"];
                     domainValue.innerText = levelInfo[level]["domain"];
-                    const score = 100*Math.round(Number(scores[Title][question][level]));
+                    const score = Math.round(100*Number(scores[Title][question][level]));
                     scoreValue.innerText = score;
 
                     // set colour based on score
@@ -237,7 +237,7 @@ function displayOverall() {
                 levelImage.src = levelInfo[level]["imageUrl"];
                 modelValue.innerText = levelInfo[level]["model"];
                 domainValue.innerText = levelInfo[level]["domain"];
-                const score = 100*Number(averages[level]);
+                const score = Math.round(100*Number(averages[level]));
                 scoreValue.innerText = score;
 
                 // set colour based on score
@@ -569,9 +569,10 @@ function computeOverall() {
 
         for (const question in scores[title]) {
             for (const level in scores[title][question]) {
-                const weight = weightMap[question];
-                const score = scores[title][question][level];
+                const weight = Number(weightMap[question]);
+                const score = Number(scores[title][question][level]);
 
+                
                 // Initialize the average score for the level if it doesn't exist
                 if (!averageScores[title][level]) {
                     averageScores[title][level] = { total: 0, count: 0 };
@@ -582,10 +583,14 @@ function computeOverall() {
                 averageScores[title][level].count += weight;
             }
         }
+        
+        
 
         // Calculate the final averages for this survey
         for (const level in averageScores[title]) {
-            averageScores[title][level] = averageScores[title][level].total / averageScores[title][level].count;
+            if (averageScores[title][level].count != 0) {
+                averageScores[title][level] = averageScores[title][level].total / averageScores[title][level].count;
+            }
         }
     }
 }

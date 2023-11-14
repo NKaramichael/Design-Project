@@ -109,7 +109,9 @@ function submit() {
             questionTextForm.textContent = "Please set numerical weights for all questions";
             questionTextForm.style.color = errorRedHex;
             errorFlag = false;
-        }  
+        }  else {
+            weight = parseFloat(weight);
+        }
     }
 
     if (!errorFlag) return;
