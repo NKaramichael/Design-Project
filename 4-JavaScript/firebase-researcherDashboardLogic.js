@@ -24,6 +24,9 @@ var LevelFirestore = db.collection('Levels');
 var QuizFirestore = db.collection('Quizzes');
 var QuestionFirestore = db.collection('Questions');
 
+// Add an event listener to check for overflow on window resize
+window.addEventListener('resize', resize);
+function resize() {if (removedPlaceholder) document.getElementById("sideContainer").style.height = '100vh';}
 
 //   ---- display their currently active quizzes to researcher ----
 function displayCurrentQuizzes() {

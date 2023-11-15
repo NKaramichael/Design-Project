@@ -18,6 +18,10 @@ var storageRef = storage.ref();
 
 var defaultButtonColor = '#161940';
 
+// Add an event listener to check for overflow on window resize
+window.addEventListener('resize', resize);
+function resize() {if (removedPlaceholder) document.getElementById("sideContainer").style.height = '100vh';}
+
 //firestore references
 const db = firebase.firestore();
 var UserFirestore = db.collection('Users');
