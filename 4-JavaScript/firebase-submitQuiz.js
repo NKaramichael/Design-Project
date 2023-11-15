@@ -110,7 +110,7 @@ function submit() {
             questionTextForm.style.color = errorRedHex;
             errorFlag = false;
         }  else {
-            weight = parseFloat(weight);
+            weights[key] = parseFloat(weight);
         }
     }
 
