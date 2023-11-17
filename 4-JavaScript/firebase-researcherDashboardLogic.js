@@ -228,7 +228,7 @@ async function createQuizBlock(data, status, id, isClosedQuiz) {
     if(!isClosedQuiz == true){ // Only gets a button if its a quiz that isnt closed  
             const closeButton = document.createElement("button");
             closeButton.setAttribute("class", "card-button");
-            closeButton.textContent = "Close Quiz";
+            closeButton.textContent = "Close Survey";
             closeButton.setAttribute('data-value', id); // Make the ID of the button the reference to the quiz, so we know which one to close
             closeButton.addEventListener("click", closeQuiz); // Call closeQuiz function when clicked
             div2.appendChild(closeButton);
